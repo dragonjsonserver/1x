@@ -1,0 +1,44 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Einrichtung Zend Framework</h3>
+<ul>
+    <li>Aktuelle Version des <a href="http://framework.zend.com/">Zend Frameworks</a> downloaden, entpacken und auf den Server uploaden</li>
+</ul>
+<h3>Download der Projektvorlage</h3>
+<ul>
+    <li>Über den Download Button der Startseite auf den Downloadbereich gelangen</li>
+    <li>Von den verfügbaren Downloads die Projektvorlage downloaden und entpacken</li>
+</ul>
+<h3>Anpassung der Konfigurationsdatei '/public/.htaccess'</h3>
+<pre>SetEnv zendpath '%zendpath%'</pre>
+<ul>
+    <li>zendpath auf den Verzeichnispfad setzen der das Zend Framework enthält</li>
+</ul>
+<h3>Upload und Test des Projektes</h3>
+<ul>
+    <li>Die Projektvorlage auf den Server uploaden (Subdomain möglich, Unterverzeichnis nicht ohne Anpassung)</li>
+    <li>Aufruf der jsonrpc2.php sollte das Json der SMD anzeigen</li>
+    <li>Aufruf der index.php sollte die Startseite der Homepage anzeigen</li>
+    <li>Aufruf von /dragonjsonclient sollte den DragonJsonClient mit den Services aus der SMD anzeigen</li>
+    <li>Request absenden beim DragonJsonClient (Namensraum Dragon.Application.Service.Application, Methode getApplication) sollte Anwendungsdaten zurückgeben</li>
+</ul>
+<h3>Einrichtung einer Datenbank (bei Verwendung von DragonX_Database)</h3>
+<ul>
+    <li>Erstellen der Konfigurationsdatei '/config/dragonx/database/database.php' durch umbenennen und anpassen der database.php.template Datei</li>
+    <li>Aufruf der install.php sollte alle notwendigen Datenbanktabellen aller eingebunden Pakete erstellen</li>
+</ul>
+<p>Bei Problemen und Fragen sende eine E-Mail an: firststeps@dragonjsonserver.de</p>

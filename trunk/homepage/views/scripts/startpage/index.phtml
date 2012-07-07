@@ -1,0 +1,47 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<div class="hero-unit">
+    <?php echo $this->startpage->title; ?>
+    <?php echo $this->startpage->content; ?>
+</div>
+<?php
+if ($this->news->amount == 'all' || count($this->news->news) > $this->news->amount) {
+   if ($this->actionname == 'all') {
+       echo '<a href="' . $this->url(array('controller' => $this->controllername), null, true) . '">Weniger anzeigen...</a>';
+   } else {
+       echo '<a href="' . $this->url(array('controller' => $this->controllername, 'action' => 'all'), null, true) . '">Alle anzeigen...</a>';
+   }
+}
+if (count($this->news->news) > 0) {
+	echo '<div class="row">';
+	foreach ($this->news->news as $key => $news) {
+	    if ($this->actionname != 'all' && $this->actionname <= $key) {
+	        break;
+	    }
+	    if ($key > 0 && $key % $this->news->perrow == 0) {
+	        echo '</div><div class="row">';
+	    }
+	    echo
+	        '<div class="span' . (int)(12 / $this->news->perrow) . '">'
+	          . '<h2>' . $this->escape($news->title) . '</h2>'
+	          . '<p>' . $this->escape($news->timestamp) . '</p>'
+	          . '<p>' . $this->escape($news->content) . '</p>'
+	      . '</div>';
+	}
+	echo '</div>';
+}
+?>

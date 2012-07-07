@@ -1,0 +1,73 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Json Server verwenden</h3>
+<ul>
+    <li>Instanzierung des Json Servers und Abarbeitung der JsonRPC Abfrage des Requests</li>
+    <li>
+        JsonRPC Abfrage des Requests verarbeiten
+<pre>$jsonserver = new Dragon_Json_Server();
+$jsonserver->handle();</pre>
+    </li>
+</ul>
+<h3>Pluginschnittstellen für den Dispatchprozess</h3>
+<ul>
+    <li>
+        preDispatch für den Zugriff auf den Request vor der Verarbeitung
+<pre>class %packagenamespace%_%packagename%_Plugin_%pluginname%
+    implements Dragon_Json_Plugin_PreDispatch_Interface
+{
+    public function preDispatch(Dragon_Json_Server_Request_Http $request)
+    {}
+}</pre>
+    </li>
+    <li>
+        postDispatch für den Zugriff auf den Request und die Response nach der Verarbeitung
+<pre>class %packagenamespace%_%packagename%_Plugin_%pluginname%
+    implements Dragon_Json_Plugin_PostDispatch_Interface
+{
+    public function postDispatch(Dragon_Json_Server_Request_Http $request,
+                                 Dragon_Json_Server_Response_Http $response)
+    {}
+}</pre>
+    </li>
+    <li>
+        servicemap für den Zugriff auf die Servicemap vor der Auslieferung
+<pre>class %packagenamespace%_%packagename%_Plugin_%pluginname%
+    implements Dragon_Json_Plugin_Servicemap_Interface
+{
+    public function servicemap(Zend_Json_Server_Smd $servicemap)
+    {}
+}</pre>
+    </li>
+</ul>
+<h3>Parameter aus dem Requestobjekt auslesen</h3>
+<ul>
+    <li>
+        getRequiredParam / getRequiredParams für geforderte Parameter (wirft eine Exception wenn der Parameter nicht vorhanden ist)
+<pre>$param = $request->getRequiredParam('%name%');
+$params = $request->getRequiredParams(array('%name%', '%name%'));</pre>
+    </li>
+    <li>
+        getOptionalParam / getOptionalParams für optionale Parameter (gibt den Defaultwert zurück wenn der Parameter nicht vorhanden ist)
+<pre>$param = $request->getOptionalParam('%name%', '%defaultvalue%');
+$params = $request->getOptionalParams(array('%name%' => '%defaultvalue%', '%name%' => '%defaultvalue%'));</pre>
+    </li>
+</ul>
+<h3>Nutzung mit Application und Package Registry</h3>
+<ul>
+    <li>Der Json Server registriert alle Services die in den Paketeinstellungen der Package Registry definiert wurden</li>
+</ul>
