@@ -1,0 +1,70 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Namensräume für eigene Pakete</h3>
+<ul>
+    <li>Eigene Pakete dürfen nicht in den Namensräumen Zend, ZendX, Dragon oder DragonX definiert werden</li>
+</ul>
+<h3>Eigenes Paket anlegen</h3>
+<ul>
+    <li>
+        Verzeichnis für Konfigurationsdateien des Paketes anlegen
+<pre>/config
+    /%packagenamespace%
+        /%packagename%</pre>
+    </li>
+    <li>
+        Verzeichnisstruktur für das Paket anlegen
+<pre>/library
+    /%packagenamespace%
+        /%packagename%
+            /Service</pre>
+    </li>
+    <li>
+        Versionsdatei des Paketes anlegen unter /library/%packagenamespace%/%packagename%
+<pre>class %packagenamespace%_%packagename%_Version
+{
+    public function getVersion()
+    {
+        return '1.0.0';
+    }
+}</pre>
+    </li>
+    <li>
+        Service anlegen unter /library/%packagenamespace%/%packagename%/Service
+<pre>
+class %packagenamespace%_%packagename%_Service_%servicename%
+{
+    public function %methodname%()
+    {}
+}</pre>
+    </li>
+    <li>
+        Paket einbinden unter '/config/packagenamespaces.php'
+<pre>return array(
+    ...
+    '%packagenamespace%' => array(
+        '%packagename%' => array(
+            'Service' => array('%servicename%'),
+            'Plugin' => array(),
+        ),
+    ),
+);</pre>
+    </li>
+    <li>Service im DragonJsonClient aufrufen zum Testen</li>
+    <li>Paket erweitern um weitere Logics, Models, Plugins, Services usw.</li>
+</ul>
+<p>Bei Problemen und Fragen sende eine E-Mail an: ownpackages@dragonjsonserver.de</p>

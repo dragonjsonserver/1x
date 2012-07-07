@@ -1,0 +1,76 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Klasse Application</h3>
+<ul>
+    <li>setEnvironment um die Ausgabe der Fehlerdetails anzuschalten mit 'development' oder auszublenden mit 'production'</li>
+    <li>addLibrarypath / addLibrarypaths um Verzeichnisse zum Include Path zum Laden von Klassen hinzuzufügen</li>
+    <li>initAutoloader zur Initialisierung des Zend Autoloaders und Dragon Autoloaders zum Nachladen aller Klassen</li>
+    <li>initPackageRegistry zur Initialisierung der Package Registry und Einbindung der übergebenen Pakete</li>
+    <li>initPluginRegistry zur Initlialisierung der Plugin Registry</li>
+    <li>
+        bootstrap um den Paketen zu erlauben mit Plugins sich in den Bootstrapprozess einzuhängen
+<pre>$application = new Dragon_Application_Application();
+$application
+    ->setEnvironment('%environment%')
+    ->addLibrarypaths(array(
+        '%zendpath%',
+        '%applicationpath%/library',
+    ))
+    ->initAutoloader()
+    ->initPackageRegistry(require '%applicationpath%/config/packagenamespaces.php')
+    ->initPluginRegistry()
+    ->bootstrap();</pre>
+    </li>
+</ul>
+<h3>Pluginschnittstellen für den Bootstrapprozess</h3>
+<ul>
+    <li>
+        bootstrap für Aktionen während Bootstrapprozess
+<pre>class %packagenamespace%_%packagename%_Plugin_%pluginname%
+    implements Dragon_Application_Plugin_Bootstrap_Interface
+{
+    public function bootstrap()
+    {}
+}</pre>
+    </li>
+</ul>
+<h3>Klasse Autoloader</h3>
+<ul>
+    <li>Lädt alle Klassen nach die von der Projektvorlage verwendet werden</li>
+    <li>Klassenname bildet die Verzeichnisstruktur ab. Dragon_Application_Application liegt in der Datei Dragon/Application/Application.php</li>
+    <li>Lädt nur Klassen aus Paketen nach die eingebunden wurden</li>
+    <li>Kann auch für eigene Pakete verwendet werden wenn man diese einbindet und die Verzeichnisstruktur an die Klassennamen anpasst</li>
+</ul>
+<h3>Klasse Config</h3>
+<ul>
+    <li>
+        Aufbau von Konfigurationsdateien
+<pre>return array('key' => 'value');</pre>
+    </li>
+    <li>
+        Verzeichnisstruktur für Konfigurationsdateien
+<pre>/config
+    /%packagenamespace%
+        /%packagename%
+            /%filename%.php</pre>
+    </li>
+    <li>
+        Verwendung von Konfigurationsdateien
+<pre>$config = new Dragon_Application_Config('%packagenamespace%/%packagename%/%filename%');
+echo $config->key;</pre>
+    </li>
+</ul>
