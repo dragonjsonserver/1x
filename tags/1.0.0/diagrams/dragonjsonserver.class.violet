@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_31" class="java.beans.XMLDecoder"> 
+ <object class="com.horstmann.violet.ClassDiagramGraph"> 
+  <void method="addNode"> 
+   <object class="com.horstmann.violet.PackageNode"> 
+    <void method="addChild"> 
+     <object id="InterfaceNode0" class="com.horstmann.violet.InterfaceNode"> 
+      <void property="name"> 
+       <void property="text"> 
+        <string>index.php</string> 
+       </void> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="addChild"> 
+     <object id="InterfaceNode1" class="com.horstmann.violet.InterfaceNode"> 
+      <void property="name"> 
+       <void property="text"> 
+        <string>install.php</string> 
+       </void> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="addChild"> 
+     <object id="InterfaceNode2" class="com.horstmann.violet.InterfaceNode"> 
+      <void property="name"> 
+       <void property="text"> 
+        <string>jsonrpc2.php</string> 
+       </void> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="addChild"> 
+     <object id="InterfaceNode3" class="com.horstmann.violet.InterfaceNode"> 
+      <void property="name"> 
+       <void property="text"> 
+        <string>bootstrap.php</string> 
+       </void> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="addChild"> 
+     <object id="PackageNode0" class="com.horstmann.violet.PackageNode"> 
+      <void method="addChild"> 
+       <object id="PackageNode1" class="com.horstmann.violet.PackageNode"> 
+        <void property="contents"> 
+         <void property="text"> 
+          <string>- Basisfunktionalitäten für die Anwendung
+- Initialisiert Registries für Package und Plugin</string> 
+         </void> 
+        </void> 
+        <void property="name"> 
+         <string>Application</string> 
+        </void> 
+       </object> 
+      </void> 
+      <void method="addChild"> 
+       <object id="PackageNode2" class="com.horstmann.violet.PackageNode"> 
+        <void property="contents"> 
+         <void property="text"> 
+          <string>- Registrierung und Verwaltung von Paketen</string> 
+         </void> 
+        </void> 
+        <void property="name"> 
+         <string>Package</string> 
+        </void> 
+       </object> 
+      </void> 
+      <void method="addChild"> 
+       <object id="PackageNode3" class="com.horstmann.violet.PackageNode"> 
+        <void property="contents"> 
+         <void property="text"> 
+          <string>- Verarbeitung eines Json RPC Aufrufes
+- Stellt Services aus den Paketen zur Verfügung</string> 
+         </void> 
+        </void> 
+        <void property="name"> 
+         <string>Json</string> 
+        </void> 
+       </object> 
+      </void> 
+      <void method="addChild"> 
+       <object id="PackageNode4" class="com.horstmann.violet.PackageNode"> 
+        <void property="contents"> 
+         <void property="text"> 
+          <string>- Registrierung und Verwaltung von Plugins</string> 
+         </void> 
+        </void> 
+        <void property="name"> 
+         <string>Plugin</string> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="name"> 
+       <string>Dragon</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="addChild"> 
+     <object id="PackageNode5" class="com.horstmann.violet.PackageNode"> 
+      <void method="addChild"> 
+       <object id="PackageNode6" class="com.horstmann.violet.PackageNode"> 
+        <void property="contents"> 
+         <void property="text"> 
+          <string>- Service zur Registrierung und Abfrage von Accounts
+- Plugin zur Abfrage von Authentifizierungen für alle Services</string> 
+         </void> 
+        </void> 
+        <void property="name"> 
+         <string>Account</string> 
+        </void> 
+       </object> 
+      </void> 
+      <void method="addChild"> 
+       <object id="PackageNode7" class="com.horstmann.violet.PackageNode"> 
+        <void property="contents"> 
+         <void property="text"> 
+          <string>- Basisfunktionalitäten für die Datenbank
+- Verwaltung der Datenbankstrukturen der Pakete</string> 
+         </void> 
+        </void> 
+        <void property="name"> 
+         <string>Database</string> 
+        </void> 
+       </object> 
+      </void> 
+      <void method="addChild"> 
+       <object id="PackageNode8" class="com.horstmann.violet.PackageNode"> 
+        <void property="contents"> 
+         <void property="text"> 
+          <string>- Basisfunktionalitäten für die Homepage
+- Verarbeitung eines Homepage Aufrufes</string> 
+         </void> 
+        </void> 
+        <void property="name"> 
+         <string>Homepage</string> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="name"> 
+       <string>DragonX</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void property="name"> 
+     <string>DragonJsonServer</string> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>230.0</double> 
+     <double>0.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="InterfaceNode4" class="com.horstmann.violet.InterfaceNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Client</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>81.0</double> 
+     <double>31.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="InterfaceNode5" class="com.horstmann.violet.InterfaceNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Browser</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>79.0</double> 
+     <double>343.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="InterfaceNode0"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>242.0</double> 
+     <double>293.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="InterfaceNode1"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>244.0</double> 
+     <double>379.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="InterfaceNode2"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>239.0</double> 
+     <double>31.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="InterfaceNode3"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>395.0</double> 
+     <double>183.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="PackageNode0"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>540.0</double> 
+     <double>30.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="PackageNode1"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>552.0</double> 
+     <double>150.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="PackageNode2"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>844.0</double> 
+     <double>147.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="PackageNode3"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>549.0</double> 
+     <double>59.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="PackageNode4"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>836.0</double> 
+     <double>62.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="PackageNode5"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>540.0</double> 
+     <double>250.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="PackageNode6"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>838.0</double> 
+     <double>280.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="PackageNode7"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>552.0</double> 
+     <double>371.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="PackageNode8"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>550.0</double> 
+     <double>279.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="PackageNode9" class="com.horstmann.violet.PackageNode"> 
+    <void property="contents"> 
+     <void property="text"> 
+      <string>- Dynamischer Json RPC Client
+- GUI Aufbau auf Basis der SMD</string> 
+     </void> 
+    </void> 
+    <void property="name"> 
+     <string>DragonJsonClient</string> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>-2.0</double> 
+     <double>120.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ClassRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="V"/> 
+    </void> 
+    <void property="lineStyle"> 
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
+    </void> 
+   </object> 
+   <object idref="InterfaceNode5"/> 
+   <object idref="InterfaceNode0"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ClassRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="V"/> 
+    </void> 
+    <void property="lineStyle"> 
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
+    </void> 
+   </object> 
+   <object idref="InterfaceNode5"/> 
+   <object idref="InterfaceNode1"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ClassRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="V"/> 
+    </void> 
+    <void property="lineStyle"> 
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
+    </void> 
+   </object> 
+   <object idref="InterfaceNode0"/> 
+   <object idref="InterfaceNode3"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ClassRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="V"/> 
+    </void> 
+    <void property="lineStyle"> 
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
+    </void> 
+   </object> 
+   <object idref="InterfaceNode1"/> 
+   <object idref="InterfaceNode3"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ClassRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="V"/> 
+    </void> 
+    <void property="lineStyle"> 
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
+    </void> 
+   </object> 
+   <object idref="InterfaceNode2"/> 
+   <object idref="InterfaceNode3"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ClassRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="V"/> 
+    </void> 
+    <void property="lineStyle"> 
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
+    </void> 
+   </object> 
+   <object idref="InterfaceNode3"/> 
+   <object idref="PackageNode1"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ClassRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="V"/> 
+    </void> 
+    <void property="lineStyle"> 
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
+    </void> 
+   </object> 
+   <object idref="InterfaceNode2"/> 
+   <object idref="PackageNode3"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ClassRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="V"/> 
+    </void> 
+    <void property="lineStyle"> 
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
+    </void> 
+   </object> 
+   <object idref="InterfaceNode0"/> 
+   <object idref="PackageNode8"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ClassRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="V"/> 
+    </void> 
+    <void property="lineStyle"> 
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
+    </void> 
+   </object> 
+   <object idref="InterfaceNode1"/> 
+   <object idref="PackageNode7"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ClassRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="V"/> 
+    </void> 
+    <void property="lineStyle"> 
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
+    </void> 
+   </object> 
+   <object idref="InterfaceNode4"/> 
+   <object idref="InterfaceNode2"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ClassRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="V"/> 
+    </void> 
+    <void property="lineStyle"> 
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
+    </void> 
+   </object> 
+   <object idref="PackageNode9"/> 
+   <object idref="InterfaceNode2"/> 
+  </void> 
+ </object> 
+</java> 

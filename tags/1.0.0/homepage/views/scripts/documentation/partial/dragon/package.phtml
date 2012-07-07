@@ -1,0 +1,46 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Aufbau der Paketeinstellungen</h3>
+<ul>
+    <li>%packagenamespace% und %packagename% dient zur eindeutigen Identizierung des Paketes</li>
+    <li>'Service' enthält alle Namen der Services die aus dem Paket verwendet werden</li>
+    <li>'Plugin' enthält alle Namen der Plugins die aus dem Paket verwendet werden</li>
+    <li>
+        Weitere Bereiche definiert werden und über getClassnames der Package Registry ausgelesen werden
+<pre>return array(
+    '%packagenamespace%' => array(
+        '%packagename%' => array(
+            'Service' => array('%servicename%'),
+            'Plugin' => array('%pluginname%'),
+        ),
+    ),
+);</pre>
+    </li>
+</ul>
+<h3>Klasse Package Registry</h3>
+<ul>
+    <li>
+        Kann zum Auslesen weiterer Bereiche der Paketeinstellungen genutzt werden
+<pre>$packageregistry = Zend_Registry::get('Dragon_Package_Registry');
+$classnames = $packageregistry->getClassnames('%directoryname%'));</pre>
+    </li>
+</ul>
+<h3>Nutzung mit Application</h3>
+<ul>
+    <li>Application legt das Objekt der Package Registry in der Zend Registry unter dem Key 'Dragon_Package_Registry' ab</li>
+    <li>Application bekommt die Paketeinstellungen aus der '/config/packagenamespaces.php' und gibt diese an die Package Registry weiter</li>
+</ul>
