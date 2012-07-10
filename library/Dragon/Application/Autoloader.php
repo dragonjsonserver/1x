@@ -34,7 +34,7 @@ class Dragon_Application_Autoloader
     private function _autoload($classname)
     {
     	$classnamearray = explode('_', $classname, 3);
-    	if ($classnamearray < 3) {
+    	if (count($classnamearray) < 3) {
     		return;
     	}
     	list ($packagenamespace, $packagename) = $classnamearray;
