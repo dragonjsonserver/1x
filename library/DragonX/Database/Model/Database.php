@@ -19,10 +19,10 @@
  */
 class DragonX_Database_Model_Database extends DragonX_Database_Model_Abstract
 {
-	/**
-	 * Erstellt die Tabelle für die Paketversionen wenn sie nicht existiert
-	 * @return DragonX_Database_Model_Database
-	 */
+    /**
+     * Erstellt die Tabelle für die Paketversionen wenn sie nicht existiert
+     * @return DragonX_Database_Model_Database
+     */
     public function createPackageTable()
     {
         $this->_query(
@@ -73,10 +73,10 @@ class DragonX_Database_Model_Database extends DragonX_Database_Model_Abstract
      */
     public function insertupdatePackage($packagenamespace, $packagename, $version)
     {
-    	$this->_insertupdate(
-    	    'dragonx_database_packages',
-    	    array('packagenamespace' => $packagenamespace, 'packagename' => $packagename, 'version' => $version)
-    	);
+        $this->_insertupdate(
+            'dragonx_database_packages',
+            array('packagenamespace' => $packagenamespace, 'packagename' => $packagename, 'version' => $version)
+        );
         return $this;
     }
 }

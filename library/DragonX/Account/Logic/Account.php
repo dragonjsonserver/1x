@@ -19,15 +19,15 @@
  */
 class DragonX_Account_Logic_Account extends DragonX_Database_Logic_Abstract
 {
-	/**
-	 * Registriert einen Account mit der Identity und dem Credential
-	 * @param string $identity
-	 * @param string $credential
-	 * @return integer
-	 */
+    /**
+     * Registriert einen Account mit der Identity und dem Credential
+     * @param string $identity
+     * @param string $credential
+     * @return integer
+     */
     public function registerAccount($identity, $credential)
     {
-    	$modelAccount = new DragonX_Account_Model_Account();
+        $modelAccount = new DragonX_Account_Model_Account();
         return $modelAccount->registerAccount($identity, md5($credential));
     }
 

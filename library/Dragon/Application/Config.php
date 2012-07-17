@@ -19,25 +19,25 @@
  */
 class Dragon_Application_Config extends Zend_Config
 {
-	/**
-	 * @var array
-	 */
-	private static $_configs = array();
+    /**
+     * @var array
+     */
+    private static $_configs = array();
 
-	/**
-	 * Prüft das Vorhandensein der Einstellungsdatei und lädt diese
-	 * @param string $filename
-	 * @throws InvalidArgumentException
-	 */
+    /**
+     * Prüft das Vorhandensein der Einstellungsdatei und lädt diese
+     * @param string $filename
+     * @throws InvalidArgumentException
+     */
     public function __construct($filename)
     {
-    	$filepath = APPLICATION_PATH . '/config/' . $filename . '.php';
-    	if (!isset(self::$_configs[$filepath])) {
-    		if (!is_file($filepath)) {
+        $filepath = APPLICATION_PATH . '/config/' . $filename . '.php';
+        if (!isset(self::$_configs[$filepath])) {
+            if (!is_file($filepath)) {
                 throw new InvalidArgumentException('incorrect filename "' . $filename . '"');
-    		}
-    		self::$_configs[$filepath] = require $filepath;
-    	}
-    	parent::__construct(self::$_configs[$filepath]);
+            }
+            self::$_configs[$filepath] = require $filepath;
+        }
+        parent::__construct(self::$_configs[$filepath]);
     }
 }

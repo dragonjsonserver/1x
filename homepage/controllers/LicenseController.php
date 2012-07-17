@@ -19,9 +19,9 @@
  */
 class LicenseController extends DragonX_Homepage_Controller
 {
-	/**
-	 * Action zur Anzeige der Lizenzbestimmungen der Anwendung
-	 */
+    /**
+     * Action zur Anzeige der Lizenzbestimmungen der Anwendung
+     */
     public function indexAction()
     {}
 }

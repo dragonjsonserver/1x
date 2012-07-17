@@ -19,12 +19,12 @@
  */
 class DragonX_Database_Plugin_Database implements Dragon_Application_Plugin_Bootstrap_Interface
 {
-	/**
-	 * Initialisiert bei jedem Request den Datenbankadapter
-	 */
+    /**
+     * Initialisiert bei jedem Request den Datenbankadapter
+     */
     public function bootstrap()
     {
-    	$database = new Dragon_Application_Config('dragonx/database/database');
-    	Zend_Registry::set('Zend_Db_Adapter_Abstract', Zend_Db::factory($database->adapter, $database->config));
+        $database = new Dragon_Application_Config('dragonx/database/database');
+        Zend_Registry::set('Zend_Db_Adapter_Abstract', Zend_Db::factory($database->adapter, $database->config));
     }
 }

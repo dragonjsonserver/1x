@@ -21,16 +21,16 @@ class DragonX_Account_Plugin_Account
     implements Dragon_Json_Plugin_PreDispatch_Interface,
                Dragon_Json_Plugin_Servicemap_Interface
 {
-	/**
-	 * Prüft bei jedem Request ist die Authentifizierung
-	 * @param Dragon_Json_Server_Request_Http $request
-	 */
+    /**
+     * Prüft bei jedem Request ist die Authentifizierung
+     * @param Dragon_Json_Server_Request_Http $request
+     */
     public function preDispatch(Dragon_Json_Server_Request_Http $request)
     {
-    	$whitelist = new Dragon_Application_Config('dragonx/account/whitelist');
-    	if (in_array($request->getMethod(), $whitelist->toArray())) {
-    		return;
-    	}
+        $whitelist = new Dragon_Application_Config('dragonx/account/whitelist');
+        if (in_array($request->getMethod(), $whitelist->toArray())) {
+            return;
+        }
         $params = $request->getRequiredParams(array('identity', 'credential'));
         $logicAccount = new DragonX_Account_Logic_Account();
         $accountid = $logicAccount->authenticateAccount($params['identity'], $params['credential']);
@@ -45,9 +45,9 @@ class DragonX_Account_Plugin_Account
     {
         $whitelist = new Dragon_Application_Config('dragonx/account/whitelist');
         foreach ($servicemap->getServices() as $servicename => $service) {
-	        if (in_array($servicename, $whitelist->toArray())) {
-	            continue;
-	        }
+            if (in_array($servicename, $whitelist->toArray())) {
+                continue;
+            }
             $service->addParams(array(
                 array(
                     'type' => 'string',
@@ -59,7 +59,7 @@ class DragonX_Account_Plugin_Account
                     'name' => 'credential',
                     'optional' => false,
                 ),
-		    ));
+            ));
         }
     }
 }

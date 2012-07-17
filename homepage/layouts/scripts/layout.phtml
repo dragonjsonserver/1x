@@ -65,20 +65,20 @@
         </div>
         <div class="container">
             <?php echo $this->layout()->content ?>
-	        <footer>
-	            <div class="navbar navbar-fixed-bottom">
-	                <div class="navbar-inner">
-	                    <div class="container">
-	                        <span class="brand"><?php echo $this->application->copyright; ?></span>
-	                        <ul class="nav">
-	                            <?php foreach ($this->navigation->footer as $controller => $navigation) { ?>
-	                                <li<?php echo $this->controllername == $controller ? ' class="active"' : ''; ?>><a href="<?php echo $this->url(array('controller' => $controller), null, true); ?>"><?php echo $navigation; ?></a></li>
-	                            <?php } ?>
-	                        </ul>
-	                    </div>
-	                </div>
-	            </div>
-	        </footer>
+            <footer>
+                <div class="navbar navbar-fixed-bottom">
+                    <div class="navbar-inner">
+                        <div class="container">
+                            <span class="brand"><?php echo $this->application->copyright; ?></span>
+                            <ul class="nav">
+                                <?php foreach ($this->navigation->footer as $controller => $navigation) { ?>
+                                    <li<?php echo $this->controllername == $controller ? ' class="active"' : ''; ?>><a href="<?php echo $this->url(array('controller' => $controller), null, true); ?>"><?php echo $navigation; ?></a></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
         <script src="<?php echo $this->baseUrl('javascript/bootstrap.min.js'); ?>"></script>
         <!--[if lt IE 9]>

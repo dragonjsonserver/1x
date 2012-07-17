@@ -19,14 +19,14 @@
  */
 class Dragon_Json_Server extends Zend_Json_Server
 {
-	/**
-	 * Verarbeitet den JsonRPC Request
-	 */
+    /**
+     * Verarbeitet den JsonRPC Request
+     */
     protected function _handle()
     {
         try {
-        	$pluginregistry = Zend_Registry::get('Dragon_Plugin_Registry');
-        	$request = $this->getRequest();
+            $pluginregistry = Zend_Registry::get('Dragon_Plugin_Registry');
+            $request = $this->getRequest();
             $pluginregistry->invoke(
                 'Dragon_Json_Plugin_PreDispatch_Interface',
                 array($request)
@@ -37,7 +37,7 @@ class Dragon_Json_Server extends Zend_Json_Server
                 array($request, $this->getResponse())
             );
         } catch (Exception $e) {
-        	$this->fault($e->getMessage(), $e->getCode(), $e);
+            $this->fault($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -48,13 +48,13 @@ class Dragon_Json_Server extends Zend_Json_Server
      */
     public function handle($request = null)
     {
-    	if (isset($request)) {
-    		if (!$request instanceof Dragon_Json_Server_Request_Http) {
-    			throw new InvalidArgumentException('request is not instanceof Dragon_Json_Server_Request_Http');
-    		}
-    	} else {
+        if (isset($request)) {
+            if (!$request instanceof Dragon_Json_Server_Request_Http) {
+                throw new InvalidArgumentException('request is not instanceof Dragon_Json_Server_Request_Http');
+            }
+        } else {
             $request = new Dragon_Json_Server_Request_Http();
-    	}
+        }
         $packageregistry = Zend_Registry::get('Dragon_Package_Registry');
         foreach ($packageregistry->getClassnames('Service') as $servicename) {
             $this->setClass($servicename, str_replace('_', '.', $servicename));

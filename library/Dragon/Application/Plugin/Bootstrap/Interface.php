@@ -19,8 +19,8 @@
  */
 interface Dragon_Application_Plugin_Bootstrap_Interface
 {
-	/**
-	 * Wird bei der Initialisierung der Anwendung aufgerufen
-	 */
+    /**
+     * Wird bei der Initialisierung der Anwendung aufgerufen
+     */
     public function bootstrap();
 }

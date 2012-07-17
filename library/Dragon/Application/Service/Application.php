@@ -19,12 +19,12 @@
  */
 class Dragon_Application_Service_Application
 {
-	/**
-	 * Gibt die Anwendungsdaten aus den Einstellungen zurück
-	 */
+    /**
+     * Gibt die Anwendungsdaten aus den Einstellungen zurück
+     */
     public function getApplication()
     {
-    	$application = new Dragon_Application_Config('dragon/application/application');
+        $application = new Dragon_Application_Config('dragon/application/application');
         return $application->toArray();
     }
 }

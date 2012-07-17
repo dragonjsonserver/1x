@@ -19,9 +19,9 @@
  */
 class Dragon_Application_Autoloader
 {
-	/**
-	 * Registriert die Methode zum Nachladen von Klassen aus der Library
-	 */
+    /**
+     * Registriert die Methode zum Nachladen von Klassen aus der Library
+     */
     public function __construct()
     {
         spl_autoload_register(array($this, '_autoload'));
@@ -33,21 +33,21 @@ class Dragon_Application_Autoloader
      */
     private function _autoload($classname)
     {
-    	$classnamearray = explode('_', $classname, 3);
-    	if (count($classnamearray) < 3) {
-    		return;
-    	}
-    	list ($packagenamespace, $packagename) = $classnamearray;
-    	$packageregistry = Zend_Registry::get('Dragon_Package_Registry');
-    	$packagenamespaces = $packageregistry->getPackagenamespaces();
-    	if (!isset($packagenamespaces[$packagenamespace])
-    	    || (
-    	       !isset($packagenamespaces[$packagenamespace][$packagename])
-    	       &&
-    	       !in_array($packagename, $packagenamespaces[$packagenamespace], true)
-    	    )) {
-    		return;
-    	}
+        $classnamearray = explode('_', $classname, 3);
+        if (count($classnamearray) < 3) {
+            return;
+        }
+        list ($packagenamespace, $packagename) = $classnamearray;
+        $packageregistry = Zend_Registry::get('Dragon_Package_Registry');
+        $packagenamespaces = $packageregistry->getPackagenamespaces();
+        if (!isset($packagenamespaces[$packagenamespace])
+            || (
+               !isset($packagenamespaces[$packagenamespace][$packagename])
+               &&
+               !in_array($packagename, $packagenamespaces[$packagenamespace], true)
+            )) {
+            return;
+        }
         require str_replace('_', '/', $classname) . '.php';
     }
 }

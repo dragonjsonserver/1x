@@ -31,17 +31,17 @@ return array(
                 . 'abgeschlossen ist der SVN Commit bei Google Code.',
             'timestamp' => '07.07.2012 14:22 Uhr',
         ),
-	    array(
-	        'title' => 'Projektstart von DragonJsonServer',
-	        'content' =>
-	              'Die Grundstruktur des Projektes steht, die Demo ist '
-	            . 'funktionsfähig, die Anmeldung bei Google Code ist '
-	            . 'abgeschlossen, die Domain ist in Arbeit, die Open Source '
-	            . 'Lizenz ist ausgewählt. Kurz: Das Projekt ist also '
-	            . 'gestartet. Die nächsten Tage noch die letzten Arbeiten an '
-	            . 'einer ersten Vorabversion durchführen und der erste '
-	            . 'Download kann Online gestellt werden.',
-	        'timestamp' => '08.06.2012 22:19 Uhr',
-	    ),
+        array(
+            'title' => 'Projektstart von DragonJsonServer',
+            'content' =>
+                  'Die Grundstruktur des Projektes steht, die Demo ist '
+                . 'funktionsfähig, die Anmeldung bei Google Code ist '
+                . 'abgeschlossen, die Domain ist in Arbeit, die Open Source '
+                . 'Lizenz ist ausgewählt. Kurz: Das Projekt ist also '
+                . 'gestartet. Die nächsten Tage noch die letzten Arbeiten an '
+                . 'einer ersten Vorabversion durchführen und der erste '
+                . 'Download kann Online gestellt werden.',
+            'timestamp' => '08.06.2012 22:19 Uhr',
+        ),
     )
 );

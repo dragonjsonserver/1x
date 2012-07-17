@@ -33,11 +33,11 @@ class Dragon_Json_Server_Request_Http extends Zend_Json_Server_Request_Http
     }
 
     /**
-	 * Prüft den erforderlichen Parameter und gibt dessen Wert zurück
-	 * @param string $name
-	 * @return mixed
-	 * @throws InvalidArgumentException
-	 */
+     * Prüft den erforderlichen Parameter und gibt dessen Wert zurück
+     * @param string $name
+     * @return mixed
+     * @throws InvalidArgumentException
+     */
     public function getRequiredParam($name)
     {
         $param = $this->getParam($name);

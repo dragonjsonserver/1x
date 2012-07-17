@@ -31,19 +31,19 @@ request.id = 'first';
 request.jsonrpc = '2.0';
 
 $.ajax({
-	url : 'http://dragonjsonserver.de/jsonrpc2.php',
-	type: 'POST',
-	async : false,
-	dataType : 'json',
-	data : JSON.stringify(request),
-	error : function(jqXHR, textStatus, errorThrown) {
-		console.log(jqXHR);
-		console.log(textStatus);
-		console.log(errorThrown);
-	},
-	success : function(json) {
-		console.log(json);
-	}
+    url : 'http://dragonjsonserver.de/jsonrpc2.php',
+    type: 'POST',
+    async : false,
+    dataType : 'json',
+    data : JSON.stringify(request),
+    error : function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+        console.log(textStatus);
+        console.log(errorThrown);
+    },
+    success : function(json) {
+        console.log(json);
+    }
 });</pre>
     </li>
 </ul>
@@ -71,19 +71,19 @@ request.jsonrpc = '2.0';
 requests.push(request);
 
 $.ajax({
-	url : 'http://dragonjsonserver.de/multijsonrpc2.php',
-	type: 'POST',
-	async : false,
-	dataType : 'json',
-	data : JSON.stringify(requests),
-	error : function(jqXHR, textStatus, errorThrown) {
-		console.log(jqXHR);
-		console.log(textStatus);
-		console.log(errorThrown);
-	},
-	success : function(json) {
-		console.log(json);
-	}
+    url : 'http://dragonjsonserver.de/multijsonrpc2.php',
+    type: 'POST',
+    async : false,
+    dataType : 'json',
+    data : JSON.stringify(requests),
+    error : function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+        console.log(textStatus);
+        console.log(errorThrown);
+    },
+    success : function(json) {
+        console.log(json);
+    }
 });</pre>
     </li>
 </ul>

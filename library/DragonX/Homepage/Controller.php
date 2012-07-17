@@ -19,12 +19,12 @@
  */
 abstract class DragonX_Homepage_Controller extends Zend_Controller_Action
 {
-	/**
-	 * Setzt alle Daten des Layouts aus den Einstellungsdateien
-	 */
+    /**
+     * Setzt alle Daten des Layouts aus den Einstellungsdateien
+     */
     public function preDispatch()
     {
-    	parent::preDispatch();
+        parent::preDispatch();
         $this->view->application = new Dragon_Application_Config('dragon/application/application');
         $this->view->navigation = new Dragon_Application_Config('dragonx/homepage/navigation');
         $this->view->controllername = $this->getRequest()->getControllerName();

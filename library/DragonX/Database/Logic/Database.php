@@ -19,36 +19,36 @@
  */
 class DragonX_Database_Logic_Database extends DragonX_Database_Logic_Abstract
 {
-	/**
-	 * Installiert mit den Plugins die Packages und trägt die Versionen ein
-	 */
+    /**
+     * Installiert mit den Plugins die Packages und trägt die Versionen ein
+     */
     public function installPackages()
     {
         $databasemodel = new DragonX_Database_Model_Database();
         $databasemodel->createPackageTable();
 
-    	$pluginregistry = Zend_Registry::get('Dragon_Plugin_Registry');
+        $pluginregistry = Zend_Registry::get('Dragon_Plugin_Registry');
         $plugins = $pluginregistry->getPlugins('DragonX_Database_Plugin_Install_Interface');
         $sqls = array();
         foreach ($plugins as $plugin) {
-	        list ($packagenamespace, $packagename) = explode('_', get_class($plugin), 3);;
-        	$rows = $databasemodel->selectPackage($packagenamespace, $packagename);
-        	$version = '0.0.0';
-        	if (isset($rows[0]['version'])) {
-        		$version = $rows[0]['version'];
-        	}
+            list ($packagenamespace, $packagename) = explode('_', get_class($plugin), 3);;
+            $rows = $databasemodel->selectPackage($packagenamespace, $packagename);
+            $version = '0.0.0';
+            if (isset($rows[0]['version'])) {
+                $version = $rows[0]['version'];
+            }
             $sqls = array_merge($sqls, $plugin->getInstall($version));
         }
         $databasemodel->installPackages($sqls);
 
         $packagenamespaces = Zend_Registry::get('Dragon_Package_Registry')->getPackagenamespaces();
         foreach ($packagenamespaces as $packagenamespace => $packagenames) {
-        	foreach ($packagenames as $packagekey => $packagevalue) {
-            	if (is_int($packagekey)) {
-            		$packagename = $packagevalue;
-            	} else {
-            		$packagename = $packagekey;
-            	}
+            foreach ($packagenames as $packagekey => $packagevalue) {
+                if (is_int($packagekey)) {
+                    $packagename = $packagevalue;
+                } else {
+                    $packagename = $packagekey;
+                }
                 $classname = $packagenamespace . '_' . $packagename . '_Version';
                 $version = new $classname();
                 $databasemodel->insertupdatePackage($packagenamespace, $packagename, $version->getVersion());

@@ -19,36 +19,36 @@
  */
 class Dragon_Package_Registry
 {
-	/**
-	 * @var array
-	 */
-	private $_packagenamespaces = array();
+    /**
+     * @var array
+     */
+    private $_packagenamespaces = array();
 
-	/**
-	 * Übernimmt mehrere Pakete mit deren Namesräumen
+    /**
+     * Übernimmt mehrere Pakete mit deren Namesräumen
      * @param array $packagenamespaces
-	 */
-	public function __construct(array $packagenamespaces)
-	{
-		$this->_packagenamespaces = $packagenamespaces;
-	}
+     */
+    public function __construct(array $packagenamespaces)
+    {
+        $this->_packagenamespaces = $packagenamespaces;
+    }
 
     /**
      * Gibt alle Pakete mit deren Namensräumen zurück
      * @return array
      */
-	public function getPackagenamespaces()
-	{
-		return $this->_packagenamespaces;
-	}
+    public function getPackagenamespaces()
+    {
+        return $this->_packagenamespaces;
+    }
 
-	/**
-	 * Gibt alle Klassennamen zurück die von dem Klassentyp eingebunden wurden
-	 * @param string $classtype
-	 * @return array
-	 */
-	public function getClassnames($classtype)
-	{
+    /**
+     * Gibt alle Klassennamen zurück die von dem Klassentyp eingebunden wurden
+     * @param string $classtype
+     * @return array
+     */
+    public function getClassnames($classtype)
+    {
         $classnames = array();
         foreach ($this->_packagenamespaces as $packagenamespace => $packages) {
             foreach ($packages as $packagename => $package) {
@@ -68,5 +68,5 @@ class Dragon_Package_Registry
             }
         }
         return $classnames;
-	}
+    }
 }
