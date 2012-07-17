@@ -51,8 +51,9 @@ $.ajax({
 <ul>
     <li>Alle Requests gehen an die /multijsonrpc2.php</li>
     <li>Alle Key/Value Paare der Responses stehen nachfolgenden Requests als Eingangsparameter zur Verfügung um Serviceaufrufe zu verketten</li>
+    <li>Die einzelnen Requests werden als Array übergeben und als Antwort kommt ein Array an Responses</li>
     <li>
-        Die einzelnen Requests werden als Array übergeben und als Antwort kommt ein Array an Responses
+        Beispiel mit jQuery
 <pre>var requests = new Array();
 
 var request = {};
