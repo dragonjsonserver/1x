@@ -21,6 +21,7 @@ class Dragon_Application_Service_Application
 {
     /**
      * Gibt die Anwendungsdaten aus den Einstellungen zurück
+     * @return array
      */
     public function getApplication()
     {

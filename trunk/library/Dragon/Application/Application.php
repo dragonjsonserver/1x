@@ -34,6 +34,17 @@ class Dragon_Application_Application
     }
 
     /**
+     * Setzt die Einstellung der Zeitzonen für Zeit- und Datumsfunktionen
+     * @param string $timezone
+     * @return Dragon_Application_Application
+     */
+    public function setTimezone($timezone = 'Europe/Berlin')
+    {
+        date_default_timezone_set($timezone);
+        return $this;
+    }
+
+    /**
      * Fügt den Librarypfad zum Include Path hinzu
      * @param string $librarypath
      * @return Dragon_Application_Application

@@ -35,5 +35,8 @@ return array(
             'Plugin' => array('Database'),
         ),
         'Homepage',
+        'Logging' => array(
+            'Plugin' => array('Request', 'Install'),
+        ),
     ),
 );

@@ -14,19 +14,7 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 
-require 'bootstrap.php';
-$json = file_get_contents('php://input');
-$requests = Zend_Json::decode($json);
-$jsonserver = new Dragon_Json_Server();
-$jsonserver->setAutoEmitResponse(false);
-$params = array();
-$responses = array();
-foreach ($requests as $request) {
-    $request['params'] += $params;
-    $response = $jsonserver->handle(new Dragon_Json_Server_Request_Http($request))->toArray();
-    if (isset($response['result']) && is_array($response['result'])) {
-        $params += $response['result'];
-    }
-    $responses[] = $response;
-}
-echo Zend_Json::encode($responses);
+/**
+ * @var array
+ */
+return array('credential');

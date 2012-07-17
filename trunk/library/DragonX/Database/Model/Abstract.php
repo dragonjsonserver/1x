@@ -268,4 +268,14 @@ abstract class DragonX_Database_Model_Abstract
             $preparedcolumnvalues
         );
     }
+
+    /**
+     * Formatiert einen UNIX Timestamp in das Timestamp Format der Datenbank
+     * @param integer $timestamp
+     * @return string
+     */
+    protected function _formatTimestamp($timestamp)
+    {
+        return date('Y-m-d H:i:s', $timestamp);
+    }
 }
