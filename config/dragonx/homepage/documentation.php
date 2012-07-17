@@ -23,6 +23,7 @@ return array(
     'framework_firststeps' => 'Erste Schritte',
     'framework_dragonjsonclient' => 'Dragon Json Client',
     'framework_ownpackages' => 'Eigene Pakete',
+    'framework_ownclient' => 'Eigener Client',
     'Namensraum Dragon',
     'dragon_application' => 'Paket Application',
     'dragon_json' => 'Paket Json',

@@ -142,6 +142,15 @@
       </void> 
      </object> 
     </void> 
+    <void method="addChild"> 
+     <object id="InterfaceNode4" class="com.horstmann.violet.InterfaceNode"> 
+      <void property="name"> 
+       <void property="text"> 
+        <string>multijsonrpc2.php</string> 
+       </void> 
+      </void> 
+     </object> 
+    </void> 
     <void property="name"> 
      <string>DragonJsonServer</string> 
     </void> 
@@ -154,7 +163,7 @@
    </object> 
   </void> 
   <void method="addNode"> 
-   <object id="InterfaceNode4" class="com.horstmann.violet.InterfaceNode"> 
+   <object id="InterfaceNode5" class="com.horstmann.violet.InterfaceNode"> 
     <void property="name"> 
      <void property="text"> 
       <string>Client</string> 
@@ -169,7 +178,7 @@
    </object> 
   </void> 
   <void method="addNode"> 
-   <object id="InterfaceNode5" class="com.horstmann.violet.InterfaceNode"> 
+   <object id="InterfaceNode6" class="com.horstmann.violet.InterfaceNode"> 
     <void property="name"> 
      <void property="text"> 
       <string>Browser</string> 
@@ -214,8 +223,8 @@
    <object idref="InterfaceNode3"/> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>395.0</double> 
-     <double>183.0</double> 
+     <double>409.0</double> 
+     <double>162.0</double> 
     </void> 
    </object> 
   </void> 
@@ -319,6 +328,15 @@
     </void> 
    </object> 
   </void> 
+  <void method="addNode"> 
+   <object idref="InterfaceNode4"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>242.0</double> 
+     <double>102.0</double> 
+    </void> 
+   </object> 
+  </void> 
   <void method="connect"> 
    <object class="com.horstmann.violet.ClassRelationshipEdge"> 
     <void property="endArrowHead"> 
@@ -328,7 +346,7 @@
      <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
     </void> 
    </object> 
-   <object idref="InterfaceNode5"/> 
+   <object idref="InterfaceNode6"/> 
    <object idref="InterfaceNode0"/> 
   </void> 
   <void method="connect"> 
@@ -340,7 +358,7 @@
      <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
     </void> 
    </object> 
-   <object idref="InterfaceNode5"/> 
+   <object idref="InterfaceNode6"/> 
    <object idref="InterfaceNode1"/> 
   </void> 
   <void method="connect"> 
@@ -436,8 +454,44 @@
      <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
     </void> 
    </object> 
-   <object idref="InterfaceNode4"/> 
+   <object idref="InterfaceNode5"/> 
    <object idref="InterfaceNode2"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ClassRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="V"/> 
+    </void> 
+    <void property="lineStyle"> 
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
+    </void> 
+   </object> 
+   <object idref="InterfaceNode4"/> 
+   <object idref="InterfaceNode3"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ClassRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="V"/> 
+    </void> 
+    <void property="lineStyle"> 
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
+    </void> 
+   </object> 
+   <object idref="InterfaceNode4"/> 
+   <object idref="PackageNode3"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ClassRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="V"/> 
+    </void> 
+    <void property="lineStyle"> 
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
+    </void> 
+   </object> 
+   <object idref="InterfaceNode5"/> 
+   <object idref="InterfaceNode4"/> 
   </void> 
   <void method="connect"> 
    <object class="com.horstmann.violet.ClassRelationshipEdge"> 
