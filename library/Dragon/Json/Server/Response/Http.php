@@ -18,4 +18,27 @@
  * Responseklasse mit allen Angaben eines JsonRPC Response
  */
 class Dragon_Json_Server_Response_Http extends Zend_Json_Server_Response_Http
-{}
+{
+    /**
+     * Gibt den Response als Array zurück
+     * @return array
+     */
+    public function toArray()
+    {
+        if ($this->isError()) {
+            $response = array(
+                'error'  => $this->getError()->toArray(),
+                'id'     => $this->getId(),
+            );
+        } else {
+            $response = array(
+                'result' => $this->getResult(),
+                'id'     => $this->getId(),
+            );
+        }
+        if (null !== ($version = $this->getVersion())) {
+            $response['jsonrpc'] = $version;
+        }
+        return $response;
+    }
+}

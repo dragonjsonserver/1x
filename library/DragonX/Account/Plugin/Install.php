@@ -22,7 +22,7 @@ class DragonX_Account_Plugin_Install
 {
     /**
      * Gibt die SQL Statements zurück um das Paket zu updaten
-     * @param string $version
+     * @param string $oldversion
      * @return array
      */
     public function getInstall($oldversion = '0.0.0')

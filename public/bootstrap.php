@@ -21,6 +21,7 @@ require APPLICATION_PATH . '/library/Dragon/Application/Application.php';
 $application = new Dragon_Application_Application();
 $application
     ->setEnvironment(APPLICATION_ENV)
+    ->setTimezone()
     ->addLibrarypaths(array(
         getenv('zendpath'),
         APPLICATION_PATH . '/library',
