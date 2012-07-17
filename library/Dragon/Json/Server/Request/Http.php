@@ -20,6 +20,19 @@
 class Dragon_Json_Server_Request_Http extends Zend_Json_Server_Request_Http
 {
 	/**
+	 * Übernimmt die übergebenen Parameter oder holt diese aus den Post Daten
+	 * @param array $options
+	 */
+	public function __construct(array $options = null)
+	{
+		if (isset($options)) {
+			$this->setOptions($options);
+		} else {
+			parent::__construct();
+		}
+	}
+
+	/**
 	 * Prüft den erforderlichen Parameter und gibt dessen Wert zurück
 	 * @param string $name
 	 * @return mixed
