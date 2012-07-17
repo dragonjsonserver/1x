@@ -43,7 +43,12 @@ class DragonX_Database_Logic_Database extends DragonX_Database_Logic_Abstract
 
         $packagenamespaces = Zend_Registry::get('Dragon_Package_Registry')->getPackagenamespaces();
         foreach ($packagenamespaces as $packagenamespace => $packagenames) {
-            foreach ($packagenames as $packagename) {
+        	foreach ($packagenames as $packagekey => $packagevalue) {
+            	if (is_int($packagekey)) {
+            		$packagename = $packagevalue;
+            	} else {
+            		$packagename = $packagekey;
+            	}
                 $classname = $packagenamespace . '_' . $packagename . '_Version';
                 $version = new $classname();
                 $databasemodel->insertupdatePackage($packagenamespace, $packagename, $version->getVersion());
