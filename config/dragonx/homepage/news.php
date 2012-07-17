@@ -21,6 +21,16 @@ return array(
     'amount' => 2,
     'perrow' => 2,
     'news' => array(
+        array(
+            'title' => 'Version 1.0.0 zum Download verfügbar',
+            'content' =>
+            'Die Version 1.0.0 ist abgeschlossen und ist als Download '
+                . 'verfügbar. Als Downloadpaket gibt es nur die '
+                . 'Projektvorlage mit allen Projektdateien, erst für spätere '
+                . 'Versionen wird es auch Upgradepakete geben. Ebenfalls '
+                . 'abgeschlossen ist der SVN Commit bei Google Code.',
+            'timestamp' => '07.07.2012 14:22 Uhr',
+        ),
 	    array(
 	        'title' => 'Projektstart von DragonJsonServer',
 	        'content' =>
