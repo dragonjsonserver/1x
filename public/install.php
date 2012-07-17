@@ -14,9 +14,6 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 
-$application = require 'bootstrap.php';
-$application
-    ->initPluginRegistry()
-    ->bootstrap();
+require 'bootstrap.php';
 $databaselogic = new DragonX_Database_Logic_Database();
 $databaselogic->installPackages();
