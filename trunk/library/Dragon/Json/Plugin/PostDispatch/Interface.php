@@ -19,10 +19,10 @@
  */
 interface Dragon_Json_Plugin_PostDispatch_Interface
 {
-	/**
-	 * Wird nach der Verarbeitung eines Requests aufgerufen
-	 * @param Dragon_Json_Server_Request_Http $request
-	 * @param Dragon_Json_Server_Response_Http $response
-	 */
+    /**
+     * Wird nach der Verarbeitung eines Requests aufgerufen
+     * @param Dragon_Json_Server_Request_Http $request
+     * @param Dragon_Json_Server_Response_Http $response
+     */
     public function postDispatch(Dragon_Json_Server_Request_Http $request, Dragon_Json_Server_Response_Http $response);
 }

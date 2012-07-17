@@ -22,22 +22,22 @@ $jsonserver->setAutoEmitResponse(false);
 $params = array();
 $responses = array();
 foreach ($requests as $request) {
-	$request['params'] += $params;
-	$response = $jsonserver->handle(new Dragon_Json_Server_Request_Http($request));
-	if ($response->isError()) {
-	    $responses[] = array(
-	        'error' => $response->getError()->toArray(),
-	        'id' => $response->getId(),
-	    );
-	} else {
-		$result = $response->getResult();
-	    $responses[] = array(
-	        'result' => $result,
-	        'id' => $response->getId(),
-	    );
-	    if (is_array($result)) {
-	        $params += $result;
-	    }
-	}
+    $request['params'] += $params;
+    $response = $jsonserver->handle(new Dragon_Json_Server_Request_Http($request));
+    if ($response->isError()) {
+        $responses[] = array(
+            'error' => $response->getError()->toArray(),
+            'id' => $response->getId(),
+        );
+    } else {
+        $result = $response->getResult();
+        $responses[] = array(
+            'result' => $result,
+            'id' => $response->getId(),
+        );
+        if (is_array($result)) {
+            $params += $result;
+        }
+    }
 }
 echo Zend_Json::encode($responses);

@@ -20,9 +20,9 @@
 class StartpageController extends DragonX_Homepage_Controller
 {
     /**
-	 * Action zur Anzeige der Informationen und Neuigkeiten der Startseite
-	 */
-	public function indexAction()
+     * Action zur Anzeige der Informationen und Neuigkeiten der Startseite
+     */
+    public function indexAction()
     {
         $this->view->startpage = new Dragon_Application_Config('dragonx/homepage/startpage');
         $news = new Dragon_Application_Config('dragonx/homepage/news');
@@ -39,6 +39,6 @@ class StartpageController extends DragonX_Homepage_Controller
     public function allAction()
     {
         $this->view->actionname = 'all';
-    	$this->indexAction();
+        $this->indexAction();
     }
 }

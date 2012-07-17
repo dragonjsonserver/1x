@@ -19,18 +19,18 @@
  */
 class Dragon_Application_Application
 {
-	/**
-	 * Setzt den Umgebungswert zur Bestimmung der Anzeige von Fehlermeldungen
-	 * @param string $environment
-	 * @return Dragon_Application_Application
-	 */
+    /**
+     * Setzt den Umgebungswert zur Bestimmung der Anzeige von Fehlermeldungen
+     * @param string $environment
+     * @return Dragon_Application_Application
+     */
     public function setEnvironment($environment)
     {
-		if ($environment == 'development') {
-		    error_reporting(E_ALL | E_STRICT);
-		    ini_set('display_errors', 1);
-		}
-		return $this;
+        if ($environment == 'development') {
+            error_reporting(E_ALL | E_STRICT);
+            ini_set('display_errors', 1);
+        }
+        return $this;
     }
 
     /**
@@ -51,9 +51,9 @@ class Dragon_Application_Application
      */
     public function addLibrarypaths(array $librarypaths)
     {
-    	foreach ($librarypaths as $librarypath) {
-    		$this->addLibrarypath($librarypath);
-    	}
+        foreach ($librarypaths as $librarypath) {
+            $this->addLibrarypath($librarypath);
+        }
         return $this;
     }
 
@@ -89,8 +89,8 @@ class Dragon_Application_Application
      */
     public function initPluginRegistry()
     {
-    	$packageregistry = Zend_Registry::get('Dragon_Package_Registry');
-    	$pluginregistry = new Dragon_Plugin_Registry($packageregistry->getClassnames('Plugin'));
+        $packageregistry = Zend_Registry::get('Dragon_Package_Registry');
+        $pluginregistry = new Dragon_Plugin_Registry($packageregistry->getClassnames('Plugin'));
         Zend_Registry::set('Dragon_Plugin_Registry', $pluginregistry);
         return $this;
     }

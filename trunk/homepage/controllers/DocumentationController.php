@@ -19,22 +19,22 @@
  */
 class DocumentationController extends DragonX_Homepage_Controller
 {
-	/**
-	 * Action zur Anzeige der der Dokumentation zur Anwendung
-	 */
+    /**
+     * Action zur Anzeige der der Dokumentation zur Anwendung
+     */
     public function indexAction()
     {
         $documentation = new Dragon_Application_Config('dragonx/homepage/documentation');
         $this->view->documentation = $documentation;
         if (!isset($this->view->actionname)) {
-        	$actionname = '';
-	        foreach ($documentation as $key => $value) {
-	            if (!is_int($key)) {
-	                $actionname = $key;
-	                break;
-	            }
-	        }
-	        $this->view->actionname = $actionname;
+            $actionname = '';
+            foreach ($documentation as $key => $value) {
+                if (!is_int($key)) {
+                    $actionname = $key;
+                    break;
+                }
+            }
+            $this->view->actionname = $actionname;
         }
         $this->render('index');
     }
@@ -46,7 +46,7 @@ class DocumentationController extends DragonX_Homepage_Controller
      */
     public function __call($methodname, $params)
     {
-    	$this->view->actionname = $this->getRequest()->getActionName();
-    	$this->indexAction();
+        $this->view->actionname = $this->getRequest()->getActionName();
+        $this->indexAction();
     }
 }

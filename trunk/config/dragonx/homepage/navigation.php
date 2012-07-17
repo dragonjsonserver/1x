@@ -19,9 +19,9 @@
  */
 return array(
     'header' => array(
-	    'startpage' => 'Startseite',
-	    'documentation' => 'Dokumentation',
-	    'dragonjsonclient' => 'DragonJsonClient',
+        'startpage' => 'Startseite',
+        'documentation' => 'Dokumentation',
+        'dragonjsonclient' => 'DragonJsonClient',
     ),
     'footer' => array(
         'license' => 'Lizenz',

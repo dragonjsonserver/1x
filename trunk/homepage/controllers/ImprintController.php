@@ -20,9 +20,9 @@
 class ImprintController extends DragonX_Homepage_Controller
 {
     /**
-	 * Action zur Anzeige Kontaktinformationen für Fragen und Anregungen
-	 */
-	public function indexAction()
+     * Action zur Anzeige Kontaktinformationen für Fragen und Anregungen
+     */
+    public function indexAction()
     {
         $this->view->imprint = new Dragon_Application_Config('dragonx/homepage/imprint');
     }

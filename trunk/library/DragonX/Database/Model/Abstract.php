@@ -182,9 +182,9 @@ abstract class DragonX_Database_Model_Abstract
      */
     protected function _insert($tablename, array $insertcolumnvalues = array())
     {
-    	if (count($insertcolumnvalues) == 0) {
-    		return $this->_query("INSERT INTO " . $tablename . " VALUES ()");
-    	}
+        if (count($insertcolumnvalues) == 0) {
+            return $this->_query("INSERT INTO " . $tablename . " VALUES ()");
+        }
 
         $insertcolumnnames = $this->_getColumnnames($insertcolumnvalues);
         $insertpreparedcolumnnames = $this->_getPreparedColumnnames($insertcolumnnames);
@@ -252,9 +252,9 @@ abstract class DragonX_Database_Model_Abstract
      */
     protected function _insertupdate($tablename, array $insertupdatecolumnvalues = array())
     {
-    	if (count($insertupdatecolumnvalues) == 0) {
-    		return $this->_insert($tablename);
-    	}
+        if (count($insertupdatecolumnvalues) == 0) {
+            return $this->_insert($tablename);
+        }
 
         $insertupdatecolumnnames = $this->_getColumnnames($insertupdatecolumnvalues);
         $insertupdatepreparedcolumnnames = $this->_getPreparedColumnnames($insertupdatecolumnnames);

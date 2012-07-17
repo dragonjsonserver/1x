@@ -20,9 +20,9 @@
 class ErrorController extends DragonX_Homepage_Controller
 {
     /**
-	 * Action zur Anzeige von Fehlern während eines Requests
-	 */
-	public function errorAction()
+     * Action zur Anzeige von Fehlern während eines Requests
+     */
+    public function errorAction()
     {
         $error = $this->_getParam('error_handler');
         switch ($error->type) {
