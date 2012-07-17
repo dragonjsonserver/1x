@@ -1,0 +1,88 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Einzelrequest mit JavaScript</h3>
+<ul>
+    <li>Alle Requests gehen an die /jsonrpc2.php</li>
+    <li>"method" beschreibt den Servicenamen</li>
+    <li>"params" enthält ein JavaScript Objekt aller Parameter</li>
+    <li>"id" kann beliebig definiert werden und wird in der Response wieder zurück gegeben</li>
+    <li>"jsonrpc" definiert die Version des JsonRPC Protokolls das verwendet wird</li>
+    <li>
+        Beispiel mit jQuery
+<pre>
+var request = {};
+request.method = 'Dragon.Application.Service.Application.getApplication';
+request.params = {};
+request.id = 'first';
+request.jsonrpc = '2.0';
+
+$.ajax({
+	url : 'http://dragonjsonserver.de/jsonrpc2.php',
+	type: 'POST',
+	async : false,
+	dataType : 'json',
+	data : JSON.stringify(request),
+	error : function(jqXHR, textStatus, errorThrown) {
+		console.log(jqXHR);
+		console.log(textStatus);
+		console.log(errorThrown);
+	},
+	success : function(json) {
+		console.log(json);
+	}
+});</pre>
+    </li>
+</ul>
+<h3>Multirequest mit JavaScript</h3>
+<ul>
+    <li>Alle Requests gehen an die /multijsonrpc2.php</li>
+    <li>Alle Key/Value Paare der Responses stehen nachfolgenden Requests als Eingangsparameter zur Verfügung um Serviceaufrufe zu verketten</li>
+    <li>
+        Die einzelnen Requests werden als Array übergeben und als Antwort kommt ein Array an Responses
+<pre>var requests = new Array();
+
+var request = {};
+request.method = 'Dragon.Application.Service.Application.getApplication';
+request.params = {};
+request.id = 'first';
+request.jsonrpc = '2.0';
+requests.push(request);
+
+var request = {};
+request.method = 'Dragon.Application.Service.Application.getApplication';
+request.params = {};
+request.id = 'second';
+request.jsonrpc = '2.0';
+requests.push(request);
+
+$.ajax({
+	url : 'http://dragonjsonserver.de/multijsonrpc2.php',
+	type: 'POST',
+	async : false,
+	dataType : 'json',
+	data : JSON.stringify(requests),
+	error : function(jqXHR, textStatus, errorThrown) {
+		console.log(jqXHR);
+		console.log(textStatus);
+		console.log(errorThrown);
+	},
+	success : function(json) {
+		console.log(json);
+	}
+});</pre>
+    </li>
+</ul>
