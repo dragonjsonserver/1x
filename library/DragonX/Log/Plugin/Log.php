@@ -15,16 +15,23 @@
  */
 
 /**
- * Klasse mit der Versionsnummer des Paketes
+ * Plugin zur Initialisierung des Zend_Log Objektes
  */
-class DragonX_Logging_Version
+class DragonX_Log_Plugin_Log implements Dragon_Application_Plugin_Bootstrap_Interface
 {
     /**
-     * Gibt die Versionsnummer des Paketes zurück
-     * @return string
+     * Initialisiert bei jedem Request das Zend_Log Objekt
      */
-    public function getVersion()
+    public function bootstrap()
     {
-        return '1.0.0';
+        $log = new Dragon_Application_Config('dragonx/log/log');
+        $logger = new Zend_Log();
+        foreach ($log->eventitems as $name => $value) {
+            $logger->setEventItem($name, $value);
+        }
+        foreach ($log->writers as $writer) {
+            $logger->addWriter($writer);
+        }
+        Zend_Registry::set('Zend_Log', $logger);
     }
 }

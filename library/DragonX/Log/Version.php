@@ -15,28 +15,16 @@
  */
 
 /**
- * @return array
+ * Klasse mit der Versionsnummer des Paketes
  */
-return array(
-    'Dragon' => array(
-        'Application' => array(
-            'Service' => array('Application')
-        ),
-        'Json',
-        'Package',
-        'Plugin',
-    ),
-    'DragonX' => array(
-        'Account' => array(
-            'Plugin' => array('Account', 'Install'),
-            'Service' => array('Account'),
-        ),
-        'Database' => array(
-            'Plugin' => array('Database'),
-        ),
-        'Homepage',
-        'Log' => array(
-            'Plugin' => array('Log', 'Request', 'Install'),
-        ),
-    ),
-);
+class DragonX_Log_Version
+{
+    /**
+     * Gibt die Versionsnummer des Paketes zurück
+     * @return string
+     */
+    public function getVersion()
+    {
+        return '1.0.0';
+    }
+}

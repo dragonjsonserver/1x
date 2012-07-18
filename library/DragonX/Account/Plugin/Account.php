@@ -35,6 +35,11 @@ class DragonX_Account_Plugin_Account
         $logicAccount = new DragonX_Account_Logic_Account();
         $accountid = $logicAccount->authenticateAccount($params['identity'], $params['credential']);
         Zend_Registry::set('accountid', $accountid);
+
+        if (Zend_Registry::isRegistered('Zend_Log')) {
+            $logger = Zend_Registry::get('Zend_Log');
+            $logger->setEventItem('accountid', $accountid);
+        }
     }
 
     /**

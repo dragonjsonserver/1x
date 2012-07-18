@@ -17,7 +17,7 @@
 /**
  * Model zur Speicherung der Request- und Responsedaten
  */
-class DragonX_Logging_Model_Request extends DragonX_Database_Model_Abstract
+class DragonX_Log_Model_Request extends DragonX_Database_Model_Abstract
 {
     /**
      * Speichert die Daten des Requests
@@ -31,28 +31,34 @@ class DragonX_Logging_Model_Request extends DragonX_Database_Model_Abstract
     public function request($method, $id, $version, $requestparams, $requesttimestamp)
     {
         return $this->_insert(
-            'dragonx_logging_requests',
+            'dragonx_log_requests',
             array(
                 'method' => $method,
                 'id' => $id,
                 'version' => $version,
                 'requestparams' => $requestparams,
-                'requesttimestamp' => $this->_formatTimestamp($requesttimestamp)
+                'requesttimestamp' => $this->_formatTimestamp($requesttimestamp),
             )
         );
     }
 
     /**
      * Speichert die Daten des Response
-     * @param integer $requestid
-     * @param string $response
-     * @param integer $requesttimestamp
+     * @param $requestid
+     * @param $response
+     * @param $responsetimestamp
      */
     public function response($requestid, $response, $responsetimestamp)
     {
-        $this->_insertupdate(
-            'dragonx_logging_requests',
-            array('requestid' => $requestid, 'response' => $response, 'responsetimestamp' => $this->_formatTimestamp($responsetimestamp))
+        $this->_update(
+            'dragonx_log_requests',
+            array(
+                'response' => $response,
+                'responsetimestamp' => $this->_formatTimestamp($responsetimestamp),
+            ),
+            array(
+                'requestid' => $requestid,
+            )
         );
     }
 }

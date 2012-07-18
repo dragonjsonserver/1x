@@ -17,35 +17,12 @@
 /**
  * Logik zur Speicherung der Request- und Responsedaten
  */
-class DragonX_Logging_Logic_Request extends DragonX_Database_Logic_Abstract
+class DragonX_Log_Logic_Request extends DragonX_Database_Logic_Abstract
 {
     /**
      * @var integer
      */
-    private static $requestid;
-
-    /**
-     * @var array
-     */
-    private $_blacklist = array();
-
-    /**
-     * Lädt die Einstellungen der Blacklist für die Parameter
-     */
-    public function __construct()
-    {
-        $blacklist = new Dragon_Application_Config('dragonx/logging/blacklist');
-        $this->_blacklist = $blacklist->toArray();
-    }
-
-    /**
-     * Gibt die aktuelle RequestID zurück
-     * @return integer
-     */
-    public static function getRequestID()
-    {
-        return self::$requestid;
-    }
+    private static $_requestid;
 
     /**
      * Speichert die Daten des Requests
@@ -56,14 +33,23 @@ class DragonX_Logging_Logic_Request extends DragonX_Database_Logic_Abstract
      */
     public function request($method, $id, $version, array $requestparams)
     {
+        $blacklist = new Dragon_Application_Config('dragonx/log/blacklist');
+        $blacklistArray = $blacklist->toArray();
+
         foreach ($requestparams as $paramName => &$requestparam) {
-            if (in_array($paramName, $this->_blacklist)) {
+            if (in_array($paramName, $blacklistArray)) {
                 $requestparam = '';
             }
         }
         unset($requestparam);
-        $modelRequest = new DragonX_Logging_Model_Request();
-        self::$requestid = $modelRequest->request($method, $id, $version, Zend_Json::encode($requestparams), time());
+
+        $modelRequest = new DragonX_Log_Model_Request();
+        self::$_requestid = $modelRequest->request($method, $id, $version, Zend_Json::encode($requestparams), time());
+
+        if (Zend_Registry::isRegistered('Zend_Log')) {
+            $logger = Zend_Registry::get('Zend_Log');
+            $logger->setEventItem('requestid', self::$_requestid);
+        }
     }
 
     /**
@@ -72,15 +58,23 @@ class DragonX_Logging_Logic_Request extends DragonX_Database_Logic_Abstract
      */
     public function response(array $response)
     {
+        if (!isset(self::$_requestid)) {
+            return;
+        }
+
+        $blacklist = new Dragon_Application_Config('dragonx/log/blacklist');
+        $blacklistArray = $blacklist->toArray();
+
         if (isset($response['result']) && is_array($response['result'])) {
             foreach ($response['result'] as $name => &$param) {
-                if (in_array($name, $this->_blacklist)) {
+                if (in_array($name, $blacklistArray)) {
                     $responseparam = '';
                 }
                 unset($responseparam);
             }
         }
-        $modelRequest = new DragonX_Logging_Model_Request();
-        $modelRequest->response(self::$requestid, Zend_Json::encode($response), time());
+
+        $modelRequest = new DragonX_Log_Model_Request();
+        $modelRequest->response(self::$_requestid, Zend_Json::encode($response), time());
     }
 }

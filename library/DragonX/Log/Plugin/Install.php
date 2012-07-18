@@ -17,7 +17,7 @@
 /**
  * Plugin zur Installation des Paketes
  */
-class DragonX_Logging_Plugin_Install
+class DragonX_Log_Plugin_Install
     implements DragonX_Database_Plugin_Install_Interface
 {
     /**
@@ -30,7 +30,7 @@ class DragonX_Logging_Plugin_Install
         $sqls = array();
         if (version_compare($oldversion, '1.0.0', '<')) {
             $sqls[] =
-                "CREATE TABLE `dragonx_logging_requests` ("
+                "CREATE TABLE `dragonx_log_requests` ("
                     . "`requestid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`method` VARCHAR(255) NOT NULL, "
                     . "`id` VARCHAR(255) NOT NULL, "
@@ -43,23 +43,15 @@ class DragonX_Logging_Plugin_Install
                     . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
             $sqls[] =
-                "CREATE TABLE `dragonx_logging_logs` ("
+                "CREATE TABLE `dragonx_log_logs` ("
                     . "`logid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
-                    . "`requestid` INT(10) UNSIGNED NOT NULL, "
-                    . "`logtype` VARCHAR(255) NOT NULL, "
-                    . "`params` TEXT NOT NULL, "
-                    . "`timestamp` TIMESTAMP NOT NULL, "
+                    . "`requestid` INT(10) NULL, "
+                    . "`accountid` INT(10) NULL, "
+                    . "`priority` INT(10) UNSIGNED NOT NULL, "
+                    . "`message` TEXT NOT NULL, "
+                    . "`params` TEXT NULL, "
+                    . "`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, "
                     . "PRIMARY KEY (`logid`) "
-                    . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
-
-            $sqls[] =
-                "CREATE TABLE `dragonx_logging_errors` ("
-                    . "`errorid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
-                    . "`requestid` INT(10) UNSIGNED NOT NULL, "
-                    . "`errortype` VARCHAR(255) NOT NULL, "
-                    . "`params` TEXT NOT NULL, "
-                    . "`timestamp` TIMESTAMP NOT NULL, "
-                    . "PRIMARY KEY (`errorid`) "
                     . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }
         return $sqls;
