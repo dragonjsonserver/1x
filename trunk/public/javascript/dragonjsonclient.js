@@ -20,8 +20,11 @@
  */
 function DragonJsonClient(url)
 {
-    $('#applicationname').html('DragonJsonClient');
-    $('#applicationversion').html('v1.0.0');
+	var applicationname = 'DragonJsonClient';
+	var applicationversion = 'v1.1.0';
+	
+    $('#applicationname').html(applicationname);
+    $('#applicationversion').html(applicationversion);
     $('#applicationcopyright').html('© DragonProjects 2012');
 
     this.url = url;
@@ -46,7 +49,7 @@ function DragonJsonClient(url)
         var request = {};
         request.method = $('#namespace').val() + '.' + $('#method').val();
         request.params = self.getData();
-        request.id = 1;
+        request.id = applicationname + '_' + applicationversion;
         request.jsonrpc = '2.0';
         $.ajax({
             url : self.url,
