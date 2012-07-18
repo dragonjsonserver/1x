@@ -32,6 +32,9 @@ class DragonX_Log_Plugin_Log implements Dragon_Application_Plugin_Bootstrap_Inte
         foreach ($log->writers as $writer) {
             $logger->addWriter($writer);
         }
+        foreach ($log->filters as $filter) {
+            $logger->addFilter($filter);
+        }
         Zend_Registry::set('Zend_Log', $logger);
     }
 }

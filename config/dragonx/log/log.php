@@ -36,4 +36,5 @@ return array(
             )
         ),
     ),
+    'filters' => array(),
 );

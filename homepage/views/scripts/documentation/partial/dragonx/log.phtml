@@ -24,14 +24,18 @@
 <ul>
     <li>Konfigurationsdatei für das Logobjekt '/config/dragonx/log/log.php'</li>
     <li>%eventitems% enthält Name und Standardwert von Eventitems</li>
+    <li>%writers% enthält ein Array der Writer Objekte die registriert werden</li>
     <li>
-        %writers% enthält ein Array der Writer Objekte die registriert werden
+        %filters% enthält ein Array der Filter Objekte die registriert werden
 <pre>return array(
     '%eventitems%' =&gt; array(
         '%name%' =&gt; '%defaultvalue%',
     ),
     '%writers%' =&gt; array(
         %writerobject%,
+    ),
+    '%filters%' =&gt; array(
+        %filterobject%,
     ),
 );</pre>
     </li>
