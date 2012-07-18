@@ -28,11 +28,11 @@
     <li>
         %controller% ist der Controller, %navigation% die Beschriftung des Seitennavigationspunktes
 <pre>return array(
-    'header' => array(
-        '%controller%' => '%navigation%',
+    'header' =&gt; array(
+        '%controller%' =&gt; '%navigation%',
     ),
-    'footer' => array(
-        '%controller%' => '%navigation%',
+    'footer' =&gt; array(
+        '%controller%' =&gt; '%navigation%',
     ),
 );</pre>
     </li>
@@ -45,8 +45,8 @@
     <li>
         %title% ist die Überschrift, %content% der Inhalt der Informationen
 <pre>return array(
-    'title' => '%title%',
-    'content' => '%content%',
+    'title' =&gt; '%title%',
+    'content' =&gt; '%content%',
 );</pre>
     </li>
     <li>
@@ -62,13 +62,13 @@
         %news% enthält die Neuigkeit mit ihrem Titel, Inhalt und dem Zeitpunkt
 <pre>
 return array(
-    'amount' => %amount%,
-    'perrow' => %perrow%,
-    'news' => array(
+    'amount' =&gt; %amount%,
+    'perrow' =&gt; %perrow%,
+    'news' =&gt; array(
         array(
-            'title' => '%title%',
-            'content' => '%content%',
-            'timestamp' => '%timestamp%',
+            'title' =&gt; '%title%',
+            'content' =&gt; '%content%',
+            'timestamp' =&gt; '%timestamp%',
         ),
     )
 );</pre>
@@ -92,7 +92,7 @@ return array(
         %documentationname% Ist die Beschriftung des Dokumentationsnavigationspunktes
 <pre>return array(
     '%headline%',
-    '%documentationpath%' => '%documentationname%',
+    '%documentationpath%' =&gt; '%documentationname%',
 );</pre>
     </li>
 </ul>
@@ -107,8 +107,8 @@ return array(
     <li>
         %mailingaddress% enthält eine E-Mail Adresse für den Kontakt
 <pre>return array(
-    'webmaster' => '%webmaster%',
-    'mailingaddress' => '%mailingaddress%',
+    'webmaster' =&gt; '%webmaster%',
+    'mailingaddress' =&gt; '%mailingaddress%',
 );</pre>
     </li>
 </ul>

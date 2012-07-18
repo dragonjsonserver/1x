@@ -25,15 +25,15 @@
         bootstrap um den Paketen zu erlauben mit Plugins sich in den Bootstrapprozess einzuhängen
 <pre>$application = new Dragon_Application_Application();
 $application
-    ->setEnvironment('%environment%')
-    ->addLibrarypaths(array(
+    -&gt;setEnvironment('%environment%')
+    -&gt;addLibrarypaths(array(
         '%zendpath%',
         '%applicationpath%/library',
     ))
-    ->initAutoloader()
-    ->initPackageRegistry(require '%applicationpath%/config/packagenamespaces.php')
-    ->initPluginRegistry()
-    ->bootstrap();</pre>
+    -&gt;initAutoloader()
+    -&gt;initPackageRegistry(require '%applicationpath%/config/packagenamespaces.php')
+    -&gt;initPluginRegistry()
+    -&gt;bootstrap();</pre>
     </li>
 </ul>
 <h3>Pluginschnittstellen für den Bootstrapprozess</h3>
@@ -59,7 +59,7 @@ $application
 <ul>
     <li>
         Aufbau von Konfigurationsdateien
-<pre>return array('key' => 'value');</pre>
+<pre>return array('key' =&gt; 'value');</pre>
     </li>
     <li>
         Verzeichnisstruktur für Konfigurationsdateien
@@ -71,6 +71,6 @@ $application
     <li>
         Verwendung von Konfigurationsdateien
 <pre>$config = new Dragon_Application_Config('%packagenamespace%/%packagename%/%filename%');
-echo $config->key;</pre>
+echo $config-&gt;key;</pre>
     </li>
 </ul>

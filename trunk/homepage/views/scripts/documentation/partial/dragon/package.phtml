@@ -22,10 +22,10 @@
     <li>
         Weitere Bereiche definiert werden und über getClassnames der Package Registry ausgelesen werden
 <pre>return array(
-    '%packagenamespace%' => array(
-        '%packagename%' => array(
-            'Service' => array('%servicename%'),
-            'Plugin' => array('%pluginname%'),
+    '%packagenamespace%' =&gt; array(
+        '%packagename%' =&gt; array(
+            'Service' =&gt; array('%servicename%'),
+            'Plugin' =&gt; array('%pluginname%'),
         ),
     ),
 );</pre>
@@ -36,7 +36,7 @@
     <li>
         Kann zum Auslesen weiterer Bereiche der Paketeinstellungen genutzt werden
 <pre>$packageregistry = Zend_Registry::get('Dragon_Package_Registry');
-$classnames = $packageregistry->getClassnames('%directoryname%'));</pre>
+$classnames = $packageregistry-&gt;getClassnames('%directoryname%'));</pre>
     </li>
 </ul>
 <h3>Nutzung mit Application</h3>

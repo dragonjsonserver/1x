@@ -37,8 +37,8 @@
         Plugin Registry nutzen um Plugins zu registrieren und die Einstiegspunkte aufzurufen
 <pre>$pluginRegistry = new Dragon_Plugin_Registry();
 $pluginRegistry
-    ->addPlugin('%packagenamespace%_%packagename%_Plugin_%pluginname%');
-    ->invoke('%packagenamespace%_%packagename%_Plugin_%interfacename%_Interface', array(%param%));</pre>
+    -&gt;addPlugin('%packagenamespace%_%packagename%_Plugin_%pluginname%');
+    -&gt;invoke('%packagenamespace%_%packagename%_Plugin_%interfacename%_Interface', array(%param%));</pre>
     </li>
     <li>addPlugin / addPlugins können auch das Objekt statt nur dessen Klassenname entgegen nehmen</li>
     <li>getPlugins kann genutzt werden um alle Plugins einer Schnittstelle zurück geben zu können</li>
