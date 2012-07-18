@@ -137,6 +137,19 @@
         </void> 
        </object> 
       </void> 
+      <void method="addChild"> 
+       <object id="PackageNode9" class="com.horstmann.violet.PackageNode"> 
+        <void property="contents"> 
+         <void property="text"> 
+          <string>- Plugin zum Loggen aller Informationen jedes Requests
+- Logikklasse zur Verwendung von Zend_Log</string> 
+         </void> 
+        </void> 
+        <void property="name"> 
+         <string>Log</string> 
+        </void> 
+       </object> 
+      </void> 
       <void property="name"> 
        <string>DragonX</string> 
       </void> 
@@ -310,7 +323,7 @@
    </object> 
   </void> 
   <void method="addNode"> 
-   <object id="PackageNode9" class="com.horstmann.violet.PackageNode"> 
+   <object id="PackageNode10" class="com.horstmann.violet.PackageNode"> 
     <void property="contents"> 
      <void property="text"> 
       <string>- Dynamischer Json RPC Client
@@ -334,6 +347,15 @@
     <void method="setLocation"> 
      <double>242.0</double> 
      <double>102.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="PackageNode9"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>843.0</double> 
+     <double>373.0</double> 
     </void> 
    </object> 
   </void> 
@@ -502,7 +524,7 @@
      <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
     </void> 
    </object> 
-   <object idref="PackageNode9"/> 
+   <object idref="PackageNode10"/> 
    <object idref="InterfaceNode2"/> 
   </void> 
  </object> 

@@ -1,0 +1,52 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Allgemein</h3>
+<ul>
+    <li>Das Plugin Log initialisiert ein Zend_Log Objekt mit den Einstellungen</li>
+    <li>Das Plugin Request loggt bei jedem Request den aufgerufenen Service, die Request- und Responseparameter und fügt die RequestID als Eventitem dem Zend_Log Objekt hinzu</li>
+    <li>Die Einstellungen der Projektvorlage und das Plugin Request loggen alle Daten standardmäßig in die Datenbank</li>
+</ul>
+<h3>Einstellungen</h3>
+<ul>
+    <li>Konfigurationsdatei für das Logobjekt '/config/dragonx/log/log.php'</li>
+    <li>%eventitems% enthält Name und Standardwert von Eventitems</li>
+    <li>
+        %writers% enthält ein Array der Writer Objekte die registriert werden
+<pre>return array(
+    '%eventitems%' =&gt; array(
+        '%name%' =&gt; '%defaultvalue%',
+    ),
+    '%writers%' =&gt; array(
+        %writerobject%,
+    ),
+);</pre>
+    </li>
+    <li>Konfigurationsdatei für die Blackliste '/config/dragonx/log/blacklist.php'</li>
+    <li>
+        Enthält alle Parameternamen deren Werte aus den Request- und Responseparametern nicht geloggt werden
+<pre>return array('%name%');</pre>
+    </li>
+</ul>
+<h3>Logikklasse Log</h3>
+<ul>
+    <li>Bietet die Möglichkeit neben der Nachricht auch Parameter zu loggen</li>
+    <li>
+        Zum Loggen von Nachrichten lässt sich die Klasse verwenden wie Zend_Log
+<pre>$logicLog = new DragonX_Log_Logic_Log();
+$logicLog-&gt;debug('message', array('key' =&gt; 'value'));</pre>
+    </li>
+</ul>
