@@ -20,7 +20,7 @@
     <li>
         JsonRPC Abfrage des Requests verarbeiten
 <pre>$jsonserver = new Dragon_Json_Server();
-$jsonserver->handle();</pre>
+$jsonserver-&gt;handle();</pre>
     </li>
 </ul>
 <h3>Pluginschnittstellen für den Dispatchprozess</h3>
@@ -58,13 +58,13 @@ $jsonserver->handle();</pre>
 <ul>
     <li>
         getRequiredParam / getRequiredParams für geforderte Parameter (wirft eine Exception wenn der Parameter nicht vorhanden ist)
-<pre>$param = $request->getRequiredParam('%name%');
-$params = $request->getRequiredParams(array('%name%', '%name%'));</pre>
+<pre>$param = $request-&gt;getRequiredParam('%name%');
+$params = $request-&gt;getRequiredParams(array('%name%', '%name%'));</pre>
     </li>
     <li>
         getOptionalParam / getOptionalParams für optionale Parameter (gibt den Defaultwert zurück wenn der Parameter nicht vorhanden ist)
-<pre>$param = $request->getOptionalParam('%name%', '%defaultvalue%');
-$params = $request->getOptionalParams(array('%name%' => '%defaultvalue%', '%name%' => '%defaultvalue%'));</pre>
+<pre>$param = $request-&gt;getOptionalParam('%name%', '%defaultvalue%');
+$params = $request-&gt;getOptionalParams(array('%name%' =&gt; '%defaultvalue%', '%name%' =&gt; '%defaultvalue%'));</pre>
     </li>
 </ul>
 <h3>Nutzung mit Application und Package Registry</h3>
