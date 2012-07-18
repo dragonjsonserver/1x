@@ -49,7 +49,7 @@ function DragonJsonClient(url)
         var request = {};
         request.method = $('#namespace').val() + '.' + $('#method').val();
         request.params = self.getData();
-        request.id = applicationname + '_' + applicationversion;
+        request.id = applicationname + ' ' + applicationversion;
         request.jsonrpc = '2.0';
         $.ajax({
             url : self.url,
