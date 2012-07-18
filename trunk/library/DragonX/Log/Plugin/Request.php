@@ -17,7 +17,7 @@
 /**
  * Plugin zur Speicherung der Request- und Responsedaten
  */
-class DragonX_Logging_Plugin_Request
+class DragonX_Log_Plugin_Request
     implements Dragon_Json_Plugin_PreDispatch_Interface,
                Dragon_Json_Plugin_PostDispatch_Interface
 {
@@ -27,7 +27,7 @@ class DragonX_Logging_Plugin_Request
      */
     public function preDispatch(Dragon_Json_Server_Request_Http $request)
     {
-        $logicRequest = new DragonX_Logging_Logic_Request();
+        $logicRequest = new DragonX_Log_Logic_Request();
         $logicRequest->request($request->getMethod(), $request->getId(), $request->getVersion(), $request->getParams());
     }
 
@@ -38,7 +38,7 @@ class DragonX_Logging_Plugin_Request
      */
     public function postDispatch(Dragon_Json_Server_Request_Http $request, Dragon_Json_Server_Response_Http $response)
     {
-        $logicRequest = new DragonX_Logging_Logic_Request();
+        $logicRequest = new DragonX_Log_Logic_Request();
         $logicRequest->response($response->toArray());
     }
 }

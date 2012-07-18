@@ -15,28 +15,25 @@
  */
 
 /**
- * @return array
+ * @var array
  */
 return array(
-    'Dragon' => array(
-        'Application' => array(
-            'Service' => array('Application')
-        ),
-        'Json',
-        'Package',
-        'Plugin',
+    'eventitems' => array(
+        'requestid' => null,
+        'accountid' => null,
+        'params' => null,
     ),
-    'DragonX' => array(
-        'Account' => array(
-            'Plugin' => array('Account', 'Install'),
-            'Service' => array('Account'),
-        ),
-        'Database' => array(
-            'Plugin' => array('Database'),
-        ),
-        'Homepage',
-        'Log' => array(
-            'Plugin' => array('Log', 'Request', 'Install'),
+    'writers' => array(
+        new Zend_Log_Writer_Db(
+            Zend_Registry::get('Zend_Db_Adapter_Abstract'),
+            'dragonx_log_logs',
+            array(
+                'priority' => 'priority',
+                'message' => 'message',
+                'requestid' => 'requestid',
+                'accountid' => 'accountid',
+                'params' => 'params',
+            )
         ),
     ),
 );
