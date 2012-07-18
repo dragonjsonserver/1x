@@ -33,4 +33,5 @@ return array(
     'dragonx_account' => 'Paket Account',
     'dragonx_database' => 'Paket Database',
     'dragonx_homepage' => 'Paket Homepage',
+    'dragonx_log' => 'Paket Log',
 );
