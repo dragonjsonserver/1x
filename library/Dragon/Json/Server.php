@@ -75,4 +75,36 @@ class Dragon_Json_Server extends Zend_Json_Server
                 break;
         }
     }
+
+    /**
+     * Verarbeitet einen Multirequest des Json Servers
+     * @param array $requests
+     * @return null|array
+     */
+    public function handleMultirequest(array $requests = null)
+    {
+    	if (!isset($requests)) {
+			$json = file_get_contents('php://input');
+			$requests = Zend_Json::decode($json);
+    	}
+    	if (count($requests) == 0) {
+    		throw new InvalidArgumentException('missing requests');
+    	}
+    	$autoemitresponse = $this->autoEmitResponse();
+		$this->setAutoEmitResponse(false);
+		$params = array();
+		$responses = array();
+		foreach ($requests as $request) {
+		    $request['params'] += $params;
+		    $response = $this->handle(new Dragon_Json_Server_Request_Http($request))->toArray();
+		    if (isset($response['result']) && is_array($response['result'])) {
+		        $params += $response['result'];
+		    }
+		    $responses[] = $response;
+		}
+		if (!$autoemitresponse) {
+			return $responses;
+		}
+		echo Zend_Json::encode($responses);
+    }
 }
