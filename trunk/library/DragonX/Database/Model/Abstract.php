@@ -161,7 +161,7 @@ abstract class DragonX_Database_Model_Abstract
      * @param array $conditioncolumnvalues
      * @return array
      */
-    protected function _select($tablename, array $selectcolumnnames, array $conditioncolumnvalues)
+    protected function _select($tablename, array $selectcolumnnames, array $conditioncolumnvalues = array())
     {
     	$sql = "SELECT " . implode(', ', $selectcolumnnames) . " FROM " . $tablename;
         if (count($conditioncolumnvalues) == 0) {
