@@ -18,6 +18,7 @@
  * @return array
  */
 return array(
+    'Dragon.Application.Service.Application.ping',
     'Dragon.Application.Service.Application.getApplication',
     'DragonX.Account.Service.Account.registerAccount',
 );
