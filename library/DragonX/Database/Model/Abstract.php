@@ -161,7 +161,7 @@ abstract class DragonX_Database_Model_Abstract
      * @param array $conditioncolumnvalues
      * @return array
      */
-    protected function _select($tablename, array $selectcolumnnames, array $conditioncolumnvalues = array())
+    protected function _select($tablename, array $selectcolumnnames = array('*'), array $conditioncolumnvalues = array())
     {
     	$sql = "SELECT " . implode(', ', $selectcolumnnames) . " FROM " . $tablename;
         if (count($conditioncolumnvalues) == 0) {
@@ -209,11 +209,22 @@ abstract class DragonX_Database_Model_Abstract
      * @param array $conditioncolumnvalues
      * @return integer
      */
-    protected function _update($tablename, array $updatecolumnvalues, array $conditioncolumnvalues)
+    protected function _update($tablename, array $updatecolumnvalues, array $conditioncolumnvalues = array())
     {
-        $updatecolumnnames = $this->_getColumnnames($updatecolumnvalues);
+    	$updatecolumnnames = $this->_getColumnnames($updatecolumnvalues);
         $updatepreparedcolumnnames = $this->_getPreparedColumnnames($updatecolumnnames);
         $updatepreparedcolumnpairs = $this->_getPreparedPairs($updatecolumnnames);
+
+    	if (count($conditioncolumnvalues) == 0) {
+	        $preparedcolumnvalues = $this->_getPreparedColumnValues(
+	            $updatepreparedcolumnnames,
+	            $updatecolumnvalues
+	        );
+	        return $this->_query(
+	            "UPDATE " . $tablename . " SET " . implode(', ', $updatepreparedcolumnpairs),
+	            $preparedcolumnvalues
+	        );
+    	}
 
         $conditioncolumnnames = $this->_getColumnnames($conditioncolumnvalues);
         $conditionpreparedcolumnnames = $this->_getPreparedColumnnames($conditioncolumnnames);
@@ -236,8 +247,12 @@ abstract class DragonX_Database_Model_Abstract
      * @param array $conditioncolumnvalues
      * @return integer
      */
-    protected function _delete($tablename, array $conditioncolumnvalues)
+    protected function _delete($tablename, array $conditioncolumnvalues = array())
     {
+        if (count($conditioncolumnvalues) == 0) {
+            return $this->_query("TRUNCATE " . $tablename);
+        }
+
         $conditioncolumnnames = $this->_getColumnnames($conditioncolumnvalues);
         $conditionpreparedcolumnnames = $this->_getPreparedColumnnames($conditioncolumnnames);
         $conditionpreparedcolumnpairs = $this->_getPreparedPairs($conditioncolumnnames);
