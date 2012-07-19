@@ -20,6 +20,12 @@
 class Dragon_Application_Service_Application
 {
     /**
+     * Service zur Abfrage ob der Server gerade erreichbar ist
+     */
+    public function ping()
+    {}
+
+    /**
      * Gibt die Anwendungsdaten aus den Einstellungen zurück
      * @return array
      */
