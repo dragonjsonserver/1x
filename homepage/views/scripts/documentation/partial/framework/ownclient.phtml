@@ -24,16 +24,15 @@
     <li>
         Beispiel mit jQuery
 <pre>
-var request = {};
-request.method = 'Dragon.Application.Service.Application.getApplication';
-request.params = {};
-request.id = 'first';
-request.jsonrpc = '2.0';
-
+var request = {
+	'method' : 'Dragon.Application.Service.Application.getApplication',
+	'params' : {},
+	'id' : 'id',
+	'jsonrpc' = '2.0',
+};
 $.ajax({
     url : 'http://dragonjsonserver.de/jsonrpc2.php',
     type: 'POST',
-    async : false,
     dataType : 'json',
     data : JSON.stringify(request),
     error : function(jqXHR, textStatus, errorThrown) {
@@ -55,25 +54,21 @@ $.ajax({
     <li>
         Beispiel mit jQuery
 <pre>var requests = new Array();
-
-var request = {};
-request.method = 'Dragon.Application.Service.Application.getApplication';
-request.params = {};
-request.id = 'first';
-request.jsonrpc = '2.0';
-requests.push(request);
-
-var request = {};
-request.method = 'Dragon.Application.Service.Application.getApplication';
-request.params = {};
-request.id = 'second';
-request.jsonrpc = '2.0';
-requests.push(request);
-
+requests.push({
+	'method' : 'Dragon.Application.Service.Application.getApplication',
+	'params' : {},
+	'id' : 'first',
+	'jsonrpc' = '2.0',
+});
+requests.push({
+	'method' : 'Dragon.Application.Service.Application.getApplication',
+	'params' : {},
+	'id' : 'second',
+	'jsonrpc' = '2.0',
+});
 $.ajax({
     url : 'http://dragonjsonserver.de/multijsonrpc2.php',
     type: 'POST',
-    async : false,
     dataType : 'json',
     data : JSON.stringify(requests),
     error : function(jqXHR, textStatus, errorThrown) {
