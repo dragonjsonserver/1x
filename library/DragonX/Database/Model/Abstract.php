@@ -163,13 +163,18 @@ abstract class DragonX_Database_Model_Abstract
      */
     protected function _select($tablename, array $selectcolumnnames, array $conditioncolumnvalues)
     {
+    	$sql = "SELECT " . implode(', ', $selectcolumnnames) . " FROM " . $tablename;
+        if (count($conditioncolumnvalues) == 0) {
+            return $this->_query($sql);
+        }
+
         $conditioncolumnnames = $this->_getColumnnames($conditioncolumnvalues);
         $conditionpreparedcolumnnames = $this->_getPreparedColumnnames($conditioncolumnnames);
         $conditionpreparedcolumnpairs = $this->_getPreparedPairs($conditioncolumnnames);
 
         $preparedcolumnvalues = $this->_getPreparedColumnValues($conditionpreparedcolumnnames, $conditioncolumnvalues);
         return $this->_query(
-              "SELECT " . implode(', ', $selectcolumnnames) . " FROM " . $tablename . " WHERE " . implode(' AND ', $conditionpreparedcolumnpairs),
+            $sql . " WHERE " . implode(' AND ', $conditionpreparedcolumnpairs),
             $preparedcolumnvalues
         );
     }
