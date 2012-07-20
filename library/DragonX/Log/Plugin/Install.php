@@ -31,28 +31,28 @@ class DragonX_Log_Plugin_Install
         if (version_compare($oldversion, '1.0.0', '<')) {
             $sqls[] =
                 "CREATE TABLE `dragonx_log_requests` ("
-                    . "`requestid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
-                    . "`method` VARCHAR(255) NOT NULL, "
-                    . "`id` VARCHAR(255) NOT NULL, "
-                    . "`version` VARCHAR(255) NOT NULL, "
-                    . "`requestparams` TEXT NOT NULL, "
-                    . "`requesttimestamp` TIMESTAMP NOT NULL, "
-                    . "`response` TEXT NULL, "
-                    . "`responsetimestamp` TIMESTAMP NULL, "
-                    . "PRIMARY KEY (`requestid`) "
-                    . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+                  . "`requestid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                  . "`method` VARCHAR(255) NOT NULL, "
+                  . "`id` VARCHAR(255) NOT NULL, "
+                  . "`version` VARCHAR(255) NOT NULL, "
+                  . "`requestparams` TEXT NOT NULL, "
+                  . "`requesttimestamp` TIMESTAMP NOT NULL, "
+                  . "`response` TEXT NULL, "
+                  . "`responsetimestamp` TIMESTAMP NULL, "
+                  . "PRIMARY KEY (`requestid`) "
+                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
             $sqls[] =
                 "CREATE TABLE `dragonx_log_logs` ("
-                    . "`logid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
-                    . "`requestid` INT(10) NULL, "
-                    . "`accountid` INT(10) NULL, "
-                    . "`priority` INT(10) UNSIGNED NOT NULL, "
-                    . "`message` TEXT NOT NULL, "
-                    . "`params` TEXT NULL, "
-                    . "`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, "
-                    . "PRIMARY KEY (`logid`) "
-                    . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+                  . "`logid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                  . "`requestid` INT(10) NULL, "
+                  . "`accountid` INT(10) NULL, "
+                  . "`priority` INT(10) UNSIGNED NOT NULL, "
+                  . "`message` TEXT NOT NULL, "
+                  . "`params` TEXT NULL, "
+                  . "`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, "
+                  . "PRIMARY KEY (`logid`) "
+                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }
         return $sqls;
     }

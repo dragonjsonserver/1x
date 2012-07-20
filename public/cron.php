@@ -13,12 +13,14 @@
  * @license http://framework.zend.com/license/new-bsd New BSD License
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
-?>
-<ul>
-    <li>Zeigt standardmäßig auf 'http://%servername%/jsonrpc2.php'</li>
-    <li>Holt sich per GET die SMD und baut damit die GUI auf</li>
-    <li>Services werden in Namensraum (Klassenname) und Methode (Methodenname) unterteilt</li>
-    <li>Parameter die für den Service benötigt werden werden als Argumentfelder angelegt</li>
-    <li>Sendet Anfragen per POST und versucht die Antwort als Json anzuzeigen</li>
-    <li>Lässt sich auch unabhängig von DragonJsonServer verwenden für Json Server die SMD unterstützen</li>
-</ul>
+
+require 'bootstrap.php';
+$jsonserver = new Dragon_Json_Server();
+$jsonserver->handle(
+    new Dragon_Json_Server_Request_Http(array(
+        'method' => 'DragonX.Cronjob.Service.Cronjob.executeCronjobs',
+        'params' => array('securitytoken' => isset($_GET['securitytoken']) ? $_GET['securitytoken'] : ''),
+        'id' => 'cron.php',
+        'jsonrpc' => '2.0',
+    ))
+);
