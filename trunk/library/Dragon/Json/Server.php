@@ -43,23 +43,29 @@ class Dragon_Json_Server extends Zend_Json_Server
 
     /**
      * Verarbeitet einen Aufruf des Json Servers
-     * @param Dragon_Json_Server_Request_Http $request
-     * @return null|Zend_Json_Server_Response
+     * @param null $request
+     * @return mixed|null|Zend_Json_Server_Response
+     * @throws InvalidArgumentException
      */
     public function handle($request = null)
     {
+        $requestmethod = null;
         if (isset($request)) {
             if (!$request instanceof Dragon_Json_Server_Request_Http) {
                 throw new InvalidArgumentException('request is not instanceof Dragon_Json_Server_Request_Http');
             }
+            $requestmethod = 'POST';
         } else {
             $request = new Dragon_Json_Server_Request_Http();
+        }
+        if (!isset($requestmethod)) {
+            $requestmethod = $_SERVER['REQUEST_METHOD'];
         }
         $packageregistry = Zend_Registry::get('Dragon_Package_Registry');
         foreach ($packageregistry->getClassnames('Service') as $servicename) {
             $this->setClass($servicename, str_replace('_', '.', $servicename));
         }
-        switch ($_SERVER['REQUEST_METHOD']) {
+        switch ($requestmethod) {
             case 'POST':
                 $this->setResponse(new Dragon_Json_Server_Response_Http());
                 return parent::handle($request);
@@ -80,6 +86,7 @@ class Dragon_Json_Server extends Zend_Json_Server
      * Verarbeitet einen Multirequest des Json Servers
      * @param array $requests
      * @return null|array
+     * @throws InvalidArgumentException
      */
     public function handleMultirequest(array $requests = null)
     {

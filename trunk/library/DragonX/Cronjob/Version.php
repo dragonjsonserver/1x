@@ -13,12 +13,18 @@
  * @license http://framework.zend.com/license/new-bsd New BSD License
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
-?>
-<ul>
-    <li>Zeigt standardmäßig auf 'http://%servername%/jsonrpc2.php'</li>
-    <li>Holt sich per GET die SMD und baut damit die GUI auf</li>
-    <li>Services werden in Namensraum (Klassenname) und Methode (Methodenname) unterteilt</li>
-    <li>Parameter die für den Service benötigt werden werden als Argumentfelder angelegt</li>
-    <li>Sendet Anfragen per POST und versucht die Antwort als Json anzuzeigen</li>
-    <li>Lässt sich auch unabhängig von DragonJsonServer verwenden für Json Server die SMD unterstützen</li>
-</ul>
+
+/**
+ * Klasse mit der Versionsnummer des Paketes
+ */
+class DragonX_Cronjob_Version
+{
+    /**
+     * Gibt die Versionsnummer des Paketes zurück
+     * @return string
+     */
+    public function getVersion()
+    {
+        return '1.0.0';
+    }
+}

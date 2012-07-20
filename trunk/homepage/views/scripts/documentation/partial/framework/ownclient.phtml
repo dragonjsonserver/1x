@@ -16,7 +16,7 @@
 ?>
 <h3>Einzelrequest mit JavaScript</h3>
 <ul>
-    <li>Alle Requests gehen an die /jsonrpc2.php</li>
+    <li>Alle Requests gehen an die '/jsonrpc2.php'</li>
     <li>"method" beschreibt den Servicenamen</li>
     <li>"params" enthält ein JavaScript Objekt aller Parameter</li>
     <li>"id" kann beliebig definiert werden und wird in der Response wieder zurück gegeben</li>
@@ -48,7 +48,7 @@ $.ajax({
 </ul>
 <h3>Multirequest mit JavaScript</h3>
 <ul>
-    <li>Alle Requests gehen an die /multijsonrpc2.php</li>
+    <li>Alle Requests gehen an die '/multijsonrpc2.php'</li>
     <li>Alle Key/Value Paare der Responses stehen nachfolgenden Requests als Eingangsparameter zur Verfügung um Serviceaufrufe zu verketten</li>
     <li>Die einzelnen Requests werden als Array übergeben und als Antwort kommt ein Array an Responses</li>
     <li>

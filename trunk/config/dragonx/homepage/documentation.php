@@ -31,6 +31,7 @@ return array(
     'dragon_plugin' => 'Paket Plugin',
     'Namensraum DragonX',
     'dragonx_account' => 'Paket Account',
+    'dragonx_cronjob' => 'Paket Cronjob',
     'dragonx_database' => 'Paket Database',
     'dragonx_homepage' => 'Paket Homepage',
     'dragonx_log' => 'Paket Log',

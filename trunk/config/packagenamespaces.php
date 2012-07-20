@@ -31,6 +31,10 @@ return array(
             'Plugin' => array('Account', 'Install'),
             'Service' => array('Account'),
         ),
+        'Cronjob' => array(
+            'Plugin' => array('Install'),
+            'Service' => array('Cronjob'),
+        ),
         'Database' => array(
             'Plugin' => array('Database'),
         ),

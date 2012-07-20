@@ -15,11 +15,23 @@
  */
 
 /**
- * @return array
+ * Serviceklasse zur Verwaltung und Ausführung von Cronjobs
  */
-return array(
-    'Dragon.Application.Service.Application.ping',
-    'Dragon.Application.Service.Application.getApplication',
-    'DragonX.Account.Service.Account.registerAccount',
-    'DragonX.Cronjob.Service.Cronjob.executeCronjobs',
-);
+class DragonX_Cronjob_Service_Cronjob
+{
+    /**
+     * Führt alle Cronjobs aus deren Intervall erreicht wurde
+     * @param string $securitytoken
+     * @throws InvalidArgumentException
+     */
+    public function executeCronjobs($securitytoken)
+    {
+        $cronjob = new Dragon_Application_Config('dragonx/cronjob/cronjob');
+        if ($cronjob->securitytoken != $securitytoken) {
+            throw new InvalidArgumentException('incorrect securitytoken');
+        }
+
+        $logicCronjob = new DragonX_Cronjob_Logic_Cronjob();
+        $logicCronjob->executeCronjobs();
+    }
+}
