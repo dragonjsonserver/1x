@@ -32,6 +32,10 @@ function DragonJsonClient(jsonclient)
     this.data = {};
 
     var self = this;
+    /**
+     * Gibt die eingegebenen Daten der Eingabefelder zurück
+     * @return object
+     */
     this.getData = function ()
     {
         var data = {};
@@ -44,6 +48,9 @@ function DragonJsonClient(jsonclient)
     };
 
     var self = this;
+    /**
+     * Sendet und verarbeitet einen Json Request mit den eingegebenen Parametern
+     */
     this.sendRequest = function ()
     {
         jsonclient.send(
@@ -68,6 +75,9 @@ function DragonJsonClient(jsonclient)
     };
 
     var self = this;
+    /**
+     * Selektiert einen anderen Namespace und baut die GUI entsprechend um
+     */
     this.selectNamespace = function ()
     {
         var namespace = $('#namespace').val();
@@ -81,6 +91,9 @@ function DragonJsonClient(jsonclient)
     };
 
     var self = this;
+    /**
+     * Selektiert eine andere Methode und baut die GUI entsprechend um
+     */
     this.selectMethod = function ()
     {
         $('#response').html('<pre>Antwort</pre>');
