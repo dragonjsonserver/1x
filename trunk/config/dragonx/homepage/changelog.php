@@ -18,14 +18,9 @@
  * @return array
  */
 return array(
-    'header' => array(
-        'startpage' => 'Startseite',
-        'documentation' => 'Dokumentation',
-        'dragonjsonclient' => 'DragonJsonClient',
-    ),
-    'footer' => array(
-        'changelog' => 'Changelog',
-        'license' => 'Lizenz',
-        'imprint' => 'Impressum',
-    ),
+    'Changelog',
+    '1.1.0' => 'v1.1.0',
+    '1.0.0' => 'v1.0.0',
+    'Roadmap',
+    'roadmap' => 'Ideensammlung',
 );
