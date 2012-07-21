@@ -18,6 +18,7 @@
 <h3>Allgemeine Änderungen</h3>
 <ul>
     <li>Versionierung von Paketen mit Plugins/Services unterstüzen</li>
+    <li>Es steht nun ein Json Client zur Verfügung den man für eigene JavaScript Clients nutzen kann, siehe: <a href="<?php echo $this->url(array('controller' => 'documentation', 'action' => 'framework_ownclient'), null, true); ?>">Dokumentation/Eigener Client</a></li>
 </ul>
 <h3>Neue Pakete</h3>
 <ul>
@@ -86,7 +87,6 @@
 <h3>Homepage</h3>
 <ul>
     <li>Neuer Menüpunkt Changelog inklusive der Roadmap mit der Ideensammlung</li>
-    <li>Dokumentation zur Entwicklung eines eigenen JavaScript Clients</li>
 </ul>
 <h3>DragonJsonClient</h3>
 <ul>
@@ -105,4 +105,5 @@
     <li>Die öffentliche PHP Datei multijsonrpc2.php kann übernommen werden um Multirequests zu unterstützen</li>
     <li>Der Controller für Dokumentationen kann ausgetauscht werden, dieser nutzt nun den abstrakten Controller für Seiten mit Subnavigation</li>
     <li>Abfragen zur Erreichbarkeit des Json Servers können nun den Ping Service nutzen statt den getApplication Service</li>
+    <li>Eigene JavaScript Clients können nun den Json Client nutzen</li>
 </ul>
