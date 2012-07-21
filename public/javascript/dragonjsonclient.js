@@ -21,8 +21,8 @@
 function DragonJsonClient(url)
 {
 	var applicationname = 'DragonJsonClient';
-	var applicationversion = 'v1.1.0';
-	
+	var applicationversion = 'v1.2.0';
+
     $('#applicationname').html(applicationname);
     $('#applicationversion').html(applicationversion);
     $('#applicationcopyright').html('© DragonProjects 2012');
@@ -61,6 +61,9 @@ function DragonJsonClient(url)
                 $('#response').html('<pre>' + errorThrown + jqXHR.responseText + textStatus + '</pre>');
               },
             success : function(json) {
+                if (json.result != undefined) {
+                    self.data = $.extend(json.result, self.data);
+                }
                 $('#response').html('<pre>' + JSON.stringify(json, null, 4) + '</pre>');
             }
         });
