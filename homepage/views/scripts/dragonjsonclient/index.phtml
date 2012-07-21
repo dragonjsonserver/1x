@@ -44,10 +44,13 @@
         </div>
     </form>
 </div>
+<script type="text/javascript" src="<?php echo $this->baseUrl('javascript/jsonclient.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('javascript/dragonjsonclient.js'); ?>"></script>
 <script type="text/javascript">
+    var jsonclient;
     var dragonjsonclient;
     $(document).ready(function () {
-        dragonjsonclient = new DragonJsonClient('http://<?php echo $_SERVER["SERVER_NAME"] ?>/jsonrpc2.php');
+        jsonclient = new JsonClient('http://<?php echo $_SERVER["SERVER_NAME"] ?>');
+        dragonjsonclient = new DragonJsonClient(jsonclient);
     });
 </script>

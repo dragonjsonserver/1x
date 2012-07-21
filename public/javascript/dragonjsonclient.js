@@ -15,10 +15,10 @@
  */
 
 /**
- * Klasse zur Initialisierung und Steuerung des JsonClients
- * @param string url Die URL zum JsonServer
+ * Klasse zur Initialisierung und Steuerung des Dragon Json Clients
+ * @param JsonClient Json Client zum Abwenden der Json Requests
  */
-function DragonJsonClient(url)
+function DragonJsonClient(jsonclient)
 {
 	var applicationname = 'DragonJsonClient';
 	var applicationversion = 'v1.2.0';
@@ -27,7 +27,7 @@ function DragonJsonClient(url)
     $('#applicationversion').html(applicationversion);
     $('#applicationcopyright').html('© DragonProjects 2012');
 
-    this.url = url;
+    this.jsonclient = jsonclient;
     this.namespaces = {};
     this.data = {};
 
@@ -46,27 +46,25 @@ function DragonJsonClient(url)
     var self = this;
     this.sendRequest = function ()
     {
-        var request = {};
-        request.method = $('#namespace').val() + '.' + $('#method').val();
-        request.params = self.getData();
-        request.id = applicationname + ' ' + applicationversion;
-        request.jsonrpc = '2.0';
-        $.ajax({
-            url : self.url,
-            type: 'POST',
-            async : false,
-            dataType : 'json',
-            data : JSON.stringify(request),
-            error : function(jqXHR, textStatus, errorThrown) {
-                $('#response').html('<pre>' + errorThrown + jqXHR.responseText + textStatus + '</pre>');
-              },
-            success : function(json) {
-                if (json.result != undefined) {
-                    self.data = $.extend(json.result, self.data);
+        jsonclient.send(
+            new JsonRequest(
+                applicationname + ' ' + applicationversion,
+                $('#namespace').val() + '.' + $('#method').val(),
+                self.getData()
+            ),
+            {
+                async : false,
+                success : function (json) {
+                    if (json.result != undefined) {
+                        self.data = $.extend(json.result, self.data);
+                    }
+                    $('#response').html('<pre>' + JSON.stringify(json, null, 4) + '</pre>');
+                },
+                error : function(jqXHR, textStatus, errorThrown) {
+                    $('#response').html('<pre>' + errorThrown + jqXHR.responseText + textStatus + '</pre>');
                 }
-                $('#response').html('<pre>' + JSON.stringify(json, null, 4) + '</pre>');
             }
-        });
+        );
     };
 
     var self = this;
@@ -112,13 +110,11 @@ function DragonJsonClient(url)
     };
 
     var self = this;
-    $.ajax({
-        url : url,
+    jsonclient.smd({
         async : false,
-        dataType : 'json',
         error : function(jqXHR, textStatus, errorThrown) {
             $('#dragonjsonclient').html('<p>Fehler beim Laden der SMD</p><pre>' + errorThrown + jqXHR.responseText + textStatus + '</pre>');
-          },
+        },
         success : function(json) {
             self.namespaces = {};
             $.each(json.services, function(servicename, service) {

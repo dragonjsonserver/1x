@@ -14,71 +14,59 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 ?>
-<h3>Einzelrequest mit JavaScript</h3>
+<h3>Einzelrequest</h3>
 <ul>
     <li>Alle Requests gehen an die '/jsonrpc2.php'</li>
-    <li>"method" beschreibt den Servicenamen</li>
-    <li>"params" enthält ein JavaScript Objekt aller Parameter</li>
+    <li>"method" enthält den Servicenamen</li>
+    <li>"params" enthält ein Json Objekt aller Parameter</li>
     <li>"id" kann beliebig definiert werden und wird in der Response wieder zurück gegeben</li>
     <li>"jsonrpc" definiert die Version des JsonRPC Protokolls das verwendet wird</li>
-    <li>
-        Beispiel mit jQuery
-<pre>
-var request = {
-	'method' : 'Dragon.Application.Service.Application.getApplication',
-	'params' : {},
-	'id' : 'id',
-	'jsonrpc' = '2.0',
-};
-$.ajax({
-    url : 'http://dragonjsonserver.de/jsonrpc2.php',
-    type: 'POST',
-    dataType : 'json',
-    data : JSON.stringify(request),
-    error : function(jqXHR, textStatus, errorThrown) {
-        console.log(jqXHR);
-        console.log(textStatus);
-        console.log(errorThrown);
-    },
-    success : function(json) {
-        console.log(json);
-    }
-});</pre>
-    </li>
 </ul>
-<h3>Multirequest mit JavaScript</h3>
+<h3>Multirequest</h3>
 <ul>
     <li>Alle Requests gehen an die '/multijsonrpc2.php'</li>
     <li>Alle Key/Value Paare der Responses stehen nachfolgenden Requests als Eingangsparameter zur Verfügung um Serviceaufrufe zu verketten</li>
     <li>Die einzelnen Requests werden als Array übergeben und als Antwort kommt ein Array an Responses</li>
+</ul>
+<h2>Nutzung des Json Client</h2>
+<ul>
+    <li>Der Json Client vereinfacht das Erstellen, Senden und Verarbeiten von Json Requests</li>
+    <li>Unterstützt sowohl einzelne Requests als auch Multirequests</li>
+    <li>Benötigt die jQuery Bibliothek</li>
     <li>
-        Beispiel mit jQuery
-<pre>var requests = new Array();
-requests.push({
-	'method' : 'Dragon.Application.Service.Application.getApplication',
-	'params' : {},
-	'id' : 'first',
-	'jsonrpc' = '2.0',
-});
-requests.push({
-	'method' : 'Dragon.Application.Service.Application.getApplication',
-	'params' : {},
-	'id' : 'second',
-	'jsonrpc' = '2.0',
-});
-$.ajax({
-    url : 'http://dragonjsonserver.de/multijsonrpc2.php',
-    type: 'POST',
-    dataType : 'json',
-    data : JSON.stringify(requests),
-    error : function(jqXHR, textStatus, errorThrown) {
-        console.log(jqXHR);
-        console.log(textStatus);
-        console.log(errorThrown);
-    },
-    success : function(json) {
-        console.log(json);
+        Initialisierung
+        <pre>var jsonclient = new JsonClient('http://%hostname%');</pre>
+    </li>
+    <li>
+        Einzelner Request
+        <pre>jsonclient.send(
+    new JsonRequest('%id%', '%method%', %params%),
+    {
+        success : function (json) {
+        }
     }
-});</pre>
+);</pre>
+    </li>
+    <li>
+        Multirequest
+        <pre>jsonclient.send(
+    [
+        new JsonRequest('%id%', '%method%', %params%),
+        new JsonRequest('%id%', '%method%', %params%)
+    ],
+    {
+        success : function (json) {
+        }
+    }
+);</pre>
+    </li>
+    <li>
+        Abfrage der SMD
+        <pre>jsonclient.smd(
+    {
+        success : function (json) {
+        }
+    }
+);</pre>
     </li>
 </ul>
