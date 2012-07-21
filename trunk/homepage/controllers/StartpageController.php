@@ -17,7 +17,7 @@
 /**
  * Controller zur Anzeige der Informationen und Neuigkeiten der Startseite
  */
-class StartpageController extends DragonX_Homepage_Controller
+class StartpageController extends DragonX_Homepage_Controller_Abstract
 {
     /**
      * Action zur Anzeige der Informationen und Neuigkeiten der Startseite

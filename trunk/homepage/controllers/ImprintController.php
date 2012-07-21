@@ -17,7 +17,7 @@
 /**
  * Controller zur Anzeige Kontaktinformationen für Fragen und Anregungen
  */
-class ImprintController extends DragonX_Homepage_Controller
+class ImprintController extends DragonX_Homepage_Controller_Abstract
 {
     /**
      * Action zur Anzeige Kontaktinformationen für Fragen und Anregungen

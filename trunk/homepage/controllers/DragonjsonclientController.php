@@ -17,7 +17,7 @@
 /**
  * Controller zur Anzeige des JsonClients für Anfrage an den JsonServer
  */
-class DragonjsonclientController extends DragonX_Homepage_Controller
+class DragonjsonclientController extends DragonX_Homepage_Controller_Abstract
 {
     /**
      * Action zur Anzeige des JsonClients für Anfrage an den JsonServer

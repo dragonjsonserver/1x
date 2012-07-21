@@ -17,36 +17,23 @@
 /**
  * Controller zur Anzeige der Dokumentation zur Anwendung
  */
-class DocumentationController extends DragonX_Homepage_Controller
+class DocumentationController extends DragonX_Homepage_Controller_Subnavigation
 {
     /**
-     * Action zur Anzeige der der Dokumentation zur Anwendung
+     * Gibt die Daten für die Subnavigation zurück
+     * @return Dragon_Application_Config
      */
-    public function indexAction()
+    public function getSubnavigation()
     {
-        $documentation = new Dragon_Application_Config('dragonx/homepage/documentation');
-        $this->view->documentation = $documentation;
-        if (!isset($this->view->actionname)) {
-            $actionname = '';
-            foreach ($documentation as $key => $value) {
-                if (!is_int($key)) {
-                    $actionname = $key;
-                    break;
-                }
-            }
-            $this->view->actionname = $actionname;
-        }
-        $this->render('index');
+        return new Dragon_Application_Config('dragonx/homepage/documentation');
     }
 
     /**
-     * Actions zur Ermittlung der aufgerufenen Dokumentationsseite
-     * @param string $methodname Der aufgerufene Methodenname
-     * @param array $params Die Parameter die beim Aufruf mitgegeben wurden
+     * Gibt das Verzeichnis für die Einträge der Subnavigation zurück
+     * @return string
      */
-    public function __call($methodname, $params)
+    public function getSubnavigationDirectory()
     {
-        $this->view->actionname = $this->getRequest()->getActionName();
-        $this->indexAction();
+        return 'documentation';
     }
 }

@@ -17,7 +17,7 @@
 /**
  * Controller zur Anzeige von Fehlern während eines Requests
  */
-class ErrorController extends DragonX_Homepage_Controller
+class ErrorController extends DragonX_Homepage_Controller_Abstract
 {
     /**
      * Action zur Anzeige von Fehlern während eines Requests
