@@ -17,7 +17,7 @@
 /**
  * Controller zum Setzen aller Daten des Layouts
  */
-abstract class DragonX_Homepage_Controller extends Zend_Controller_Action
+abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Action
 {
     /**
      * Setzt alle Daten des Layouts aus den Einstellungsdateien

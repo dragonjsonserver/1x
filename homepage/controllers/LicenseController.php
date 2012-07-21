@@ -17,7 +17,7 @@
 /**
  * Controller zur Anzeige der Lizenzbestimmungen der Anwendung
  */
-class LicenseController extends DragonX_Homepage_Controller
+class LicenseController extends DragonX_Homepage_Controller_Abstract
 {
     /**
      * Action zur Anzeige der Lizenzbestimmungen der Anwendung
