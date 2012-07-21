@@ -15,17 +15,25 @@
  */
 
 /**
- * @return array
+ * Controller zur Anzeige des Changelogs und der Roadmap
  */
-return array(
-    'header' => array(
-        'startpage' => 'Startseite',
-        'documentation' => 'Dokumentation',
-        'dragonjsonclient' => 'DragonJsonClient',
-    ),
-    'footer' => array(
-        'changelog' => 'Changelog',
-        'license' => 'Lizenz',
-        'imprint' => 'Impressum',
-    ),
-);
+class ChangelogController extends DragonX_Homepage_Controller_Subnavigation
+{
+    /**
+     * Gibt die Daten für die Subnavigation zurück
+     * @return Dragon_Application_Config
+     */
+    public function getSubnavigation()
+    {
+        return new Dragon_Application_Config('dragonx/homepage/changelog');
+    }
+
+    /**
+     * Gibt das Verzeichnis für die Einträge der Subnavigation zurück
+     * @return string
+     */
+    public function getSubnavigationDirectory()
+    {
+        return 'changelog';
+    }
+}
