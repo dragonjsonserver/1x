@@ -26,7 +26,7 @@ class Dragon_Json_Server_Request_Http extends Zend_Json_Server_Request_Http
     public function __construct(array $options = null)
     {
         if (isset($options)) {
-            $this->setOptions($options);
+            $this->setOptions($options + array('jsonrpc' => '2.0'));
         } else {
             parent::__construct();
         }
@@ -65,6 +65,7 @@ class Dragon_Json_Server_Request_Http extends Zend_Json_Server_Request_Http
     /**
      * Gibt den optionalen Parameter oder den Standardwert zurück
      * @param string $name
+     * @param mixed $default
      * @return mixed
      */
     public function getOptionalParam($name, $default = null)

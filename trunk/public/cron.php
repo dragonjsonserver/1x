@@ -18,9 +18,8 @@ require 'bootstrap.php';
 $jsonserver = new Dragon_Json_Server();
 $jsonserver->handle(
     new Dragon_Json_Server_Request_Http(array(
+        'id' => 'cron.php',
         'method' => 'DragonX.Cronjob.Service.Cronjob.executeCronjobs',
         'params' => array('securitytoken' => isset($_GET['securitytoken']) ? $_GET['securitytoken'] : ''),
-        'id' => 'cron.php',
-        'jsonrpc' => '2.0',
     ))
 );
