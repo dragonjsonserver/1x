@@ -1,0 +1,103 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Trennung von Logik und Datenbank</h3>
+<ul>
+    <li>Die Logik eines Services oder Plugins ist in einer Logicklasse definiert</li>
+    <li>Nur die Logicklasse nutzt die Datenbankklasse für die Persistenz der Daten</li>
+</ul>
+<h3>Ableiten von der Abstrakten Datenbankklasse</h3>
+<ul>
+    <li>SQL Statements werden nur einmalig Prepared</li>
+    <li>
+    	_query zum Ausführen von komplexeren SQL Statements
+<pre>$rows = $this-&gt;_query(
+      "SELECT %selectcolumnname% "
+    . "FROM %selecttablename% "
+    . "INNER JOIN %joinselecttablename% USING(%joincolumnname%) "
+    . "WHERE %conditioncolumnname% = :%conditioncolumnname% ",
+    array(':%conditioncolumnname%' =&gt; '%conditioncolumnvalue%')
+);</pre>
+	</li>
+    <li>_select zum Abfragen von Datensätzen aus einer Tabelle
+<pre>$rows = $this-&gt;_select(
+    '%selecttablename%',
+    array('%selectcolumnname%'),
+    array('%conditioncolumnname%' =&gt; '%conditioncolumnvalue%')
+);</pre>
+    </li>
+    <li>_insert zum Hinzufügen eines neuen Datensatzes
+<pre>$insertid = $this-&gt;_insert(
+    '%inserttablename%',
+    array('%insertcolumnname%' =&gt; '%insertvalue%')
+);</pre>
+    </li>
+    <li>_update zum Ändern von Datensätzen
+<pre>$affectedrows = $this-&gt;_update(
+    '%updatetablename%',
+    array('%updatecolumnname%' =&gt; '%updatevalue%'),
+    array('%conditioncolumnname%' =&gt; '%conditioncolumnvalue%')
+);</pre>
+    </li>
+    <li>_delete zum Löschen von Datensätzen
+<pre>$affectedrows = $this-&gt;_delete(
+    '%deletetablename%',
+    array('%conditioncolumnname%' =&gt; '%conditioncolumnvalue%')
+);</pre>
+    </li>
+    <li>Methoden zur Steuerung von Transaktionen
+<pre>try {
+    $beginTransaction = $this-&gt;_beginTransaction();
+    //SQL Statements
+    if ($beginTransaction) {
+        $this-&gt;_commit();
+    }
+} catch (Exception $exception) {
+    if (isset($beginTransaction) &amp;&amp; $beginTransaction) {
+        $this-&gt;_rollBack();
+    }
+}</pre>
+    </li>
+    <li>_formatTimestamp zur Formatierung von UNIX Timestamps in ein Datenbankformat
+<pre>$timestamp = $this-&gt;_formatTimestamp($timestamp);</pre>
+    </li>
+</ul>
+<h3>Datenbankstrukturen der Pakete verwalten</h3>
+<ul>
+    <li>Jedes Paket wird mit seiner Versionsnummer in der Datenbank gespeichert</li>
+    <li>
+        Wenn Pakete hinzugefügt oder geupdated werden kann man die Datenbankstruktur mit der '/install.php' updaten
+<pre>$databaselogic = new DragonX_Database_Logic_Database();
+$databaselogic-&gt;installPackages();</pre>
+    </li>
+    <li>Die Pakete müssen dafür Plugins der Install Schnittstelle bereit stellen</li>
+    <li>
+        Das Plugin bekommt die Version des Paketes das bisher verwendet wurde und kann somit auf seine aktuelle Version updaten
+<pre>class %packagenamespace%_%packagename%_Plugin_%pluginname%
+    implements DragonX_Database_Plugin_Install_Interface
+{
+    public function getInstall($version = '0.0.0')
+    {
+        $sqls = array();
+        if (version_compare($version, '1.0.0', '&lt;')) {
+            $sqls[] = "%sql%";
+        }
+        return $sqls;
+    }
+}</pre>
+    </li>
+    <li>Die Logikklasse Database speichert danach alle Pakete mit ihren aktuellen Versionsnummer in der Datenbank für das nächste Update</li>
+</ul>
