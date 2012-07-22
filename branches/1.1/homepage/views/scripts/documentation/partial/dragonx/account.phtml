@@ -1,0 +1,31 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Account Service, Logik und Datenbank</h3>
+<ul>
+    <li>Der Account Service bietet Methoden für Registrierung und Authentifizierung an</li>
+    <li>Zur Authentifizierung wird eine Identity (E-Mail Adresse, Nickname) und ein Credential (Passwort) benötigt</li>
+</ul>
+<h3>Account Plugin</h3>
+<ul>
+    <li>Das Plugin kann mit einer Whitelist konfiguriert werden</li>
+    <li>Alle Services die nicht in der Whitelist definiert sind benötigen eine Authentifizierung die abgefragt wird</li>
+    <li>Alle diese Services werden auch in der SMD erweitert um die notwendigen Parameter zur Authentifizierung</li>
+</ul>
+<h3>Besonderheit mit Zend_Log</h3>
+<ul>
+    <li>Ist in der Zend_Registry ein Zend_Log Objekt hinterlegt (Standardverhalten bei der Verwendung von DragonX_Log) wird bei allen Services die eine Authentifizierung benötigen die AccountID als Eventitem hinzugefügt</li>
+</ul>

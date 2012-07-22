@@ -1,0 +1,92 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Klassen für die Homepage</h3>
+<ul>
+    <li>Bootstrapklasse für das Zend MVC der Homepage</li>
+    <li>Abstrakter Controller zum Setzen der Viewvariablen des Layouts</li>
+    <li>Controller, Layoutskript und Viewskripte liegen im Verzeichnis 'homepage'</li>
+</ul>
+<h3>Layoutskript</h3>
+<ul>
+    <li>Konfigurationsdatei für die Seitennavigation '/config/dragonx/homepage/navigation.php'</li>
+    <li>
+        %controller% ist der Controller, %navigation% die Beschriftung des Seitennavigationspunktes
+<pre>return array(
+    'header' =&gt; array(
+        '%controller%' =&gt; '%navigation%',
+    ),
+    'footer' =&gt; array(
+        '%controller%' =&gt; '%navigation%',
+    ),
+);</pre>
+    </li>
+</ul>
+<h3>Startseite</h3>
+<ul>
+    <li>Konfigurationsdatei für die Informationen '/config/dragonx/homepage/startpage.php'</li>
+    <li>
+        %title% ist die Überschrift, %content% der Inhalt der Informationen
+<pre>return array(
+    'title' =&gt; '%title%',
+    'content' =&gt; '%content%',
+);</pre>
+    </li>
+    <li>Konfigurationsdatei für die Neuigkeiten '/config/dragonx/homepage/news.php'</li>
+    <li>%amount% enthält die Anzahl an Neuigkeiten die angezeigt werden</li>
+    <li>%perrow% enthält die Anzahl an Neuigkeiten die pro Reihe angezeigt werden</li>
+    <li>
+        %news% enthält die Neuigkeit mit ihrem Titel, Inhalt und dem Zeitpunkt
+<pre>
+return array(
+    'amount' =&gt; %amount%,
+    'perrow' =&gt; %perrow%,
+    'news' =&gt; array(
+        array(
+            'title' =&gt; '%title%',
+            'content' =&gt; '%content%',
+            'timestamp' =&gt; '%timestamp%',
+        ),
+    )
+);</pre>
+    </li>
+</ul>
+<h3>Dokumentation</h3>
+<ul>
+    <li>Konfigurationsdatei für die Dokumentationsnavigation '/config/dragonx/homepage/documentation.php'</li>
+    <li>Einträge die nur eine Zeichenkette %headline% haben werden als Überschriften verwendet</li>
+    <li>Einträge die eine Zeichenkette als Schlüssel und als Wert haben sind Navigationspunkte</li>
+    <li>%documentationpath% beschreibt den Dateipfad zum partiellen Viewskript unterhalb von '/views/documentation/partial/'</li>
+    <li>
+        %documentationname% Ist die Beschriftung des Dokumentationsnavigationspunktes
+<pre>return array(
+    '%headline%',
+    '%documentationpath%' =&gt; '%documentationname%',
+);</pre>
+    </li>
+</ul>
+<h3>Impressum</h3>
+<ul>
+    <li>Konfigurationsdatei für die Kontaktmöglichkeit '/config/dragonx/homepage/imprint.php'</li>
+    <li>%webmaster% enthält den Namen des Verantwortlichen</li>
+    <li>
+        %mailingaddress% enthält eine E-Mail Adresse für den Kontakt
+<pre>return array(
+    'webmaster' =&gt; '%webmaster%',
+    'mailingaddress' =&gt; '%mailingaddress%',
+);</pre>
+    </li>
+</ul>

@@ -1,0 +1,109 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Releasedatum: noch offen (voraussichtlich KW 30)</h3>
+<h3>Allgemeine Änderungen</h3>
+<ul>
+    <li>Versionierung von Paketen mit Plugins/Services unterstüzen</li>
+    <li>Es steht nun ein Json Client zur Verfügung den man für eigene JavaScript Clients nutzen kann, siehe: <a href="<?php echo $this->url(array('controller' => 'documentation', 'action' => 'framework_ownclient'), null, true); ?>">Dokumentation/Eigener Client</a></li>
+</ul>
+<h3>Neue Pakete</h3>
+<ul>
+    <li>
+        DragonX
+        <ul>
+            <li>Cronjob, siehe: <a href="<?php echo $this->url(array('controller' => 'documentation', 'action' => 'dragonx_cronjob'), null, true); ?>">Dokumentation/Paket Cronjob</a></li>
+            <li>Log, siehe: <a href="<?php echo $this->url(array('controller' => 'documentation', 'action' => 'dragonx_log'), null, true); ?>">Dokumentation/Paket Log</a></li>
+        </ul>
+    </li>
+</ul>
+<h3>Geänderte Pakete</h3>
+<ul>
+    <li>
+        Dragon
+        <ul>
+            <li>
+                Application
+                <ul>
+                    <li>Abfrage der Anzahl an Arrayelementen vom Klassenname berichtigt</li>
+                    <li>Service 'ping' zur einfachen Abfrage der Erreichbarkeit des Json Servers</li>
+                    <li>Neue Methode zur Initialisierung der Standardzeitzone für alle PHP Datums-/Zeitfunktionen</li>
+                </ul>
+            </li>
+            <li>
+                Json
+                <ul>
+                    <li>Möglichkeit für Multirequests an den JsonRPC Server</li>
+                    <li>Es wird nun immer ein Service Aufruf gemacht wenn man einen eigenen Request übergibt, auch wenn es ein GET Request ist</li>
+                    <li>'Dragon_Json_Server_Response_Http' bietet nun die Möglichkeit die Werte als Array zurück zu geben</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Account
+                <ul>
+                    <li>Datensätze einfügen ohne Werte (für Tabellen die nur eine Spalte mit einem Autoincrement haben)</li>
+                    <li>Wenn Zend_Log (manuell oder durch DragonX_Log) vorhanden ist wird die AccountID als Eventitem bei jedem Request hinzugefügt</li>
+                </ul>
+            </li>
+            <li>
+                Database
+                <ul>
+                    <li>Datensätze einfügen ohne Werte (für Tabellen die nur eine Spalte mit einem Autoincrement haben)</li>
+                    <li>Datensätze selektieren ohne Abfragewerte</li>
+                    <li>Datensätze selektieren ohne Spaltenangabe selektiert nun alle Spalten</li>
+                    <li>Datensätze ändern ohne Abfragewerte ändert nun alle Datensätze</li>
+                    <li>Datensätze löschen ohne Abfragewerte macht einen TRUNCATE auf die Tabelle</li>
+                    <li>Neue Hilfsmethode zur Formatierung eines Unix Timestamps in ein Datenbankformat</li>
+                </ul>
+            </li>
+            <li>
+                Homepage
+                <ul>
+                    <li>Klassenname des abstrakten Controller für alle Seiten geändert ('_Abstract' angehängt)</li>
+                    <li>Abstrakter Controller für Seiten mit einer Subnavigation</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h3>Homepage</h3>
+<ul>
+    <li>Neuer Menüpunkt Changelog inklusive der Roadmap mit der Ideensammlung</li>
+</ul>
+<h3>DragonJsonClient</h3>
+<ul>
+    <li>Sendet nun seinen Anwendungsnamen und die Version bei einem JsonRPC Request als ID mit</li>
+    <li>Übernimmt nun alle Ausgabeparameter aus Requests in die Daten für die Vorbefüllung der Eingabefelder</li>
+</ul>
+<h2>Migration von 1.0.0</h2>
+<h3>Benötigt</h3>
+<ul>
+    <li>Jedes Paket benötigt nun eine Versionsdatei, siehe: <a href="<?php echo $this->url(array('controller' => 'documentation', 'action' => 'framework_ownpackages'), null, true); ?>">Dokumentation/Eigene Pakete</a></li>
+    <li>Alle Controller der Homepage müssen nun von 'DragonX_Homepage_Controller_Abstract' statt von 'DragonX_Homepage_Controller' erben</li>
+</ul>
+<h3>Optional</h3>
+<ul>
+    <li>Alle öffentlichen PHP Dateien (index.php, jsonrpc.php usw.) können nun die bootstrap.php nutzen zur Initialisierung von 'Dragon_Application_Application'</li>
+    <li>Die öffentliche PHP Datei multijsonrpc2.php kann übernommen werden um Multirequests zu unterstützen</li>
+    <li>Der Controller für Dokumentationen kann ausgetauscht werden, dieser nutzt nun den abstrakten Controller für Seiten mit Subnavigation</li>
+    <li>Abfragen zur Erreichbarkeit des Json Servers können nun den Ping Service nutzen statt den getApplication Service</li>
+    <li>Eigene JavaScript Clients können nun den Json Client nutzen</li>
+</ul>
