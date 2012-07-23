@@ -90,7 +90,7 @@ abstract class DragonX_Database_Model_Abstract
                 return $this->_statements[$sql]->fetchAll();
                 break;
             case "INSERT":
-                if ($this->_statements[$sql]->rowCount() == 1) {
+                if ($this->_statements[$sql]->rowCount() > 0) {
                     return $databaseAdapter->lastInsertId();
                 }
                 return true;
