@@ -21,7 +21,7 @@
 function DragonJsonClient(jsonclient)
 {
 	var applicationname = 'DragonJsonClient';
-	var applicationversion = 'v1.1.0';
+	var applicationversion = 'v1.1.1';
 
     $('#applicationname').html(applicationname);
     $('#applicationversion').html(applicationversion);
