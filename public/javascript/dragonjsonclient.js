@@ -62,10 +62,10 @@ function DragonJsonClient(jsonclient)
             {
                 async : false,
                 success : function (json) {
+                    $('#response').html('<pre>' + JSON.stringify(json, null, 4) + '</pre>');
                     if (json.result != undefined) {
                         self.data = $.extend(json.result, self.data);
                     }
-                    $('#response').html('<pre>' + JSON.stringify(json, null, 4) + '</pre>');
                 },
                 error : function(jqXHR, textStatus, errorThrown) {
                     $('#response').html('<pre>' + errorThrown + jqXHR.responseText + textStatus + '</pre>');
