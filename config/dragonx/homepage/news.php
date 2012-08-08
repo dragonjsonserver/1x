@@ -22,6 +22,19 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.1.1 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.1.1 ist abgeschlossen und als Download '
+                . 'verfügbar. Darin wurden zwei Fehler behoben. Zum Einen '
+                . 'wird beim Einfügen von Datensätzen per "_insert", "_query" '
+                . 'und "_insertupdate" immer die Last Insert ID zurückgegeben '
+                . 'wenn mindestens ein Datensatz hinzugefügt wurde und zum '
+                . 'Anderen ist ein Fehler im DragonJsonClient behoben der '
+                . 'alle Daten der Vorbelegung in die Ausgabe des Requests '
+                . 'mit angezeigt hat.',
+            'timestamp' => '08.08.2012 20:45 Uhr',
+        ),
+        array(
             'title' => 'Version 1.1.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.1.0 ist abgeschlossen und als Download '
