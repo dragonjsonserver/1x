@@ -25,6 +25,6 @@ class Dragon_Json_Version
      */
     public function getVersion()
     {
-        return '1.2.0';
+        return '1.1.0';
     }
 }

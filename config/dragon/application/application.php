@@ -19,6 +19,6 @@
  */
 return array(
     'name' => 'DragonJsonServer',
-    'version' => 'v1.2.0',
+    'version' => 'v1.1.0',
     'copyright' => '(c) DragonProjects 2012',
 );
