@@ -112,6 +112,11 @@ class Dragon_Json_Server extends Zend_Json_Server
 		if (!$autoemitresponse) {
 			return $responses;
 		}
+		$response = end($responses);
+		if ($response) {
+		    $response->sendHeaders();
+		    reset($responses);
+		}
 		echo Zend_Json::encode($responses);
     }
 }
