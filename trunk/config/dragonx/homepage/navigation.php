@@ -20,11 +20,11 @@
 return array(
     'header' => array(
         'startpage' => 'Startseite',
-        'documentation' => 'Dokumentation',
         'dragonjsonclient' => 'DragonJsonClient',
+        'documentation' => 'Dokumentation',
+        'changelog' => 'Changelog',
     ),
     'footer' => array(
-        'changelog' => 'Changelog',
         'license' => 'Lizenz',
         'imprint' => 'Impressum',
     ),
