@@ -23,7 +23,7 @@ class ChangelogController extends DragonX_Homepage_Controller_Subnavigation
      * Gibt die Daten für die Subnavigation zurück
      * @return Dragon_Application_Config
      */
-    public function getSubnavigation()
+    protected function _getSubnavigation()
     {
         return new Dragon_Application_Config('dragonx/homepage/changelog');
     }
@@ -32,7 +32,7 @@ class ChangelogController extends DragonX_Homepage_Controller_Subnavigation
      * Gibt das Verzeichnis für die Einträge der Subnavigation zurück
      * @return string
      */
-    public function getSubnavigationDirectory()
+    protected function _getSubnavigationDirectory()
     {
         return 'changelog';
     }

@@ -23,13 +23,13 @@ abstract class DragonX_Homepage_Controller_Subnavigation extends DragonX_Homepag
      * Gibt die Daten für die Subnavigation zurück
      * @return Dragon_Application_Config
      */
-    abstract public function getSubnavigation();
+    abstract protected function _getSubnavigation();
 
     /**
      * Gibt das Verzeichnis für die Einträge der Subnavigation zurück
      * @return string
      */
-    abstract public function getSubnavigationDirectory();
+    abstract protected function _getSubnavigationDirectory();
 
     /**
      * Setzt die Daten für die Subnavigation
@@ -37,8 +37,8 @@ abstract class DragonX_Homepage_Controller_Subnavigation extends DragonX_Homepag
     public function preDispatch()
     {
         parent::preDispatch();
-        $this->view->subnavigation = $this->getSubnavigation();
-        $this->view->subnavigationdirectory = $this->getSubnavigationDirectory();
+        $this->view->subnavigation = $this->_getSubnavigation();
+        $this->view->subnavigationdirectory = $this->_getSubnavigationDirectory();
     }
 
     /**
