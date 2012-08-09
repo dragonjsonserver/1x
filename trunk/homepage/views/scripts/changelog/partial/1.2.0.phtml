@@ -15,8 +15,9 @@
  */
 ?>
 <h3>Noch geplante Änderungen</h3>
+<h4>Administrationsbereich</h4>
 <ul>
-    <li>-</li>
+    <li>Registrierung, Login (Zend_Auth) und Passwort vergessen</li>
 </ul>
 <hr>
 <h3>Releasedatum: noch offen</h3>
@@ -32,10 +33,21 @@
                     <li>Bei der automatischen Ausgabe von Responses eines Multirequests wird nun standardmäßig der HTTP Header des letzten Responses gesendet</li>
                 </ul>
             </li>
+            <li>
+                Homepage
+                <ul>
+                    <li>Die beiden abstrakten Methoden vom Subnavigation Controller sind nun als protected mit vorangestellten "_" deklariert</li>
+                </ul>
+            </li>
         </ul>
     </li>
 </ul>
 <h3>Homepage</h3>
 <ul>
     <li>Der Footer hat nun keinen Freiraum mehr nach unten wenn die Fensterbreite kleiner als 980px ist</li>
+</ul>
+<h2>Migration von 1.1.x</h2>
+<h3>Benötigt</h3>
+<ul>
+    <li>Die beiden implementierten abstrakten Methoden vom Subnavigation Controller müssen bei allen davon abgeleiteten Controller als protected und im Namen mit vorangestellten "_" deklariert werden</li>
 </ul>
