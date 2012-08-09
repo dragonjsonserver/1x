@@ -78,6 +78,20 @@ return array(
 );</pre>
     </li>
 </ul>
+<h3>Changelog</h3>
+<ul>
+    <li>Konfigurationsdatei für die Changelognavigation '/config/dragonx/homepage/changelog.php'</li>
+    <li>Einträge die nur eine Zeichenkette %headline% haben werden als Überschriften verwendet</li>
+    <li>Einträge die eine Zeichenkette als Schlüssel und als Wert haben sind Navigationspunkte</li>
+    <li>%changelogpath% beschreibt den Dateipfad zum partiellen Viewskript unterhalb von '/views/changelog/partial/'</li>
+    <li>
+        %changelogname% Ist die Beschriftung des Changelognavigationspunktes
+<pre>return array(
+    '%headline%',
+    '%changelogpath%' =&gt; '%changelogname%',
+);</pre>
+    </li>
+</ul>
 <h3>Impressum</h3>
 <ul>
     <li>Konfigurationsdatei für die Kontaktmöglichkeit '/config/dragonx/homepage/imprint.php'</li>
