@@ -35,6 +35,7 @@ class DragonX_Account_Service_Account
     /**
      * Gibt die AccountID der Identity und dem Credential zurück
      * @return array
+     * @dragonx_account
      */
     public function authenticateAccount()
     {

@@ -21,17 +21,30 @@ class DragonX_Account_Plugin_Account
     implements Dragon_Json_Plugin_PreDispatch_Interface,
                Dragon_Json_Plugin_Servicemap_Interface
 {
+	/**
+	 * Prüft ob der Service einen Account benötigt
+	 * @param string $servicename
+	 * @return boolean
+	 */
+	private function _accountRequired($servicename)
+	{
+        $servicearray = explode('.', $servicename);
+        $methodname = array_pop($servicearray);
+        $reflectionClass = new Zend_Reflection_Class(implode('_', $servicearray));
+        return $reflectionClass->getMethod($methodname)->getDocblock()->hasTag('dragonx_account');
+	}
+
     /**
      * Prüft bei jedem Request ist die Authentifizierung
      * @param Dragon_Json_Server_Request_Http $request
      */
     public function preDispatch(Dragon_Json_Server_Request_Http $request)
     {
-        $whitelist = new Dragon_Application_Config('dragonx/account/whitelist');
-        if (in_array($request->getMethod(), $whitelist->toArray())) {
-            return;
-        }
-        $params = $request->getRequiredParams(array('identity', 'credential'));
+		if (!$this->_accountRequired($request->getMethod())) {
+		    return;
+		}
+
+		$params = $request->getRequiredParams(array('identity', 'credential'));
         $logicAccount = new DragonX_Account_Logic_Account();
         $accountid = $logicAccount->authenticateAccount($params['identity'], $params['credential']);
         Zend_Registry::set('accountid', $accountid);
@@ -48,9 +61,8 @@ class DragonX_Account_Plugin_Account
      */
     public function servicemap(Zend_Json_Server_Smd $servicemap)
     {
-        $whitelist = new Dragon_Application_Config('dragonx/account/whitelist');
         foreach ($servicemap->getServices() as $servicename => $service) {
-            if (in_array($servicename, $whitelist->toArray())) {
+        	if (!$this->_accountRequired($servicename)) {
                 continue;
             }
             $service->addParams(array(
