@@ -41,6 +41,15 @@
                 </ul>
             </li>
         </ul>
+        DragonX
+        <ul>
+            <li>
+                Account
+                <ul>
+                    <li>Die Information welche Servicemethoden einen Account benötigen ist nun als Annotation direkt an der Servicemethode hinterlegt, nicht mehr als zentrale Whitelist Konfigurationsdatei</li>
+                </ul>
+            </li>
+        </ul>
     </li>
 </ul>
 <h3>Dokumentation</h3>
@@ -55,4 +64,5 @@
 <h3>Benötigt</h3>
 <ul>
     <li>Die beiden implementierten abstrakten Methoden vom Subnavigation Controller müssen bei allen davon abgeleiteten Controller als protected und im Namen mit vorangestellten "_" deklariert werden</li>
+    <li>Die Konfigurationsdatei '/config/dragonx/account/whitelist.php' kann entfernt werden. Alle Servicemethoden die nicht darin definiert waren müssen die Annotation '@dragonx_account' bekommen</li>
 </ul>
