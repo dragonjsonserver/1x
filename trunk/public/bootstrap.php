@@ -16,6 +16,7 @@
 
 define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/..'));
 define('APPLICATION_ENV', getenv('environment'));
+define('BASEURL', 'http://' . $_SERVER["SERVER_NAME"] . '/');
 
 require APPLICATION_PATH . '/library/Dragon/Application/Application.php';
 $application = new Dragon_Application_Application();

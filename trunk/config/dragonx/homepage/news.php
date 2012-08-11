@@ -32,7 +32,7 @@ return array(
                 . 'Anderen ist ein Fehler im DragonJsonClient behoben der '
                 . 'alle Daten der Vorbelegung in die Ausgabe des Requests '
                 . 'mit angezeigt hat.',
-            'timestamp' => '08.08.2012 20:45 Uhr',
+            'timestamp' => 1344451518,
         ),
         array(
             'title' => 'Version 1.1.0 zum Download verfügbar',
@@ -43,7 +43,7 @@ return array(
                 . 'Multirequests (Bündelung mehrerer Serviceanfragen in einem '
                 . 'HTTP Request) und die Verwaltung der Datenbankstruktur '
                 . 'durch Installationsplugins.',
-            'timestamp' => '22.07.2012 22:16 Uhr',
+            'timestamp' => 1342988194,
         ),
         array(
             'title' => 'Version 1.0.0 zum Download verfügbar',
@@ -54,7 +54,7 @@ return array(
                 . 'eines Json Servers, der generische Json Client und '
                 . 'optionale Pakete für die Homepage, die Datenbank und einer '
                 . 'einfachen Accountverwaltung.',
-            'timestamp' => '07.07.2012 14:22 Uhr',
+            'timestamp' => 1341663737,
         ),
         array(
             'title' => 'Projektstart von DragonJsonServer',
@@ -66,7 +66,7 @@ return array(
                 . 'Die nächsten Tage noch die letzten Arbeiten an '
                 . 'einer ersten Version durchführen und der erste Download '
                 . 'kann Online gestellt werden.',
-            'timestamp' => '08.06.2012 22:19 Uhr',
+            'timestamp' => 1339186768,
         ),
     )
 );

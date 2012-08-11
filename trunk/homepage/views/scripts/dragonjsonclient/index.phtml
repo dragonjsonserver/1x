@@ -50,7 +50,7 @@
     var jsonclient;
     var dragonjsonclient;
     $(document).ready(function () {
-        jsonclient = new JsonClient('http://<?php echo $_SERVER["SERVER_NAME"] ?>');
+        jsonclient = new JsonClient('<?php echo BASEURL; ?>');
         dragonjsonclient = new DragonJsonClient(jsonclient);
     });
 </script>
