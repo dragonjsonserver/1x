@@ -52,6 +52,11 @@
         </ul>
     </li>
 </ul>
+<h3>Allgemein</h3>
+<ul>
+    <li>In der 'bootstrap.php' ist nun die Konstante 'BASEURL' definiert die die URL zur Homepage beinhaltet</li>
+    <li>Es ist nun eine 'feed.php' vorhanden, die alle Neuigkeiten als RSS oder ATOM Feed ausgibt</li>
+</ul>
 <h3>Dokumentation</h3>
 <ul>
     <li>Dokumentation über die Einstellung und Erstellung von Changelogseiten</li>
@@ -59,10 +64,13 @@
 <h3>Homepage</h3>
 <ul>
     <li>Der Footer hat nun keinen Freiraum mehr nach unten wenn die Fensterbreite kleiner als 980px ist</li>
+    <li>Der RSS Feed mit allen Neuigkeiten ist auf der Homepage eingebunden für die Browser</li>
+    <li>Die Zeitpunkte in den News sind nun als Unix Timestamps definiert und werden als Datum formatiert ausgegeben</li>
 </ul>
 <h2>Migration von 1.1.x</h2>
 <h3>Benötigt</h3>
 <ul>
     <li>Die beiden implementierten abstrakten Methoden vom Subnavigation Controller müssen bei allen davon abgeleiteten Controller als protected und im Namen mit vorangestellten "_" deklariert werden</li>
     <li>Die Konfigurationsdatei '/config/dragonx/account/whitelist.php' kann entfernt werden. Alle Servicemethoden die nicht darin definiert waren müssen die Annotation '@dragonx_account' bekommen</li>
+    <li>Bei eigenen News in der Konfigurationsdatei '/config/dragonx/homepage/news.php' muss der Zeitpunkt nun als Unix Timestamp definiert werden</li>
 </ul>

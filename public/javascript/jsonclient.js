@@ -50,9 +50,9 @@ function JsonClient(serverurl, options)
         var options = options || {};
         var requesturl = self.serverurl;
         if ($.isArray(jsonrequest)) {
-            requesturl += '/multijsonrpc2.php';
+            requesturl += 'multijsonrpc2.php';
         } else {
-            requesturl += '/jsonrpc2.php';
+            requesturl += 'jsonrpc2.php';
         }
         $.ajax($.extend({
             url : requesturl,
@@ -70,7 +70,7 @@ function JsonClient(serverurl, options)
     this.smd = function (options) {
         var options = options || {};
         $.ajax($.extend({
-            url : self.serverurl + '/jsonrpc2.php',
+            url : self.serverurl + 'jsonrpc2.php',
             dataType : 'json'
         }, self.options, options));
     }

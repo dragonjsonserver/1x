@@ -38,7 +38,7 @@ if (count($this->news->news) > 0) {
         echo
             '<div class="span' . (int)(12 / $this->news->perrow) . '">'
               . '<h2>' . $this->escape($news->title) . '</h2>'
-              . '<p>' . $this->escape($news->timestamp) . '</p>'
+              . '<p>' . date('d.m.Y', $news->timestamp) . '</p>'
               . '<p>' . $this->escape($news->content) . '</p>'
           . '</div>';
     }
