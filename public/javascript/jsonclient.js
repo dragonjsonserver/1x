@@ -37,6 +37,9 @@ function JsonRequest(id, method, params)
  */
 function JsonClient(serverurl, options)
 {
+	var applicationname = 'JsonClient';
+	var applicationversion = 'v1.2.0';
+	
     this.serverurl = serverurl;
     this.options = options || {};
 
