@@ -39,6 +39,6 @@ class DragonX_Account_Service_Account
      */
     public function authenticateAccount()
     {
-        return array('accountid' => Zend_Registry::get('accountid'));
+        return array('accountid' => Zend_Registry::get('recordAccount')->id);
     }
 }

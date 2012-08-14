@@ -17,7 +17,7 @@
 /**
  * Controller zur Anzeige des Changelogs und der Roadmap
  */
-class ChangelogController extends DragonX_Homepage_Controller_Subnavigation
+class ChangelogController extends DragonX_Homepage_Controller_ASubnavigation
 {
     /**
      * Gibt die Daten für die Subnavigation zurück

@@ -17,7 +17,7 @@
 /**
  * Controller zum Setzen aller Daten des Layouts
  */
-abstract class DragonX_Homepage_Controller_Subnavigation extends DragonX_Homepage_Controller_Abstract
+abstract class DragonX_Homepage_Controller_ASubnavigation extends DragonX_Homepage_Controller_Abstract
 {
     /**
      * Gibt die Daten für die Subnavigation zurück

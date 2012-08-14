@@ -24,11 +24,11 @@ class StartpageController extends DragonX_Homepage_Controller_Abstract
      */
     public function indexAction()
     {
-        $this->view->startpage = new Dragon_Application_Config('dragonx/homepage/startpage');
-        $news = new Dragon_Application_Config('dragonx/homepage/news');
-        $this->view->news = $news;
+        $this->view->configStartpage = new Dragon_Application_Config('dragonx/homepage/startpage');
+        $configNews = new Dragon_Application_Config('dragonx/homepage/news');
+        $this->view->configNews = $configNews;
         if (!isset($this->view->actionname)) {
-            $this->view->actionname = $news->amount;
+            $this->view->actionname = $configNews->amount;
         }
         $this->render('index');
     }

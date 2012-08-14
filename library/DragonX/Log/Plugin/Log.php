@@ -24,15 +24,15 @@ class DragonX_Log_Plugin_Log implements Dragon_Application_Plugin_Bootstrap_Inte
      */
     public function bootstrap()
     {
-        $log = new Dragon_Application_Config('dragonx/log/log');
+        $configLog = new Dragon_Application_Config('dragonx/log/log');
         $logger = new Zend_Log();
-        foreach ($log->eventitems as $name => $value) {
+        foreach ($configLog->eventitems as $name => $value) {
             $logger->setEventItem($name, $value);
         }
-        foreach ($log->writers as $writer) {
+        foreach ($configLog->writers as $writer) {
             $logger->addWriter($writer);
         }
-        foreach ($log->filters as $filter) {
+        foreach ($configLog->filters as $filter) {
             $logger->addFilter($filter);
         }
         Zend_Registry::set('Zend_Log', $logger);

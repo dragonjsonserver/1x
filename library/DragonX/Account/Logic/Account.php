@@ -17,7 +17,7 @@
 /**
  * Logikklasse zur Registrierung und Authentifizierung von Accounts
  */
-class DragonX_Account_Logic_Account extends DragonX_Database_Logic_Abstract
+class DragonX_Account_Logic_Account
 {
     /**
      * Registriert einen Account mit der Identity und dem Credential
@@ -27,8 +27,15 @@ class DragonX_Account_Logic_Account extends DragonX_Database_Logic_Abstract
      */
     public function registerAccount($identity, $credential)
     {
-        $modelAccount = new DragonX_Account_Model_Account();
-        return $modelAccount->registerAccount($identity, md5($credential));
+    	$validatorEmailAddress = new Zend_Validate_EmailAddress();
+    	if (!$validatorEmailAddress->isValid($identity)) {
+    		throw new InvalidArgumentException('invalid identity');
+    	}
+    	$recordAccount = new DragonX_Account_Record_Account(array(
+    	    'identity' => $identity,
+    	    'credential' => md5($credential),
+    	));
+    	Zend_Registry::get('DragonX_Storage_Engine')->saveRecord($recordAccount);
     }
 
     /**
@@ -36,14 +43,38 @@ class DragonX_Account_Logic_Account extends DragonX_Database_Logic_Abstract
      * @param string $identity
      * @param string $credential
      * @return integer
+     * @throws InvalidArgumentException
      */
     public function authenticateAccount($identity, $credential)
     {
-        $modelAccount = new DragonX_Account_Model_Account();
-        $rows = $modelAccount->authenticateAccount($identity, md5($credential));
-        if (count($rows) == 0) {
+    	$listAccounts = Zend_Registry::get('DragonX_Storage_Engine')->loadByConditions(
+    	    new DragonX_Account_Record_Account(),
+    	    array('identity' => $identity, 'credential' => md5($credential))
+    	);
+        if (count($listAccounts) == 0) {
             throw new InvalidArgumentException('incorrect authenticate');
         }
-        return $rows[0]['accountid'];
+        return $listAccounts[0];
+    }
+
+    /**
+     * Meldet einen Account mit der Identity und dem Credential an
+     * @param string $identity
+     * @param string $credential
+     * @throws InvalidArgumentException
+     */
+    public function loginAccount($identity, $credential)
+    {
+        $sessionNamespace = new Zend_Session_Namespace();
+        $sessionNamespace->recordAccount = $this->authenticateAccount($identity, $credential);
+    }
+
+    /**
+     * Meldet den aktuell eingeloggten Account wieder ab
+     */
+    public function logoutAccount()
+    {
+        $sessionNamespace = new Zend_Session_Namespace();
+        $sessionNamespace->unsetAll();
     }
 }

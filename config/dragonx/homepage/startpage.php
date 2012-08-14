@@ -27,5 +27,6 @@ return array(
         . '    <li>New BSD Lizenz zur freien Verwendung aller Projektbestandteile</li>'
         . '    <li>Weitere optionale Pakete zur Erweiterung der Funktionalitäten des Json Servers</li>'
         . '</ul>'
-        . '<a class="btn btn-primary btn-large" href="http://code.google.com/p/dragonjsonserver/downloads/list">Download &raquo;</a>',
+        . '<a class="btn btn-primary btn-large" href="http://code.google.com/p/dragonjsonserver/downloads/list">Download &raquo;</a><br/><br/>'
+        . '<strong>Sollte man das Projekt einsetzen? Nein, ich rate von einer produktiven Nutzung derzeit noch ab. Mit der Version 1.2.0 wird das Database Paket entfallen und es kommt ein ORM zum Einsatz wodurch sich sehr vieles ändert. Ebenfalls kommt das Admintool samt Benutzerverwaltung, mit der Version 1.3.0 noch die passende Rechteverwaltung hinzu mit denen ich sehe ob das Konzept wirklich aufgeht. Erst ab dann macht es Sinn das Projekt auch produktiv einzusetzen.</strong>',
 );

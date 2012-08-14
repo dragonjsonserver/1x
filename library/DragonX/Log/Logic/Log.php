@@ -17,7 +17,7 @@
 /**
  * Logik zur Speicherung von Logeinträgen
  */
-class DragonX_Log_Logic_Log extends DragonX_Database_Logic_Abstract
+class DragonX_Log_Logic_Log
 {
     /**
      * Speichert einen neuen Logeintrag
@@ -27,6 +27,9 @@ class DragonX_Log_Logic_Log extends DragonX_Database_Logic_Abstract
      */
     public function __call($method, $params)
     {
+    	if (!Zend_Registry::isRegistered('Zend_Log')) {
+    		return;
+    	}
         switch (count($params)) {
             case 0:
                 throw new Zend_Log_Exception('Missing log message');
@@ -39,9 +42,8 @@ class DragonX_Log_Logic_Log extends DragonX_Database_Logic_Abstract
                 $extras['params'] = Zend_Json::encode(array_shift($params));
                 break;
         }
-        if (Zend_Registry::isRegistered('Zend_Log')) {
-            $logger = Zend_Registry::get('Zend_Log');
-            $logger->__call($method, array($message, $extras));
-        }
+        $extras['timestamp'] = time();
+        $logger = Zend_Registry::get('Zend_Log');
+        $logger->__call($method, array($message, $extras));
     }
 }

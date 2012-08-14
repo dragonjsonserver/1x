@@ -15,16 +15,16 @@
  */
 
 /**
- * Klasse mit der Versionsnummer des Paketes
+ * Plugin zur Initialisierung des Datenbankadapters bei jedem Request
  */
-class DragonX_Database_Version
+class DragonX_Storage_Plugin_Database implements Dragon_Application_Plugin_Bootstrap_Interface
 {
     /**
-     * Gibt die Versionsnummer des Paketes zurück
-     * @return string
+     * Initialisiert bei jedem Request den Datenbankadapter
      */
-    public function getVersion()
+    public function bootstrap()
     {
-        return '1.1.1';
+        $configDatabase = new Dragon_Application_Config('dragonx/storage/database');
+        Zend_Registry::set('Zend_Db_Adapter', Zend_Db::factory($configDatabase->adapter, $configDatabase->config));
     }
 }

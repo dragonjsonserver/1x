@@ -17,7 +17,7 @@
 /**
  * Controller zur Anzeige der Dokumentation zur Anwendung
  */
-class DocumentationController extends DragonX_Homepage_Controller_Subnavigation
+class DocumentationController extends DragonX_Homepage_Controller_ASubnavigation
 {
     /**
      * Gibt die Daten für die Subnavigation zurück
