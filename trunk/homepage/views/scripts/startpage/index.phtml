@@ -15,28 +15,28 @@
  */
 ?>
 <div class="hero-unit">
-    <?php echo $this->startpage->title; ?>
-    <?php echo $this->startpage->content; ?>
+    <?php echo $this->configStartpage->title; ?>
+    <?php echo $this->configStartpage->content; ?>
 </div>
 <?php
-if ($this->news->amount == 'all' || count($this->news->news) > $this->news->amount) {
+if ($this->configNews->amount == 'all' || count($this->configNews->news) > $this->configNews->amount) {
    if ($this->actionname == 'all') {
        echo '<a href="' . $this->url(array('controller' => $this->controllername), null, true) . '">Weniger anzeigen...</a>';
    } else {
        echo '<a href="' . $this->url(array('controller' => $this->controllername, 'action' => 'all'), null, true) . '">Alle anzeigen...</a>';
    }
 }
-if (count($this->news->news) > 0) {
+if (count($this->configNews->news) > 0) {
     echo '<div class="row">';
-    foreach ($this->news->news as $key => $news) {
+    foreach ($this->configNews->news as $key => $news) {
         if ($this->actionname != 'all' && $this->actionname <= $key) {
             break;
         }
-        if ($key > 0 && $key % $this->news->perrow == 0) {
+        if ($key > 0 && $key % $this->configNews->perrow == 0) {
             echo '</div><div class="row">';
         }
         echo
-            '<div class="span' . (int)(12 / $this->news->perrow) . '">'
+            '<div class="span' . (int)(12 / $this->configNews->perrow) . '">'
               . '<h2>' . $this->escape($news->title) . '</h2>'
               . '<p>' . date('d.m.Y', $news->timestamp) . '</p>'
               . '<p>' . $this->escape($news->content) . '</p>'

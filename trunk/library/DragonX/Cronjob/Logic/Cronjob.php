@@ -17,39 +17,52 @@
 /**
  * Logikklasse zur Verwaltung und Ausführung von Cronjobs
  */
-class DragonX_Cronjob_Logic_Cronjob extends DragonX_Database_Logic_Abstract
+class DragonX_Cronjob_Logic_Cronjob
 {
     /**
      * Führt alle Cronjobs aus deren Intervall erreicht wurde
      */
     public function executeCronjobs()
     {
-        $modelCronjob = new DragonX_Cronjob_Model_Cronjob();
+    	$storage = Zend_Registry::get('DragonX_Storage_Engine');
 
-        $rows = $modelCronjob->getCronjobs();
-        $cronjobs = array();
-        foreach ($rows as $row) {
-            $cronjobs[$row['pluginname']] = $row['lasttimestamp'];
-        }
+    	$listCronjobs = $storage
+    	    ->loadByConditions(new DragonX_Cronjob_Record_Cronjob())
+    	    ->groupBy('pluginname');
 
         $pluginregistry = Zend_Registry::get('Dragon_Plugin_Registry');
         $plugins = $pluginregistry->getPlugins('DragonX_Cronjob_Plugin_Cronjob_Interface');
         foreach ($plugins as $plugin) {
             $pluginname = get_class($plugin);
+            if (isset($listCronjobs[$pluginname])) {
+                $recordCronjob = $listCronjobs[$pluginname];
+            }
+            $timestamp = time();
             $intervall = $plugin->getIntervall();
             if ((
-                    !isset($cronjobs[$pluginname])
-                    ||
-                    (((int)(time() / 60)) - ((int)($cronjobs[$pluginname] / 60))) >= $intervall
+                    isset($recordCronjob)
+                    &&
+                    (((int)($timestamp / 60)) - ((int)($recordCronjob->timestamp / 60))) <= $intervall
                 )
-                &&
-                (((int)(time() / 60)) - $plugin->getOffset()) % $intervall == 0) {
-                try {
-                    $plugin->execute();
-                } catch(Exception $exception) {
-                }
-                $modelCronjob->updateCronjob($pluginname);
+                ||
+                (((int)($timestamp / 60)) - $plugin->getOffset()) % $intervall > 0) {
+                continue;
             }
+            try {
+                $plugin->execute();
+            } catch(Exception $exception) {
+            }
+            if (isset($recordCronjob)) {
+            	$recordCronjob->count += 1;
+            	$recordCronjob->timestamp = $timestamp;
+            } else {
+                $recordCronjob = new DragonX_Cronjob_Record_Cronjob(array(
+                	'pluginname' => $pluginname,
+                	'count' => 1,
+                	'timestamp' => $timestamp
+                ));
+            }
+            $storage->saveRecord($recordCronjob);
         }
     }
 }

@@ -18,7 +18,7 @@
  * Plugin zur Installation des Paketes
  */
 class DragonX_Cronjob_Plugin_Install
-    implements DragonX_Database_Plugin_Install_Interface
+    implements DragonX_Storage_Plugin_Install_Interface
 {
     /**
      * Gibt die SQL Statements zurück um das Paket zu updaten
@@ -27,19 +27,18 @@ class DragonX_Cronjob_Plugin_Install
      */
     public function getInstall($oldversion = '0.0.0')
     {
-        $sqls = array();
+        $sqlstatements = array();
         if (version_compare($oldversion, '1.0.0', '<')) {
-            $sqls[] =
-                "CREATE TABLE `dragonx_cronjob_cronjobs` ("
-                  . "`cronjobid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+            $sqlstatements[] =
+                "CREATE TABLE `dragonx_cronjob_record_cronjob` ("
+                  . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
                   . "`pluginname` VARCHAR(255) NOT NULL, "
-                  . "`count` VARCHAR(255) NOT NULL, "
-                  . "`firsttimestamp` TIMESTAMP NOT NULL, "
-                  . "`lasttimestamp` TIMESTAMP NOT NULL, "
-                  . "PRIMARY KEY (`cronjobid`), "
+                  . "`count` INT(10) UNSIGNED NOT NULL, "
+                  . "`timestamp` INT(10) UNSIGNED NOT NULL, "
+                  . "PRIMARY KEY (`id`), "
                   . "UNIQUE KEY (`pluginname`) "
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }
-        return $sqls;
+        return $sqlstatements;
     }
 }

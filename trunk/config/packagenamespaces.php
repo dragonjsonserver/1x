@@ -35,12 +35,12 @@ return array(
             'Plugin' => array('Install'),
             'Service' => array('Cronjob'),
         ),
-        'Database' => array(
-            'Plugin' => array('Database'),
-        ),
         'Homepage',
         'Log' => array(
             'Plugin' => array('Log', 'Request', 'Install'),
+        ),
+        'Storage' => array(
+            'Plugin' => array('Database', 'Storage'),
         ),
     ),
 );

@@ -91,11 +91,11 @@ $databaselogic-&gt;installPackages();</pre>
 {
     public function getInstall($version = '0.0.0')
     {
-        $sqls = array();
+        $sqlstatements = array();
         if (version_compare($version, '1.0.0', '&lt;')) {
-            $sqls[] = "%sql%";
+            $sqlstatements[] = "%sql%";
         }
-        return $sqls;
+        return $sqlstatements;
     }
 }</pre>
     </li>

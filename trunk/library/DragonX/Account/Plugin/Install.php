@@ -18,7 +18,7 @@
  * Plugin zur Installation des Paketes
  */
 class DragonX_Account_Plugin_Install
-    implements DragonX_Database_Plugin_Install_Interface
+    implements DragonX_Storage_Plugin_Install_Interface
 {
     /**
      * Gibt die SQL Statements zurück um das Paket zu updaten
@@ -27,17 +27,42 @@ class DragonX_Account_Plugin_Install
      */
     public function getInstall($oldversion = '0.0.0')
     {
-        $sqls = array();
+        $sqlstatements = array();
         if (version_compare($oldversion, '1.0.0', '<')) {
-            $sqls[] =
-                "CREATE TABLE `dragonx_account_accounts` ("
-                  . "`accountid` int(10) unsigned NOT NULL AUTO_INCREMENT, "
-                  . "`identity` varchar(255) NOT NULL, "
-                  . "`credential` char(32) NOT NULL, "
-                  . "PRIMARY KEY (`accountid`), "
-                  . "UNIQUE KEY `identity` (`identity`)"
-              . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+            $sqlstatements[] =
+                  "CREATE TABLE `dragonx_account_record_account` ("
+                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`identity` VARCHAR(255) NOT NULL, "
+                    . "`credential` CHAR(32) NOT NULL, "
+                    . "PRIMARY KEY (`id`), "
+                    . "UNIQUE KEY `identity` (`identity`)"
+                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }
-        return $sqls;
+        if (version_compare($oldversion, '1.2.0', '<')) {
+            $sqlstatements[] =
+                  "CREATE TABLE `dragonx_account_record_account` ("
+                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`identity` VARCHAR(255) NOT NULL, "
+                    . "`credential` CHAR(32) NOT NULL, "
+                    . "PRIMARY KEY (`id`), "
+                    . "UNIQUE KEY `identity` (`identity`)"
+                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+
+            $sqlstatements[] =
+                  "INSERT INTO `dragonx_account_record_account` (`id`, `identity`, `credential`) "
+                . "SELECT `accountid`, `identity`, `credential` FROM `dragonx_account_accounts`";
+            $sqlstatements[] = "DROP TABLE `dragonx_account_record_account`";
+
+            $sqlstatements[] =
+                  "CREATE TABLE `dragonx_account_record_credential` ("
+                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`accountid` INT(10) UNSIGNED NOT NULL, "
+                    . "`credentialhash` CHAR(32) NOT NULL, "
+                    . "`timestamp` INT(10) UNSIGNED NOT NULL, "
+                    . "PRIMARY KEY (`id`), "
+                    . "UNIQUE KEY `credentialhash` (`credentialhash`)"
+                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+        }
+        return $sqlstatements;
     }
 }

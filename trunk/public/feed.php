@@ -15,40 +15,5 @@
  */
 
 require 'bootstrap.php';
-$format = 'rss';
-if (isset($_GET['format']) && $_GET['format'] == 'atom') {
-	$format = $_GET['format'];
-}
-$feed = new Zend_Feed_Writer_Feed();
-$application = new Dragon_Application_Config('dragon/application/application');
-$feed->setTitle($application->name);
-$feed->setDescription($application->name . ' ' . $application->version . ' ' . $application->copyright);
-$feed->setLink(BASEURL);
-$feed->setFeedLink(BASEURL . 'feed.php?format=' . $format, $format);
-$imprint = new Dragon_Application_Config('dragonx/homepage/imprint');
-$feed->addAuthor(array(
-    'name'  => $imprint->webmaster,
-    'email' => $imprint->mailingaddress,
-    'uri'   => BASEURL,
-));
-$news = new Dragon_Application_Config('dragonx/homepage/news');
-if (count($news->news) > 0) {
-	$feed->setDateModified($news->news->{0}->timestamp);
-	foreach ($news->news as $news) {
-		$entry = $feed->createEntry();
-		$entry->setTitle($news->title);
-		$entry->setLink(BASEURL);
-		$entry->addAuthor(array(
-		    'name'  => $imprint->webmaster,
-		    'email' => $imprint->mailingaddress,
-		    'uri'   => BASEURL,
-		));
-		$entry->setDateModified($news->timestamp);
-		$entry->setDateCreated($news->timestamp);
-        $entry->setDescription($news->content);
-		$feed->addEntry($entry);
-	}
-} else {
-    $feed->setDateModified(0);
-}
-echo $feed->export($format);
+$feed = new DragonX_Homepage_Feed();
+echo $feed->getFeed(isset($_GET['format']) ? $_GET['format'] : 'rss');

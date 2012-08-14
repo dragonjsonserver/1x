@@ -20,13 +20,13 @@
 interface DragonX_Cronjob_Plugin_Cronjob_Interface
 {
     /**
-     * Gibt den Intervall zurück in welchen Abständen der Cronjob ausgeführt werden soll
+     * Gibt den Intervall zwischen den Cronjobs zurück
      * @return integer
      */
     public function getIntervall();
 
     /**
-     * Gibt das Offset zurück mit welchem Abstand zum Modulo des Intervalls der Cronsjob ausgeführt werden soll
+     * Gibt das Offset zum Intervall des Cronjobs zurück
      * @return integer
      */
     public function getOffset();

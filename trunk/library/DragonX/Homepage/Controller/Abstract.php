@@ -25,8 +25,76 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
     public function preDispatch()
     {
         parent::preDispatch();
-        $this->view->application = new Dragon_Application_Config('dragon/application/application');
-        $this->view->navigation = new Dragon_Application_Config('dragonx/homepage/navigation');
+
+        $this->view->configApplication = new Dragon_Application_Config('dragon/application/application');
+        $this->view->configNavigation = new Dragon_Application_Config('dragonx/homepage/navigation');
         $this->view->controllername = $this->getRequest()->getControllerName();
+    }
+
+    /**
+     * Setzt alle Daten des Layouts der Session
+     */
+    public function postDispatch()
+    {
+        parent::postDispatch();
+
+        $this->view->messages = $this->_helper->FlashMessenger->getMessages();
+
+        $sessionNamespace = new Zend_Session_Namespace();
+        $this->view->recordAccount = $sessionNamespace->recordAccount;
+    }
+
+    /**
+     * Prüft den erforderlichen Parameter und gibt dessen Wert zurück
+     * @param string $name
+     * @return mixed
+     * @throws InvalidArgumentException
+     */
+    public function getRequiredParam($name)
+    {
+        if (!$this->_hasParam($name)) {
+            throw new InvalidArgumentException('required param "' . $name . '"');
+        }
+        return $this->_getParam($name);
+    }
+
+    /**
+     * Prüft die erforderlichen Parameter und gibt deren Werte zurück
+     * @param array $names
+     * @return array
+     * @throws InvalidArgumentException
+     */
+    public function getRequiredParams($names)
+    {
+        $params = array();
+        foreach ($names as $name) {
+            $params[$name] = $this->getRequiredParam($name);
+        }
+        return $params;
+    }
+
+    /**
+     * Gibt den optionalen Parameter oder den Standardwert zurück
+     * @param string $name
+     * @param mixed $default
+     * @return mixed
+     */
+    public function getOptionalParam($name, $default = null)
+    {
+        return $this->_getParam($name, $default);
+    }
+
+    /**
+     * Gibt die optionalen Parameter oder die Standardwerte zurück
+     * @param array $names
+     * @return array
+     */
+    public function getOptionalParams(array $names)
+    {
+        $params = array();
+        foreach ($names as $name => $default) {
+            $params[$name] = $this->getOptionalParam($name, $default);
+        }
+        return $params;
     }
 }

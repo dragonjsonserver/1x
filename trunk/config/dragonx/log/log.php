@@ -24,17 +24,7 @@ return array(
         'params' => null,
     ),
     'writers' => array(
-        new Zend_Log_Writer_Db(
-            Zend_Registry::get('Zend_Db_Adapter_Abstract'),
-            'dragonx_log_logs',
-            array(
-                'priority' => 'priority',
-                'message' => 'message',
-                'requestid' => 'requestid',
-                'accountid' => 'accountid',
-                'params' => 'params',
-            )
-        ),
+        new DragonX_Log_Writer_Storage(),
     ),
     'filters' => array(),
 );

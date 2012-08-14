@@ -15,14 +15,10 @@
  */
 
 /**
- * Plugins zur Installation des Paketes
+ * @var array
  */
-interface DragonX_Database_Plugin_Install_Interface
-{
-    /**
-     * Gibt die SQL Statements zurück um das Paket zu updaten
-     * @param string $version
-     * @return string
-     */
-    public function getInstall($version = '0.0.0');
-}
+return array(
+    'engine' => new DragonX_Storage_Engine_ZendDbAdataper(
+        Zend_Registry::get('Zend_Db_Adapter')
+    ),
+);

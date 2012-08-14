@@ -15,7 +15,15 @@
  */
 
 /**
- * Abstrakte Klasse für die Logikschicht der Daten
+ * @return array
  */
-abstract class DragonX_Database_Logic_Abstract
-{}
+return array(
+    'credentialhash' => array(
+	    'bodytext' => 'credentialhash: %credentialhash%',
+        'subject' => 'credential request',
+    ),
+    'credentiallink' => array(
+        'bodytext' => 'credentiallink: %credentiallink%',
+        'subject' => 'credential request',
+    ),
+);
