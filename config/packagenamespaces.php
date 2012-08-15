@@ -29,7 +29,7 @@ return array(
     'DragonX' => array(
         'Account' => array(
             'Plugin' => array('Account', 'Install'),
-            'Service' => array('Account'),
+            'Service' => array('Account', 'Credential'),
         ),
         'Cronjob' => array(
             'Plugin' => array('Install'),
