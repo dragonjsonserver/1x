@@ -198,7 +198,7 @@ class DragonX_Storage_Engine_ZendDbAdataper implements DragonX_Storage_Engine_In
      */
     public function loadBySqlStatement(DragonX_Storage_Record_Abstract $record, $sqlstatement, array $params = array())
     {
-        $rows = $this->executeSqlStatement($sqlstatement, $params);
+        $rows = $this->_getAdapter()->fetchAssoc($sqlstatement, $params);
         $list = new DragonX_Storage_RecordList();
         $classname = get_class($record);
         foreach ($rows as $row) {
@@ -210,10 +210,9 @@ class DragonX_Storage_Engine_ZendDbAdataper implements DragonX_Storage_Engine_In
     /**
      * Führt ein beliebiges SQL Statement aus
      * @param string $sqlstatement
-     * @return array
      */
     public function executeSqlStatement($sqlstatement, array $params = array())
     {
-        return $this->_getAdapter()->fetchAssoc($sqlstatement, $params);
+        $this->_getAdapter()->query($sqlstatement, $params);
     }
 }

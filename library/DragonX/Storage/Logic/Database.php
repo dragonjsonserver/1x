@@ -27,11 +27,13 @@ class DragonX_Storage_Logic_Database
     	$storage = Zend_Registry::get('DragonX_Storage_Engine');
 
     	$storage->executeSqlStatement(
-              "CREATE TABLE IF NOT EXISTS `dragonx_database_record_package` ("
+              "CREATE TABLE IF NOT EXISTS `dragonx_storage_record_package` ("
+                . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
                 . "`packagenamespace` VARCHAR(255) NOT NULL, "
                 . "`packagename` VARCHAR(255) NOT NULL, "
                 . "`version` VARCHAR(255) NOT NULL, "
-                . "PRIMARY KEY (`packagenamespace`, `packagename`)"
+                . "PRIMARY KEY (`id`),"
+                . "UNIQUE KEY (`packagenamespace`, `packagename`)"
             . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
     	);
         $listPackages = $storage
@@ -44,7 +46,7 @@ class DragonX_Storage_Logic_Database
         foreach ($plugins as $plugin) {
             list ($packagenamespace, $packagename) = explode('_', get_class($plugin), 3);;
             $version = '0.0.0';
-            if (isset($listPackages[$packagenamespace][$packagename])) {
+            if (isset($listPackages[$packagenamespace]) && isset($listPackages[$packagenamespace][$packagename])) {
             	$version = $listPackages[$packagenamespace][$packagename]->version;
             }
             $sqlstatements = array_merge($sqlstatements, $plugin->getInstall($version));
@@ -63,7 +65,7 @@ class DragonX_Storage_Logic_Database
                 }
                 $classname = $packagenamespace . '_' . $packagename . '_Version';
                 $version = new $classname();
-                if (isset($listPackages[$packagenamespace][$packagename])) {
+                if (isset($listPackages[$packagenamespace]) && isset($listPackages[$packagenamespace][$packagename])) {
                 	$recordPackage = $listPackages[$packagenamespace][$packagename];
                 	$recordPackage->version = $version->getVersion();
                 } else {
