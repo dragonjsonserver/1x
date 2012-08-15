@@ -30,11 +30,11 @@ class DragonX_Account_Plugin_Install
         $sqlstatements = array();
         if (version_compare($oldversion, '1.0.0', '<')) {
             $sqlstatements[] =
-                  "CREATE TABLE `dragonx_account_record_account` ("
-                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                  "CREATE TABLE `dragonx_account_accounts` ("
+                    . "`accountid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`identity` VARCHAR(255) NOT NULL, "
                     . "`credential` CHAR(32) NOT NULL, "
-                    . "PRIMARY KEY (`id`), "
+                    . "PRIMARY KEY (`accountid`), "
                     . "UNIQUE KEY `identity` (`identity`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }
@@ -51,7 +51,7 @@ class DragonX_Account_Plugin_Install
             $sqlstatements[] =
                   "INSERT INTO `dragonx_account_record_account` (`id`, `identity`, `credential`) "
                 . "SELECT `accountid`, `identity`, `credential` FROM `dragonx_account_accounts`";
-            $sqlstatements[] = "DROP TABLE `dragonx_account_record_account`";
+            $sqlstatements[] = "DROP TABLE `dragonx_account_accounts`";
 
             $sqlstatements[] =
                   "CREATE TABLE `dragonx_account_record_credential` ("
