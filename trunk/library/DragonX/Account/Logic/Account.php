@@ -36,6 +36,7 @@ class DragonX_Account_Logic_Account
     	    'credential' => md5($credential),
     	));
     	Zend_Registry::get('DragonX_Storage_Engine')->saveRecord($recordAccount);
+    	return $recordAccount->id;
     }
 
     /**
