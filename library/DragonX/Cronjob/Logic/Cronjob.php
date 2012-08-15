@@ -35,7 +35,7 @@ class DragonX_Cronjob_Logic_Cronjob
         foreach ($plugins as $plugin) {
             $pluginname = get_class($plugin);
             if (isset($listCronjobs[$pluginname])) {
-                $recordCronjob = $listCronjobs[$pluginname];
+                list($recordCronjob) = $listCronjobs[$pluginname];
             }
             $timestamp = time();
             $intervall = $plugin->getIntervall();
