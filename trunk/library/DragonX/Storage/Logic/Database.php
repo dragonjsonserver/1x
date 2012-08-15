@@ -47,7 +47,8 @@ class DragonX_Storage_Logic_Database
             list ($packagenamespace, $packagename) = explode('_', get_class($plugin), 3);;
             $version = '0.0.0';
             if (isset($listPackages[$packagenamespace]) && isset($listPackages[$packagenamespace][$packagename])) {
-            	$version = $listPackages[$packagenamespace][$packagename]->version;
+                list($recordPackage) = $listPackages[$packagenamespace][$packagename];
+            	$version = $recordPackage->version;
             }
             $sqlstatements = array_merge($sqlstatements, $plugin->getInstall($version));
         }
@@ -66,7 +67,7 @@ class DragonX_Storage_Logic_Database
                 $classname = $packagenamespace . '_' . $packagename . '_Version';
                 $version = new $classname();
                 if (isset($listPackages[$packagenamespace]) && isset($listPackages[$packagenamespace][$packagename])) {
-                	$recordPackage = $listPackages[$packagenamespace][$packagename];
+                    list($recordPackage) = $listPackages[$packagenamespace][$packagename];
                 	$recordPackage->version = $version->getVersion();
                 } else {
                 	$recordPackage = new DragonX_Storage_Record_Package(array(
