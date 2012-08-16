@@ -210,9 +210,10 @@ class DragonX_Storage_Engine_ZendDbAdataper implements DragonX_Storage_Engine_In
     /**
      * Führt ein beliebiges SQL Statement aus
      * @param string $sqlstatement
+     * @return Zend_Db_Statement_Interface
      */
     public function executeSqlStatement($sqlstatement, array $params = array())
     {
-        $this->_getAdapter()->query($sqlstatement, $params);
+        return $this->_getAdapter()->query($sqlstatement, $params);
     }
 }
