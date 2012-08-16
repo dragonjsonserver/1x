@@ -21,12 +21,6 @@
 <h3>Eigenes Paket anlegen</h3>
 <ul>
     <li>
-        Verzeichnis für Konfigurationsdateien des Paketes anlegen
-<pre>/config
-    /%packagenamespace%
-        /%packagename%</pre>
-    </li>
-    <li>
         Verzeichnisstruktur für das Paket anlegen
 <pre>/library
     /%packagenamespace%
@@ -59,12 +53,11 @@ class %packagenamespace%_%packagename%_Service_%servicename%
     '%packagenamespace%' =&gt; array(
         '%packagename%' =&gt; array(
             'Service' =&gt; array('%servicename%'),
-            'Plugin' =&gt; array(),
         ),
     ),
 );</pre>
     </li>
     <li>Service im DragonJsonClient aufrufen zum Testen</li>
-    <li>Paket erweitern um weitere Logics, Models, Plugins, Services usw.</li>
+    <li>Paket erweitern um weitere Logics, Records, Plugins, Services usw.</li>
 </ul>
 <p>Bei Problemen und Fragen sende eine E-Mail an: ownpackages@dragonjsonserver.de</p>
