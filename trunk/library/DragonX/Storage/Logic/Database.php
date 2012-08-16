@@ -36,6 +36,14 @@ class DragonX_Storage_Logic_Database
                 . "UNIQUE KEY (`packagenamespace`, `packagename`)"
             . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
     	);
+    	try {
+            $storage->executeSqlStatement(
+                  "INSERT INTO `dragonx_storage_record_package` (`packagenamespace`, `packagename`, `version`) "
+                . "SELECT `packagenamespace`, `packagename`, `version` FROM `dragonx_database_packages`"
+            );
+            $storage->executeSqlStatement("DROP TABLE `dragonx_database_packages`");
+    	} catch (Exception $exception) {
+    	}
         $listPackages = $storage
             ->loadByConditions(new DragonX_Storage_Record_Package())
             ->groupBy(array('packagenamespace', 'packagename'));

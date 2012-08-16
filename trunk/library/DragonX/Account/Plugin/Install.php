@@ -45,7 +45,7 @@ class DragonX_Account_Plugin_Install
                     . "`identity` VARCHAR(255) NOT NULL, "
                     . "`credential` CHAR(32) NOT NULL, "
                     . "PRIMARY KEY (`id`), "
-                    . "UNIQUE KEY `identity` (`identity`)"
+                    . "UNIQUE KEY (`identity`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
             $sqlstatements[] =

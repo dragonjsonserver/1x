@@ -28,31 +28,67 @@ class DragonX_Log_Plugin_Install
     public function getInstall($oldversion = '0.0.0')
     {
         $sqlstatements = array();
-        if (version_compare($oldversion, '1.0.0', '<')) {
+        if (version_compare($oldversion, '1.1.0', '<')) {
+            $sqls[] =
+                  "CREATE TABLE `dragonx_log_requests` ("
+                    . "`requestid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`method` VARCHAR(255) NOT NULL, "
+                    . "`id` VARCHAR(255) NOT NULL, "
+                    . "`version` VARCHAR(255) NOT NULL, "
+                    . "`requestparams` TEXT NOT NULL, "
+                    . "`requesttimestamp` TIMESTAMP NOT NULL, "
+                    . "`response` TEXT NULL, "
+                    . "`responsetimestamp` TIMESTAMP NULL, "
+                    . "PRIMARY KEY (`requestid`) "
+                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+
+            $sqls[] =
+                  "CREATE TABLE `dragonx_log_logs` ("
+                    . "`logid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`requestid` INT(10) NULL, "
+                    . "`accountid` INT(10) NULL, "
+                    . "`priority` INT(10) UNSIGNED NOT NULL, "
+                    . "`message` TEXT NOT NULL, "
+                    . "`params` TEXT NULL, "
+                    . "`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, "
+                    . "PRIMARY KEY (`logid`) "
+                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+        }
+        if (version_compare($oldversion, '1.2.0', '<')) {
             $sqlstatements[] =
-                "CREATE TABLE `dragonx_log_record_request` ("
-                  . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
-                  . "`rpcmethod` VARCHAR(255) NOT NULL, "
-                  . "`rpcid` VARCHAR(255) NOT NULL, "
-                  . "`rpcversion` VARCHAR(255) NOT NULL, "
-                  . "`requestparams` TEXT NOT NULL, "
-                  . "`requesttimestamp` INT(10) UNSIGNED NOT NULL, "
-                  . "`response` TEXT NULL, "
-                  . "`responsetimestamp` INT(10) UNSIGNED NULL, "
-                  . "PRIMARY KEY (`id`) "
+                  "CREATE TABLE `dragonx_log_record_request` ("
+                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`rpcmethod` VARCHAR(255) NOT NULL, "
+                    . "`rpcid` VARCHAR(255) NOT NULL, "
+                    . "`rpcversion` VARCHAR(255) NOT NULL, "
+                    . "`requestparams` TEXT NOT NULL, "
+                    . "`requesttimestamp` INT(10) UNSIGNED NOT NULL, "
+                    . "`response` TEXT NULL, "
+                    . "`responsetimestamp` INT(10) UNSIGNED NULL, "
+                    . "PRIMARY KEY (`id`) "
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
             $sqlstatements[] =
-                "CREATE TABLE `dragonx_log_record_log` ("
-                  . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
-                  . "`requestid` INT(10) NULL, "
-                  . "`accountid` INT(10) NULL, "
-                  . "`priority` INT(10) UNSIGNED NOT NULL, "
-                  . "`message` TEXT NOT NULL, "
-                  . "`params` TEXT NULL, "
-                  . "`timestamp` INT(10) UNSIGNED NOT NULL, "
-                  . "PRIMARY KEY (`id`) "
+                  "INSERT INTO `dragonx_log_record_request` (`id`, `rpcmethod`, `rpcid`, `rpcversion`, `requestparams`, `requesttimestamp`, `response`, `responsetimestamp`) "
+                . "SELECT `requestid`, `method`, `id`, `version`, `requestparams`, UNIX_TIMESTAMP(`requesttimestamp`), `response`, UNIX_TIMESTAMP(`responsetimestamp`) FROM `dragonx_log_requests`";
+            $sqlstatements[] = "DROP TABLE `dragonx_log_requests`";
+
+            $sqlstatements[] =
+                  "CREATE TABLE `dragonx_log_record_log` ("
+                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`requestid` INT(10) NULL, "
+                    . "`accountid` INT(10) NULL, "
+                    . "`priority` INT(10) UNSIGNED NOT NULL, "
+                    . "`message` TEXT NOT NULL, "
+                    . "`params` TEXT NULL, "
+                    . "`timestamp` INT(10) UNSIGNED NOT NULL, "
+                    . "PRIMARY KEY (`id`) "
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+
+            $sqlstatements[] =
+                  "INSERT INTO `dragonx_log_record_log` (`id`, `requestid`, `accountid`, `priority`, `message`, `params`, `params`, `timestamp`) "
+                . "SELECT `logid`, `requestid`, `accountid`, `priority`, `message`, `params`, UNIX_TIMESTAMP(`timestamp`) FROM `dragonx_log_logs`";
+            $sqlstatements[] = "DROP TABLE `dragonx_log_logs`";
         }
         return $sqlstatements;
     }
