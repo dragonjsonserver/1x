@@ -63,7 +63,10 @@ class DragonX_Storage_Engine_ZendDbAdataper implements DragonX_Storage_Engine_In
     		$this->_getAdapter()->insert($this->_getTablename($record), $record->toArray());
     		$record->id = $this->_getAdapter()->lastInsertId();
     	} else {
-    		$this->_getAdapter()->update($this->_getTablename($record), $record->toArray(), 'id = ' . (int)$record->id);
+    		$rowCount = $this->_getAdapter()->update($this->_getTablename($record), $record->toArray(), 'id = ' . (int)$record->id);
+    		if ($rowCount == 0) {
+    		    unset($record->id);
+    		}
     	}
         return $this;
     }
