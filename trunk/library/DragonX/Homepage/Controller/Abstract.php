@@ -39,9 +39,17 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
         parent::postDispatch();
 
         $this->view->messages = $this->_helper->FlashMessenger->getMessages();
-
         $sessionNamespace = new Zend_Session_Namespace();
         $this->view->recordAccount = $sessionNamespace->recordAccount;
+    }
+
+    /**
+     * Gibt alle Parameter des Requests zurück
+     * @return array
+     */
+    public function getParams($name)
+    {
+        return $this->_getAllParams();
     }
 
     /**
