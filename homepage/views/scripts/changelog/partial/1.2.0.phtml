@@ -38,15 +38,14 @@
             <li>
                 Json
                 <ul>
-                    <li>Wenn man eigene Instanzen von Dragon_Json_Server_Request erstellt ist die JsonRPC Version nun standardmäßig 2.0</li>
+                    <li>Wenn man eigene Instanzen von 'Dragon_Json_Server_Request' erstellt ist die JsonRPC Version nun standardmäßig 2.0</li>
                     <li>Bei der automatischen Ausgabe von Responses eines Multirequests wird nun standardmäßig der HTTP Header des letzten Responses gesendet</li>
                 </ul>
             </li>
             <li>
                 Homepage
                 <ul>
-                    <li>Die beiden abstrakten Methoden vom Subnavigation Controller sind nun als protected mit vorangestellten "_" deklariert und die Klasse besitzt nun ein vorangestelltes 'A' um sie als abstrakt zu kennzeichnen</li>
-                    <li>Die Navigation wurde angepasst sodass DragonJsonClient nun vor Dokumentation kommt und Changelog in der Headernavigation vorhanden ist</li>
+                    <li>Die beiden abstrakten Methoden vom Subnavigation Controller sind nun als protected mit vorangestellten "_" deklariert und die Klasse besitzt nun ein vorangestelltes 'A' um sie als Abstrakt zu kennzeichnen</li>
                     <li>Es wurden Funktionalitäten hinzugefügt für Passwort vergessen und den Login auf einer Homepage mit Sessionverwaltung</li>
                     <li>Der abstrakte Controller hat nun Methoden um auf die Parameter des Requests zuzugreifen genau wie das Requestobjekt der Services</li>
                 </ul>
@@ -58,6 +57,7 @@
                 Account
                 <ul>
                     <li>Die Information welche Servicemethoden einen Account benötigen ist nun als Annotation direkt an der Servicemethode hinterlegt, nicht mehr als zentrale Whitelist Konfigurationsdatei</li>
+                    <li>Bei der Identität (E-Mail Adresse) ist die Groß-/Kleinschreibung bei Registrierung, Login und Passwort vergessen nicht mehr relevant</li>
                 </ul>
             </li>
         </ul>
@@ -78,7 +78,7 @@
     <li>Der RSS Feed mit allen Neuigkeiten ist auf der Homepage eingebunden für die Browser</li>
     <li>Die Zeitpunkte in den News sind nun als Unix Timestamps definiert und werden als Datum formatiert ausgegeben</li>
     <li>Anpassung der Menüstruktur sodass das Changelog nun in der Headernavigation zu finden ist</li>
-    <li>Die Accountverwaltung wird nun für die Homepage genutzt. In der Headernavigation gibt es nun daher ein Menü für Registrierung und Anmeldung eines Profils</li>
+    <li>Die Accountverwaltung wird nun für die Homepage genutzt. In der Headernavigation gibt es nun daher ein Menü für Registrierung und Anmeldung eines Profils bzw. weitere Funktionalitäten für Passwort vergessen und Abmelden eines Profils</li>
 </ul>
 <h2>Migration von 1.1.x</h2>
 <h3>Benötigt</h3>
@@ -89,15 +89,17 @@
     <li>
         Das Paket DragonX Database wurde entfernt und durch Storage ersetzt:
         <ul>
-            <li>Die Konfigurationsdatei '/config/dragonx/database/database.php' und das Template dafür müssen nach '/config/dragonx/storage/' verschoben werden</li>
+            <li>Die Konfigurationsdatei '/config/dragonx/database/database.php' und das Template müssen nach '/config/dragonx/storage/' verschoben werden</li>
             <li>Das Plugin 'DragonX_Storage_Plugin_Database' ersetzt das Plugin 'DragonX_Database_Plugin_Database' zur Initialisierung des Datenbankadapters</li>
             <li>Die abstrakte Logikklasse entfällt. Bei Logikklassen muss daher die Ableitung davon entfernt werden</li>
-            <li>Die abstrakte Modelklasse entfällt. Die Persistierung von Daten erfolgt nun in den Logikklassen mit den Records über die Storage Engine</li>
+            <li>Die abstrakte Modelklasse entfällt. Die Persistierung von Daten erfolgt nun in den Logikklassen mit den Records über die Storage Engine, siehe: <a href="<?php echo $this->url(array('controller' => 'documentation', 'action' => 'dragonx_storage'), null, true); ?>">Dokumentation/Paket Storage</a></li>
         </ul>
     </li>
     <li>Alle Controller mit einer Subnavigation müssen nun von 'DragonX_Homepage_Controller_ASubnavigation' erben</li>
 </ul>
 <h3>Optional</h3>
 <ul>
+    <li>Eigene Instanzen von 'Dragon_Json_Server_Request' müssen nicht mehr die JsonRPC Version übergeben wenn 2.0 verwendet wird</li>
+    <li>Eigene Controller die auf Request Parameter zugreifen können nun die Methoden des abstrakten Controllers verwenden</li>
     <li>Alle Pfadangaben die den absoluten Browserpfad zur Anwendung benötigen können nun die Konstante 'BASEURL' nutzen</li>
 </ul>

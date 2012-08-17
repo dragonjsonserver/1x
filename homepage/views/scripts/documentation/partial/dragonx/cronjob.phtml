@@ -24,7 +24,7 @@
     <li>
         Das Securitytoken soll sicherstellen dass nur der Cronjob die Aktionen ausführt und nicht ein anderer Benutzer der API
 <pre>return array(
-    'securitytoken' => '%securitytoken%',
+    'securitytoken' =&gt; '%securitytoken%',
 );</pre>
     </li>
     <li>Erstellung eines minütlichen Cronjobs auf dem Webserver der den Service 'DragonX.Cronjob.Service.Cronjob.executeCronjobs' aufruft und das Securitytoken übergibt</li>
@@ -58,5 +58,5 @@
 </ul>
 <h3>Überwachung der Cronjobs</h3>
 <ul>
-    <li>In der Tabelle 'dragonx_cronjob_cronjobs' wird der erste/letzte Zeitpunkt und die Anzahl der Aufrufe aller Cronjobs gespeichert</li>
+    <li>In der Tabelle 'dragonx_cronjob_record_cronjob' wird der letzte Zeitpunkt und die Anzahl der Aufrufe aller Cronjobs gespeichert</li>
 </ul>
