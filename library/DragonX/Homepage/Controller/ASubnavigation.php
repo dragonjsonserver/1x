@@ -37,6 +37,7 @@ abstract class DragonX_Homepage_Controller_ASubnavigation extends DragonX_Homepa
     public function preDispatch()
     {
         parent::preDispatch();
+
         $this->view->subnavigation = $this->_getSubnavigation();
         $this->view->subnavigationdirectory = $this->_getSubnavigationDirectory();
     }
