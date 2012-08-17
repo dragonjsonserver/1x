@@ -20,7 +20,7 @@
 class CredentialController extends DragonX_Homepage_Controller_Abstract
 {
     /**
-     * //TODO
+     * Sendet für die Identität eine Passwort vergessen E-Mail
      */
     public function requestAction()
     {
@@ -40,7 +40,7 @@ class CredentialController extends DragonX_Homepage_Controller_Abstract
     }
 
     /**
-     * //TODO
+     * Zeigt das Formular zur Passwort vergessen Seite an
      */
     public function showrequestAction()
     {
@@ -48,7 +48,7 @@ class CredentialController extends DragonX_Homepage_Controller_Abstract
     }
 
     /**
-     * //TODO
+     * Setzt das Passwort für die Passwort vergessen Anfrage zurück
      */
     public function resetAction()
     {
@@ -70,7 +70,7 @@ class CredentialController extends DragonX_Homepage_Controller_Abstract
     }
 
     /**
-     * //TODO
+     * Zeigt das Formular zur Passwort zurücksetzen Seite an
      */
     public function showresetAction()
     {
