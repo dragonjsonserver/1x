@@ -35,17 +35,64 @@ class DragonX_Storage_RecordList extends ArrayObject
     }
 
     /**
-     * Gibt eine neue Liste gruppiert auf die Attribute zurück
-     * @param string|array $groupby
+     * Gibt die Liste aller IDs der Records zurück
+     * @return array
+     */
+    public function getIds()
+    {
+        $ids = array();
+        foreach ($this as $record) {
+            $ids[] = $record->id;
+        }
+        return $ids;
+    }
+
+    /**
+     * Gibt eine neue Liste gruppiert auf die Klassennamen zurück
      * @return DragonX_Storage_RecordList
      */
-    public function groupBy($groupby)
+    public function indexByClassname()
     {
-    	if (!is_array($groupby)) {
-    		$groupby = array($groupby);
+        $list = new DragonX_Storage_RecordList();
+        foreach ($this as $record) {
+            $classname = get_class($record);
+            if (!isset($list[$classname])) {
+                $list[$classname] = new DragonX_Storage_RecordList();
+            }
+            $list[$classname][] = $record;
+        }
+        return $list;
+    }
+
+    /**
+     * Gibt eine neue Liste gruppiert auf dem Namespace zurück
+     * @return DragonX_Storage_RecordList
+     */
+    public function indexByNamespace()
+    {
+        $list = new DragonX_Storage_RecordList();
+        foreach ($this as $record) {
+            $namespace = $record->getNamespace();
+            if (!isset($list[$namespace])) {
+                $list[$namespace] = new DragonX_Storage_RecordList();
+            }
+            $list[$namespace][] = $record;
+        }
+        return $list;
+    }
+
+    /**
+     * Gibt eine neue Liste gruppiert auf die Attribute zurück
+     * @param string|array $indexby
+     * @return DragonX_Storage_RecordList
+     */
+    public function indexBy($indexby)
+    {
+    	if (!is_array($indexby)) {
+    		$indexby = array($indexby);
     	}
         $list = new DragonX_Storage_RecordList();
-    	$attributename = array_shift($groupby);
+    	$attributename = array_shift($indexby);
     	foreach ($this as $record) {
     		$attribute = $record->$attributename;
     		if (!isset($list[$attribute])) {
@@ -53,9 +100,9 @@ class DragonX_Storage_RecordList extends ArrayObject
     		}
             $list[$attribute][] = $record;
     	}
-    	if (count($groupby) > 0) {
+    	if (count($indexby) > 0) {
 	    	foreach ($list as &$sublist) {
-	    		$sublist = $sublist->groupBy($groupby);
+	    		$sublist = $sublist->indexBy($indexby);
 	    	}
 	    	unset($sublist);
     	}

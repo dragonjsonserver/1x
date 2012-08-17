@@ -27,6 +27,7 @@ class DragonX_Account_Logic_Account
      */
     public function registerAccount($identity, $credential)
     {
+        $identity = strtolower($identity);
     	$validatorEmailAddress = new Zend_Validate_EmailAddress();
     	if (!$validatorEmailAddress->isValid($identity)) {
     		throw new InvalidArgumentException('invalid identity');
@@ -35,7 +36,7 @@ class DragonX_Account_Logic_Account
     	    'identity' => $identity,
     	    'credential' => md5($credential),
     	));
-    	Zend_Registry::get('DragonX_Storage_Engine')->saveRecord($recordAccount);
+    	Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
     	return $recordAccount->id;
     }
 
@@ -48,6 +49,7 @@ class DragonX_Account_Logic_Account
      */
     public function authenticateAccount($identity, $credential)
     {
+        $identity = strtolower($identity);
     	$listAccounts = Zend_Registry::get('DragonX_Storage_Engine')->loadByConditions(
     	    new DragonX_Account_Record_Account(),
     	    array('identity' => $identity, 'credential' => md5($credential))

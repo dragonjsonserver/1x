@@ -26,7 +26,7 @@ class DragonX_Log_Writer_Storage extends Zend_Log_Writer_Abstract
     protected function _write($event)
     {
     	$recordLog = new DragonX_Log_Record_Log($event);
-    	Zend_Registry::get('DragonX_Storage_Engine')->saveRecord($recordLog);
+    	Zend_Registry::get('DragonX_Storage_Engine')->save($recordLog);
     }
 
     /**

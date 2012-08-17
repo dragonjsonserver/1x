@@ -22,10 +22,11 @@ class DragonX_Account_Logic_Credential
     /**
      * Lädt den Account und speichert einen neuen Passwort vergessen Hash
      * @param string $identity
-     * @param string $configMail
+     * @param Zend_Config $configMail
      */
-    public function request($identity, $configMail)
+    public function request($identity, Zend_Config $configMail)
     {
+        $identity = strtolower($identity);
     	$storage = Zend_Registry::get('DragonX_Storage_Engine');
 
         $listAccounts = $storage->loadByConditions(
@@ -42,7 +43,7 @@ class DragonX_Account_Logic_Credential
             'credentialhash' => md5($recordAccount->id . '.' . time()),
             'timestamp' => time(),
         ));
-        $storage->saveRecord($recordCredential);
+        $storage->save($recordCredential);
 
         $bodytext = str_replace(
             array('%credentialhash%', '%credentiallink%'),
@@ -79,14 +80,14 @@ class DragonX_Account_Logic_Credential
         list($recordCredential) = $listCredentials;
 
         $recordAccount = new DragonX_Account_Record_Account($recordCredential->accountid);
-        $storage->loadRecord($recordAccount);
+        $storage->load($recordAccount);
         if (!isset($recordAccount->id)) {
         	throw new Exception('incorrect accountid');
         }
         $recordAccount->credential = md5($credential);
         $storage
-            ->saveRecord($recordAccount)
-            ->deleteRecord($recordCredential);
+            ->save($recordAccount)
+            ->delete($recordCredential);
 
         return $recordAccount;
     }

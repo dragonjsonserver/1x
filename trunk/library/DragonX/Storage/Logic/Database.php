@@ -84,7 +84,7 @@ class DragonX_Storage_Logic_Database
                 	    'version' => $version->getVersion(),
                 	));
                 }
-                $storage->saveRecord($recordPackage);
+                $storage->save($recordPackage);
             }
         }
         return $this;

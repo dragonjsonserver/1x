@@ -17,7 +17,11 @@
 /**
  * Storage Engine zur Verwaltung von Records in einer relationalen Datenbank
  */
-class DragonX_Storage_Engine_ZendDbAdataper implements DragonX_Storage_Engine_Interface
+class DragonX_Storage_Engine_ZendDbAdataper
+    implements DragonX_Storage_Engine_IStorage,
+               DragonX_Storage_Engine_ITransaction,
+               DragonX_Storage_Engine_ICondition,
+               DragonX_Storage_Engine_ISqlStatement
 {
 	/**
      * @var Zend_Db_Adapter_Abstract
@@ -43,13 +47,16 @@ class DragonX_Storage_Engine_ZendDbAdataper implements DragonX_Storage_Engine_In
     }
 
     /**
-     * Gibt den Tabellennamen zum übergebenen Record zurück
-     * @param DragonX_Storage_Record_Abstract $record
+     * Gibt den Tabellennamen zum übergebenen Record oder Namespace zurück
+     * @param mixed $data
      * @return string
      */
-    protected function _getTablename(DragonX_Storage_Record_Abstract $record)
+    protected function _getTablename($data)
     {
-        return strtolower($record->getNamespace());
+        if ($data instanceof DragonX_Storage_Record_Abstract) {
+            $data = $data->getNamespace();
+        }
+        return strtolower($data);
     }
 
     /**
@@ -57,7 +64,7 @@ class DragonX_Storage_Engine_ZendDbAdataper implements DragonX_Storage_Engine_In
      * @param DragonX_Storage_Record_Abstract $record
      * @return DragonX_Storage_Engine_ZendDbAdataper
      */
-    public function saveRecord(DragonX_Storage_Record_Abstract $record)
+    public function save(DragonX_Storage_Record_Abstract $record)
     {
     	if (!isset($record->id)) {
     		$this->_getAdapter()->insert($this->_getTablename($record), $record->toArray());
@@ -79,7 +86,7 @@ class DragonX_Storage_Engine_ZendDbAdataper implements DragonX_Storage_Engine_In
     public function saveList(DragonX_Storage_RecordList $list)
     {
     	foreach ($list as $record) {
-    		$this->saveRecord($record);
+    		$this->save($record);
     	}
         return $this;
     }
@@ -89,14 +96,13 @@ class DragonX_Storage_Engine_ZendDbAdataper implements DragonX_Storage_Engine_In
      * @param DragonX_Storage_Record_Abstract $record
      * @return DragonX_Storage_Engine_ZendDbAdataper
      */
-    public function loadRecord(DragonX_Storage_Record_Abstract $record)
+    public function load(DragonX_Storage_Record_Abstract $record)
     {
-    	$result = $this->_getAdapter()->fetchRow(
-    	    "SELECT * FROM `" . $this->_getTablename($record) . "` WHERE id = " . (int)$record->id,
-    	    Zend_Db::FETCH_ASSOC
+    	$rows = $this->_getAdapter()->fetchAssoc(
+    	    "SELECT * FROM `" . $this->_getTablename($record) . "` WHERE id = " . (int)$record->id
     	);
-    	if ($result) {
-    		$record->fromArray($result);
+    	if (count($rows) > 0) {
+    		$record->fromArray($rows[0]);
     	} else {
     		unset($record->id);
     	}
@@ -110,8 +116,21 @@ class DragonX_Storage_Engine_ZendDbAdataper implements DragonX_Storage_Engine_In
      */
     public function loadList(DragonX_Storage_RecordList $list)
     {
-        foreach ($list as $record) {
-            $this->loadRecord($record);
+        foreach ($list->indexByNamespace() as $namespace => $sublist) {
+            $rows = $this->_getAdapter()->fetchAssoc(
+                "SELECT * FROM `" . $this->_getTablename($namespace) . "` WHERE id IN (" . implode(', ', $sublist->getIds()) . ")"
+            );
+            $indexRows = array();
+            foreach ($rows as $row) {
+                $indexRows[(int)$row] = $row;
+            }
+            foreach ($sublist as $record) {
+                if (isset($indexRows[$record->id])) {
+                    $record->fromArray($indexRows[$record->id]);
+                } else {
+                    unset($record->id);
+                }
+            }
         }
         return $this;
     }
@@ -121,7 +140,7 @@ class DragonX_Storage_Engine_ZendDbAdataper implements DragonX_Storage_Engine_In
      * @param DragonX_Storage_Record_Abstract $record
      * @return DragonX_Storage_Engine_ZendDbAdataper
      */
-    public function deleteRecord(DragonX_Storage_Record_Abstract $record)
+    public function delete(DragonX_Storage_Record_Abstract $record)
     {
         if (isset($record->id)) {
             $this->_getAdapter()->delete($this->_getTablename($record), 'id = ' . (int)$record->id);
@@ -137,10 +156,14 @@ class DragonX_Storage_Engine_ZendDbAdataper implements DragonX_Storage_Engine_In
      */
     public function deleteList(DragonX_Storage_RecordList $list)
     {
-        foreach ($list as $record) {
-            $this->deleteRecord($record);
+        foreach ($list->indexByNamespace() as $namespace => $sublist) {
+            $this->executeSqlStatement(
+                "DELETE FROM `" . $this->_getTablename($namespace) . "` WHERE id IN (" . implode(', ', $sublist->getIds()) . ")"
+            );
+            foreach ($sublist as $record) {
+                unset($record->id);
+            }
         }
-        return $this;
     }
 
     /**
@@ -177,7 +200,7 @@ class DragonX_Storage_Engine_ZendDbAdataper implements DragonX_Storage_Engine_In
      * Lädt alle Records welche auf die Bedingungen zutreffen
      * @param DragonX_Storage_Record_Abstract $record
      * @param array $conditions
-     * @return DragonX_Storage_Engine_ZendDbAdataper
+     * @return DragonX_Storage_RecordList
      */
     public function loadByConditions(DragonX_Storage_Record_Abstract $record, array $conditions = array())
     {

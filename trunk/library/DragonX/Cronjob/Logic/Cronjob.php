@@ -62,7 +62,7 @@ class DragonX_Cronjob_Logic_Cronjob
                 	'timestamp' => $timestamp
                 ));
             }
-            $storage->saveRecord($recordCronjob);
+            $storage->save($recordCronjob);
         }
     }
 }

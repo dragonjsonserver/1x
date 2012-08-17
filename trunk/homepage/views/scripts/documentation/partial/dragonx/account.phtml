@@ -24,6 +24,13 @@
     <li>Alle Services die die Annotation '@dragonx_account' haben benötigen eine Authentifizierung die abgefragt wird</li>
     <li>Alle diese Services werden auch in der SMD erweitert um die notwendigen Parameter zur Authentifizierung</li>
 </ul>
+<h3>Credential Service, Logik und Datenbank</h3>
+<ul>
+    <li>Der Credential Service bietet Methoden für Passwort vergessen und Passwort zurücksetzen an</li>
+    <li>Beim Passwort vergessen wird die Identität abgefragt und eine E-Mail zu dieser als Authentifizierung geschickt</li>
+    <li>Wird das Passwort vergessen über den Service genutzt enthält die E-Mail nur den Hash der beim Passwort zurücksetzen angegeben werden muss</li>
+    <li>Wird das Passwort vergessen über die Homepage genutzt enthält die E-Mail den Link zur Passwort zurücksetzen Seite der Homepage</li>
+</ul>
 <h3>Besonderheit mit Zend_Log</h3>
 <ul>
     <li>Ist in der Zend_Registry ein Zend_Log Objekt hinterlegt (Standardverhalten bei der Verwendung von DragonX_Log) wird bei allen Services die eine Authentifizierung benötigen die AccountID als Eventitem hinzugefügt</li>

@@ -24,7 +24,7 @@ interface DragonX_Storage_Engine_IStorage
      * @param DragonX_Storage_Record_Abstract $record
      * @return DragonX_Storage_Engine_Storage
      */
-    public function saveRecord(DragonX_Storage_Record_Abstract $record);
+    public function save(DragonX_Storage_Record_Abstract $record);
 
     /**
      * Speichert die übergebenen Records im Storage
@@ -38,7 +38,7 @@ interface DragonX_Storage_Engine_IStorage
      * @param DragonX_Storage_Record_Abstract $record
      * @return DragonX_Storage_Engine_Storage
      */
-    public function loadRecord(DragonX_Storage_Record_Abstract $record);
+    public function load(DragonX_Storage_Record_Abstract $record);
 
     /**
      * Lädt die übergebenen Records aus dem Storage
@@ -52,7 +52,7 @@ interface DragonX_Storage_Engine_IStorage
      * @param DragonX_Storage_Record_Abstract $record
      * @return DragonX_Storage_Engine_Storage
      */
-    public function deleteRecord(DragonX_Storage_Record_Abstract $record);
+    public function delete(DragonX_Storage_Record_Abstract $record);
 
     /**
      * Entfernt die übergebenen Records aus dem Storage
