@@ -15,12 +15,12 @@
  */
 
 /**
- * //TODO
+ * Controller zur Registrierung und Verwaltung von Accounts
  */
 class AccountController extends DragonX_Homepage_Controller_Abstract
 {
     /**
-     * //TODO
+     * Registriert einen Account mit der Identity und dem Credential
      */
     public function registerAction()
     {
@@ -43,7 +43,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
     }
 
     /**
-     * //TODO
+     * Zeigt das Formular zur Registrierung eines Accounts an
      */
     public function showregisterAction()
     {
@@ -51,7 +51,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
     }
 
     /**
-     * //TODO
+     * Meldet den übergebenen Account an
      */
     public function loginAction()
     {
@@ -70,7 +70,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
     }
 
     /**
-     * //TODO
+     * Zeigt das Formular zur Anmeldung eines Accounts an
      */
     public function showloginAction()
     {
@@ -78,7 +78,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
     }
 
     /**
-     * //TODO
+     * Meldet den übergebenen Account ab
      */
     public function logoutAction()
     {

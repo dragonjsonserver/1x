@@ -15,7 +15,7 @@
  */
 
 /**
- * Serviceklasse zur Registrierung von Accounts
+ * Serviceklasse zur Registrierung und Verwaltung von Accounts
  */
 class DragonX_Account_Service_Account
 {
