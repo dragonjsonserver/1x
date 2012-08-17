@@ -14,9 +14,135 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 ?>
-<h3></h3>
+<h3>Vorteile einer Storage Engine</h3>
 <ul>
-    <li></li>
+    <li>Objektorientiertes Arbeiten mit verscheidenen Datenquellen durch gemeinsame Schnittstellen</li>
+    <li>Record und RecordList um Daten strukturiert und einfach zu verwalten</li>
+    <li>Nicht überladen mit Features durch SQL Abstraktion. SQL ist effektiv und kann verwendet werden</li>
+</ul>
+<h3>Einstellung einer Storage Engine</h3>
+<ul>
+    <li>
+        Erstellen der Konfigurationsdatei '/config/dragonx/storage/engine.php'
+<pre>return array(
+    'engine' => new DragonX_Storage_Engine_ZendDbAdataper(
+        Zend_Registry::get('Zend_Db_Adapter')
+    ),
+);</pre>
+    </li>
+</ul>
+<h3>Erstellung einer Recordklasse</h3>
+<ul>
+    <li>
+        Definition der Recordklasse im eigenen Paket
+<pre>class %packagenamespace%_%packagename%_Record_%recordname% extends DragonX_Storage_Record_Abstract
+{
+    public $attribute;
+}</pre>
+    </li>
+    <li>Verwendung von geschützten Attributen mit Settern/Gettern</li>
+    <li>
+        Die geschützten Attribute stehen nach aussen wie öffentliche Attribute zur Verfügung
+<pre>class %packagenamespace%_%packagename%_Record_%recordname% extends DragonX_Storage_Record_Abstract
+{
+    protected $_attribute;
+    public function setAttribute($attribute)
+    {
+        $this->_attribute = $attribute;
+    }
+    public function getAttribute()
+    {
+        return $this->_attribute;
+    }
+}</pre>
+    </li>
+    <li>
+        Instanzierung von Records
+<pre>//Neue leere Records
+$record = new %packagenamespace%_%packagename%_Record_%recordname%();
+
+//Records mit einer ID zum späteren Laden
+$id = 1;
+$record = new %packagenamespace%_%packagename%_Record_%recordname%($id);
+
+//Records mit Daten zum späteren Speichern
+$data = array('attribute' => 'value');
+$record = new %packagenamespace%_%packagename%_Record_%recordname%($data);
+
+//Records mit Daten aus anderen Records
+$record = new %packagenamespace%_%packagename%_Record_%recordname%($record);</pre>
+    </li>
+</ul>
+<h3>Verwendung von Records und Storage Engine</h3>
+<ul>
+    <li>
+        Datensätze hinzufügen
+<pre>$record = new %packagenamespace%_%packagename%_Record_%recordname%(array(
+    'attribute' => 'value',
+));
+Zend_Registry::get('DragonX_Storage_Engine')->save($record);</pre>
+    </li>
+    <li>
+        Datensätze laden
+<pre>$id = 1;
+$record = new %packagenamespace%_%packagename%_Record_%recordname%($id);
+Zend_Registry::get('DragonX_Storage_Engine')->load($record);</pre>
+    </li>
+    <li>
+        Datensätze verändern
+<pre>$id = 1;
+$record = new %packagenamespace%_%packagename%_Record_%recordname%($id);
+$storage = Zend_Registry::get('DragonX_Storage_Engine');
+$storage->load($record);
+$record->attribute = 'value';
+$storage->save($record);</pre>
+    </li>
+    <li>
+        Datensätze löschen
+<pre>$id = 1;
+$record = new %packagenamespace%_%packagename%_Record_%recordname%($id);
+Zend_Registry::get('DragonX_Storage_Engine')->delete($record);</pre>
+    </li>
+</ul>
+<h3>Verwendung von RecordList</h3>
+<ul>
+    <li>
+        Datensätze zu einer Liste hinzufügen
+<pre>$list = new DragonX_Storage_RecordList();
+$list[] = new %packagenamespace%_%packagename%_Record_%recordname%();
+$list[] = new %packagenamespace%_%packagename%_Record_%recordname%();</pre>
+    </li>
+    <li>
+        Datensätze in Sublisten strukturieren
+<pre>//Sublist über Klassenname
+$sublist = $list->indexByClassname();
+list($record) = $sublist['%classname%'];
+
+//Sublist über Namespace
+$sublist = $list->indexByNamepsace();
+list($record) = $sublist['%namespace%'];
+
+//Sublist über einzelnes Attribut
+$sublist = $list->indexBy('attributename');
+list($record) = $sublist['attribute'];
+
+//Sublist über mehrere Attribute
+$sublist = $list->indexBy(array('attributenameA', 'attributenameB'));
+list($record) = $sublist['attributeA']['attributeB'];</pre>
+    </li>
+    <li>Listen können wie Records mit der Storage Engine mit 'saveList()' gespeichert, mit 'loadList()' geladen und mit 'deleteList' gelöscht werden</li>
+    <li>SQL Statements können ebenfalls Listen befüllen
+<pre>$storage = Zend_Registry::get('DragonX_Storage_Engine');
+$list = $storage->loadBySqlStatement(
+    new %packagenamespace%_%packagename%_Record_%recordname%(),
+    "SELECT columnnameA, columnnameB FROM tablenameA INNER JOIN tablenameB USING(id) WHERE conditionname = :conditionname",
+    array('conditionname' => 'conditionvalue')
+);
+foreach ($list as $record) {
+    $record->columnnameB += 1;
+}
+$storage->saveList($list);</pre>
+    </li>
 </ul>
 <h3>Datenbankstrukturen der Pakete verwalten</h3>
 <ul>
