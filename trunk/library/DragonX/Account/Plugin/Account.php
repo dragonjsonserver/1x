@@ -56,7 +56,7 @@ class DragonX_Account_Plugin_Account
     }
 
     /**
-     * Fügt bei jedem Request die Authentifizierungsanforderung hinzu
+     * Fügt bei jedem Service die Authentifizierungsanforderung hinzu
      * @param Zend_Json_Server_Smd $servicemap
      */
     public function servicemap(Zend_Json_Server_Smd $servicemap)

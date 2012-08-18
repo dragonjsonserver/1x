@@ -22,7 +22,7 @@
 function DragonJsonClient(jsonclient)
 {
 	var applicationname = 'DragonJsonClient';
-	var applicationversion = 'v1.1.1';
+	var applicationversion = 'v1.2.0';
 
     $('#applicationname').html(applicationname);
     $('#applicationversion').html(applicationversion);
@@ -51,6 +51,7 @@ function DragonJsonClient(jsonclient)
     var self = this;
     /**
      * Sendet und verarbeitet einen Json Request mit den eingegebenen Parametern
+     * @return DragonJsonClient
      */
     this.sendRequest = function ()
     {
@@ -73,11 +74,13 @@ function DragonJsonClient(jsonclient)
                 }
             }
         );
+        return self;
     };
 
     var self = this;
     /**
      * Selektiert einen anderen Namespace und baut die GUI entsprechend um
+     * @return DragonJsonClient
      */
     this.selectNamespace = function ()
     {
@@ -89,11 +92,13 @@ function DragonJsonClient(jsonclient)
                 .appendTo(select);
         });
         self.selectMethod();
+        return self;
     };
 
     var self = this;
     /**
      * Selektiert eine andere Methode und baut die GUI entsprechend um
+     * @return DragonJsonClient
      */
     this.selectMethod = function ()
     {
@@ -121,6 +126,7 @@ function DragonJsonClient(jsonclient)
         } else {
             table.html('<tr><td>Keine Argumente benötigt</td></tr>');
         }
+        return self;
     };
 
     var self = this;
