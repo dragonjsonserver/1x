@@ -24,7 +24,7 @@
                         echo '<li class="nav-header">' . $this->escape($value) . '</li>';
                     } else {
                         echo
-                            '<li' . ($this->actionname == $key ? ' class="active"' : '') . '>'
+                              '<li' . ($this->actionname == $key ? ' class="active"' : '') . '>'
                             . '   <a href="' . $this->url(array('controller' => $this->controllername, 'action' => $key), null, true) . '">' . $this->escape($value) . '   </a>'
                             . '</li>';
                     }
@@ -37,7 +37,7 @@
         <?php
         if (isset($this->subnavigation->{$this->actionname})) {
             echo
-                '<h2>' . $this->subnavigation->{$this->actionname} . '</h2>'
+                  '<h2>' . $this->subnavigation->{$this->actionname} . '</h2>'
                 . $this->partial($this->subnavigationdirectory . '/partial/' . str_replace('_', '/', $this->actionname) . '.phtml');
         }
         ?>
