@@ -36,11 +36,11 @@ if (count($this->configNews->news) > 0) {
             echo '</div><div class="row">';
         }
         echo
-            '<div class="span' . (int)(12 / $this->configNews->perrow) . '">'
-              . '<h2>' . $this->escape($news->title) . '</h2>'
-              . '<p>' . date('d.m.Y', $news->timestamp) . '</p>'
-              . '<p>' . $this->escape($news->content) . '</p>'
-          . '</div>';
+              '<div class="span' . (int)(12 / $this->configNews->perrow) . '">'
+                . '<h2>' . $this->escape($news->title) . '</h2>'
+                . '<p>' . date('d.m.Y', $news->timestamp) . '</p>'
+                . '<p>' . $this->escape($news->content) . '</p>'
+            . '</div>';
     }
     echo '</div>';
 }

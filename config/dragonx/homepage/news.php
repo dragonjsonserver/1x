@@ -22,6 +22,20 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.2.0 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.2.0 ist abgeschlossen und als Download '
+                . 'verfügbar. Weitreichende Änderungen ergab vor allem der '
+                . 'Umstieg auf die Storage Engine. Diese ermöglicht es wie '
+                . 'ein ORM Records in die Datenbank oder andere Datenquellen '
+                . 'zu speichern. Im Gegensatz zu ORMs wird dabei jedoch nicht '
+                . 'auf SQL verzichtet sondern effektiv unterstützt. Ein '
+                . 'weiteres neues Feature ist die Accountverwaltung für die '
+                . 'Homepage mit der man sich nun Registrieren und Anmelden '
+                . 'kann sowie die Möglichkeit sein Passwort zurück zu setzen. ',
+            'timestamp' => 0,
+        ),
+        array(
             'title' => 'Version 1.1.1 zum Download verfügbar',
             'content' =>
                   'Die Version 1.1.1 ist abgeschlossen und als Download '

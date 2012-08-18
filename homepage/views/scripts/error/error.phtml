@@ -64,14 +64,12 @@
                     <th>Args:</th>
                     <td>
                         <table>
-                            <?php foreach ($trace['args'] as $arg) { ?>
+                            <?php
+                            foreach ($trace['args'] as $arg) {
+                                $type = gettype($arg);
+                            ?>
                             <tr>
-                                <th>
-                                <?php
-                                    $type = gettype($arg);
-                                    echo $this->escape($type);
-                                ?>:
-                                </th>
+                                <th><?php echo $this->escape($type); ?>:</th>
                                 <td><?php echo $this->escape($type == 'object' ? get_class($arg) : $arg); ?></td>
                             </tr>
                             <?php } ?>
