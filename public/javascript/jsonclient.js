@@ -33,23 +33,40 @@ function JsonRequest(id, method, params)
  * Erstellt einen neuen Json Client zum Absenden von Json Requests
  * @param string serverurl
  * @param object options
+ * @param object callbacks
  * @constructor
  */
-function JsonClient(serverurl, options)
+function JsonClient(serverurl, options, callbacks)
 {
 	var applicationname = 'JsonClient';
 	var applicationversion = 'v1.2.0';
 	
     this.serverurl = serverurl;
     this.options = options || {};
+    this.callbacks = callbacks || {};
+    this.timestamp = undefined;
+
+    var self = this;
+    /**
+     * Setzt eine Callback Funktion für den Key
+     * @param string key
+     * @param function callback
+     * @return JsonClient
+     */
+    this.setCallback = function (key, callback) {
+    	self.callbacks[key] = callback;
+        return self;
+    }
 
     var self = this;
     /**
      * Sendet einen oder mehrere Json Requests zum Json Server
      * @param JsonRequest jsonrequest
      * @param object options
+     * @return JsonClient
      */
     this.send = function (jsonrequest, options) {
+    	$.extend(jsonrequest.params, {timestamp : self.timestamp});
         var options = options || {};
         var requesturl = self.serverurl;
         if ($.isArray(jsonrequest)) {
@@ -57,24 +74,57 @@ function JsonClient(serverurl, options)
         } else {
             requesturl += 'jsonrpc2.php';
         }
-        $.ajax($.extend({
+        $.ajax($.extend(self.options, options, {
             url : requesturl,
             type: 'POST',
             dataType : 'json',
-            data : JSON.stringify(jsonrequest)
-        }, self.options, options));
+            data : JSON.stringify(jsonrequest),
+            success : function (json) {
+        		if (json.result != undefined && typeof json.result.result != 'undefined') {
+	                $.each(json.result, function(key, result) {
+	                	switch (key) {
+	                		case '_':
+	                			break;
+	                		case 'timestamp':
+	                			self.timestamp = result;
+	                			break;
+	                		default:
+	    	                	if (self.callbacks[key] != undefined) {
+	    	                		self.callbacks[key]({
+	    	                			result : result,
+	    	                			id : json.id,
+	    	                			jsonrpc : json.jsonrpc,
+	    	                		});
+	    	                	}
+	                	}
+	                });
+	                json.result = json.result.result;
+        		}
+    			if (options.success != undefined) {
+    				options.success(json);
+    				return;
+    			}
+    			if (self.options.success != undefined) {
+    				self.options.success(json);
+    				return;
+    			}
+            }
+        }));
+        return self;
     }
 
     var self = this;
     /**
      * Sendet einen Request zur Abfrage der SMD des Json Servers
      * @param object options
+     * @return JsonClient
      */
     this.smd = function (options) {
         var options = options || {};
-        $.ajax($.extend({
+        $.ajax($.extend(self.options, options, {
             url : self.serverurl + 'jsonrpc2.php',
             dataType : 'json'
-        }, self.options, options));
+        }));
+        return self;
     }
 }

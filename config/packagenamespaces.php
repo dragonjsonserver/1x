@@ -31,6 +31,9 @@ return array(
             'Plugin' => array('Account', 'Install'),
             'Service' => array('Account', 'Credential'),
         ),
+        'Clientmessage' => array(
+            'Plugin' => array('Clientmessage'),
+        ),
         'Cronjob' => array(
             'Plugin' => array('Install'),
             'Service' => array('Cronjob'),
