@@ -15,6 +15,10 @@
  */
 ?>
 <h3>Noch geplante Änderungen</h3>
+<h4>Erweiterung des JsonClient</h4>
+<ul>
+    <li>Messages erlauben die zusätzlich zum eigentlichen Response gesendet werden und zentral verarbeitet werden. Hierfür bei jedem Request die Parameter im Key 'request' und nebendran den Timestamp der letzten Antwort vom JsonServer im Key 'timestamp' mitsenden. In der Antwort komm die eigentliche Response im Key 'response' und es können beliebige andere Keys gesendet werden. Der JsonClient kann hierfür konfiguriert werden sodass man Callbackmethoden für beliebige Keys hinterlegen kann die bei jeder Response aufgerufen werden wenn die Keys vorhanden sind</li>
+</ul>
 <h4>Administrationsbereich</h4>
 <ul>
     <li>Prüfen und eventuell umsetzen sodass alle Controller und Views für den Administrationsbereich getrennt von der normalen Homepage sind</li>

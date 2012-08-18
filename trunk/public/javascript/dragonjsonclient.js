@@ -17,6 +17,7 @@
 /**
  * Klasse zur Initialisierung und Steuerung des Dragon Json Clients
  * @param JsonClient Json Client zum Abwenden der Json Requests
+ * @constructor
  */
 function DragonJsonClient(jsonclient)
 {
