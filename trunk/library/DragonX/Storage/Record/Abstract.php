@@ -31,15 +31,16 @@ abstract class DragonX_Storage_Record_Abstract
      */
     public function __construct($data = null)
     {
+    	if (!isset($data)) {
+    		$data = array();
+    	}
     	if (is_numeric($data)) {
-    		$this->__set('id', $data);
+    		$data = array('id' => $data);
     	}
         if ($data instanceof DragonX_Storage_Record_Abstract) {
             $data = $data->toArray();
         }
-    	if (is_array($data)) {
-    		$this->fromArray($data);
-    	}
+    	$this->fromArray($data);
     }
 
     /**
