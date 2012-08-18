@@ -32,7 +32,7 @@ return array(
             'Service' => array('Account', 'Credential'),
         ),
         'Clientmessage' => array(
-            'Plugin' => array('Clientmessage'),
+            'Plugin' => array('Clientmessage', 'Account', 'All', 'Install'),
         ),
         'Cronjob' => array(
             'Plugin' => array('Install'),

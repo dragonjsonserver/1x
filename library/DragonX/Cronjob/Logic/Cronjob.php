@@ -28,7 +28,7 @@ class DragonX_Cronjob_Logic_Cronjob
 
     	$listCronjobs = $storage
     	    ->loadByConditions(new DragonX_Cronjob_Record_Cronjob())
-    	    ->groupBy('pluginname');
+    	    ->indexBy('pluginname');
 
         $pluginregistry = Zend_Registry::get('Dragon_Plugin_Registry');
         $plugins = $pluginregistry->getPlugins('DragonX_Cronjob_Plugin_Cronjob_Interface');
