@@ -46,7 +46,7 @@ class DragonX_Storage_Logic_Database
     	}
         $listPackages = $storage
             ->loadByConditions(new DragonX_Storage_Record_Package())
-            ->groupBy(array('packagenamespace', 'packagename'));
+            ->indexBy(array('packagenamespace', 'packagename'));
 
         $pluginregistry = Zend_Registry::get('Dragon_Plugin_Registry');
         $plugins = $pluginregistry->getPlugins('DragonX_Storage_Plugin_Install_Interface');

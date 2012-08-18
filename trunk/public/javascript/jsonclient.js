@@ -81,21 +81,24 @@ function JsonClient(serverurl, options, callbacks)
             data : JSON.stringify(jsonrequest),
             success : function (json) {
         		if (json.result != undefined && typeof json.result.result != 'undefined') {
-	                $.each(json.result, function(key, result) {
+	                $.each(json.result, function(key, results) {
 	                	switch (key) {
-	                		case '_':
+	                		case 'result':
 	                			break;
 	                		case 'timestamp':
-	                			self.timestamp = result;
+	                			self.timestamp = results;
 	                			break;
 	                		default:
-	    	                	if (self.callbacks[key] != undefined) {
-	    	                		self.callbacks[key]({
-	    	                			result : result,
-	    	                			id : json.id,
-	    	                			jsonrpc : json.jsonrpc,
-	    	                		});
-	    	                	}
+	                			$.each(results, function(subkey, result) {
+		    	                	if (self.callbacks[key] != undefined) {
+		    	                		self.callbacks[key]({
+		    	                			result : result.result,
+		    	                			id : json.id,
+		    	                			jsonrpc : json.jsonrpc,
+		    	                		}, result.timestamp);
+		    	                	}
+	                			});
+	                			break;
 	                	}
 	                });
 	                json.result = json.result.result;
