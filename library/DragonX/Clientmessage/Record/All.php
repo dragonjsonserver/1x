@@ -33,4 +33,17 @@ class DragonX_Clientmessage_Record_All extends DragonX_Storage_Record_Abstract
      * @var integer
      */
     public $timestamp;
+
+    /**
+     * Setzt alle Attribute des Records aus den Daten des Arrays
+     * @param array $data
+     * @return DragonX_Storage_Record_Abstract
+     */
+    public function fromArray(array $data)
+    {
+    	if (!isset($data['timestamp'])) {
+    		$data['timestamp'] = time();
+    	}
+    	parent::fromArray($data);
+    }
 }
