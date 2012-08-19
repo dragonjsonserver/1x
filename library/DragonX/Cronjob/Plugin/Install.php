@@ -29,7 +29,7 @@ class DragonX_Cronjob_Plugin_Install
     {
         $sqlstatements = array();
         if (version_compare($oldversion, '1.1.0', '<')) {
-            $sqls[] =
+            $sqlstatements[] =
                   "CREATE TABLE `dragonx_cronjob_cronjobs` ("
                     . "`cronjobid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`pluginname` VARCHAR(255) NOT NULL, "
