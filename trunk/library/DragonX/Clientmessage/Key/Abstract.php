@@ -13,8 +13,34 @@
  * @license http://framework.zend.com/license/new-bsd New BSD License
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
-?>
-<h3></h3>
-<ul>
-    <li>//TODO</li>
-</ul>
+
+/**
+ * Abstrakte Klasse zur Implementierung eines Keys mit seinen Daten
+ */
+class DragonX_Clientmessage_Key_Abstract extends Dragon_Application_Accessor
+{
+	/**
+	 * @var string
+	 */
+	protected $_key;
+
+    /**
+     * Gibt den Key für die Clientnachricht zurück
+     * @return string
+     */
+	protected function getKey()
+	{
+		return $this->_key;
+	}
+
+    /**
+     * Gibt alle Attribute der Eigenschaft als Array zurück
+     * @return array
+     */
+    public function toArray()
+    {
+    	$array = parent::toArray();
+    	unset($array['key']);
+    	return $array;
+    }
+}

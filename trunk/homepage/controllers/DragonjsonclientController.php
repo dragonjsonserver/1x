@@ -15,12 +15,12 @@
  */
 
 /**
- * Controller zur Anzeige des JsonClients für Anfrage an den JsonServer
+ * Controller zur Anzeige des Json Clients für Anfrage an den JsonServer
  */
 class DragonjsonclientController extends DragonX_Homepage_Controller_Abstract
 {
     /**
-     * Action zur Anzeige des JsonClients für Anfrage an den JsonServer
+     * Action zur Anzeige des Json Clients für Anfrage an den JsonServer
      */
     public function indexAction()
     {}
