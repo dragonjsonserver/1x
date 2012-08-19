@@ -33,7 +33,7 @@ return array(
                 . 'weiteres neues Feature ist die Accountverwaltung für die '
                 . 'Homepage mit der man sich nun Registrieren und Anmelden '
                 . 'kann sowie die Möglichkeit sein Passwort zurück zu setzen. ',
-            'timestamp' => 0,
+            'timestamp' => 1345397367,
         ),
         array(
             'title' => 'Version 1.1.1 zum Download verfügbar',
