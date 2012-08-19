@@ -14,17 +14,6 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 ?>
-<h3>Noch geplante Änderungen</h3>
-<h4>Dokumentation</h4>
-<ul>
-    <li>Das Diagramm der Architektur auf den aktuellen Stand bringen mit der Storage Engine</li>
-</ul>
-<h4>Neues Paket: Clientmessage und Erweiterung des JsonClient</h4>
-<ul>
-    <li>Messages erlauben die zusätzlich zum eigentlichen Response gesendet werden und zentral verarbeitet werden. Hierfür bei jedem Request die Parameter im Key 'request' und nebendran den Timestamp der letzten Antwort vom JsonServer im Key 'timestamp' mitsenden. In der Antwort komm die eigentliche Response im Key 'response' und es können beliebige andere Keys gesendet werden. Der JsonClient kann hierfür konfiguriert werden sodass man Callbackmethoden für beliebige Keys hinterlegen kann die bei jeder Response aufgerufen werden wenn die Keys vorhanden sind</li>
-    <li>Entsprechende Funktionalitäten auch beim JsonServer hinzufügen sodass er zusätzliche Messages zur Response mitsenden kann</li>
-</ul>
-<hr>
 <h3>Releasedatum: noch offen</h3>
 <h3>Neue Pakete</h3>
 <ul>
@@ -96,6 +85,10 @@
     <li>Die Zeitpunkte in den News sind nun als Unix Timestamps definiert und werden als Datum formatiert ausgegeben</li>
     <li>Anpassung der Menüstruktur sodass das Changelog nun in der Headernavigation zu finden ist</li>
     <li>Die Accountverwaltung wird nun für die Homepage genutzt. In der Headernavigation gibt es nun daher ein Menü für Registrierung und Anmeldung eines Profils bzw. weitere Funktionalitäten für Passwort vergessen und Abmelden eines Profils</li>
+</ul>
+<h3>JsonClient</h3>
+<ul>
+    <li>Unterstützung von Clientnachrichten sodass der Client bei Requests Clientnachrichten empfangen und per Callfunktionen darauf reagieren kann, siehe: <a href="<?php echo $this->url(array('controller' => 'documentation', 'action' => 'dragonx_ownclient'), null, true); ?>">Dokumentation/Eigener Client</a></li>
 </ul>
 <h2>Migration von 1.1.x</h2>
 <h3>Benötigt</h3>

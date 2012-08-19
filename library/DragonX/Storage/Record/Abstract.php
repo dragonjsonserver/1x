@@ -18,7 +18,7 @@
  * Abstrakte Klasse mit den Basismethoden eines Records
  * @property integer $id
  */
-abstract class DragonX_Storage_Record_Abstract
+abstract class DragonX_Storage_Record_Abstract extends Dragon_Application_Accessor
 {
 	/**
      * @var integer
@@ -26,20 +26,14 @@ abstract class DragonX_Storage_Record_Abstract
     protected $_id;
 
     /**
-     * Nimmt die ID, einen anderen Record oder ein Array als Datenquelle an
-     * @param integer|DragonX_Storage_Record_Abstract|array $data
+     * Nimmt die ID, ein Array oder eine andere Eigenschaft als Datenquelle an
+     * @param integer|array|Dragon_Application_Accessor $data
      */
-    public function __construct($data = null)
+    public function __construct($data = array())
     {
-    	if (!isset($data)) {
-    		$data = array();
-    	}
     	if (is_numeric($data)) {
     		$data = array('id' => $data);
     	}
-        if ($data instanceof DragonX_Storage_Record_Abstract) {
-            $data = $data->toArray();
-        }
     	$this->fromArray($data);
     }
 
@@ -61,7 +55,6 @@ abstract class DragonX_Storage_Record_Abstract
         return $this->_id;
     }
 
-
     /**
      * Gibt den Namespace des Records zur Speicherung im Storage zurück
      * @return string
@@ -69,97 +62,5 @@ abstract class DragonX_Storage_Record_Abstract
     public function getNamespace()
     {
         return get_class($this);
-    }
-
-    /**
-     * Setzt alle Attribute des Records aus den Daten des Arrays
-     * @param array $data
-     * @return DragonX_Storage_Record_Abstract
-     */
-    public function fromArray(array $data)
-    {
-        foreach ($data as $key => $value) {
-        	try {
-                $this->__set($key, $value);
-        	} catch (Exception $exception) {
-        	}
-        }
-        return $this;
-    }
-
-    /**
-     * Gibt alle Attribute des Records als Array zurück
-     * @return array
-     */
-    public function toArray()
-    {
-    	$array = array();
-    	foreach ($this as $key => $value) {
-            if ($key[0] == '_') {
-                $key = substr($key, 1);
-            }
-            try {
-                $array[$key] = $this->__get($key);
-            } catch (Exception $exception) {
-            }
-    	}
-        return $array;
-    }
-
-    /**
-     * Setzt öffentliche Attribute direkt und Geschützte über den Setter
-     * @param string $key
-     * @param mixed $value
-     */
-    public function __set($key, $value)
-    {
-    	try {
-	        $reflectionProperty = new ReflectionProperty($this, $key);
-	        if ($reflectionProperty->isPublic()) {
-	            $this->$key = $value;
-	            return;
-	        }
-	    } catch (Exception $exception) {
-        }
-    	$methodname = 'set' . ucfirst($key);
-        if (!method_exists($this, $methodname)) {
-        	throw new InvalidArgumentException('missing attribute "' . $key . '"');
-        }
-        call_user_func(array($this, $methodname), $value);
-    }
-
-    /**
-     * Gibt öffentliche Attribute direkt und Geschützte über den Getter zurück
-     * @param string $key
-     * @return mixed
-     */
-    public function __get($key)
-    {
-        try {
-            $reflectionProperty = new ReflectionProperty($this, $key);
-            if ($reflectionProperty->isPublic()) {
-                return $this->$key;
-            }
-        } catch (Exception $exception) {
-        }
-        $methodname = 'get' . ucfirst($key);
-        if (!method_exists($this, $methodname)) {
-            throw new InvalidArgumentException('missing attribute "' . $key . '"');
-        }
-        return call_user_func(array($this, $methodname));
-    }
-
-    /**
-     * Prüft die Existenz des Attributes direkt oder über den Getter
-     * @param string $key
-     * @return boolean
-     */
-    public function __isset($key)
-    {
-    	try {
-    	    return $this->__get($key) != null;
-    	} catch (Exception $exception) {
-        }
-        return false;
     }
 }

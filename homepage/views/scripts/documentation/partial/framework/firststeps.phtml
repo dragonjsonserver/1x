@@ -28,18 +28,10 @@
 <ul>
     <li>zendpath auf den Verzeichnispfad setzen der das Zend Framework enthält</li>
 </ul>
-<h3>Upload und Test des Projektes</h3>
-<ul>
-    <li>Die Projektvorlage auf den Server uploaden (Subdomain möglich, Unterverzeichnis nicht ohne Anpassung)</li>
-    <li>Aufruf der '/jsonrpc2.php' sollte das Json der SMD anzeigen</li>
-    <li>Aufruf der '/index.php' sollte die Startseite der Homepage anzeigen</li>
-    <li>Aufruf von '/dragonjsonclient' sollte den DragonJsonClient mit den Services aus der SMD anzeigen</li>
-    <li>Request absenden beim DragonJsonClient (Namensraum Dragon.Application.Service.Application, Methode getApplication) sollte Anwendungsdaten zurückgeben</li>
-</ul>
-<h3>Einrichtung einer Datenbank (bei Verwendung von DragonX_Storage)</h3>
+<h3>Einrichtung einer Datenbank</h3>
 <ul>
     <li>
-        Erstellen der Konfigurationsdatei '/config/dragonx/storage/database.php' durch umbenennen und anpassen der 'database.php.template' Datei
+        Erstellen der Konfigurationsdatei '/config/dragonx/storage/database.php' durch Umbenennen und Anpassen der 'database.php.template' Datei
 <pre>return array(
     'adapter' =&gt; '%adapter%',
     'config' =&gt; array(
@@ -51,5 +43,12 @@
 );</pre>
     </li>
     <li>Aufruf der 'install.php' sollte alle notwendigen Datenbanktabellen aller eingebunden Pakete erstellen</li>
+</ul>
+<h3>Upload und Test des Projektes</h3>
+<ul>
+    <li>Die Projektvorlage auf den Server uploaden (Subdomain möglich, Unterverzeichnis nicht ohne Anpassung)</li>
+    <li>Aufruf der '/index.php' sollte die Startseite der Homepage anzeigen</li>
+    <li>Aufruf von '/dragonjsonclient' sollte den DragonJsonClient mit den Services aus der SMD anzeigen</li>
+    <li>Request absenden beim DragonJsonClient (Namensraum Dragon.Application.Service.Application, Methode getApplication) sollte Anwendungsdaten zurückgeben</li>
 </ul>
 <p>Bei Problemen und Fragen sende eine E-Mail an: firststeps@dragonjsonserver.de</p>

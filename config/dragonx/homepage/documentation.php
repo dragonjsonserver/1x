@@ -19,11 +19,11 @@
  */
 return array(
     'Grundstruktur',
-    'framework_architecture' => 'Architektur einer Anwendung',
+    'framework_architecture' => 'Architektur der Anwendung',
     'framework_firststeps' => 'Erste Schritte',
-    'framework_dragonjsonclient' => 'Dragon Json Client',
+    'framework_dragonjsonclient' => 'DragonJsonClient',
     'framework_ownpackages' => 'Eigene Pakete',
-    'framework_ownclient' => 'Eigener Client',
+    'framework_jsonclient' => 'Nutzung des Json Client',
     'Namensraum Dragon',
     'dragon_application' => 'Paket Application',
     'dragon_json' => 'Paket Json',
