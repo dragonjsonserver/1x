@@ -22,6 +22,15 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.2.2 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.2.2 ist abgeschlossen und als Download '
+                . 'verfügbar. In der Version wurde das Diagramm zur '
+                . 'Architektur auf den aktuellen Stand gebracht mit den '
+                . 'beiden Paketen Storage und Clientmessage.',
+            'timestamp' => 1345413861,
+        ),
+        array(
             'title' => 'Version 1.2.1 zum Download verfügbar',
             'content' =>
                   'Die Version 1.2.1 ist abgeschlossen und als Download '
