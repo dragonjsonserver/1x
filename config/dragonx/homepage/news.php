@@ -22,6 +22,17 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.2.1 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.2.1 ist abgeschlossen und als Download '
+                . 'verfügbar. Es gab zwei Fehler die behoben wurden. Zum '
+                . 'Einen gab es einen SQL Fehler im Paket Log beim '
+                . 'Übertragen der Daten in die neue Tabellenstruktur und '
+                . 'zum Anderen war die abstrakte Klasse für die Keys der '
+                . 'Clientnachrichten nicht als abstrakt definiert.',
+            'timestamp' => 1345412535,
+        ),
+        array(
             'title' => 'Version 1.2.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.2.0 ist abgeschlossen und als Download '
