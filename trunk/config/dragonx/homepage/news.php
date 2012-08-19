@@ -22,6 +22,14 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.2.3 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.2.3 ist abgeschlossen und als Download '
+                . 'verfügbar. In der Version wurde in den Paketen Log und '
+                . 'Cronjob SQL Fehler bei der Neuinstallation behoben.',
+            'timestamp' => 1345414897,
+        ),
+        array(
             'title' => 'Version 1.2.2 zum Download verfügbar',
             'content' =>
                   'Die Version 1.2.2 ist abgeschlossen und als Download '
