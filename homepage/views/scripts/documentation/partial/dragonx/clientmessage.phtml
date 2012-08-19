@@ -14,7 +14,34 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 ?>
-<h3></h3>
 <ul>
-    <li>//TODO</li>
+    <li>Clientnachrichten haben den Nutzen von beliebigen Stellen aus Daten für verschiedene Clients zur Verfügung zu stellen</li>
+    <li>Die Clientnachrichten werden vom Json Client bei jedem Request angefordert und vom Plugin per 'postDispatch()' and die Antwort angehängt</li>
+</ul>
+<h3>Definierung eines Keys</h3>
+<ul>
+    <li>
+        Ein Key ist eine Eigenschaftenklasse mit derer die Attribute eines Keys definiert werden können
+<pre>class %packagenamespace%_%packagename%_Key_%keyname%
+    extends DragonX_Clientmessage_Key_Abstract
+{
+    protected $_key = '%keyname%';
+    public %attributename%;
+}</pre>
+    </li>
+</ul>
+<h3>Erstellung einer neuen Clientnachricht</h3>
+<ul>
+    <li>
+        Um eine Clientnachricht einzutragen muss diese als Record erstellt und gespeichert werden
+<pre>Zend_Registry::get('DragonX_Storage_Engine')->save(new DragonX_Clientmessage_Record_Account(
+    array('accountid' => %accountid%),
+    new %packagenamespace%_%packagename%_Key_%keyname%(array('%attributename%' => %attributevalue%))
+));</pre>
+    </li>
+</ul>
+<h3>Definierung einer neuen Datenquelle</h3>
+<ul>
+    <li>Standardmäßig stehen die Datenquellen 'All' (alle Clients) und 'Account' (alle Clients mit dem Account) zur Verfügung</li>
+    <li>Andere Datenquellen müssen das Interface 'DragonX_Clientmessage_Plugin_Source_Interface' implementieren das eine RecordList der Clientnachrichten für einen bestimmten Zeitraum zurück gibt</li>
 </ul>
