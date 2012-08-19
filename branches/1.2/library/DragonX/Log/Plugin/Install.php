@@ -86,7 +86,7 @@ class DragonX_Log_Plugin_Install
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
             $sqlstatements[] =
-                  "INSERT INTO `dragonx_log_record_log` (`id`, `requestid`, `accountid`, `priority`, `message`, `params`, `params`, `timestamp`) "
+                  "INSERT INTO `dragonx_log_record_log` (`id`, `requestid`, `accountid`, `priority`, `message`, `params`, `timestamp`) "
                 . "SELECT `logid`, `requestid`, `accountid`, `priority`, `message`, `params`, UNIX_TIMESTAMP(`timestamp`) FROM `dragonx_log_logs`";
             $sqlstatements[] = "DROP TABLE `dragonx_log_logs`";
         }

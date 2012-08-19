@@ -18,7 +18,7 @@
  * Abstrakte Klasse zur Implementierung eines Keys mit seinen Daten
  * @property string $key
  */
-class DragonX_Clientmessage_Key_Abstract extends Dragon_Application_Accessor
+abstract class DragonX_Clientmessage_Key_Abstract extends Dragon_Application_Accessor
 {
 	/**
 	 * @var string

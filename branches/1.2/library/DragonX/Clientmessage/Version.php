@@ -25,6 +25,6 @@ class DragonX_Clientmessage_Version
      */
     public function getVersion()
     {
-        return '1.2.0';
+        return '1.2.1';
     }
 }
