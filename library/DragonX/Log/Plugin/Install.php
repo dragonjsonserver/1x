@@ -29,7 +29,7 @@ class DragonX_Log_Plugin_Install
     {
         $sqlstatements = array();
         if (version_compare($oldversion, '1.1.0', '<')) {
-            $sqls[] =
+            $sqlstatements[] =
                   "CREATE TABLE `dragonx_log_requests` ("
                     . "`requestid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`method` VARCHAR(255) NOT NULL, "
@@ -42,7 +42,7 @@ class DragonX_Log_Plugin_Install
                     . "PRIMARY KEY (`requestid`) "
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
-            $sqls[] =
+            $sqlstatements[] =
                   "CREATE TABLE `dragonx_log_logs` ("
                     . "`logid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`requestid` INT(10) NULL, "
