@@ -1,0 +1,40 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Noch geplante Änderungen</h3>
+<h4>Administrationsbereich</h4>
+<ul>
+    <li>Prüfen und eventuell umsetzen sodass alle Controller und Views für den Administrationsbereich getrennt von der normalen Homepage sind</li>
+    <li>Rechteverwaltung mit Einzelrechten, Rollen und Gruppen (Zend_Acl)</li>
+</ul>
+<h4>Erweiterungen der Accountverwaltung</h4>
+<ul>
+    <li>E-Mail Validierung nach der Registrierung. Account kann genutzt werden, muss aber innerhalb von einer gewissen Zeit validiert werden</li>
+    <li>Seiten die eine Anmeldung benötigen sollen auf den Login weiterleiten und nach erfolgreichem Login wieder zurück auf die Seite die aufgerufen wurde</li>
+    <li>Session auch per API ermöglichen, ein Service der einen Sessionhash für einen Account generiert und zurück gibt welcher dann bei jedem Service übergeben werden muss und für eine gewisse Zeit gültig ist statt bei jedem Aufruf Identität und Credential mitzugeben</li>
+    <li>Accounteinstellungen bearbeiten: Identity und Passwort ändern, Account löschen</li>
+    <li>Für jeden Statuswechsel, also Gast -> registrierter Account -> validierter Account sollen andere Rechte vergeben werden können und für jeden Statuswechsel soll es Plugin Interfaces geben</li>
+</ul>
+<h4>Erweiterungen des Paketes Log</h3>
+<ul>
+    <li>Die Blackliste welche Parameter nicht geloggt werden sollen soll per Annotiation direkt am Service erfolgen. Es muss allerdings auch gelöst werden dass Parameter per Plugin abgegriffen werden können die ebenfalls nicht geloggt werden könnten</li>
+</ul>
+<h4>Homepage</h4>
+<ul>
+    <li>Bei den Neuigkeiten Pagination unterstützen um nicht alle Neuigkeiten auf einer Seite anzeigen zu müssen</li>
+</ul>
+<hr>
+<h3>Releasedatum: noch offen</h3>
