@@ -22,6 +22,17 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.2.4 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.2.4 ist abgeschlossen und als Download '
+                . 'verfügbar. In der Version wurde vor allem ein Fehler im '
+				. 'Paket Account behoben. Der Fehler trat auf, wenn bei einem '
+				. 'Service keine API Dokumentation mit einer Annotation '
+				. 'zur Ermittlung der Notwendigkeit eines gültigen Accounts '
+				. 'vorhanden war.',
+            'timestamp' => 1345467048,
+        ),
+        array(
             'title' => 'Version 1.2.3 zum Download verfügbar',
             'content' =>
                   'Die Version 1.2.3 ist abgeschlossen und als Download '

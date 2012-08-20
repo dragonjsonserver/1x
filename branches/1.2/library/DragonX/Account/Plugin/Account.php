@@ -28,10 +28,14 @@ class DragonX_Account_Plugin_Account
 	 */
 	private function _authenticateRequired($servicename)
 	{
-        $servicearray = explode('.', $servicename);
-        $methodname = array_pop($servicearray);
-        $reflectionClass = new Zend_Reflection_Class(implode('_', $servicearray));
-        return $reflectionClass->getMethod($methodname)->getDocblock()->hasTag('dragonx_account_authenticate');
+        try {
+            $servicearray = explode('.', $servicename);
+            $methodname = array_pop($servicearray);
+            $reflectionClass = new Zend_Reflection_Class(implode('_', $servicearray));
+            return $reflectionClass->getMethod($methodname)->getDocblock()->hasTag('dragonx_account_authenticate');
+        } catch (Exception $exception) {
+        }
+        return false;
 	}
 
     /**

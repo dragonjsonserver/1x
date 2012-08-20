@@ -20,7 +20,8 @@
 class DragonX_Account_Service_Credential
 {
     /**
-     * //TODO
+     * Fordert einen neuen Passwort vergessen Hash per E-Mail an
+     * @param string $identity
      */
     public function requestCredential($identity)
     {
@@ -30,7 +31,9 @@ class DragonX_Account_Service_Credential
     }
 
     /**
-     * //TODO
+     * Setzt Passwort mit dem Passwort vergessen Hash zurück
+     * @param string $credentialhash
+     * @param string $credential
      */
     public function resetCredential($credentialhash, $credential)
     {
