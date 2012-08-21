@@ -200,38 +200,15 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function loadByConditions(DragonX_Storage_Record_Abstract $record, array $conditions = array())
     {
-        $where = "";
-        if (count($conditions) > 0) {
-            $where .= " WHERE ";
-            foreach ($conditions as $key => $value) {
-                $where .= "`" . $key . "` = " . $this->_getAdapter()->quote($value) . " AND ";
-            }
-            $where = substr($where, 0, -5);
-        }
-    	return $this->loadBySqlStatement($record, "SELECT * FROM `" . $this->_getTablename($record) . "`" . $where);
-    }
-
-    /**
-     * Aktualisiert alle Records welche auf die Bedingungen zutreffen
-     * @param DragonX_Storage_Record_Abstract $record
-     * @param array $values
-     * @param array $conditions
-     * @return integer
-     */
-    public function updateByConditions(DragonX_Storage_Record_Abstract $record, array $values, array $conditions = array())
-    {
-    	return $this->_getAdapter()->update($this->_getTablename($record), $values, $conditions);
-    }
-
-    /**
-     * Entfernt alle Records welche auf die Bedingungen zutreffen
-     * @param DragonX_Storage_Record_Abstract $record
-     * @param array $conditions
-     * @return integer
-     */
-    public function deleteByConditions(DragonX_Storage_Record_Abstract $record, array $conditions = array())
-    {
-        return $this->_getAdapter()->delete($this->_getTablename($record), $conditions);
+    	$condition = "";
+    	if (count($conditions) > 0) {
+    		$condition .= " WHERE ";
+    		foreach ($conditions as $key => $value) {
+                $condition .= "`" . $key . "` = " . $this->_getAdapter()->quote($value) . " AND ";
+    		}
+    		$condition = substr($condition, 0, -5);
+    	}
+    	return $this->loadBySqlStatement($record, "SELECT * FROM `" . $this->_getTablename($record) . "`" . $condition);
     }
 
     /**

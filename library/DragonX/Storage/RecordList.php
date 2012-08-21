@@ -35,42 +35,6 @@ class DragonX_Storage_RecordList extends ArrayObject
     }
 
     /**
-     * Entfernt alle Records aus der Liste die neu sind
-     * @return DragonX_Storage_RecordList
-     */
-    public function unsetNewRecords()
-    {
-    	$nullKeys = array();
-        foreach ($this as $key => $record) {
-        	if (!isset($record->id)) {
-        		$nullKeys[] = $key;
-        	}
-        }
-        foreach ($nullKeys as $nullKey) {
-        	unset($this[$nullKey]);
-        }
-        return $this;
-    }
-
-    /**
-     * Entfernt alle Records aus der Liste die geladen wurden
-     * @return DragonX_Storage_RecordList
-     */
-    public function unsetLoadedRecords()
-    {
-        $nullKeys = array();
-        foreach ($this as $key => $record) {
-            if (isset($record->id)) {
-                $nullKeys[] = $key;
-            }
-        }
-        foreach ($nullKeys as $nullKey) {
-            unset($this[$nullKey]);
-        }
-        return $this;
-    }
-
-    /**
      * Gibt die Liste aller IDs der Records zurück
      * @return array
      */

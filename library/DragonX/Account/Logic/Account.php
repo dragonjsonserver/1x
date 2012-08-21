@@ -23,26 +23,20 @@ class DragonX_Account_Logic_Account
      * Registriert einen Account mit der Identity und dem Credential
      * @param string $identity
      * @param string $credential
-     * @param Zend_Config $configMail
      * @return integer
      */
-    public function registerAccount($identity, $credential, Zend_Config $configMail)
+    public function registerAccount($identity, $credential)
     {
         $identity = strtolower($identity);
     	$validatorEmailAddress = new Zend_Validate_EmailAddress();
     	if (!$validatorEmailAddress->isValid($identity)) {
     		throw new InvalidArgumentException('invalid identity');
     	}
-
     	$recordAccount = new DragonX_Account_Record_Account(array(
     	    'identity' => $identity,
     	    'credential' => md5($credential),
     	));
     	Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
-
-    	$logicValidation = new DragonX_Account_Logic_Validation();
-    	$logicValidation->request($recordAccount, $configMail);
-
     	return $recordAccount->id;
     }
 

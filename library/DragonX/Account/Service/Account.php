@@ -28,19 +28,8 @@ class DragonX_Account_Service_Account
     public function registerAccount($identity, $credential)
     {
         $logicAccount = new DragonX_Account_Logic_Account();
-        $configValidation = new Dragon_Application_Config('dragonx/account/validation');
-        $accountid = $logicAccount->registerAccount($identity, $credential, $configValidation->validationhash);
+        $accountid = $logicAccount->registerAccount($identity, $credential);
         return array('accountid' => $accountid);
-    }
-
-    /**
-     * Validiert einen Account mit dem Hash der Validierungsabfrage
-     * @param string $validationhash
-     */
-    public function validateAccount($validationhash)
-    {
-        $logicValidation = new DragonX_Account_Logic_Validation();
-        $logicValidation->validate($validationhash);
     }
 
     /**
