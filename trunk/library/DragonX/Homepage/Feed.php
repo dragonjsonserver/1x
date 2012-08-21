@@ -26,7 +26,7 @@ class DragonX_Homepage_Feed
      */
     public function getFeed($format)
     {
-    	if (!in_array(format, array('rss', 'atom'))) {
+    	if (!in_array($format, array('rss', 'atom'))) {
     		throw new InvalidArgumentException('invalid format');
     	}
 		$feed = new Zend_Feed_Writer_Feed();
