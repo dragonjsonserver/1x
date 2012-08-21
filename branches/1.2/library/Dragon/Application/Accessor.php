@@ -122,4 +122,18 @@ abstract class Dragon_Application_Accessor
         }
         return false;
     }
+
+    /**
+     * Setzt das Attribute auf NULL, entfernt es jedoch nicht aus dem Objekt
+     * @param string $key
+     */
+    public function __unset($key)
+    {
+    	if (isset($this->$key)) {
+    		$this->$key = null;
+    	}
+    	if (isset($this->{'_' . $key})) {
+    	   $this->{'_' . $key} = null;
+    	}
+    }
 }
