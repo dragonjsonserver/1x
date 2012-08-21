@@ -22,6 +22,16 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.2.5 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.2.5 ist abgeschlossen und als Download '
+                . 'verfügbar. In der Version wurden Fehler beim Laden von '
+                . 'Records und RecordLists aus dem ZendDbAdapter Storage '
+                . 'wodurch Records nicht richtig auf NULL gesetzt wurden und '
+                . 'es zu Fehlermeldungen kommen konnte.',
+            'timestamp' => 1345584896,
+        ),
+        array(
             'title' => 'Version 1.2.4 zum Download verfügbar',
             'content' =>
                   'Die Version 1.2.4 ist abgeschlossen und als Download '
