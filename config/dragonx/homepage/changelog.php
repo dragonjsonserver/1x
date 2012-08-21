@@ -19,6 +19,7 @@
  */
 return array(
     'Changelog',
+    '1.2.5' => 'Version 1.2.5',
     '1.2.4' => 'Version 1.2.4',
     '1.2.3' => 'Version 1.2.3',
     '1.2.2' => 'Version 1.2.2',
@@ -27,8 +28,7 @@ return array(
     '1.1.1' => 'Version 1.1.1',
     '1.1.0' => 'Version 1.1.0',
     '1.0.0' => 'Version 1.0.0',
-    'Nächste Versionen',
-    '1.2.5' => 'Version 1.2.5',
+    'Nächste Version',
     '1.3.0' => 'Version 1.3.0',
     'Roadmap',
     'roadmap' => 'Ideensammlung',
