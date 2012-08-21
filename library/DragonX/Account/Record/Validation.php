@@ -15,16 +15,22 @@
  */
 
 /**
- * Klasse mit der Versionsnummer des Paketes
+ * Record zur Speicherung der Daten zu einer Validierungsabfragen
  */
-class DragonX_Storage_Version
+class DragonX_Account_Record_Validation extends DragonX_Storage_Record_Abstract
 {
     /**
-     * Gibt die Versionsnummer des Paketes zurück
-     * @return string
+     * @var integer
      */
-    public function getVersion()
-    {
-        return '1.3.0';
-    }
+    public $accountid;
+
+    /**
+     * @var string
+     */
+    public $validationhash;
+
+    /**
+     * @var integer
+     */
+    public $timestamp;
 }
