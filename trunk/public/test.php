@@ -15,3 +15,4 @@
  */
 
 require 'bootstrap.php';
+$storage = Zend_Registry::get('DragonX_Storage_Engine');
