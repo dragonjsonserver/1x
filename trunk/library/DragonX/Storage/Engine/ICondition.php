@@ -26,4 +26,21 @@ interface DragonX_Storage_Engine_ICondition
      * @return DragonX_Storage_RecordList
      */
     public function loadByConditions(DragonX_Storage_Record_Abstract $record, array $conditions = array());
+
+    /**
+     * Aktualisiert alle Records welche auf die Bedingungen zutreffen
+     * @param DragonX_Storage_Record_Abstract $record
+     * @param array $values
+     * @param array $conditions
+     * @return integer
+     */
+    public function updateByConditions(DragonX_Storage_Record_Abstract $record, array $values, array $conditions = array());
+
+    /**
+     * Entfernt alle Records welche auf die Bedingungen zutreffen
+     * @param DragonX_Storage_Record_Abstract $record
+     * @param array $conditions
+     * @return integer
+     */
+    public function deleteByConditions(DragonX_Storage_Record_Abstract $record, array $conditions = array());
 }
