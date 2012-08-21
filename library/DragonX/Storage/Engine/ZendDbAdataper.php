@@ -98,11 +98,11 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function load(DragonX_Storage_Record_Abstract $record)
     {
-    	$rows = $this->_getAdapter()->fetchAssoc(
+    	$row = $this->_getAdapter()->fetchRow(
     	    "SELECT * FROM `" . $this->_getTablename($record) . "` WHERE id = " . (int)$record->id
     	);
-    	if (count($rows) > 0) {
-    		$record->fromArray($rows[0]);
+    	if ($row) {
+    		$record->fromArray($row);
     	} else {
     		unset($record->id);
     	}
@@ -120,13 +120,9 @@ class DragonX_Storage_Engine_ZendDbAdataper
             $rows = $this->_getAdapter()->fetchAssoc(
                 "SELECT * FROM `" . $this->_getTablename($namespace) . "` WHERE id IN (" . implode(', ', $sublist->getIds()) . ")"
             );
-            $indexRows = array();
-            foreach ($rows as $row) {
-                $indexRows[(int)$row] = $row;
-            }
             foreach ($sublist as $record) {
-                if (isset($indexRows[$record->id])) {
-                    $record->fromArray($indexRows[$record->id]);
+                if (isset($rows[$record->id])) {
+                    $record->fromArray($rows[$record->id]);
                 } else {
                     unset($record->id);
                 }
