@@ -28,7 +28,8 @@ return array(
                 . 'verfügbar. In der Version wurden Fehler beim Laden von '
                 . 'Records und RecordLists aus dem ZendDbAdapter Storage '
                 . 'wodurch Records nicht richtig auf NULL gesetzt wurden und '
-                . 'es zu Fehlermeldungen kommen konnte.',
+                . 'es zu Fehlermeldungen kommen konnte. Des Weiteren war die '
+                . 'Erstellung des RSS Feeds fehlerhaft und wurde korrigiert. ',
             'timestamp' => 1345584896,
         ),
         array(
