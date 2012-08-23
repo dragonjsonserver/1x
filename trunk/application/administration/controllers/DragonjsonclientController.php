@@ -15,16 +15,13 @@
  */
 
 /**
- * Klasse mit der Versionsnummer des Paketes
+ * Controller zur Anzeige des Json Clients für Anfrage an den JsonServer
  */
-class DragonX_Homepage_Version
+class Administration_DragonjsonclientController extends DragonX_Homepage_Controller_Abstract
 {
     /**
-     * Gibt die Versionsnummer des Paketes zurück
-     * @return string
+     * Action zur Anzeige des Json Clients für Anfrage an den JsonServer
      */
-    public function getVersion()
-    {
-        return '1.3.0';
-    }
+    public function indexAction()
+    {}
 }

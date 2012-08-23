@@ -40,7 +40,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
         }
 
         $this->_helper->FlashMessenger('Registrierung erfolgreich');
-        $this->_redirect('startpage/index');
+        $this->_redirect('administration/startpage/index');
     }
 
     /**
@@ -62,7 +62,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
         $sessionNamespace->recordAccount = $recordAccount;
 
         $this->_helper->FlashMessenger('Validierung des Profils erfolgreich');
-        $this->_redirect('startpage/index');
+        $this->_redirect('administration/startpage/index');
     }
 
     /**
@@ -89,7 +89,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
     	}
 
         $this->_helper->FlashMessenger('Anmeldung erfolgreich');
-        $this->_redirect('startpage/index');
+        $this->_redirect('administration/startpage/index');
     }
 
     /**
@@ -98,17 +98,5 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
     public function showloginAction()
     {
         $this->render('login');
-    }
-
-    /**
-     * Meldet den übergebenen Account ab
-     */
-    public function logoutAction()
-    {
-        $logicAccount = new DragonX_Account_Logic_Account();
-        $logicAccount->logoutAccount();
-
-        $this->_helper->FlashMessenger('Abmeldung erfolgreich');
-        $this->_redirect('startpage/index');
     }
 }

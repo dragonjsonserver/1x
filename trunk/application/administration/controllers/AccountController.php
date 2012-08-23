@@ -15,16 +15,19 @@
  */
 
 /**
- * Klasse mit der Versionsnummer des Paketes
+ * Controller zur Registrierung und Verwaltung von Accounts
  */
-class DragonX_Homepage_Version
+class Administration_AccountController extends DragonX_Homepage_Controller_Abstract
 {
     /**
-     * Gibt die Versionsnummer des Paketes zurück
-     * @return string
+     * Meldet den derzeit eingeloggten Account ab
      */
-    public function getVersion()
+    public function logoutAction()
     {
-        return '1.3.0';
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $logicAccount->logoutAccount();
+
+        $this->_helper->FlashMessenger('Abmeldung erfolgreich');
+        $this->_redirect('startpage/index');
     }
 }

@@ -15,16 +15,13 @@
  */
 
 /**
- * Klasse mit der Versionsnummer des Paketes
+ * Controller zur Anzeige der Informationen des Administrationsbereichs
  */
-class DragonX_Homepage_Version
+class Administration_StartpageController extends DragonX_Homepage_Controller_Abstract
 {
     /**
-     * Gibt die Versionsnummer des Paketes zurück
-     * @return string
+     * Action zur Anzeige der Informationen des Administrationsbereichs
      */
-    public function getVersion()
-    {
-        return '1.3.0';
-    }
+    public function indexAction()
+    {}
 }
