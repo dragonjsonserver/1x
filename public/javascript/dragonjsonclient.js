@@ -22,7 +22,7 @@
 function DragonJsonClient(jsonclient)
 {
 	var applicationname = 'DragonJsonClient';
-	var applicationversion = 'v1.2.0';
+	var applicationversion = 'v1.3.0';
 
     $('#applicationname').html(applicationname);
     $('#applicationversion').html(applicationversion);
@@ -31,6 +31,19 @@ function DragonJsonClient(jsonclient)
     this.jsonclient = jsonclient;
     this.namespaces = {};
     this.data = {};
+
+    var self = this;
+    /**
+     * Setzt die Daten zu einem Eingabefeld auf einen Defaultwert
+     * @param string key
+     * @param string value
+     * @return DragonJsonClient
+     */
+    this.setData = function (key, value)
+    {
+        self.data[key] = value;
+        return self;
+    };
 
     var self = this;
     /**

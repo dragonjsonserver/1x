@@ -15,16 +15,12 @@
  */
 
 /**
- * Klasse mit der Versionsnummer des Paketes
+ * @return array
  */
-class DragonX_Homepage_Version
-{
-    /**
-     * Gibt die Versionsnummer des Paketes zurück
-     * @return string
-     */
-    public function getVersion()
-    {
-        return '1.3.0';
-    }
-}
+return array(
+    'header' => array(
+        'startpage' => 'Startseite',
+        'dragonjsonclient' => 'DragonJsonClient',
+    ),
+    'footer' => array(),
+);

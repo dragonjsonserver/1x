@@ -64,7 +64,7 @@
                     <span class="brand"><?php echo $this->configApplication->name . ' ' . $this->configApplication->version; ?></span>
                     <ul class="nav">
                         <?php foreach ($this->configNavigation->header as $controller => $navigation) { ?>
-                            <li<?php echo $this->controllername == $controller ? ' class="active"' : ''; ?>><a href="<?php echo $this->url(array('controller' => $controller), null, true); ?>"><?php echo $navigation; ?></a></li>
+                            <li<?php echo $this->controllername == $controller ? ' class="active"' : ''; ?>><a href="<?php echo $this->url(array('module' => $this->modulename, 'controller' => $controller), null, true); ?>"><?php echo $navigation; ?></a></li>
                         <?php } ?>
                     </ul>
                     <div class="btn-group pull-right">
@@ -74,7 +74,7 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo $this->url(array('controller' => 'account', 'action' => 'logout'), null, true); ?>">Abmelden</a></li>
+                            <li><a href="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'logout'), null, true); ?>">Abmelden</a></li>
                         </ul>
                         <?php } else { ?>
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="">
@@ -108,7 +108,7 @@
                             <span class="brand"><?php echo $this->configApplication->copyright; ?></span>
                             <ul class="nav">
                                 <?php foreach ($this->configNavigation->footer as $controller => $navigation) { ?>
-                                    <li<?php echo $this->controllername == $controller ? ' class="active"' : ''; ?>><a href="<?php echo $this->url(array('controller' => $controller), null, true); ?>"><?php echo $navigation; ?></a></li>
+                                    <li<?php echo $this->controllername == $controller ? ' class="active"' : ''; ?>><a href="<?php echo $this->url(array('module' => $this->modulename, 'controller' => $controller), null, true); ?>"><?php echo $navigation; ?></a></li>
                                 <?php } ?>
                             </ul>
                         </div>

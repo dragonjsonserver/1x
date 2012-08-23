@@ -66,7 +66,7 @@ class CredentialController extends DragonX_Homepage_Controller_Abstract
         $logicAccount->loginAccount($recordAccount->identity, $params['credential']);
 
         $this->_helper->FlashMessenger('Zurücksetzen des Passworts erfolgreich');
-        $this->_redirect('startpage/index');
+        $this->_redirect('administration/startpage/index');
     }
 
     /**

@@ -27,7 +27,10 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
         parent::preDispatch();
 
         $this->view->configApplication = new Dragon_Application_Config('dragon/application/application');
-        $this->view->configNavigation = new Dragon_Application_Config('dragonx/homepage/navigation');
+        $this->view->modulename = $this->getRequest()->getModuleName();
+        if (in_array($this->view->modulename, array('homepage', 'administration'))) {
+	        $this->view->configNavigation = new Dragon_Application_Config('dragonx/' . $this->view->modulename . '/navigation');
+        }
         $this->view->controllername = $this->getRequest()->getControllerName();
     }
 
