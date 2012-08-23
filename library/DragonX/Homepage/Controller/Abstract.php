@@ -28,10 +28,41 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
 
         $this->view->configApplication = new Dragon_Application_Config('dragon/application/application');
         $this->view->modulename = $this->getRequest()->getModuleName();
-        if (in_array($this->view->modulename, array('homepage', 'administration'))) {
-	        $this->view->configNavigation = new Dragon_Application_Config('dragonx/' . $this->view->modulename . '/navigation');
-        }
         $this->view->controllername = $this->getRequest()->getControllerName();
+        switch ($this->view->modulename) {
+        	case 'homepage':
+        		$this->view->configNavigation = new Dragon_Application_Config('dragonx/homepage/navigation');
+        		break;
+        	case 'administration':
+                $this->view->configNavigation = new Dragon_Application_Config('dragonx/administration/navigation');
+		        $sessionNamespace = new Zend_Session_Namespace();
+                if (!isset($sessionNamespace->recordAccount)) {
+                	$frontController = $this->getFrontController();
+                    $defaultcontrollername = $frontController->getDefaultControllerName();
+                	$actionname = $this->getRequest()->getActionName();
+                	$defaultactionname = $frontController->getDefaultAction();
+                    $params = array();
+                	if ($this->view->controllername != $defaultcontrollername
+                	    ||
+                	    $actionname != $defaultactionname) {
+                	    if ($this->view->controllername != $defaultcontrollername) {
+                	    	if ($actionname == $defaultactionname) {
+	                	    	$params = array('redirect' => 'administration/' . $this->view->controllername);
+                	    	} else {
+	                	    	$params = array('redirect' => 'administration/' . $this->view->controllername . '/' . $actionname);
+                	    	}
+                	    } elseif ($actionname != $defaultactionname) {
+                	    	$params = array('redirect' => 'administration/' . $this->view->controllername . '/' . $actionname);
+                	    }
+                	}
+                	$redirect = '';
+                	if (count($params) > 0) {
+                		$redirect = '?' . http_build_query($params);
+                	}
+                	$this->_redirect('account/showlogin' . $redirect);
+                }
+        		break;
+        }
     }
 
     /**

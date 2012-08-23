@@ -59,6 +59,7 @@
                 <ul>
                     <li>Wenn ein Account für die Homepage eingeloggt ist wird nun die Navigation für den Administrationbereich geladen</li>
                     <li>Der Modulname wird dem Layout mit übergeben sodass das Layout zu den Controllern des jeweiligen Moduls verlinken kann</li>
+                    <li>Der abstrakte Controller prüft nun auf einen gültigen Account wenn auf den Administrationsbereich zugegriffen wird und leitet entsprechend auf den Login um wenn kein gültiger Account vorliegt</li>
                 </ul>
             </li>
         </ul>
@@ -75,6 +76,7 @@
         </ul>
     </li>
     <li>Das Changelog ist nun unterteilt in Branches und nicht mehr in die einzelnen Versionen</li>
+    <li>Der Login nimmt eine Weiterleitung durch den abstrakten Controller entgegen und leitet bei einem erfolgreichen Login auf diese Seite um</li>
 </ul>
 <h4>JsonClient</h4>
 <ul>
@@ -87,7 +89,7 @@
 <h2>Migration vom Branch 1.2</h2>
 <h3>Benötigt</h3>
 <ul>
-    <li></li>
+    <li>Da die Anwendung nun in die Bereiche Homepage nun Administration getrennt wurde müssen auch alle eigenen Controller und Views darauf aufgeteilt werden</li>
 </ul>
 <h3>Optional</h3>
 <ul>

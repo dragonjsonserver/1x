@@ -40,7 +40,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
         }
 
         $this->_helper->FlashMessenger('Registrierung erfolgreich');
-        $this->_redirect('administration/startpage/index');
+        $this->_redirect('administration');
     }
 
     /**
@@ -62,7 +62,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
         $sessionNamespace->recordAccount = $recordAccount;
 
         $this->_helper->FlashMessenger('Validierung des Profils erfolgreich');
-        $this->_redirect('administration/startpage/index');
+        $this->_redirect('administration');
     }
 
     /**
@@ -78,6 +78,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
      */
     public function loginAction()
     {
+    	$redirect = $this->getOptionalParam('redirect', 'administration');
     	try {
             $params = $this->getRequiredParams(array('identity', 'credential'));
 
@@ -85,11 +86,14 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
 	        $logicAccount->loginAccount($params['identity'], $params['credential']);
     	} catch (Exception $exception) {
 	        $this->_helper->FlashMessenger('E-Mail Adresse oder Passwort nicht korrekt');
-	        $this->_redirect('account/showlogin');
+	        if ($redirect != 'administration') {
+	        	$redirect = '?' . http_build_query(array('redirect' => $redirect));
+	        }
+	        $this->_redirect('account/showlogin' . $redirect);
     	}
 
         $this->_helper->FlashMessenger('Anmeldung erfolgreich');
-        $this->_redirect('administration/startpage/index');
+        $this->_redirect($redirect);
     }
 
     /**
@@ -97,6 +101,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
      */
     public function showloginAction()
     {
+    	$this->view->redirect = $this->getOptionalParam('redirect');
         $this->render('login');
     }
 }
