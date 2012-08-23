@@ -38,6 +38,7 @@
         if (isset($this->subnavigation->{$this->actionname})) {
             echo
                   '<h2>' . $this->subnavigation->{$this->actionname} . '</h2>'
+                . '<hr>'
                 . $this->partial($this->subnavigationdirectory . '/partial/' . str_replace('_', '/', $this->actionname) . '.phtml');
         }
         ?>

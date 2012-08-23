@@ -18,19 +18,12 @@
  * @return array
  */
 return array(
-    'Changelog',
-    '1.2.6' => 'Version 1.2.6',
-    '1.2.5' => 'Version 1.2.5',
-    '1.2.4' => 'Version 1.2.4',
-    '1.2.3' => 'Version 1.2.3',
-    '1.2.2' => 'Version 1.2.2',
-    '1.2.1' => 'Version 1.2.1',
-    '1.2.0' => 'Version 1.2.0',
-    '1.1.1' => 'Version 1.1.1',
-    '1.1.0' => 'Version 1.1.0',
-    '1.0.0' => 'Version 1.0.0',
-    'Nächste Version',
-    '1.3.0' => 'Version 1.3.0',
-    'Roadmap',
+    'Aktueller Branch',
+    '1.2' => 'Branch 1.2',
+    'Ältere Branches',
+    '1.1' => 'Branch 1.1',
+    '1.0' => 'Branch 1.0',
+    'Nächster Branch',
+    '1.3' => 'Branch 1.3',
     'roadmap' => 'Ideensammlung',
 );
