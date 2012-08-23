@@ -28,6 +28,6 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
         $logicAccount->logoutAccount();
 
         $this->_helper->FlashMessenger('Abmeldung erfolgreich');
-        $this->_redirect('startpage/index');
+        $this->_redirect('');
     }
 }
