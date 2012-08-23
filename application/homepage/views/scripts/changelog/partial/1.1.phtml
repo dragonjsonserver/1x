@@ -14,13 +14,35 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 ?>
-<h3>Releasedatum: 22.07.2012</h3>
-<h3>Allgemeine Änderungen</h3>
+<h3>Version 1.1.1</h3>
+<h4>Releasedatum: 08.08.2012</h4>
+<h4>Geänderte Pakete</h4>
+<ul>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Database
+                <ul>
+                    <li>Wenn man mehrere Datensätze per "_insert()" oder "_insertupdate()" einfügt bekommt man nun immer die letzte Last Insert ID zurück</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4>DragonJsonClient</h4>
+<ul>
+    <li>Die Anzeige der Ausgabe enthält nun nicht mehr die gesamten Daten der Vorbefüllung der Eingabefelder</li>
+</ul>
+<hr>
+<h3>Version 1.1.0</h3>
+<h4>Releasedatum: 22.07.2012</h4>
+<h4>Allgemeine Änderungen</h4>
 <ul>
     <li>Versionierung von Paketen mit Plugins/Services unterstüzen</li>
     <li>Es steht nun ein Json Client zur Verfügung den man für eigene JavaScript Clients nutzen kann, siehe: <a href="<?php echo $this->url(array('controller' => 'documentation', 'action' => 'framework_ownclient'), null, true); ?>">Dokumentation/Eigener Client</a></li>
 </ul>
-<h3>Neue Pakete</h3>
+<h4>Neue Pakete</h4>
 <ul>
     <li>
         DragonX
@@ -30,7 +52,7 @@
         </ul>
     </li>
 </ul>
-<h3>Geänderte Pakete</h3>
+<h4>Geänderte Pakete</h4>
 <ul>
     <li>
         Dragon
@@ -84,22 +106,24 @@
         </ul>
     </li>
 </ul>
-<h3>Homepage</h3>
+<h4>Homepage</h4>
 <ul>
     <li>Neuer Menüpunkt Changelog inklusive der Roadmap mit der Ideensammlung</li>
 </ul>
-<h3>DragonJsonClient</h3>
+<h4>DragonJsonClient</h4>
 <ul>
     <li>Sendet nun seinen Anwendungsnamen und die Version bei einem JsonRPC Request als ID mit</li>
     <li>Übernimmt nun alle Ausgabeparameter aus Requests in die Daten für die Vorbefüllung der Eingabefelder</li>
 </ul>
-<h2>Migration von 1.0.0</h2>
-<h3>Benötigt</h3>
+<hr>
+<h2>Migration vom Branch 1.0</h2>
+<hr>
+<h4>Benötigt</h4>
 <ul>
     <li>Jedes Paket benötigt nun eine Versionsdatei, siehe: <a href="<?php echo $this->url(array('controller' => 'documentation', 'action' => 'framework_ownpackages'), null, true); ?>">Dokumentation/Eigene Pakete</a></li>
     <li>Alle Controller der Homepage müssen nun von 'DragonX_Homepage_Controller_Abstract' statt von 'DragonX_Homepage_Controller' erben</li>
 </ul>
-<h3>Optional</h3>
+<h4>Optional</h4>
 <ul>
     <li>Alle öffentlichen PHP Dateien (index.php, jsonrpc.php usw.) können nun die bootstrap.php nutzen zur Initialisierung von 'Dragon_Application_Application'</li>
     <li>Die öffentliche PHP Datei multijsonrpc2.php kann übernommen werden um Multirequests zu unterstützen</li>
