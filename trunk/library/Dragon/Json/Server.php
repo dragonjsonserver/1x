@@ -103,7 +103,11 @@ class Dragon_Json_Server extends Zend_Json_Server
 		$responses = array();
 		foreach ($requests as $request) {
 		    $request['params'] += $params;
-		    $response = $this->handle(new Dragon_Json_Server_Request_Http($request))->toArray();
+		    $response = $this->handle(new Dragon_Json_Server_Request_Http($request));
+		    if ($autoemitresponse) {
+		    	$response->sendHeaders();
+		    }
+		    $response = $response->toArray();
 		    if (isset($response['result']) && is_array($response['result'])) {
 		        $params += $response['result'];
 		    }
@@ -111,11 +115,6 @@ class Dragon_Json_Server extends Zend_Json_Server
 		}
 		if (!$autoemitresponse) {
 			return $responses;
-		}
-		$response = end($responses);
-		if ($response) {
-		    $response->sendHeaders();
-		    reset($responses);
 		}
 		echo Zend_Json::encode($responses);
     }

@@ -39,7 +39,7 @@ function JsonRequest(id, method, params)
 function JsonClient(serverurl, options, callbacks)
 {
 	var applicationname = 'JsonClient';
-	var applicationversion = 'v1.2.0';
+	var applicationversion = 'v1.2.6';
 	
     this.serverurl = serverurl;
     this.options = options || {};
@@ -66,22 +66,35 @@ function JsonClient(serverurl, options, callbacks)
      * @return JsonClient
      */
     this.send = function (jsonrequest, options) {
-    	$.extend(jsonrequest.params, {timestamp : self.timestamp});
         var options = options || {};
         var requesturl = self.serverurl;
         if ($.isArray(jsonrequest)) {
             requesturl += 'multijsonrpc2.php';
+            $.each(jsonrequest, function (index, value) {
+            	value.params = $.extend({}, value.params);
+            	if (index < jsonrequest.length - 1) {
+            		value.params = $.extend({timestamp : -1}, value.params);
+            	} else {
+            		value.params = $.extend({timestamp : self.timestamp}, value.params);
+            	}
+            });
         } else {
             requesturl += 'jsonrpc2.php';
+            jsonrequest.params = $.extend({timestamp : self.timestamp}, jsonrequest.params);
         }
-        $.ajax($.extend(self.options, options, {
+        $.ajax($.extend({
             url : requesturl,
             type: 'POST',
             dataType : 'json',
             data : JSON.stringify(jsonrequest),
+        }, self.options, options, {
             success : function (json) {
-        		if (json.result != undefined && typeof json.result.result != 'undefined') {
-	                $.each(json.result, function(key, results) {
+        		var clientmessageResponse = json;
+        		if ($.isArray(json)) {
+        			clientmessageResponse = json[json.length - 1];
+        		}
+	    		if (clientmessageResponse.result != undefined && typeof clientmessageResponse.result.result != 'undefined') {
+	                $.each(clientmessageResponse.result, function(key, results) {
 	                	switch (key) {
 	                		case 'result':
 	                			break;
@@ -93,24 +106,21 @@ function JsonClient(serverurl, options, callbacks)
 		    	                	if (self.callbacks[key] != undefined) {
 		    	                		self.callbacks[key]({
 		    	                			result : result.result,
-		    	                			id : json.id,
-		    	                			jsonrpc : json.jsonrpc,
+		    	                			id : clientmessageResponse.id,
+		    	                			jsonrpc : clientmessageResponse.jsonrpc,
 		    	                		}, result.timestamp);
 		    	                	}
 	                			});
 	                			break;
 	                	}
 	                });
-	                json.result = json.result.result;
+	                clientmessageResponse.result = clientmessageResponse.result.result;
         		}
-    			if (options.success != undefined) {
-    				options.success(json);
-    				return;
-    			}
-    			if (self.options.success != undefined) {
-    				self.options.success(json);
-    				return;
-    			}
+				if (options.success != undefined) {
+					options.success(json);
+				} else if (self.options.success != undefined) {
+					self.options.success(json);
+				}
             }
         }));
         return self;
@@ -124,7 +134,7 @@ function JsonClient(serverurl, options, callbacks)
      */
     this.smd = function (options) {
         var options = options || {};
-        $.ajax($.extend(self.options, options, {
+        $.ajax($.extend({}, self.options, options, {
             url : self.serverurl + 'jsonrpc2.php',
             dataType : 'json'
         }));
