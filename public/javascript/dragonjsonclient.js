@@ -122,7 +122,7 @@ function DragonJsonClient(jsonclient)
         var table = $('#arguments');
         if (this.namespaces[namespace][method].length) {
             table.html('');
-            $.each(this.namespaces[namespace][method], function(key, parameter) {
+            $.each(this.namespaces[namespace][method], function(index, parameter) {
                 var tr = $('<tr></tr>')
                              .appendTo(table);
                 $('<td></td>')
@@ -157,7 +157,7 @@ function DragonJsonClient(jsonclient)
                 }
                 var method = servicename.substr(servicename.lastIndexOf('.') + 1);
                 self.namespaces[namespace][method] = [];
-                $.each(service.parameters, function(key, parameter) {
+                $.each(service.parameters, function(index, parameter) {
                     self.namespaces[namespace][method].push({
                         name : parameter.name,
                         type : parameter.type
