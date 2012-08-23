@@ -34,16 +34,18 @@ function JsonRequest(id, method, params)
  * @param string serverurl
  * @param object options
  * @param object callbacks
+ * @param object defaultparams
  * @constructor
  */
-function JsonClient(serverurl, options, callbacks)
+function JsonClient(serverurl, options, callbacks, defaultparams)
 {
 	var applicationname = 'JsonClient';
-	var applicationversion = 'v1.2.6';
+	var applicationversion = 'v1.3.0';
 	
     this.serverurl = serverurl;
     this.options = options || {};
     this.callbacks = callbacks || {};
+    this.defaultparams = defaultparams || {};
     this.timestamp = undefined;
 
     var self = this;
@@ -60,6 +62,18 @@ function JsonClient(serverurl, options, callbacks)
 
     var self = this;
     /**
+     * Setzt einen Defaultparameter der bei jedem Request mitgesendet wird
+     * @param string param
+     * @param string value
+     * @return JsonClient
+     */
+    this.setDefaultParam = function (param, value) {
+    	self.defaultparams[param] = value;
+        return self;
+    }
+
+    var self = this;
+    /**
      * Sendet einen oder mehrere Json Requests zum Json Server
      * @param JsonRequest jsonrequest
      * @param object options
@@ -71,7 +85,7 @@ function JsonClient(serverurl, options, callbacks)
         if ($.isArray(jsonrequest)) {
             requesturl += 'multijsonrpc2.php';
             $.each(jsonrequest, function (index, value) {
-            	value.params = $.extend({}, value.params);
+            	value.params = $.extend({}, self.defaultparams, value.params);
             	if (index < jsonrequest.length - 1) {
             		value.params = $.extend({timestamp : -1}, value.params);
             	} else {
@@ -80,7 +94,7 @@ function JsonClient(serverurl, options, callbacks)
             });
         } else {
             requesturl += 'jsonrpc2.php';
-            jsonrequest.params = $.extend({timestamp : self.timestamp}, jsonrequest.params);
+            jsonrequest.params = $.extend({timestamp : self.timestamp}, self.defaultparams, jsonrequest.params);
         }
         $.ajax($.extend({
             url : requesturl,
