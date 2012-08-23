@@ -19,6 +19,7 @@
  */
 return array(
     'Changelog',
+    '1.2.6' => 'Version 1.2.6',
     '1.2.5' => 'Version 1.2.5',
     '1.2.4' => 'Version 1.2.4',
     '1.2.3' => 'Version 1.2.3',

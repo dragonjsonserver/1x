@@ -22,6 +22,17 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.2.6 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.2.6 ist abgeschlossen und als Download '
+                . 'verfügbar. In der Version wurde ein Fehler beim Senden des '
+                . 'HTTP Headers bei Multirequests sowie die Probleme '
+                . 'der Abfrage der Clientnachrichten bei Multirequests '
+                . 'behoben. Clientnachrichten werden nun nur beim letzten '
+                . 'Request angefordert und der letzten Antwort bearbeitet.',
+            'timestamp' => 1345752151,
+        ),
+        array(
             'title' => 'Version 1.2.5 zum Download verfügbar',
             'content' =>
                   'Die Version 1.2.5 ist abgeschlossen und als Download '

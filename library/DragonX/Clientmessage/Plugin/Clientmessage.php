@@ -43,6 +43,9 @@ class DragonX_Clientmessage_Plugin_Clientmessage implements Dragon_Json_Plugin_P
     public function postDispatch(Dragon_Json_Server_Request_Http $request, Dragon_Json_Server_Response_Http $response)
     {
     	$lastResponse = $request->getOptionalParam('timestamp');
+        if (isset($lastResponse) && $lastResponse == -1) {
+        	return;
+        }
         $actualResponse = time();
         $messages = array();
         if (isset($lastResponse)) {
