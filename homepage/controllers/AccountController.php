@@ -27,10 +27,9 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
         try {
             $params = $this->getRequiredParams(array('identity', 'credential'));
 
-            $logicAccount = new DragonX_Account_Logic_Account();
-            $configValidation = new Dragon_Application_Config('dragonx/account/validation');
-            $logicAccount->registerAccount($params['identity'], $params['credential'], $configValidation->validationlink);
-            $logicAccount->loginAccount($params['identity'], $params['credential']);
+	        $logicAccount = new DragonX_Account_Logic_Account();
+	        $logicAccount->registerAccount($params['identity'], $params['credential']);
+	        $logicAccount->loginAccount($params['identity'], $params['credential']);
         } catch (InvalidArgumentException $exception) {
             $this->_helper->FlashMessenger('E-Mail Adresse nicht korrekt');
             $this->_redirect('account/showregister');
@@ -40,29 +39,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
         }
 
         $this->_helper->FlashMessenger('Registrierung erfolgreich');
-        $this->_redirect('administration/startpage/index');
-    }
-
-    /**
-     * Validiert einen Account mit dem Hash der Validierungsabfrage
-     */
-    public function validateAction()
-    {
-        try {
-            $params = $this->getRequiredParams(array('validationhash'));
-
-            $logicValidation = new DragonX_Account_Logic_Validation();
-            $recordAccount = $logicValidation->validate($params['validationhash']);
-        } catch (Exception $exception) {
-            $this->_helper->FlashMessenger('Validierungslink nicht korrekt');
-            $this->_redirect('account/showlogin');
-        }
-
-        $sessionNamespace = new Zend_Session_Namespace();
-        $sessionNamespace->recordAccount = $recordAccount;
-
-        $this->_helper->FlashMessenger('Validierung des Profils erfolgreich');
-        $this->_redirect('administration/startpage/index');
+        $this->_redirect('startpage/index');
     }
 
     /**
@@ -89,7 +66,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
     	}
 
         $this->_helper->FlashMessenger('Anmeldung erfolgreich');
-        $this->_redirect('administration/startpage/index');
+        $this->_redirect('startpage/index');
     }
 
     /**
@@ -98,5 +75,17 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
     public function showloginAction()
     {
         $this->render('login');
+    }
+
+    /**
+     * Meldet den übergebenen Account ab
+     */
+    public function logoutAction()
+    {
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $logicAccount->logoutAccount();
+
+        $this->_helper->FlashMessenger('Abmeldung erfolgreich');
+        $this->_redirect('startpage/index');
     }
 }

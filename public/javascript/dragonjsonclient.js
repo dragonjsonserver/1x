@@ -22,7 +22,7 @@
 function DragonJsonClient(jsonclient)
 {
 	var applicationname = 'DragonJsonClient';
-	var applicationversion = 'v1.3.0';
+	var applicationversion = 'v1.2.0';
 
     $('#applicationname').html(applicationname);
     $('#applicationversion').html(applicationversion);
@@ -31,19 +31,6 @@ function DragonJsonClient(jsonclient)
     this.jsonclient = jsonclient;
     this.namespaces = {};
     this.data = {};
-
-    var self = this;
-    /**
-     * Setzt die Daten zu einem Eingabefeld auf einen Defaultwert
-     * @param string key
-     * @param string value
-     * @return DragonJsonClient
-     */
-    this.setData = function (key, value)
-    {
-        self.data[key] = value;
-        return self;
-    };
 
     var self = this;
     /**
@@ -122,7 +109,7 @@ function DragonJsonClient(jsonclient)
         var table = $('#arguments');
         if (this.namespaces[namespace][method].length) {
             table.html('');
-            $.each(this.namespaces[namespace][method], function(index, parameter) {
+            $.each(this.namespaces[namespace][method], function(key, parameter) {
                 var tr = $('<tr></tr>')
                              .appendTo(table);
                 $('<td></td>')
@@ -157,7 +144,7 @@ function DragonJsonClient(jsonclient)
                 }
                 var method = servicename.substr(servicename.lastIndexOf('.') + 1);
                 self.namespaces[namespace][method] = [];
-                $.each(service.parameters, function(index, parameter) {
+                $.each(service.parameters, function(key, parameter) {
                     self.namespaces[namespace][method].push({
                         name : parameter.name,
                         type : parameter.type

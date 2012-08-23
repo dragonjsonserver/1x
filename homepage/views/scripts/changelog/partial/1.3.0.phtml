@@ -22,6 +22,7 @@
 </ul>
 <h4>Erweiterungen der Accountverwaltung</h4>
 <ul>
+    <li>E-Mail Validierung nach der Registrierung. Account kann genutzt werden, muss aber innerhalb von einer gewissen Zeit validiert werden</li>
     <li>Seiten die eine Anmeldung benötigen sollen auf den Login weiterleiten und nach erfolgreichem Login wieder zurück auf die Seite die aufgerufen wurde</li>
     <li>Session auch per API ermöglichen, ein Service der einen Sessionhash für einen Account generiert und zurück gibt welcher dann bei jedem Service übergeben werden muss und für eine gewisse Zeit gültig ist statt bei jedem Aufruf Identität und Credential mitzugeben</li>
     <li>Accounteinstellungen bearbeiten: Identity und Passwort ändern, Account löschen</li>
@@ -37,50 +38,3 @@
 </ul>
 <hr>
 <h3>Releasedatum: noch offen</h3>
-<h3>Geänderte Pakete</h3>
-<ul>
-    <li>
-        DragonX
-        <ul>
-            <li>
-                Account
-                <ul>
-                    <li>Accounts die neu registriert werden können nun auch validiert werden durch die E-Mail bzw. dem Hash der Validierungsabfrage</li>
-                </ul>
-            </li>
-            <li>
-                Storage
-                <ul>
-                    <li>Die Schnittstelle 'ICondition' wurde erweitert sodass nun auch Datensätze durch Bedingungen aktualisiert/entfernt werden können</li>
-                    <li>Die 'RecordList' besitzt nun weitere Filtermethoden zum Entfernen von neuen oder geladenen Records</li>
-                </ul>
-            </li>
-            <li>
-                Homepage
-                <ul>
-                    <li>Wenn ein Account für die Homepage eingeloggt ist wird nun die Navigation für den Administrationbereich geladen</li>
-                    <li>Der Modulname wird dem Layout mit übergeben sodass das Layout zu den Controllern des jeweiligen Moduls verlinken kann</li>
-                </ul>
-            </li>
-        </ul>
-    </li>
-</ul>
-<h3>Homepage</h4>
-<ul>
-    <li>
-        Trennung der Homepage vom Administrationsbereich
-        <ul>
-            <li>Eigene Navigation mit der Startseite und dem DragonJsonClient</li>
-            <li>Eigene Startseite für spätere Informationen</li>
-		    <li>DragonJsonClient bei dem die Identity der Eingabefelder mit der Identity des eingeloggten Profils vorbelegt ist</li>
-        </ul>
-    </li>
-</ul>
-<h3>JsonClient</h4>
-<ul>
-    <li>Bietet nun die Möglichkeit Defaultparameter zu setzen die zu jedem Request mit versendet werden</li>
-</ul>
-<h3>DragonJsonClient</h4>
-<ul>
-    <li>Bietet nun die Möglichkeit Defaultparameter zu setzen mit welchen die Eingabefelder vorbefüllt werden</li>
-</ul>

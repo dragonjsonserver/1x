@@ -63,17 +63,6 @@ class DragonX_Account_Plugin_Install
                     . "UNIQUE KEY `credentialhash` (`credentialhash`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }
-        if (version_compare($oldversion, '1.3.0', '<')) {
-            $sqlstatements[] =
-                  "CREATE TABLE `dragonx_account_record_validation` ("
-                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
-                    . "`accountid` INT(10) UNSIGNED NOT NULL, "
-                    . "`validationhash` CHAR(32) NOT NULL, "
-                    . "`timestamp` INT(10) UNSIGNED NOT NULL, "
-                    . "PRIMARY KEY (`id`), "
-                    . "UNIQUE KEY `validationhash` (`validationhash`)"
-                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
-        }
         return $sqlstatements;
     }
 }
