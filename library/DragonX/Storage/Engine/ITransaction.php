@@ -21,7 +21,7 @@ interface DragonX_Storage_Engine_ITransaction
 {
     /**
      * Startet eine neue Transaktion zur Ausführung mehrerer SQL Statements
-     * @return DragonX_Storage_Engine_Transaction
+     * @return boolean
      */
     public function beginTransaction();
 
