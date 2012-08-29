@@ -17,8 +17,7 @@
 /**
  * Plugin zur Installation des Paketes
  */
-class DragonX_Clientmessage_Plugin_Install
-    implements DragonX_Storage_Plugin_Install_Interface
+class DragonX_Clientmessage_Plugin_Install implements DragonX_Storage_Plugin_Install_Interface
 {
     /**
      * Gibt die SQL Statements zurück um das Paket zu updaten
