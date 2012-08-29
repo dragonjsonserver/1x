@@ -15,7 +15,7 @@
  */
 
 /**
- * Logikmodel zur Verarbeitung von Passwort vergessen Abfragen
+ * Logikklasse zur Verarbeitung von Passwort vergessen Abfragen
  */
 class DragonX_Account_Logic_Credential
 {
