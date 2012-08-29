@@ -99,7 +99,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
     /**
      * Lädt den übergebenen Record aus dem Storage
      * @param DragonX_Storage_Record_Abstract $record
-     * @return DragonX_Storage_Engine_ZendDbAdataper
+     * @return DragonX_Storage_Record_Abstract|boolean
      */
     public function load(DragonX_Storage_Record_Abstract $record)
     {
@@ -110,8 +110,9 @@ class DragonX_Storage_Engine_ZendDbAdataper
     		$record->fromArray($row);
     	} else {
     		unset($record->id);
+    		return false;
     	}
-        return $this;
+        return $record;
     }
 
     /**

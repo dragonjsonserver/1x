@@ -36,7 +36,7 @@ interface DragonX_Storage_Engine_IStorage
     /**
      * Lädt den übergebenen Record aus dem Storage
      * @param DragonX_Storage_Record_Abstract $record
-     * @return DragonX_Storage_Engine_Storage
+     * @return DragonX_Storage_Record_Abstract|boolean
      */
     public function load(DragonX_Storage_Record_Abstract $record);
 

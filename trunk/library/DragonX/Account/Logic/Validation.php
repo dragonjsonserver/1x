@@ -15,7 +15,7 @@
  */
 
 /**
- * Logikmodel zur Verarbeitung von Validierungsabfragen
+ * Logikklasse zur Verarbeitung von Validierungsabfragen
  */
 class DragonX_Account_Logic_Validation
 {

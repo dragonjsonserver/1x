@@ -84,7 +84,7 @@ class DragonX_Storage_Engine_Memcache
     /**
      * Lädt den übergebenen Record aus dem Storage
      * @param DragonX_Storage_Record_Abstract $record
-     * @return DragonX_Storage_Engine_Memcache
+     * @return DragonX_Storage_Record_Abstract|boolean
      */
     public function load(DragonX_Storage_Record_Abstract $record)
     {
@@ -93,8 +93,9 @@ class DragonX_Storage_Engine_Memcache
             $record->fromArray($result);
         } else {
             unset($record->id);
+            return false;
         }
-        return $this;
+        return $record;
     }
 
     /**
