@@ -144,6 +144,27 @@ foreach ($list as $record) {
 $storage->saveList($list);</pre>
     </li>
 </ul>
+<h3>Verschachtelte Transaktionskontrolle</h3>
+<ul>
+    <li>
+        'beginTransaction()' gibt zurück true zurück wenn die Transaktion gestartet wurde oder false wenn bereits eine Transation gestartet ist
+<pre>$storage = Zend_Registry::get('DragonX_Storage_Engine');
+//Transaktion starten und Rückgabewert merken
+$transaction = $storage->beginTransaction();
+
+//SQL Statements
+
+//Wenn alles erfolgreich war ein Commit
+if ($transaction) {
+    $transaction->commit();
+}
+
+//Bei einem Fehler ein Rollback
+if ($transaction) {
+    $transaction->rollback();
+}</pre>
+    </li>
+</ul>
 <h3>Datenbankstrukturen der Pakete verwalten</h3>
 <ul>
     <li>Jedes Paket wird mit seiner Versionsnummer in der Datenbank gespeichert</li>
