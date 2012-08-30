@@ -79,9 +79,7 @@ class DragonX_Account_Logic_Credential
         }
         list($recordCredential) = $listCredentials;
 
-        $recordAccount = new DragonX_Account_Record_Account($recordCredential->accountid);
-        $storage->load($recordAccount);
-        if (!isset($recordAccount->id)) {
+        if (!$recordAccount = $storage->load(new DragonX_Account_Record_Account($recordCredential->accountid))) {
         	throw new Exception('incorrect accountid');
         }
         $recordAccount->credential = md5($credential);

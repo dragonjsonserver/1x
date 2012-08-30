@@ -66,9 +66,7 @@ class DragonX_Account_Logic_Validation
         }
         list($recordValidation) = $listValidations;
 
-        $recordAccount = new DragonX_Account_Record_Account($recordValidation->accountid);
-        $storage->load($recordAccount);
-        if (!isset($recordAccount->id)) {
+        if (!$recordAccount = $storage->load(new DragonX_Account_Record_Account($recordValidation->accountid))) {
             throw new Exception('incorrect accountid');
         }
         $storage->delete($recordValidation);
