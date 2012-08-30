@@ -18,10 +18,10 @@
  * Storage Engine zur Verwaltung von Records in einer relationalen Datenbank
  */
 class DragonX_Storage_Engine_ZendDbAdataper
-    implements DragonX_Storage_Engine_IStorage,
-               DragonX_Storage_Engine_ITransaction,
-               DragonX_Storage_Engine_ICondition,
-               DragonX_Storage_Engine_ISqlStatement
+    implements DragonX_Storage_Engine_Storage_Interface,
+               DragonX_Storage_Engine_Transaction_Interface,
+               DragonX_Storage_Engine_Condition_Interface,
+               DragonX_Storage_Engine_SqlStatement_Interface
 {
     /**
      * @var Zend_Db_Adapter_Abstract

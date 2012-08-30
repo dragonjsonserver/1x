@@ -15,23 +15,25 @@
  */
 
 /**
- * Schnittstelle mit denen man Records über SQL Statements laden kann
+ * Schnittstelle für die Transaktionssteuerung über mehrere Aktionen hinweg
  */
-interface DragonX_Storage_Engine_ISqlStatement
+interface DragonX_Storage_Engine_Transaction_Interface
 {
     /**
-     * Lädt alle Records über das SQL Statement
-     * @param DragonX_Storage_Record_Abstract $record
-     * @param string $sqlstatement
-     * @param array $params
-     * @return DragonX_Storage_RecordList
+     * Startet eine neue Transaktion zur Ausführung mehrerer SQL Statements
+     * @return boolean
      */
-    public function loadBySqlStatement(DragonX_Storage_Record_Abstract $record, $sqlstatement, array $params = array());
+    public function beginTransaction();
 
     /**
-     * Führt ein beliebiges SQL Statement aus
-     * @param string $sqlstatement
-     * @return array
+     * Beendet eine Transaktion mit einem Commit um Änderungen zu schreiben
+     * @return DragonX_Storage_Engine_Transaction_Interface
      */
-    public function executeSqlStatement($sqlstatement, array $params = array());
+    public function commit();
+
+    /**
+     * Beendet eine Transaktion mit einem Rollback um Änderungen zurückzusetzen
+     * @return DragonX_Storage_Engine_Transaction_Interface
+     */
+    public function rollback();
 }

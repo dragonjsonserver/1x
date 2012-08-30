@@ -15,25 +15,13 @@
  */
 
 /**
- * Schnittstelle für die Transaktionssteuerung über mehrere Aktionen hinweg
+ * Schnittstelle mit denen man eine Storage Engine leeren kann
  */
-interface DragonX_Storage_Engine_ITransaction
+interface DragonX_Storage_Engine_Flush_Interface
 {
     /**
-     * Startet eine neue Transaktion zur Ausführung mehrerer SQL Statements
-     * @return boolean
+     * Entfernt alle Records aus der Storage Engine
+     * @return DragonX_Storage_Engine_Flush_Interface
      */
-    public function beginTransaction();
-
-    /**
-     * Beendet eine Transaktion mit einem Commit um Änderungen zu schreiben
-     * @return DragonX_Storage_Engine_Transaction
-     */
-    public function commit();
-
-    /**
-     * Beendet eine Transaktion mit einem Rollback um Änderungen zurückzusetzen
-     * @return DragonX_Storage_Engine_Transaction
-     */
-    public function rollback();
+    public function flush();
 }

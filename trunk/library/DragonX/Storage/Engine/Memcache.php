@@ -18,8 +18,8 @@
  * Storage Engine zur Verwaltung von Records in einer relationalen Datenbank
  */
 class DragonX_Storage_Engine_Memcache
-    implements DragonX_Storage_Engine_IStorage,
-               DragonX_Storage_Engine_IFlush
+    implements DragonX_Storage_Engine_Storage_Interface,
+               DragonX_Storage_Engine_Flush_Interface
 {
     /**
      * @var Memcache
