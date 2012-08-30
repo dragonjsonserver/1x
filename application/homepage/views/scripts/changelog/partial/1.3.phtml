@@ -47,9 +47,9 @@
                 <ul>
                     <li>Die Schnittstelle 'ICondition' wurde erweitert sodass nun auch Datensätze durch Bedingungen aktualisiert/entfernt werden können</li>
                     <li>Die 'RecordList' besitzt nun weitere Filtermethoden zum Entfernen von neuen oder geladenen Records</li>
-                    <li>'beginTransaction' liefert nun ein Boolean zurück mit dem verschachtelte Transaktionen abgefragt werden können</li>
-                    <li>'getTablename' des ZendDbAdapters ist nun öffentlich verfügbar um dynamische SQL Statements zu unterstützen</li>
-                    <li>'load' gibt bei erfolgreichem Laden nun den Record zurück und wenn nicht false</li>
+                    <li>'beginTransaction()' liefert nun ein Boolean zurück mit dem verschachtelte Transaktionen abgefragt werden können</li>
+                    <li>'getTablename()' des ZendDbAdapters ist nun öffentlich verfügbar um dynamische SQL Statements zu unterstützen</li>
+                    <li>'load()' gibt bei erfolgreichem Laden nun den Record zurück und wenn nicht false</li>
                 </ul>
             </li>
             <li>
@@ -88,4 +88,5 @@
 <h3>Benötigt</h3>
 <ul>
     <li>Da die Anwendung nun in die Bereiche Homepage und Administration getrennt wurde müssen auch alle eigenen Controller und Views darauf aufgeteilt werden</li>
+    <li>Da 'load()' nun nicht mehr die Storage Engine selbst zurück gibt sondern den Record müssen Verkettungen aufgelöst werden</li>
 </ul>
