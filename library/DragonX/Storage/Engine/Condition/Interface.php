@@ -17,7 +17,7 @@
 /**
  * Schnittstelle mit denen man Records über Bedingungen laden kann
  */
-interface DragonX_Storage_Engine_ICondition
+interface DragonX_Storage_Engine_Condition_Interface
 {
     /**
      * Lädt alle Records welche auf die Bedingungen zutreffen

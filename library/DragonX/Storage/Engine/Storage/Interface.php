@@ -17,19 +17,19 @@
 /**
  * Schnittstelle mit denen man Records speichern und laden kann
  */
-interface DragonX_Storage_Engine_IStorage
+interface DragonX_Storage_Engine_Storage_Interface
 {
     /**
      * Speichert den übergebenen Record im Storage
      * @param DragonX_Storage_Record_Abstract $record
-     * @return DragonX_Storage_Engine_Storage
+     * @return DragonX_Storage_Engine_Storage_Interface
      */
     public function save(DragonX_Storage_Record_Abstract $record);
 
     /**
      * Speichert die übergebenen Records im Storage
      * @param DragonX_Storage_RecordList $list
-     * @return DragonX_Storage_Engine_Storage
+     * @return DragonX_Storage_Engine_Storage_Interface
      */
     public function saveList(DragonX_Storage_RecordList $list);
 
@@ -43,21 +43,21 @@ interface DragonX_Storage_Engine_IStorage
     /**
      * Lädt die übergebenen Records aus dem Storage
      * @param DragonX_Storage_RecordList $list
-     * @return DragonX_Storage_Engine_Storage
+     * @return DragonX_Storage_Engine_Storage_Interface
      */
     public function loadList(DragonX_Storage_RecordList $list);
 
     /**
      * Entfernt den übergebenen Record aus dem Storage
      * @param DragonX_Storage_Record_Abstract $record
-     * @return DragonX_Storage_Engine_Storage
+     * @return DragonX_Storage_Engine_Storage_Interface
      */
     public function delete(DragonX_Storage_Record_Abstract $record);
 
     /**
      * Entfernt die übergebenen Records aus dem Storage
      * @param DragonX_Storage_RecordList $list
-     * @return DragonX_Storage_Engine_Storage
+     * @return DragonX_Storage_Engine_Storage_Interface
      */
     public function deleteList(DragonX_Storage_RecordList $list);
 }
