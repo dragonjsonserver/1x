@@ -22,6 +22,16 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.3.0 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.3.0 ist abgeschlossen und als Download '
+                . 'verfügbar. In der Version gab es einige Verbesserungen der '
+                . 'vorhandenen Pakete, die Auftrennung der Homepage in einen '
+                . 'öffentlichen und administrativen Bereich und die Grundlage '
+                . 'für die Benutzerverwaltung durch Ressourcen und Rollen.',
+            'timestamp' => 0,
+        ),
+        array(
             'title' => 'Version 1.2.6 zum Download verfügbar',
             'content' =>
                   'Die Version 1.2.6 ist abgeschlossen und als Download '
