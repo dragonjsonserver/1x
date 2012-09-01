@@ -27,15 +27,15 @@ class DragonX_Acl_Plugin_Acl
     public function preDispatch(Dragon_Json_Server_Request_Http $request)
     {
     	try {
-            $servicearray = explode('.', $request->getMethod());
-            $methodname = array_pop($servicearray);
-            $reflectionClass = new Zend_Reflection_Class(implode('_', $servicearray));
-            $resource = $reflectionClass->getMethod($methodname)->getDocblock()->getTag('dragonx_acl_resource')->getDescription();
+            list ($classname, $methodname) = $request->parseMethod();
+            $reflectionClass = new Zend_Reflection_Class($classname);
+            $tagResource = $reflectionClass->getMethod($methodname)->getDocblock()->getTag('dragonx_acl_resource');
+	        if (!$tagResource) {
+	            return;
+	        }
+            $resource = $tagResource->getDescription();
         } catch (Exception $exception) {
 	        return;
-        }
-        if (!$resource) {
-        	return;
         }
         $logicAcl = new DragonX_Acl_Logic_Acl();
         if (!in_array($resource, $logicAcl->getResources())) {

@@ -23,15 +23,14 @@ class DragonX_Account_Plugin_Account
 {
 	/**
 	 * Prüft ob der Service einen Account benötigt
-	 * @param string $servicename
+	 * @param string $classname
+	 * @param string $methodname
 	 * @return boolean
 	 */
-	private function _authenticateRequired($servicename)
+	private function _authenticateRequired($classname, $methodname)
 	{
         try {
-            $servicearray = explode('.', $servicename);
-            $methodname = array_pop($servicearray);
-            $reflectionClass = new Zend_Reflection_Class(implode('_', $servicearray));
+            $reflectionClass = new Zend_Reflection_Class($classname);
             return $reflectionClass->getMethod($methodname)->getDocblock()->hasTag('dragonx_account_authenticate');
         } catch (Exception $exception) {
         }
@@ -44,7 +43,8 @@ class DragonX_Account_Plugin_Account
      */
     public function preDispatch(Dragon_Json_Server_Request_Http $request)
     {
-		if (!$this->_authenticateRequired($request->getMethod())) {
+        list ($classname, $methodname) = $request->parseMethod();
+		if (!$this->_authenticateRequired($classname, $methodname)) {
 		    return;
 		}
 
@@ -66,7 +66,9 @@ class DragonX_Account_Plugin_Account
     public function servicemap(Zend_Json_Server_Smd $servicemap)
     {
         foreach ($servicemap->getServices() as $servicename => $service) {
-        	if (!$this->_authenticateRequired($servicename)) {
+            $servicearray = explode('.', $servicename);
+            $methodname = array_pop($servicearray);
+        	if (!$this->_authenticateRequired(implode('_', $servicearray), $methodname)) {
                 continue;
             }
             $service->addParams(array(

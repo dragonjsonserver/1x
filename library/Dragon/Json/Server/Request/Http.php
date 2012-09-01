@@ -33,6 +33,17 @@ class Dragon_Json_Server_Request_Http extends Zend_Json_Server_Request_Http
     }
 
     /**
+     * Parst den aktuellen Servicenamen zu Klassen- und Methodennamen
+     * @return array
+     */
+    public function parseMethod()
+    {
+        $servicearray = explode('.', $request->getMethod());
+        $methodname = array_pop($servicearray);
+        return array(implode('_', $servicearray), $methodname);
+    }
+
+    /**
      * Prüft den erforderlichen Parameter und gibt dessen Wert zurück
      * @param string $name
      * @return mixed
