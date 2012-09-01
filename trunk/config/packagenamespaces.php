@@ -31,6 +31,9 @@ return array(
             'Plugin' => array('Account', 'Install'),
             'Service' => array('Account', 'Credential'),
         ),
+        'Acl' => array(
+            'Plugin' => array('Acl', 'Install'),
+        ),
         'Clientmessage' => array(
             'Plugin' => array('Clientmessage', 'Account', 'All', 'Install'),
         ),
@@ -42,6 +45,7 @@ return array(
         'Log' => array(
             'Plugin' => array('Log', 'Request', 'Install'),
         ),
+        'NestedSet',
         'Storage' => array(
             'Plugin' => array('Database', 'Storage'),
         ),
