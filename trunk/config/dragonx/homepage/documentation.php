@@ -31,9 +31,11 @@ return array(
     'dragon_plugin' => 'Paket Plugin',
     'Namensraum DragonX',
     'dragonx_account' => 'Paket Account',
+    'dragonx_acl' => 'Paket Acl',
     'dragonx_clientmessage' => 'Paket Clientmessage',
     'dragonx_cronjob' => 'Paket Cronjob',
     'dragonx_homepage' => 'Paket Homepage',
     'dragonx_log' => 'Paket Log',
+    'dragonx_nestedset' => 'Paket Nested Set',
     'dragonx_storage' => 'Paket Storage',
 );
