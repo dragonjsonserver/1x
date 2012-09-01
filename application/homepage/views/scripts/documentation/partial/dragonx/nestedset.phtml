@@ -23,15 +23,14 @@
 <ul>
     <li>
         Für alle Nested Sets gibt es einen abstrakten Record und damit verbunden eine Basisdatenbankstruktur
-<pre>$sqlstatements[] =
-      "CREATE TABLE `%tablename%` ("
-        . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
-        . "`lft` INT(10) UNSIGNED NOT NULL, "
-        . "`rgt` INT(10) UNSIGNED NOT NULL, "
-        . "PRIMARY KEY (`id`), "
-        . "KEY (`lft`), "
-        . "KEY (`rgt`)"
-    . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";</pre>
+<pre>CREATE TABLE `%packagenamespace%_%packagename%_Record_%recordname%` (
+    `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `lft` INT(10) UNSIGNED NOT NULL,
+    `rgt` INT(10) UNSIGNED NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY (`lft`),
+    KEY (`rgt`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</pre>
     </li>
     <li>Diese kann durch den abgeleiteten Record und der konkreten Datenbanktabelle weitere Felder aufnehmen</li>
 </ul>
