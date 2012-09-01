@@ -182,7 +182,7 @@ $logicDatabase-&gt;installPackages();</pre>
     {
         $sqlstatements = array();
         if (version_compare($version, '1.0.0', '&lt;')) {
-            $sqlstatements[] = "%sql%";
+            $sqlstatements[] = "%sqlstatement%";
         }
         return $sqlstatements;
     }
