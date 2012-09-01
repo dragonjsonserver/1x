@@ -62,8 +62,7 @@
 $record = new %packagenamespace%_%packagename%_Record_%recordname%();
 
 //Records mit einer ID zum späteren Laden
-$id = 1;
-$record = new %packagenamespace%_%packagename%_Record_%recordname%($id);
+$record = new %packagenamespace%_%packagename%_Record_%recordname%(%id%);
 
 //Records mit Daten zum späteren Speichern
 $data = array('attribute' => 'value');
@@ -84,26 +83,23 @@ Zend_Registry::get('DragonX_Storage_Engine')->save($record);</pre>
     </li>
     <li>
         Datensätze laden
-<pre>$id = 1;
-$record = Zend_Registry::get('DragonX_Storage_Engine')->load(
-    new %packagenamespace%_%packagename%_Record_%recordname%($id)
+<pre>$record = Zend_Registry::get('DragonX_Storage_Engine')->load(
+    new %packagenamespace%_%packagename%_Record_%recordname%(%id%)
 );</pre>
     </li>
     <li>
         Datensätze verändern
 <pre>$storage = Zend_Registry::get('DragonX_Storage_Engine');
-$id = 1;
 $record = $storage->load(
-    new %packagenamespace%_%packagename%_Record_%recordname%($id)
+    new %packagenamespace%_%packagename%_Record_%recordname%(%id%)
 );
 $record->attribute = 'value';
 $storage->save($record);</pre>
     </li>
     <li>
         Datensätze löschen
-<pre>$id = 1;
-Zend_Registry::get('DragonX_Storage_Engine')->delete(
-    new %packagenamespace%_%packagename%_Record_%recordname%($id)
+<pre>Zend_Registry::get('DragonX_Storage_Engine')->delete(
+    new %packagenamespace%_%packagename%_Record_%recordname%(%id%)
 );</pre>
     </li>
 </ul>
