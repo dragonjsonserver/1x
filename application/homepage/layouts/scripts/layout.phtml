@@ -94,7 +94,7 @@
         <div class="container">
             <?php
                 if (isset($this->recordDeletion)) {
-                	$this->messages[] = 'Account wurde zum Löschen eingetragen';
+                	$this->messages[] = 'Account wurde am ' . date('d.m.Y', $this->recordDeletion->timestamp) . ' zum Löschen eingetragen und wird nach dem ' . date('d.m.Y', $this->recordDeletion->timestamp + $this->configDeletion->offset) . ' gelöscht';
                 }
                 if (count($this->messages) > 0) {
                 	echo '<ul>';
