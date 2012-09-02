@@ -44,6 +44,14 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
     }
 
     /**
+     * Zeigt das Formular zur Registrierung eines Accounts an
+     */
+    public function showregisterAction()
+    {
+        $this->render('register');
+    }
+
+    /**
      * Validiert einen Account mit dem Hash der Validierungsabfrage
      */
     public function validateAction()
@@ -63,14 +71,6 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
 
         $this->_helper->FlashMessenger('Validierung des Profils erfolgreich');
         $this->_redirect('administration');
-    }
-
-    /**
-     * Zeigt das Formular zur Registrierung eines Accounts an
-     */
-    public function showregisterAction()
-    {
-        $this->render('register');
     }
 
     /**

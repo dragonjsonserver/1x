@@ -100,6 +100,12 @@ class DragonX_Account_Logic_Account
      */
     public function changeIdentity(DragonX_Account_Record_Account $recordAccount, $newidentity, Zend_Config $configMail)
     {
+        $newidentity = strtolower($newidentity);
+        $validatorEmailAddress = new Zend_Validate_EmailAddress();
+        if (!$validatorEmailAddress->isValid($newidentity)) {
+            throw new InvalidArgumentException('invalid identity');
+        }
+
     	$recordAccount->identity = $newidentity;
     	Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
 

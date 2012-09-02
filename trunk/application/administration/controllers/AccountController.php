@@ -30,4 +30,51 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
         $this->_helper->FlashMessenger('Abmeldung erfolgreich');
         $this->_redirect('');
     }
+
+    /**
+     * Ändert die E-Mail Adresse trägt eine neue Validierungabfrage ein
+     */
+    public function changeidentityAction()
+    {
+        try {
+            $params = $this->getRequiredParams(array('newidentity'));
+
+            $logicAccount = new DragonX_Account_Logic_Account();
+            $sessionNamespace = new Zend_Session_Namespace();
+            $configValidation = new Dragon_Application_Config('dragonx/account/validation');
+            $logicAccount->changeIdentity($sessionNamespace->recordAccount, $params['newidentity'], $configValidation->validationlink);
+        } catch (InvalidArgumentException $exception) {
+            $this->_helper->FlashMessenger('E-Mail Adresse nicht korrekt');
+            $this->_redirect('account/showedit');
+        } catch (Exception $exception) {
+            $this->_helper->FlashMessenger('E-Mail Adresse bereits vergeben');
+            $this->_redirect('account/showedit');
+        }
+
+        $this->_helper->FlashMessenger('Änderung der E-Mail Adresse erfolgreich');
+        $this->_redirect('administration');
+    }
+
+    /**
+     * Ändert das Passwort für den Account
+     */
+    public function changecredentialAction()
+    {
+        $params = $this->getRequiredParams(array('newcredential'));
+
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $sessionNamespace = new Zend_Session_Namespace();
+        $logicAccount->changeCredential($sessionNamespace->recordAccount, $params['newcredential']);
+
+        $this->_helper->FlashMessenger('Änderung des Passworts erfolgreich');
+        $this->_redirect('administration');
+    }
+
+    /**
+     * Zeigt das Formular zur Bearbeitung eines Accounts an
+     */
+    public function showeditAction()
+    {
+        $this->render('edit');
+    }
 }
