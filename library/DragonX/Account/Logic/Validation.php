@@ -71,6 +71,11 @@ class DragonX_Account_Logic_Validation
         }
         $storage->delete($recordValidation);
 
+        Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
+            'DragonX_Account_Plugin_ValidateAccount_Interface',
+            array($recordAccount)
+        );
+
         return $recordAccount;
     }
 }
