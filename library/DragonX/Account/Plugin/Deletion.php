@@ -42,12 +42,28 @@ class DragonX_Account_Plugin_Deletion implements DragonX_Cronjob_Plugin_Cronjob_
      */
     public function execute()
     {
+    	$storage = Zend_Registry::get('DragonX_Storage_Engine');
+
         $configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
+    	$timestamp = time() - $configDeletion->offset;
+
+    	$listAccounts = $storage->loadBySqlStatement(
+    	    new DragonX_Account_Record_Account(),
+              "SELECT * FROM `dragonx_account_record_account` WHERE `id` IN ("
+                . "SELECT `accountid` FROM `dragonx_account_record_deletion` WHERE `timestamp` <= :timestamp"
+            . ")",
+            array('timestamp' => $timestamp)
+        );
+        Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
+            'DragonX_Account_Plugin_DeleteAccounts_Interface',
+            array($listAccounts)
+        );
+
         Zend_Registry::get('DragonX_Storage_Engine')->executeSqlStatement(
               "DELETE FROM `dragonx_account_record_account` WHERE `id` IN ("
                 . "SELECT `accountid` FROM `dragonx_account_record_deletion` WHERE `timestamp` <= :timestamp"
             . ")",
-            array('timestamp' => time() - $configDeletion->offset)
+            array('timestamp' => $timestamp)
         );
     }
 }
