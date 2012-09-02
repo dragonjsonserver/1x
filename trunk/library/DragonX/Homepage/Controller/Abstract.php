@@ -61,11 +61,13 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
                 	}
                 	$this->_redirect('account/showlogin' . $redirect);
                 }
+                $logicAccount = new DragonX_Account_Logic_Account();
+                $this->view->recordDeletion = $logicAccount->getDeletion($sessionNamespace->recordAccount);
+                if (isset($this->view->recordDeletion)) {
+                	$this->view->configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
+                }
         		break;
         }
-
-        $logicAccount = new DragonX_Account_Logic_Account();
-        $this->view->recordDeletion = $logicAccount->getDeletion($sessionNamespace->recordAccount);
     }
 
     /**
