@@ -64,9 +64,9 @@ class DragonX_Account_Logic_Credential
     /**
      * Setzt das Passwort zurück und entfernt den Passwort vergessen Hash
      * @param string $credentialhash
-     * @param string $credential
+     * @param string $newcredential
      */
-    public function reset($credentialhash, $credential)
+    public function reset($credentialhash, $newcredential)
     {
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
 
@@ -82,7 +82,7 @@ class DragonX_Account_Logic_Credential
         if (!$recordAccount = $storage->load(new DragonX_Account_Record_Account($recordCredential->accountid))) {
         	throw new Exception('incorrect accountid');
         }
-        $recordAccount->credential = md5($credential);
+        $recordAccount->credential = md5($newcredential);
         $storage
             ->save($recordAccount)
             ->delete($recordCredential);

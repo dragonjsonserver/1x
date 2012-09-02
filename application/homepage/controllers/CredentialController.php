@@ -53,17 +53,17 @@ class CredentialController extends DragonX_Homepage_Controller_Abstract
     public function resetAction()
     {
         try {
-            $params = $this->getRequiredParams(array('credentialhash', 'credential'));
+            $params = $this->getRequiredParams(array('credentialhash', 'newcredential'));
 
 	        $logicCredential = new DragonX_Account_Logic_Credential();
-	        $recordAccount = $logicCredential->reset($params['credentialhash'], $params['credential']);
+	        $recordAccount = $logicCredential->reset($params['credentialhash'], $params['newcredential']);
         } catch (Exception $exception) {
             $this->_helper->FlashMessenger('Resetlink nicht korrekt');
             $this->_redirect('credential/showrequest');
         }
 
         $logicAccount = new DragonX_Account_Logic_Account();
-        $logicAccount->loginAccount($recordAccount->identity, $params['credential']);
+        $logicAccount->loginAccount($recordAccount->identity, $params['newcredential']);
 
         $this->_helper->FlashMessenger('Zurücksetzen des Passworts erfolgreich');
         $this->_redirect('administration');

@@ -13,10 +13,15 @@
  * @license http://framework.zend.com/license/new-bsd New BSD License
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
-?>
-<form class="well" action="<?php echo $this->url(array('controller' => 'credential', 'action' => 'reset'), null, true); ?>" method="post">
-    <input type="hidden" name="credentialhash" value="<?php echo $this->escape($this->credentialhash); ?>" />
-    <h2>Passwort zurücksetzen</h2>
-    <label for="newcredential">Passwort:</label><input type="password" id="newcredential" name="newcredential"  required="required" />
-    <input type="submit" value="Passwort zurücksetzen" />
-</form>
+
+/**
+ * Plugins die nach der Änderung der E-Mail Adresse aufgerufen werden
+ */
+interface DragonX_Account_Plugin_ChangeIdentity_Interface
+{
+    /**
+     * Wird nach der Änderung der E-Mail Adresse aufgerufen
+     * @param DragonX_Account_Record_Account $recordAccount
+     */
+    public function changeIdentity(DragonX_Account_Record_Account $recordAccount);
+}
