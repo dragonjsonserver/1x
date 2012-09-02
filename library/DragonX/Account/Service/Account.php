@@ -75,4 +75,24 @@ class DragonX_Account_Service_Account
         $logicAccount = new DragonX_Account_Logic_Account();
         $logicAccount->changeCredential(Zend_Registry::get('recordAccount'), $newcredential);
     }
+
+    /**
+     * Setzt den Löschstatus des Accounts sodass dieser gelöscht werden kann
+     * @dragonx_account_authenticate
+     */
+    public function deleteAccount()
+    {
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $logicAccount->deleteAccount(Zend_Registry::get('recordAccount'));
+    }
+
+    /**
+     * Setzt den Löschstatus des Accounts zurück
+     * @dragonx_account_authenticate
+     */
+    public function deleteDeletion()
+    {
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $logicAccount->deleteDeletion(Zend_Registry::get('recordAccount'));
+    }
 }

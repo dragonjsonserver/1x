@@ -71,6 +71,31 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
     }
 
     /**
+     * Setzt den Löschstatus des Accounts sodass dieser gelöscht werden kann
+     */
+    public function deleteaccountAction()
+    {
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $sessionNamespace = new Zend_Session_Namespace();
+        $logicAccount->deleteAccount($sessionNamespace->recordAccount);
+
+        $this->_redirect('administration');
+    }
+
+    /**
+     * Setzt den Löschstatus des Accounts zurück
+     */
+    public function deletedeletionAction()
+    {
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $sessionNamespace = new Zend_Session_Namespace();
+        $logicAccount->deleteDeletion($sessionNamespace->recordAccount);
+
+        $this->_helper->FlashMessenger('Löschung des Accounts zurückgesetzt');
+        $this->_redirect('administration');
+    }
+
+    /**
      * Zeigt das Formular zur Bearbeitung eines Accounts an
      */
     public function showeditAction()

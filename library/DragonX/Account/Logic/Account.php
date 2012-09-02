@@ -130,10 +130,45 @@ class DragonX_Account_Logic_Account
     }
 
     /**
-     * Trägt ein Löschvermerk für den Account ein sodass dieser gelöscht wird
+     * Setzt den Löschstatus des Accounts sodass dieser gelöscht werden kann
      * @param DragonX_Account_Record_Account $recordAccount
      */
     public function deleteAccount(DragonX_Account_Record_Account $recordAccount)
     {
+        Zend_Registry::get('DragonX_Storage_Engine')->save(
+            new DragonX_Account_Record_Deletion(array(
+                'accountid' => $recordAccount->id,
+                'timestamp' => time(),
+            ))
+        );
+    }
+
+    /**
+     * Gibt des Löschstatus des Accounts zurück
+     * @param DragonX_Account_Record_Account $recordAccount
+     * @return DragonX_Account_Record_Deletion|null
+     */
+    public function getDeletion(DragonX_Account_Record_Account $recordAccount)
+    {
+        $listDeletions = Zend_Registry::get('DragonX_Storage_Engine')->loadByConditions(
+            new DragonX_Account_Record_Deletion(),
+            array('accountid' => $recordAccount->id)
+        );
+        if (count($listDeletions) == 0) {
+            return;
+        }
+        return $listDeletions[0];
+    }
+
+    /**
+     * Setzt den Löschstatus des Accounts zurück
+     * @param DragonX_Account_Record_Account $recordAccount
+     */
+    public function deleteDeletion(DragonX_Account_Record_Account $recordAccount)
+    {
+    	$recordDeletion = $this->getDeletion($recordAccount);
+    	if (isset($recordDeletion)) {
+    		Zend_Registry::get('DragonX_Storage_Engine')->delete($recordDeletion);
+    	}
     }
 }

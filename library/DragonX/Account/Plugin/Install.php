@@ -72,6 +72,15 @@ class DragonX_Account_Plugin_Install implements DragonX_Storage_Plugin_Install_I
                     . "PRIMARY KEY (`id`), "
                     . "UNIQUE KEY `validationhash` (`validationhash`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+
+            $sqlstatements[] =
+                  "CREATE TABLE `dragonx_account_record_deletion` ("
+                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`accountid` INT(10) UNSIGNED NOT NULL, "
+                    . "`timestamp` INT(10) UNSIGNED NOT NULL, "
+                    . "PRIMARY KEY (`id`), "
+                    . "UNIQUE KEY `accountid` (`accountid`)"
+                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }
         return $sqlstatements;
     }

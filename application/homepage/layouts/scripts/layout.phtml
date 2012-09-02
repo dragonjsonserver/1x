@@ -93,6 +93,9 @@
         </div>
         <div class="container">
             <?php
+                if (isset($this->recordDeletion)) {
+                	$this->messages[] = 'Account wurde zum Löschen eingetragen';
+                }
                 if (count($this->messages) > 0) {
                 	echo '<ul>';
                 	foreach ($this->messages as $message) {
