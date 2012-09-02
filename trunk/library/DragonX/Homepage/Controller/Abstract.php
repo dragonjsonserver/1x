@@ -63,6 +63,9 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
                 }
         		break;
         }
+
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $this->view->recordDeletion = $logicAccount->getDeletion($sessionNamespace->recordAccount);
     }
 
     /**

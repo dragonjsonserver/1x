@@ -22,7 +22,8 @@
 <h4>Erweiterungen der Accountverwaltung</h4>
 <ul>
     <li>Session auch per API ermöglichen, ein Service der einen Sessionhash für einen Account generiert und zurück gibt welcher dann bei jedem Service übergeben werden muss und für eine gewisse Zeit gültig ist statt bei jedem Aufruf Identität und Credential mitzugeben</li>
-    <li>Accounteinstellungen bearbeiten: Account löschen</li>
+    <li>Cronjob für die Accountlöschungen</li>
+    <li>Clientmessage für die Accountlöschungen</li>
     <li>Für jeden Statuswechsel, also Gast -> registrierter Account -> validierter Account sollen andere Rechte vergeben werden können</li>
 </ul>
 <h4>Homepage</h4>
@@ -62,6 +63,7 @@
                 <ul>
                     <li>Accounts die neu registriert werden können nun auch validiert werden durch die E-Mail bzw. dem Hash der Validierungsabfrage</li>
                     <li>Bietet nun die Möglichkeit seine E-Mail Adresse und sein Passwort zu ändern. Bei der Änderung der E-Mail Adresse wird eine neue Validierungsabfrage eingetragen</li>
+                    <li>Bietet nun die Möglichkeit sein Account als zu löschen zu markieren und diese Löschung wieder zurückzusetzen</li>
                     <li>Für die Registrierung, Validierung und Änderung der E-Mail Adresse eines Accounts gibt es Pluginschnittstellen um währenddessen Aktionen durchführen zu können</li>
                 </ul>
             </li>
@@ -100,6 +102,7 @@
     <li>Das Changelog ist nun unterteilt in Branches und nicht mehr in die einzelnen Versionen</li>
     <li>Der Login nimmt eine Weiterleitung durch den abstrakten Controller entgegen und leitet bei einem erfolgreichen Login auf diese Seite um</li>
     <li>Die Änderung der E-Mail Adresse und des Passworts des eigenen Accounts ist nun im Administrationsbereich der Homepage möglich</li>
+    <li>Die Accountlöschung eintragen und zurücksetzen ist nun im Administrationsbereich der Homepage möglich</li>
 </ul>
 <h4>JsonClient</h4>
 <ul>
