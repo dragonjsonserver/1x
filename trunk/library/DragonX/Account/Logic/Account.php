@@ -43,6 +43,11 @@ class DragonX_Account_Logic_Account
     	$logicValidation = new DragonX_Account_Logic_Validation();
     	$logicValidation->request($recordAccount, $configMail);
 
+        Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
+            'DragonX_Account_Plugin_RegisterAccount_Interface',
+            array($recordAccount)
+        );
+
     	return $recordAccount->id;
     }
 

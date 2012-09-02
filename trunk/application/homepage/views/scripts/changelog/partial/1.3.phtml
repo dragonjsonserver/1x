@@ -23,7 +23,7 @@
 <ul>
     <li>Session auch per API ermöglichen, ein Service der einen Sessionhash für einen Account generiert und zurück gibt welcher dann bei jedem Service übergeben werden muss und für eine gewisse Zeit gültig ist statt bei jedem Aufruf Identität und Credential mitzugeben</li>
     <li>Accounteinstellungen bearbeiten: Identity und Passwort ändern, Account löschen</li>
-    <li>Für jeden Statuswechsel, also Gast -> registrierter Account -> validierter Account sollen andere Rechte vergeben werden können und für jeden Statuswechsel soll es Plugin Interfaces geben</li>
+    <li>Für jeden Statuswechsel, also Gast -> registrierter Account -> validierter Account sollen andere Rechte vergeben werden können</li>
 </ul>
 <h4>Homepage</h4>
 <ul>
@@ -61,6 +61,7 @@
                 Account
                 <ul>
                     <li>Accounts die neu registriert werden können nun auch validiert werden durch die E-Mail bzw. dem Hash der Validierungsabfrage</li>
+                    <li>Für die Registrierung und Validierung eines Accounts gibt es Pluginschnittstellen um währenddessen Aktionen durchführen zu können</li>
                 </ul>
             </li>
             <li>
