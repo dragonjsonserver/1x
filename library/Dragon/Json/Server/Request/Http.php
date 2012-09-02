@@ -38,7 +38,7 @@ class Dragon_Json_Server_Request_Http extends Zend_Json_Server_Request_Http
      */
     public function parseMethod()
     {
-        $servicearray = explode('.', $request->getMethod());
+        $servicearray = explode('.', $this->getMethod());
         $methodname = array_pop($servicearray);
         return array(implode('_', $servicearray), $methodname);
     }
