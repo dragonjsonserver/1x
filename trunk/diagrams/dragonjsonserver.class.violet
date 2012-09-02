@@ -176,6 +176,32 @@
         </void> 
        </object> 
       </void> 
+      <void method="addChild"> 
+       <object id="PackageNode12" class="com.horstmann.violet.PackageNode"> 
+        <void property="contents"> 
+         <void property="text"> 
+          <string>- Rechteverwaltung mit Rollen und Resourcen
+- Arbeitet mit Nested Sets</string> 
+         </void> 
+        </void> 
+        <void property="name"> 
+         <string>Acl</string> 
+        </void> 
+       </object> 
+      </void> 
+      <void method="addChild"> 
+       <object id="PackageNode13" class="com.horstmann.violet.PackageNode"> 
+        <void property="contents"> 
+         <void property="text"> 
+          <string>- Basisfunktionalitäten für die Abbildung von Baumstrutkuren
+als Nested Sets in einer relationalen Datenbank</string> 
+         </void> 
+        </void> 
+        <void property="name"> 
+         <string>NestedSet</string> 
+        </void> 
+       </object> 
+      </void> 
       <void property="name"> 
        <string>DragonX</string> 
       </void> 
@@ -367,7 +393,7 @@
    </object> 
   </void> 
   <void method="addNode"> 
-   <object id="PackageNode12" class="com.horstmann.violet.PackageNode"> 
+   <object id="PackageNode14" class="com.horstmann.violet.PackageNode"> 
     <void property="contents"> 
      <void property="text"> 
       <string>- Dynamischer JsonRPC Client
@@ -451,6 +477,24 @@
     <void method="setLocation"> 
      <double>839.0</double> 
      <double>456.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="PackageNode12"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>550.0</double> 
+     <double>550.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="PackageNode13"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>840.0</double> 
+     <double>546.0</double> 
     </void> 
    </object> 
   </void> 
@@ -619,7 +663,7 @@
      <object class="com.horstmann.violet.LineStyle" field="DOTTED"/> 
     </void> 
    </object> 
-   <object idref="PackageNode12"/> 
+   <object idref="PackageNode14"/> 
    <object idref="InterfaceNode2"/> 
   </void> 
   <void method="connect"> 
