@@ -87,6 +87,21 @@ class DragonX_Account_Service_Account
     }
 
     /**
+     * Gibt des Löschstatus des Accounts zurück
+     * @dragonx_account_authenticate
+     * @return array
+     */
+    public function getDeletion()
+    {
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $recordDeletion = $logicAccount->getDeletion(Zend_Registry::get('recordAccount'));
+
+        if (isset($recordDeletion)) {
+	        return array('timestamp' => $recordDeletion->timestamp);
+        }
+    }
+
+    /**
      * Setzt den Löschstatus des Accounts zurück
      * @dragonx_account_authenticate
      */
