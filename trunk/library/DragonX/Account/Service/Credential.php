@@ -33,11 +33,11 @@ class DragonX_Account_Service_Credential
     /**
      * Setzt Passwort mit dem Passwort vergessen Hash zurück
      * @param string $credentialhash
-     * @param string $credential
+     * @param string $newcredential
      */
-    public function resetCredential($credentialhash, $credential)
+    public function resetCredential($credentialhash, $newcredential)
     {
         $logicCredential = new DragonX_Account_Logic_Credential();
-        $logicCredential->reset($credentialhash, $credential);
+        $logicCredential->reset($credentialhash, $newcredential);
     }
 }

@@ -52,4 +52,27 @@ class DragonX_Account_Service_Account
     {
         return array('accountid' => Zend_Registry::get('recordAccount')->id);
     }
+
+    /**
+     * Ändert die E-Mail Adresse trägt eine neue Validierungabfrage ein
+     * @param string $newidentity
+     * @dragonx_account_authenticate
+     */
+    public function changeIdentity($newidentity)
+    {
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $configValidation = new Dragon_Application_Config('dragonx/account/validation');
+        $logicAccount->changeIdentity(Zend_Registry::get('recordAccount'), $newidentity, $configValidation->validationhash);
+    }
+
+    /**
+     * Ändert das Passwort für den Account
+     * @param string $newcredential
+     * @dragonx_account_authenticate
+     */
+    public function changeCredential($newcredential)
+    {
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $logicAccount->changeCredential(Zend_Registry::get('recordAccount'), $newcredential);
+    }
 }

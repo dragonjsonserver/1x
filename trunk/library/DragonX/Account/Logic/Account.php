@@ -91,4 +91,43 @@ class DragonX_Account_Logic_Account
         $sessionNamespace = new Zend_Session_Namespace();
         $sessionNamespace->unsetAll();
     }
+
+    /**
+     * Ändert die E-Mail Adresse trägt eine neue Validierungabfrage ein
+     * @param DragonX_Account_Record_Account $recordAccount
+     * @param string $newidentity
+     * @param Zend_Config $configMail
+     */
+    public function changeIdentity(DragonX_Account_Record_Account $recordAccount, $newidentity, Zend_Config $configMail)
+    {
+    	$recordAccount->identity = $newidentity;
+    	Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
+
+        $logicValidation = new DragonX_Account_Logic_Validation();
+        $logicValidation->request($recordAccount, $configMail);
+
+        Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
+            'DragonX_Account_Plugin_ChangeIdentity_Interface',
+            array($recordAccount)
+        );
+    }
+
+    /**
+     * Ändert das Passwort für den Account
+     * @param DragonX_Account_Record_Account $recordAccount
+     * @param string $newcredential
+     */
+    public function changeCredential(DragonX_Account_Record_Account $recordAccount, $newcredential)
+    {
+        $recordAccount->credential = md5($newcredential);
+        Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
+    }
+
+    /**
+     * Trägt ein Löschvermerk für den Account ein sodass dieser gelöscht wird
+     * @param DragonX_Account_Record_Account $recordAccount
+     */
+    public function deleteAccount(DragonX_Account_Record_Account $recordAccount)
+    {
+    }
 }
