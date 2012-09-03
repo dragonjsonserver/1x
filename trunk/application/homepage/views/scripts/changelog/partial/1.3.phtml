@@ -24,10 +24,6 @@
     <li>Session auch per API ermöglichen, ein Service der einen Sessionhash für einen Account generiert und zurück gibt welcher dann bei jedem Service übergeben werden muss und für eine gewisse Zeit gültig ist statt bei jedem Aufruf Identität und Credential mitzugeben</li>
     <li>Für jeden Statuswechsel, also Gast -> registrierter Account -> validierter Account sollen andere Rechte vergeben werden können</li>
 </ul>
-<h4>Homepage</h4>
-<ul>
-    <li>Bei den Neuigkeiten Pagination unterstützen um nicht alle Neuigkeiten auf einer Seite anzeigen zu müssen</li>
-</ul>
 <h3>Version 1.3.0</h3>
 <h4>Releasedatum: noch offen</h4>
 <h4>Neue Pakete</h4>
@@ -102,6 +98,7 @@
     <li>Der Login nimmt eine Weiterleitung durch den abstrakten Controller entgegen und leitet bei einem erfolgreichen Login auf diese Seite um</li>
     <li>Die Änderung der E-Mail Adresse und des Passworts des eigenen Accounts ist nun im Administrationsbereich der Homepage möglich</li>
     <li>Die Accountlöschung eintragen und zurücksetzen ist nun im Administrationsbereich der Homepage möglich</li>
+    <li>Bei den Neuigkeiten wird nun Pagination unterstützt sodass man alle Neuigkeiten Seitenweise durchgehen kann</li>
 </ul>
 <h4>JsonClient</h4>
 <ul>
@@ -117,4 +114,5 @@
     <li>Da die Anwendung nun in die Bereiche Homepage und Administration getrennt wurde müssen auch alle eigenen Controller und Views darauf aufgeteilt werden</li>
     <li>Da 'load()' nun nicht mehr die Storage Engine selbst zurück gibt sondern den Record müssen Verkettungen aufgelöst werden</li>
     <li>Eigene Storage Engines müssen nun die nach dem Zend Standard umbenannten Schnittstellen implementieren</li>
+    <li>In der Konfigurationsdatei für die Neuigkeiten '/config/dragonx/homepage/news.php' hat sich der Parametername 'amount' geändert in 'perpage'</li>
 </ul>

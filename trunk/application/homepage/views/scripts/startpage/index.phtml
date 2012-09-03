@@ -19,27 +19,18 @@
     <?php echo $this->configStartpage->content; ?>
 </div>
 <?php
-if ($this->configNews->amount == 'all' || count($this->configNews->news) > $this->configNews->amount) {
-   if ($this->actionname == 'all') {
-       echo '<a href="' . $this->url(array('controller' => $this->controllername), null, true) . '">Weniger anzeigen...</a>';
-   } else {
-       echo '<a href="' . $this->url(array('controller' => $this->controllername, 'action' => 'all'), null, true) . '">Alle anzeigen...</a>';
-   }
-}
-if (count($this->configNews->news) > 0) {
+echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+if (count($this->paginator) > 0) {
     echo '<div class="row">';
-    foreach ($this->configNews->news as $key => $news) {
-        if ($this->actionname != 'all' && $this->actionname <= $key) {
-            break;
-        }
+    foreach ($this->paginator as $key => $news) {
         if ($key > 0 && $key % $this->configNews->perrow == 0) {
             echo '</div><div class="row">';
         }
         echo
               '<div class="span' . (int)(12 / $this->configNews->perrow) . '">'
-                . '<h2>' . $this->escape($news->title) . '</h2>'
-                . '<p>' . date('d.m.Y', $news->timestamp) . '</p>'
-                . '<p>' . $this->escape($news->content) . '</p>'
+                . '<h2>' . $this->escape($news['title']) . '</h2>'
+                . '<p>' . date('d.m.Y', $news['timestamp']) . '</p>'
+                . '<p>' . $this->escape($news['content']) . '</p>'
             . '</div>';
     }
     echo '</div>';

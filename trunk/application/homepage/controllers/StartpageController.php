@@ -24,21 +24,15 @@ class StartpageController extends DragonX_Homepage_Controller_Abstract
      */
     public function indexAction()
     {
-        $this->view->configStartpage = new Dragon_Application_Config('dragonx/homepage/startpage');
-        $configNews = new Dragon_Application_Config('dragonx/homepage/news');
-        $this->view->configNews = $configNews;
-        if (!isset($this->view->actionname)) {
-            $this->view->actionname = $configNews->amount;
-        }
-        $this->render('index');
-    }
+        $page = $this->getOptionalParam('page', '1');
 
-    /**
-     * Action zur Anzeige aller Neuigkeiten der Startseite
-     */
-    public function allAction()
-    {
-        $this->view->actionname = 'all';
-        $this->indexAction();
+    	$this->view->configStartpage = new Dragon_Application_Config('dragonx/homepage/startpage');
+    	$configNews = new Dragon_Application_Config('dragonx/homepage/news');
+        $this->view->configNews = $configNews;
+    	$paginator = new Zend_Paginator(new Zend_Paginator_Adapter_Array($configNews->news->toArray()));
+    	$paginator
+    	    ->setCurrentPageNumber($page)
+    	    ->setItemCountPerPage($configNews->perpage);
+        $this->view->paginator = $paginator;
     }
 }

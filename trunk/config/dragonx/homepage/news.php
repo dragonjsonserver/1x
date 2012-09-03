@@ -18,7 +18,7 @@
  * @return array
  */
 return array(
-    'amount' => 2,
+    'perpage' => 4,
     'perrow' => 2,
     'news' => array(
         array(

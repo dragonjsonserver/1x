@@ -27,9 +27,11 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
         parent::preDispatch();
 
         $this->view->configApplication = new Dragon_Application_Config('dragon/application/application');
-        $this->view->modulename = $this->getRequest()->getModuleName();
-        $this->view->controllername = $this->getRequest()->getControllerName();
-        switch ($this->view->modulename) {
+        $modulename = $this->getRequest()->getModuleName();
+        $this->view->modulename = $modulename;
+        $controllername = $this->getRequest()->getControllerName();
+        $this->view->controllername = $controllername;
+        switch ($modulename) {
         	case 'homepage':
         		$this->view->configNavigation = new Dragon_Application_Config('dragonx/homepage/navigation');
         		break;
@@ -42,17 +44,17 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
                 	$actionname = $this->getRequest()->getActionName();
                 	$defaultactionname = $frontController->getDefaultAction();
                     $params = array();
-                	if ($this->view->controllername != $defaultcontrollername
+                	if ($controllername != $defaultcontrollername
                 	    ||
                 	    $actionname != $defaultactionname) {
-                	    if ($this->view->controllername != $defaultcontrollername) {
+                	    if ($controllername != $defaultcontrollername) {
                 	    	if ($actionname == $defaultactionname) {
-	                	    	$params = array('redirect' => 'administration/' . $this->view->controllername);
+	                	    	$params = array('redirect' => 'administration/' . $controllername);
                 	    	} else {
-	                	    	$params = array('redirect' => 'administration/' . $this->view->controllername . '/' . $actionname);
+	                	    	$params = array('redirect' => 'administration/' . $controllername . '/' . $actionname);
                 	    	}
                 	    } elseif ($actionname != $defaultactionname) {
-                	    	$params = array('redirect' => 'administration/' . $this->view->controllername . '/' . $actionname);
+                	    	$params = array('redirect' => 'administration/' . $controllername . '/' . $actionname);
                 	    }
                 	}
                 	$redirect = '';
@@ -62,8 +64,9 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
                 	$this->_redirect('account/showlogin' . $redirect);
                 }
                 $logicAccount = new DragonX_Account_Logic_Account();
-                $this->view->recordDeletion = $logicAccount->getDeletion($sessionNamespace->recordAccount);
-                if (isset($this->view->recordDeletion)) {
+                $recordDeletion = $logicAccount->getDeletion($sessionNamespace->recordAccount);
+                if (isset($recordDeletion)) {
+	                $this->view->recordDeletion = $recordDeletion;
                 	$this->view->configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
                 }
         		break;
