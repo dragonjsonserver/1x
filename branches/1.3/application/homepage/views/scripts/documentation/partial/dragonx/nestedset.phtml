@@ -1,0 +1,61 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Allgemein</h3>
+<ul>
+    <li>Nested Sets bieten die Möglichkeit Baumstrukturen in einer relationalen Datenbank abzulegen um diese ohne Rekursionen performant auslesen zu können</li>
+    <li>Beschreibung von Nested Sets und wie man diese in MySQL umsetzt: <a title="Externer Link, Inhalt zuletzt geprüft am 01.09.2012" href="http://www.klempert.de/nested_sets/">Nested Sets</a></li>
+</ul>
+<h3>Datenbankstruktur</h3>
+<ul>
+    <li>
+        Für alle Nested Sets gibt es einen abstrakten Record und damit verbunden eine Basisdatenbankstruktur
+<pre>CREATE TABLE `%packagenamespace%_%packagename%_Record_%recordname%` (
+    `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `lft` INT(10) UNSIGNED NOT NULL,
+    `rgt` INT(10) UNSIGNED NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY (`lft`),
+    KEY (`rgt`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</pre>
+    </li>
+    <li>Diese kann durch den abgeleiteten Record und der konkreten Datenbanktabelle weitere Felder aufnehmen</li>
+</ul>
+<h3>Anwendung</h3>
+<ul>
+    <li>
+        Erstellung eines abgeleiteten Records der die konkrete Datenstruktur eines Nested Set Knotens definiert
+<pre>class %packagenamespace%_%packagename%_Record_%recordname% extends DragonX_NestedSet_Record_NestedSet
+{}</pre>
+    </li>
+    <li>
+        Hinzufügen von neuen Nested Set Knoten
+<pre>$logicNestedSet = new DragonX_NestedSet_Logic_NestedSet();
+$logicNestedSet->addNode(
+    new %packagenamespace%_%packagename%_Record_%recordname%(),
+    new %packagenamespace%_%packagename%_Record_%recordname%(%parentid%)
+);</pre>
+    </li>
+    <li>Wenn beim Hinzufügen kein Parentknoten angegeben wird, wird ein neuer Wurzelknoten erstellt und damit ein neuer Baum</li>
+    <li>
+        Entfernen von Nested Set Knoten
+<pre>$logicNestedSet = new DragonX_NestedSet_Logic_NestedSet();
+$logicNestedSet->removeNode(
+    new %packagenamespace%_%packagename%_Record_%recordname%(%id%)
+);</pre>
+    </li>
+    <li>Das Auslesen der Nested Set Strukturen erfolgt für jeden Anwendungsfall individuell durch optimierte SQL Statements</li>
+</ul>
