@@ -32,7 +32,7 @@ return array(
                 . 'Des Weiteren wurde die Accountverwaltung erweitert sodass '
                 . 'nun Accounts nach der Registrierung validiert, geändert '
                 . 'und gelöscht werden können.',
-            'timestamp' => 0,
+            'timestamp' => 1346707689,
         ),
         array(
             'title' => 'Version 1.2.6 zum Download verfügbar',
