@@ -43,6 +43,24 @@ class Dragon_Package_Registry
     }
 
     /**
+     * Gibt zurück ob das Package verfügbar ist oder nicht
+     * @param string $packagenamespace
+     * @param string $packagename
+     * @return boolean
+     */
+    public function isAvailable($packagenamespace, $packagename)
+    {
+        $packagenamespaces = $this->getPackagenamespaces();
+        return
+            isset($packagenamespaces[$packagenamespace])
+            && (
+               isset($packagenamespaces[$packagenamespace][$packagename])
+               ||
+               in_array($packagename, $packagenamespaces[$packagenamespace], true)
+            );
+    }
+
+    /**
      * Gibt alle Klassennamen zurück die von dem Klassentyp eingebunden wurden
      * @param string $classtype
      * @return array
