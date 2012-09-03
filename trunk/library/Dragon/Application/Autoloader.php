@@ -38,15 +38,8 @@ class Dragon_Application_Autoloader
             return;
         }
         list ($packagenamespace, $packagename) = $classnamearray;
-        $packageregistry = Zend_Registry::get('Dragon_Package_Registry');
-        $packagenamespaces = $packageregistry->getPackagenamespaces();
-        if (!isset($packagenamespaces[$packagenamespace])
-            || (
-               !isset($packagenamespaces[$packagenamespace][$packagename])
-               &&
-               !in_array($packagename, $packagenamespaces[$packagenamespace], true)
-            )) {
-            return;
+        if (!Zend_Registry::get('Dragon_Package_Registry')->isAvailable($packagenamespace, $packagename)) {
+        	return;
         }
         require str_replace('_', '/', $classname) . '.php';
     }
