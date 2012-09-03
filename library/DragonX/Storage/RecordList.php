@@ -40,14 +40,14 @@ class DragonX_Storage_RecordList extends ArrayObject
      */
     public function unsetNewRecords()
     {
-    	$nullKeys = array();
+        $nullKeys = array();
         foreach ($this as $key => $record) {
-        	if (!isset($record->id)) {
-        		$nullKeys[] = $key;
-        	}
+            if (!isset($record->id)) {
+                $nullKeys[] = $key;
+            }
         }
         foreach ($nullKeys as $nullKey) {
-        	unset($this[$nullKey]);
+            unset($this[$nullKey]);
         }
         return $this;
     }
@@ -124,24 +124,37 @@ class DragonX_Storage_RecordList extends ArrayObject
      */
     public function indexBy($indexby)
     {
-    	if (!is_array($indexby)) {
-    		$indexby = array($indexby);
-    	}
+        if (!is_array($indexby)) {
+            $indexby = array($indexby);
+        }
         $list = new DragonX_Storage_RecordList();
-    	$attributename = array_shift($indexby);
-    	foreach ($this as $record) {
-    		$attribute = $record->$attributename;
-    		if (!isset($list[$attribute])) {
-    		    $list[$attribute] = new DragonX_Storage_RecordList();
-    		}
+        $attributename = array_shift($indexby);
+        foreach ($this as $record) {
+            $attribute = $record->$attributename;
+            if (!isset($list[$attribute])) {
+                $list[$attribute] = new DragonX_Storage_RecordList();
+            }
             $list[$attribute][] = $record;
-    	}
-    	if (count($indexby) > 0) {
-	    	foreach ($list as &$sublist) {
-	    		$sublist = $sublist->indexBy($indexby);
-	    	}
-	    	unset($sublist);
-    	}
-    	return $list;
+        }
+        if (count($indexby) > 0) {
+            foreach ($list as &$sublist) {
+                $sublist = $sublist->indexBy($indexby);
+            }
+            unset($sublist);
+        }
+        return $list;
+    }
+
+    /**
+     * Konvertiert die Records zu Arrays und gibt diese als Array zurück
+     * @return array
+     */
+    public function toArray()
+    {
+        $array = array();
+        foreach ($this as $key => $record) {
+            $array[$key] = $record->toArray();
+        }
+        return $array;
     }
 }
