@@ -28,7 +28,10 @@ return array(
                 . 'verfügbar. In der Version gab es einige Verbesserungen der '
                 . 'vorhandenen Pakete, die Auftrennung der Homepage in einen '
                 . 'öffentlichen und administrativen Bereich und die Grundlage '
-                . 'für die Benutzerverwaltung durch Ressourcen und Rollen.',
+                . 'für die Benutzerverwaltung durch Ressourcen und Rollen. '
+                . 'Des Weiteren wurde die Accountverwaltung erweitert sodass '
+                . 'nun Accounts nach der Registrierung validiert, geändert '
+                . 'und gelöscht werden können.',
             'timestamp' => 0,
         ),
         array(
