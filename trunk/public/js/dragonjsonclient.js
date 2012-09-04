@@ -22,7 +22,7 @@
 function DragonJsonClient(jsonclient)
 {
 	var applicationname = 'DragonJsonClient';
-	var applicationversion = 'v1.3.0';
+	var applicationversion = 'v1.4.0';
 
     $('#applicationname').html(applicationname);
     $('#applicationversion').html(applicationversion);
@@ -119,25 +119,26 @@ function DragonJsonClient(jsonclient)
         $.extend(self.data, self.getData());
         var namespace = $('#namespace').val();
         var method = $('#method').val();
-        var table = $('#arguments');
+        var div = $('#arguments');
         if (this.namespaces[namespace][method].length) {
-            table.html('');
+        	div.html('');
             $.each(this.namespaces[namespace][method], function(index, parameter) {
-                var tr = $('<tr></tr>')
-                             .appendTo(table);
-                $('<td></td>')
-                    .appendTo(tr)
-                    .append($('<label></label>')
-                                 .attr({'for' : parameter.name})
-                                .html(parameter.name + ': '));
-                $('<td></td>')
-                    .appendTo(tr)
-                    .append($('<input />')
+                var controlgroup = 
+                	$('<div class="control-group"></div>')
+                    	.appendTo(div);
+                
+                $('<label class="control-label" for="newcredential"></label>')
+                    .html(parameter.name + ':')
+                    .appendTo(controlgroup);
+
+                $('<div class="controls"></div>')
+                    .appendTo(controlgroup)
+                    .append($('<input>')
                                 .attr({'type' : 'text', 'name' : parameter.name})
                                 .val(self.data[parameter.name]));
             });
         } else {
-            table.html('<tr><td>Keine Argumente benötigt</td></tr>');
+        	div.html('Keine Argumente benötigt');
         }
         return self;
     };

@@ -14,9 +14,23 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 ?>
-<form class="well" action="<?php echo $this->url(array('controller' => 'account', 'action' => 'register'), null, true); ?>" method="post">
-    <h2>Registrieren</h2>
-    <label for="identity">E-Mail Adresse:</label><input type="email" id="identity" name="identity"  required="required" />
-    <label for="credential">Passwort:</label><input type="password" id="credential" name="credential"  required="required" />
-    <input type="submit" value="Registrieren" />
+<form class="form-horizontal" action="<?php echo $this->url(array('controller' => 'account', 'action' => 'register'), null, true); ?>" method="post">
+    <legend>Registrieren</legend>
+    <div class="control-group">
+        <label class="control-label" for="identity">E-Mail Adresse:</label>
+        <div class="controls">
+            <input type="email" id="identity" name="identity" required="required">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="credential">Passwort:</label>
+        <div class="controls">
+            <input type="password" id="credential" name="credential"  required="required">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">Registrieren</button>
+        </div>
+    </div>
 </form>
