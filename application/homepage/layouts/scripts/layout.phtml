@@ -58,7 +58,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     </head>
     <body>
-        <div class="navbar navbar-fixed-top">
+        <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
                     <?php
@@ -107,19 +107,19 @@
         <div class="container">
             <?php
                 if (isset($this->recordDeletion)) {
-                	$this->messages[] = 'Account wurde am ' . date('d.m.Y', $this->recordDeletion->timestamp) . ' zum Löschen eingetragen und wird nach dem ' . date('d.m.Y', $this->recordDeletion->timestamp + $this->configDeletion->offset) . ' gelöscht';
+                	$this->messages[] = '<span class="label label-warning">Account wurde am ' . date('d.m.Y', $this->recordDeletion->timestamp) . ' zum Löschen eingetragen und wird nach dem ' . date('d.m.Y', $this->recordDeletion->timestamp + $this->configDeletion->offset) . ' gelöscht</span>';
                 }
                 if (count($this->messages) > 0) {
                 	echo '<ul>';
                 	foreach ($this->messages as $message) {
                 		echo '<li>' . $message . '</li>';
                 	}
-                	echo '</ul><hr>';
+                	echo '</ul>';
                 }
             ?>
             <?php echo $this->layout()->content ?>
             <footer>
-                <div class="navbar navbar-fixed-bottom">
+                <div class="navbar navbar-inverse navbar-fixed-bottom">
                     <div class="navbar-inner">
                         <div class="container">
                             <span class="brand"><?php echo $this->configApplication->copyright; ?></span>
