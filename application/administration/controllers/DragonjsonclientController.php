@@ -13,7 +13,15 @@
  * @license http://framework.zend.com/license/new-bsd New BSD License
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
-?>
-<h3>Noch geplante Änderungen</h3>
-<h3>Version 1.5.0</h3>
-<h4>Releasedatum: noch offen</h4>
+
+/**
+ * Controller zur Anzeige des Json Clients für Anfrage an den JsonServer
+ */
+class Administration_DragonjsonclientController extends DragonX_Homepage_Controller_Abstract
+{
+    /**
+     * Action zur Anzeige des Json Clients für Anfrage an den JsonServer
+     */
+    public function indexAction()
+    {}
+}
