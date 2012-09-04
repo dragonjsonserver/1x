@@ -15,19 +15,8 @@
  */
 
 /**
- * Controller zur Anzeige der Lizenzbestimmungen der Anwendung
+ * @return array
  */
-class LicenseController extends DragonX_Homepage_Controller_Abstract
-{
-    /**
-     * Action zur Anzeige der Lizenzbestimmungen der Anwendung
-     */
-    public function indexAction()
-    {
-        $configLicense = new Dragon_Application_Config('dragonx/homepage/license');
-        if (!isset($configLicense->license)) {
-        	throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
-        }
-        $this->render($configLicense->license);
-    }
-}
+return array(
+    'license' => 'newbsd',
+);
