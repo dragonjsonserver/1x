@@ -27,7 +27,7 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
         $logicAccount = new DragonX_Account_Logic_Account();
         $logicAccount->logoutAccount();
 
-        $this->_helper->FlashMessenger('<span class="label label-success">Abmeldung erfolgreich</span>');
+        $this->_helper->FlashMessenger('<div class="alert alert-success">Abmeldung erfolgreich</div>');
         $this->_redirect('');
     }
 
@@ -44,14 +44,14 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
             $configValidation = new Dragon_Application_Config('dragonx/account/validation');
             $logicAccount->changeIdentity($sessionNamespace->recordAccount, $params['newidentity'], $configValidation->validationlink);
         } catch (InvalidArgumentException $exception) {
-            $this->_helper->FlashMessenger('<span class="label label-important">E-Mail Adresse nicht korrekt</span>');
+            $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse nicht korrekt</div>');
             $this->_redirect('account/showedit');
         } catch (Exception $exception) {
-            $this->_helper->FlashMessenger('<span class="label label-important">E-Mail Adresse bereits vergeben</span>');
+            $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse bereits vergeben</div>');
             $this->_redirect('account/showedit');
         }
 
-        $this->_helper->FlashMessenger('<span class="label label-success">Änderung der E-Mail Adresse erfolgreich</span>');
+        $this->_helper->FlashMessenger('<div class="alert alert-success">Änderung der E-Mail Adresse erfolgreich</div>');
         $this->_redirect('administration');
     }
 
@@ -66,7 +66,7 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
         $sessionNamespace = new Zend_Session_Namespace();
         $logicAccount->changeCredential($sessionNamespace->recordAccount, $params['newcredential']);
 
-        $this->_helper->FlashMessenger('<span class="label label-success">Änderung des Passworts erfolgreich</span>');
+        $this->_helper->FlashMessenger('<div class="alert alert-success">Änderung des Passworts erfolgreich</div>');
         $this->_redirect('administration');
     }
 
@@ -91,7 +91,7 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
         $sessionNamespace = new Zend_Session_Namespace();
         $logicAccount->deleteDeletion($sessionNamespace->recordAccount);
 
-        $this->_helper->FlashMessenger('<span class="label label-success">Löschung des Accounts zurückgesetzt</span>');
+        $this->_helper->FlashMessenger('<div class="alert alert-success">Löschung des Accounts zurückgesetzt</div>');
         $this->_redirect('administration');
     }
 

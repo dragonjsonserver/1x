@@ -107,14 +107,10 @@
         <div class="container">
             <?php
                 if (isset($this->recordDeletion)) {
-                	$this->messages[] = '<span class="label label-warning">Account wurde am ' . date('d.m.Y', $this->recordDeletion->timestamp) . ' zum Löschen eingetragen und wird nach dem ' . date('d.m.Y', $this->recordDeletion->timestamp + $this->configDeletion->offset) . ' gelöscht</span>';
+                	$this->messages[] = '<div class="alert">Account wurde am ' . date('d.m.Y', $this->recordDeletion->timestamp) . ' zum Löschen eingetragen und wird nach dem ' . date('d.m.Y', $this->recordDeletion->timestamp + $this->configDeletion->offset) . ' gelöscht</div>';
                 }
-                if (count($this->messages) > 0) {
-                	echo '<ul>';
-                	foreach ($this->messages as $message) {
-                		echo '<li>' . $message . '</li>';
-                	}
-                	echo '</ul>';
+                foreach ($this->messages as $message) {
+                	echo $message;
                 }
             ?>
             <?php echo $this->layout()->content ?>
