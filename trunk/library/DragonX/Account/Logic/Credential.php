@@ -83,9 +83,8 @@ class DragonX_Account_Logic_Credential
         	throw new Exception('incorrect accountid');
         }
         $recordAccount->credential = md5($newcredential);
-        $storage
-            ->save($recordAccount)
-            ->delete($recordCredential);
+        $storage->save($recordAccount);
+        $storage->delete($recordCredential);
 
         return $recordAccount;
     }
