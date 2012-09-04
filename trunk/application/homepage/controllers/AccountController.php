@@ -86,7 +86,9 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
 	        $logicAccount->loginAccount($params['identity'], $params['credential']);
     	} catch (Exception $exception) {
 	        $this->_helper->FlashMessenger('E-Mail Adresse oder Passwort nicht korrekt');
-	        if ($redirect != 'administration') {
+	        if ($redirect == 'administration') {
+	        	$redirect = '';
+	        } else {
 	        	$redirect = '?' . http_build_query(array('redirect' => $redirect));
 	        }
 	        $this->_redirect('account/showlogin' . $redirect);

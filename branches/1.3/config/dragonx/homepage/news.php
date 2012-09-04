@@ -22,6 +22,16 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.3.1 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.3.1 ist abgeschlossen und als Download '
+                . 'verfügbar. In der Version wurde ein Fehler bei der '
+                . 'automatischen Weiterleitung behoben wenn man ohne '
+                . 'eingeloggten Account auf die Startseite des '
+                . 'Administrationsbereiches zugreifen wollte.',
+            'timestamp' => 1346720647,
+        ),
+        array(
             'title' => 'Version 1.3.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.3.0 ist abgeschlossen und als Download '
