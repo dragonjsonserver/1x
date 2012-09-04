@@ -16,26 +16,24 @@
 ?>
 <?php
 if ($this->pageCount > 0) {
+	echo '<div class="pagination pagination-centered"><ul>';
 	if (isset($this->previous)) {
-		echo '<a href="?page=' . $this->previous . '">&lt; Vorherige Seite</a>';
+		echo '<li><a href="?page=' . $this->previous . '">Vorherige Seite</a></li>';
 	} else {
-		echo '&lt; Vorherige Seite';
+		echo '<li class="disabled"><a>Vorherige Seite</a></li>';
 	}
-	echo ' | ';
-
 	foreach ($this->pagesInRange as $page) {
 		if ($page == $this->current) {
-            echo $page;
+            echo '<li class="active"><a>' . $page . '</a></li>';
 		} else {
-		    echo '<a href="?page=' . $page . '">' . $page . '</a>';
+		    echo '<li><a href="?page=' . $page . '">' . $page . '</a></li>';
 		}
-		echo ' | ';
 	}
-
     if (isset($this->next)) {
-        echo '<a href="?page=' . $this->next . '">Nächste Seite &gt;</a>';
+        echo '<li><a href="?page=' . $this->next . '">Nächste Seite</a></li>';
     } else {
-        echo 'Nächste Seite &gt;';
+        echo '<li class="disabled"><a>Nächste Seite</a></li>';
     }
+    echo '</ul></div>';
 }
 ?>
