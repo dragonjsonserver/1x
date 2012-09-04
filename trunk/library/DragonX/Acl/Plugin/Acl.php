@@ -37,8 +37,12 @@ class DragonX_Acl_Plugin_Acl
         } catch (Exception $exception) {
 	        return;
         }
-        $logicAcl = new DragonX_Acl_Logic_Acl();
-        if (!in_array($resource, $logicAcl->getResources())) {
+        $resources = array();
+        if (Zend_Registry::isRegistered('recordAccount')) {
+	        $logicAcl = new DragonX_Acl_Logic_Acl();
+        	$resources = $logicAcl->getResources(Zend_Registry::get('recordAccount'));
+        }
+        if (!in_array($resource, $resources)) {
         	throw new Exception('missing resource ' . $resource);
         }
     }

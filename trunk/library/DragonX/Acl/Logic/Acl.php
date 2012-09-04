@@ -20,14 +20,11 @@
 class DragonX_Acl_Logic_Acl
 {
     /**
-     * Gibt die Liste aller Rechte zum aktuellen Account zurück
+     * Gibt die Liste aller Rechte zum übergebenen Account zurück
      * @return array
      */
-    public function getResources()
+    public function getResources(DragonX_Account_Record_Account $recordAccount)
     {
-    	if (!Zend_Registry::isRegistered('recordAccount')) {
-    		return array();
-    	}
         $result = Zend_Registry::get('DragonX_Storage_Engine')->executeSqlStatement(
               "SELECT DISTINCT "
                 . "resources.name "
@@ -60,7 +57,7 @@ class DragonX_Acl_Logic_Acl
 	            . ") resources ON resources.parentid = dragonx_acl_record_roleresource.resourceid "
             . "WHERE "
                 . "dragonx_account_record_account.id = :accountid",
-            array('accountid' => Zend_Registry::get('recordAccount')->id)
+            array('accountid' => $recordAccount->id)
         );
         $resources = array();
         foreach ($result->fetchAll() as $row) {

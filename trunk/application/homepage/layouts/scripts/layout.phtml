@@ -23,10 +23,18 @@
             <?php
                 echo $this->configApplication->name;
                 if (isset($this->configNavigation->header->{$this->controllername})) {
-                    echo ' - ' . $this->configNavigation->header->{$this->controllername};
+                	$navigation = $this->configNavigation->header->{$this->controllername};
+                    if (!$navigation instanceof Zend_Config) {
+                        $navigation = new Zend_Config(array('label' => $navigation));
+                    }
+                    echo ' - ' . $navigation->label;
                 }
                 if (isset($this->configNavigation->footer->{$this->controllername})) {
-                    echo ' - ' . $this->configNavigation->footer->{$this->controllername};
+                    $navigation = $this->configNavigation->footer->{$this->controllername};
+                    if (!$navigation instanceof Zend_Config) {
+                        $navigation = new Zend_Config(array('label' => $navigation));
+                    }
+                    echo ' - ' . $navigation->label;
                 }
             ?>
         </title>
@@ -76,7 +84,13 @@
                     <ul class="nav">
                         <?php
                         foreach ($this->configNavigation->header as $controller => $navigation) {
-                            echo '<li' . ($this->controllername == $controller ? ' class="active"' : '') . '><a href="' . $this->url(array('module' => $this->modulename, 'controller' => $controller), null, true) . '">' . $navigation . '</a></li>';
+                        	if (!$navigation instanceof Zend_Config) {
+                        		$navigation = new Zend_Config(array('label' => $navigation));
+                        	}
+                        	if (isset($navigation->resource) && !in_array($navigation->resource, $this->resources)) {
+                                continue;
+                        	}
+                            echo '<li' . ($this->controllername == $controller ? ' class="active"' : '') . '><a href="' . $this->url(array('module' => $this->modulename, 'controller' => $controller), null, true) . '">' . $navigation->label . '</a></li>';
                         }
                         ?>
                     </ul>

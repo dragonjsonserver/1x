@@ -17,7 +17,7 @@
 <h3>Klassen für die Homepage</h3>
 <ul>
     <li>Bootstrapklasse für das Zend MVC der Homepage</li>
-    <li>Abstrakter Controller zum Setzen der Viewvariablen des Layouts</li>
+    <li>Abstrakter Controller zum Setzen der Viewvariablen des Layouts und Abfrage von Ressourcen beim Controlleraufruf</li>
     <li>Controller, Layoutskript und Viewskripte liegen im Verzeichnis 'homepage'</li>
 </ul>
 <h3>Layoutskript</h3>
@@ -25,10 +25,11 @@
     <li>Konfigurationsdatei für die Seitennavigation des öffentlichen Bereiches '/config/dragonx/homepage/navigation.php'</li>
     <li>Konfigurationsdatei für die Seitennavigation des Administrationsbereiches '/config/dragonx/administration/navigation.php'</li>
     <li>
-        %controller% ist der Controller, %navigation% die Beschriftung des Seitennavigationspunktes
+        %controller% ist der Controller, %navigation% die Beschriftung des Seitennavigationspunktes und %resource% kann verwendet werden wenn der Navigationseintrag nur angezeigt werden soll wenn die Ressource vorhanden ist
 <pre>return array(
     'header' =&gt; array(
         '%controller%' =&gt; '%navigation%',
+        '%controller%' =&gt; array('label' => '%navigation%', 'resource' => '%resource%'),
     ),
     'footer' =&gt; array(
         '%controller%' =&gt; '%navigation%',
