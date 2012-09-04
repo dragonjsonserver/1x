@@ -57,7 +57,7 @@ class DragonX_Storage_Engine_Memcache
     /**
      * Speichert den übergebenen Record im Storage
      * @param DragonX_Storage_Record_Abstract $record
-     * @return DragonX_Storage_Engine_Memcache
+     * @return integer
      */
     public function save(DragonX_Storage_Record_Abstract $record)
     {
@@ -65,20 +65,21 @@ class DragonX_Storage_Engine_Memcache
             $record->id = uniqid();
         }
         $this->_getMemcache()->set($this->_getKey($record), $record->toArray());
-        return $this;
+        return 1;
     }
 
     /**
      * Speichert die übergebenen Records im Storage
      * @param DragonX_Storage_RecordList $list
-     * @return DragonX_Storage_Engine_Memcache
+     * @return integer
      */
     public function saveList(DragonX_Storage_RecordList $list)
     {
+    	$count = 0;
         foreach ($list as $record) {
-            $this->save($record);
+            $count += $this->save($record);
         }
-        return $this;
+        return $count;
     }
 
     /**
@@ -101,41 +102,43 @@ class DragonX_Storage_Engine_Memcache
     /**
      * Lädt die übergebenen Records aus dem Storage
      * @param DragonX_Storage_RecordList $list
-     * @return DragonX_Storage_Engine_Memcache
+     * @return DragonX_Storage_RecordList
      */
     public function loadList(DragonX_Storage_RecordList $list)
     {
         foreach ($list as $record) {
             $this->load($record);
         }
-        return $this;
+        return $list;
     }
 
     /**
      * Entfernt den übergebenen Record aus dem Storage
      * @param DragonX_Storage_Record_Abstract $record
-     * @return DragonX_Storage_Engine_Memcache
+     * @return integer
      */
     public function delete(DragonX_Storage_Record_Abstract $record)
     {
         if (isset($record->id)) {
             $this->_getMemcache()->delete($this->_getKey($record));
             unset($record->id);
+            return 1;
         }
-        return $this;
+        return 0;
     }
 
     /**
      * Entfernt die übergebenen Records aus dem Storage
      * @param DragonX_Storage_RecordList $list
-     * @return DragonX_Storage_Engine_Memcache
+     * @return integer
      */
     public function deleteList(DragonX_Storage_RecordList $list)
     {
+    	$count = 0;
         foreach ($list as $record) {
-            $this->delete($record);
+            $count += $this->delete($record);
         }
-        return $this;
+        return $count;
     }
 
     /**

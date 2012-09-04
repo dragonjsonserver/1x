@@ -22,14 +22,14 @@ interface DragonX_Storage_Engine_Storage_Interface
     /**
      * Speichert den übergebenen Record im Storage
      * @param DragonX_Storage_Record_Abstract $record
-     * @return DragonX_Storage_Engine_Storage_Interface
+     * @return integer
      */
     public function save(DragonX_Storage_Record_Abstract $record);
 
     /**
      * Speichert die übergebenen Records im Storage
      * @param DragonX_Storage_RecordList $list
-     * @return DragonX_Storage_Engine_Storage_Interface
+     * @return integer
      */
     public function saveList(DragonX_Storage_RecordList $list);
 
@@ -43,21 +43,21 @@ interface DragonX_Storage_Engine_Storage_Interface
     /**
      * Lädt die übergebenen Records aus dem Storage
      * @param DragonX_Storage_RecordList $list
-     * @return DragonX_Storage_Engine_Storage_Interface
+     * @return DragonX_Storage_RecordList
      */
     public function loadList(DragonX_Storage_RecordList $list);
 
     /**
      * Entfernt den übergebenen Record aus dem Storage
      * @param DragonX_Storage_Record_Abstract $record
-     * @return DragonX_Storage_Engine_Storage_Interface
+     * @return integer
      */
     public function delete(DragonX_Storage_Record_Abstract $record);
 
     /**
      * Entfernt die übergebenen Records aus dem Storage
      * @param DragonX_Storage_RecordList $list
-     * @return DragonX_Storage_Engine_Storage_Interface
+     * @return integer
      */
     public function deleteList(DragonX_Storage_RecordList $list);
 }

@@ -33,6 +33,20 @@
 </ul>
 <h3>Version 1.4.0</h3>
 <h4>Releasedatum: noch offen</h4>
+<h4>Geänderte Pakete</h4>
+<ul>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Storage
+                <ul>
+                    <li>Problem behoben wenn bei einem 'save()' keine Daten Aktualisiert wurden, da in diesem Fall immer die ID zurückgesetzt wurde auch wenn der Datensatz in der Datenbank existiert. Aus diesem Grund die Rückgabewerte der Methoden der Storage Schnittstelle geändert um diese Situationen besser abfragen zu können und das Verhalten der Zurücksetzung der ID beim Speichern von Datensätzen entfernt</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
 <h4>Homepage</h4>
 <ul>
     <li>Link im Header für Homepage/Administration um zwischen den beiden Bereichen zu wechseln wenn man eingeloggt ist. Dadurch ist der DragonJsonClient im Administrationsbereich unnötig und wurde entfernt</li>

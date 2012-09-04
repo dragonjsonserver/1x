@@ -67,33 +67,31 @@ class DragonX_Storage_Engine_ZendDbAdataper
     /**
      * Speichert den übergebenen Record im Storage
      * @param DragonX_Storage_Record_Abstract $record
-     * @return DragonX_Storage_Engine_ZendDbAdataper
+     * @return integer
      */
     public function save(DragonX_Storage_Record_Abstract $record)
     {
     	if (!isset($record->id)) {
-    		$this->_getAdapter()->insert($this->getTablename($record), $record->toArray());
+    		$rowCount = $this->_getAdapter()->insert($this->getTablename($record), $record->toArray());
     		$record->id = $this->_getAdapter()->lastInsertId();
     	} else {
     		$rowCount = $this->_getAdapter()->update($this->getTablename($record), $record->toArray(), 'id = ' . (int)$record->id);
-    		if ($rowCount == 0) {
-    		    unset($record->id);
-    		}
     	}
-        return $this;
+        return $rowCount;
     }
 
     /**
      * Speichert die übergebenen Records im Storage
      * @param DragonX_Storage_RecordList $list
-     * @return DragonX_Storage_Engine_ZendDbAdataper
+     * @return integer
      */
     public function saveList(DragonX_Storage_RecordList $list)
     {
+    	$count = 0;
     	foreach ($list as $record) {
-    		$this->save($record);
+    		$count += $this->save($record);
     	}
-        return $this;
+        return $count;
     }
 
     /**
@@ -118,7 +116,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
     /**
      * Lädt die übergebenen Records aus dem Storage
      * @param DragonX_Storage_RecordList $list
-     * @return DragonX_Storage_Engine_ZendDbAdataper
+     * @return DragonX_Storage_RecordList
      */
     public function loadList(DragonX_Storage_RecordList $list)
     {
@@ -134,38 +132,41 @@ class DragonX_Storage_Engine_ZendDbAdataper
                 }
             }
         }
-        return $this;
+        return $list;
     }
 
     /**
      * Entfernt den übergebenen Record aus dem Storage
      * @param DragonX_Storage_Record_Abstract $record
-     * @return DragonX_Storage_Engine_ZendDbAdataper
+     * @return integer
      */
     public function delete(DragonX_Storage_Record_Abstract $record)
     {
         if (isset($record->id)) {
-            $this->_getAdapter()->delete($this->getTablename($record), 'id = ' . (int)$record->id);
+            $count = $this->_getAdapter()->delete($this->getTablename($record), 'id = ' . (int)$record->id);
             unset($record->id);
+            return $count;
         }
-        return $this;
+        return 0;
     }
 
     /**
      * Entfernt die übergebenen Records aus dem Storage
      * @param DragonX_Storage_RecordList $list
-     * @return DragonX_Storage_Engine_ZendDbAdataper
+     * @return integer
      */
     public function deleteList(DragonX_Storage_RecordList $list)
     {
+    	$count = 0;
         foreach ($list->indexByNamespace() as $namespace => $sublist) {
-            $this->executeSqlStatement(
+            $count += $this->executeSqlStatement(
                 "DELETE FROM `" . $this->getTablename($namespace) . "` WHERE id IN (" . implode(', ', $sublist->getIds()) . ")"
-            );
+            )->rowCount();
             foreach ($sublist as $record) {
                 unset($record->id);
             }
         }
+        return $count;
     }
 
     /**
