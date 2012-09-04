@@ -15,6 +15,8 @@
  */
 ?>
 <div class="hero-unit">
-    <p><?php echo $this->escape($this->configImprint->webmaster); ?></p>
-    <p><?php echo $this->escape($this->configImprint->mailingaddress); ?></p>
+	<address>
+		<p><?php echo $this->escape($this->configImprint->webmaster); ?></p>
+		<p><a href="<?php echo $this->escape($this->configImprint->mailingaddress); ?>"><?php echo $this->escape($this->configImprint->mailingaddress); ?></a></p>
+	</address>
 </div>
