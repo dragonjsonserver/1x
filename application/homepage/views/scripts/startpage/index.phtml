@@ -14,11 +14,10 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 ?>
-<div class="hero-unit">
-    <?php echo $this->configStartpage->title; ?>
-    <?php echo $this->configStartpage->content; ?>
-</div>
 <?php
+echo $this->configStartpage->title;
+echo $this->configStartpage->content;
+
 echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
 if (count($this->paginator) > 0) {
     echo '<div class="row">';

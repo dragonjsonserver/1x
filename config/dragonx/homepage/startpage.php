@@ -27,5 +27,5 @@ return array(
         . '    <li>New BSD Lizenz zur freien Verwendung aller Projektbestandteile</li>'
         . '    <li>Weitere optionale Pakete zur Erweiterung der Funktionalitäten des Json Servers</li>'
         . '</ul>'
-        . '<a class="btn btn-primary btn-large" href="http://code.google.com/p/dragonjsonserver/downloads/list">Download &raquo;</a>',
+        . '<a class="btn" href="http://code.google.com/p/dragonjsonserver/downloads/list">Download &raquo;</a>',
 );
