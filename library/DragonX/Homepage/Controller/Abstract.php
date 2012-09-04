@@ -34,25 +34,26 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
         }
 
         $this->view->configApplication = new Dragon_Application_Config('dragon/application/application');
+
         $modulename = $this->getRequest()->getModuleName();
         $this->view->modulename = $modulename;
         $controllername = $this->getRequest()->getControllerName();
         $this->view->controllername = $controllername;
+        $actionname = $this->getRequest()->getActionName();
+
         switch ($modulename) {
         	case 'homepage':
         		$this->view->configNavigation = new Dragon_Application_Config('dragonx/homepage/navigation');
         		break;
         	case 'administration':
 		        if (!Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) {
-                    throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
+                    throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $controllername . ')');
 		        }
 
-                $this->view->configNavigation = new Dragon_Application_Config('dragonx/administration/navigation');
 		        $sessionNamespace = new Zend_Session_Namespace();
                 if (!isset($sessionNamespace->recordAccount)) {
                 	$frontController = $this->getFrontController();
                     $defaultcontrollername = $frontController->getDefaultControllerName();
-	                $actionname = $this->getRequest()->getActionName();
                 	$defaultactionname = $frontController->getDefaultAction();
                     $params = array();
                 	if ($controllername != $defaultcontrollername
@@ -86,6 +87,8 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
                     $logicAcl = new DragonX_Acl_Logic_Acl();
 	            	$this->view->resources = $logicAcl->getResources($recordAccount);
 	            }
+
+                $this->view->configNavigation = new Dragon_Application_Config('dragonx/homepage/navigation');
         		break;
         }
     }
