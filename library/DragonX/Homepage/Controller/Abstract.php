@@ -88,7 +88,7 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
 	            	$this->view->resources = $logicAcl->getResources($recordAccount);
 	            }
 
-                $this->view->configNavigation = new Dragon_Application_Config('dragonx/homepage/navigation');
+                $this->view->configNavigation = new Dragon_Application_Config('dragonx/administration/navigation');
         		break;
         }
     }
