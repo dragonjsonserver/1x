@@ -27,6 +27,12 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
     {
         parent::preDispatch();
 
+        $recordAccount = null;
+        if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) {
+            $sessionNamespace = new Zend_Session_Namespace();
+            $this->view->recordAccount = $recordAccount = $sessionNamespace->recordAccount;
+        }
+
         $this->view->configApplication = new Dragon_Application_Config('dragon/application/application');
         $modulename = $this->getRequest()->getModuleName();
         $this->view->modulename = $modulename;
@@ -40,12 +46,13 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
 		        if (!Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) {
                     throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
 		        }
+
                 $this->view->configNavigation = new Dragon_Application_Config('dragonx/administration/navigation');
 		        $sessionNamespace = new Zend_Session_Namespace();
                 if (!isset($sessionNamespace->recordAccount)) {
                 	$frontController = $this->getFrontController();
                     $defaultcontrollername = $frontController->getDefaultControllerName();
-                	$actionname = $this->getRequest()->getActionName();
+	                $actionname = $this->getRequest()->getActionName();
                 	$defaultactionname = $frontController->getDefaultAction();
                     $params = array();
                 	if ($controllername != $defaultcontrollername
@@ -67,12 +74,18 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
                 	}
                 	$this->_redirect('account/showlogin' . $redirect);
                 }
+
                 $logicAccount = new DragonX_Account_Logic_Account();
                 $recordDeletion = $logicAccount->getDeletion($sessionNamespace->recordAccount);
                 if (isset($recordDeletion)) {
 	                $this->view->recordDeletion = $recordDeletion;
                 	$this->view->configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
                 }
+
+		        if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Acl')) {
+                    $logicAcl = new DragonX_Acl_Logic_Acl();
+	            	$this->view->resources = $logicAcl->getResources($recordAccount);
+	            }
         		break;
         }
     }
@@ -85,9 +98,17 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
         parent::postDispatch();
 
         $this->view->messages = $this->_helper->FlashMessenger->getMessages();
-        if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) {
-            $sessionNamespace = new Zend_Session_Namespace();
-            $this->view->recordAccount = $sessionNamespace->recordAccount;
+    }
+
+    /**
+     * Leitet mit einer Meldung auf die Startseite um wenn die Ressource fehlt
+     * @param string $resource
+     */
+    public function guaranteeResource($resource)
+    {
+        if (!isset($this->view->resources) || !in_array($resource, $this->view->resources)) {
+            $this->_helper->FlashMessenger('<div class="alert alert-error">Berechtigung für Ressource "' . $resource . '" nicht vorhanden</div>');
+            $this->_redirect('administration');
         }
     }
 

@@ -27,7 +27,6 @@
 </ul>
 <h4>Homepage</h4>
 <ul>
-    <li>Ressourcenabfrage bei Actions sodass automatisch Ressourcen abgefragt werden und eine FlashMessage ausgegeben und zur Startseite weitergeleitet wird wenn Berechtigungen fehlen. Am ehesten wie bei Services durch eine Annotation an der Action des Controllers</li>
     <li>Zend Translate unterstützen um alle Beschriftungen und Meldungen sowie Zend Locale um alle Datumsangaben der Homepage lokalisiert auszugeben</li>
 </ul>
 <h3>Version 1.4.0</h3>
@@ -37,6 +36,18 @@
     <li>
         DragonX
         <ul>
+            <li>
+                Acl
+                <ul>
+                    <li>'getResources()' der Acl Logikklasse erlaubt nun die Rückgabe aller Rechte eines beliebigen Accounts sodass bei Servoces der Account aus der Registry und bei der Homepage aus der Session verwendet werden kann</li>
+                </ul>
+            </li>
+            <li>
+                Homepage
+                <ul>
+                    <li>Der abstrakte Controller lädt den Record des eingeloggten Accounts nun schon im 'preDispatch()' zusammen mit den Ressourcen des Accounts und übergibt diese an die Views sodass die Ressourcen von Navigationseinträgen geprüft werden können bzw. stellt für abgeleitete Controller eine Methode zur Verfügung sodass Controlleraufrufe auf nicht vorhandene Ressourcen bereits abgefangen werden können</li>
+                </ul>
+            </li>
             <li>
                 Storage
                 <ul>
@@ -56,8 +67,14 @@
     <li>Layout der Startseite und des Impressums angepasst. Insbesondere auch das Layout der Pagination auf der Startseite für die Neuigkeiten</li>
     <li>Layout der FlashMessages geändert sodass diese nun farblich markiert sind je nachdem ob es Erfolgs-, Fehler- oder Warnmeldungen sind</li>
     <li>Paketabfrage durch die 'isAvailable()' der Package Registry durch die Homepage durchziehen, sodass Funktionalitäten wie Registrierung/Anmeldung deaktiviert werden wenn das Account Paket nicht aktiviert ist und die Homepage bei jeder Paketkonstellation funktionsfähig bleibt</li>
+    <li>Ressourcenabfrage ist nun für die Homepage möglich. Zum Einen können Navigationseinträge an Ressourcen gebunden werden und zum Anderen können Controller im 'preDispatch()' oder in einzelnen Actions Ressourcen abfragen. Fehlt eine Ressource wird der Navigationseintrag nicht angezeigt bzw. bei Controlleraufrufen mit einer Meldung auf die Startseite weitergeleitet</li>
 </ul>
 <h4>DragonJsonClient</h4>
 <ul>
     <li>Layout des Formulars angepasst sodass diese ansprechender aussehen und zum restlichen Layout des Projektes passt</li>
+</ul>
+<h2>Migration vom Branch 1.3</h2>
+<h3>Benötigt</h3>
+<ul>
+    <li>Verkettungen von Aufrufen der Storage Schnittstelle müssen aufgelöst werden, da sich die Rückgabewerte der Methoden 'save()', 'saveList()', 'loadList()', 'delete()', 'deleteList()' geändert haben</li>
 </ul>
