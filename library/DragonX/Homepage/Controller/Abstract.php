@@ -21,6 +21,7 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
 {
     /**
      * Setzt alle Daten des Layouts aus den Einstellungsdateien
+     * @throw Zend_Controller_Dispatcher_Exception
      */
     public function preDispatch()
     {
@@ -36,6 +37,9 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
         		$this->view->configNavigation = new Dragon_Application_Config('dragonx/homepage/navigation');
         		break;
         	case 'administration':
+		        if (!Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) {
+                    throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
+		        }
                 $this->view->configNavigation = new Dragon_Application_Config('dragonx/administration/navigation');
 		        $sessionNamespace = new Zend_Session_Namespace();
                 if (!isset($sessionNamespace->recordAccount)) {
@@ -81,8 +85,10 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
         parent::postDispatch();
 
         $this->view->messages = $this->_helper->FlashMessenger->getMessages();
-        $sessionNamespace = new Zend_Session_Namespace();
-        $this->view->recordAccount = $sessionNamespace->recordAccount;
+        if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) {
+            $sessionNamespace = new Zend_Session_Namespace();
+            $this->view->recordAccount = $sessionNamespace->recordAccount;
+        }
     }
 
     /**

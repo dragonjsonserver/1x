@@ -19,6 +19,19 @@
  */
 class AccountController extends DragonX_Homepage_Controller_Abstract
 {
+	/**
+	 * Sorgt dafür dass der Controller nur mit Accountverwaltung erreichbar ist
+     * @throw Zend_Controller_Dispatcher_Exception
+	 */
+	public function preDispatch()
+	{
+		parent::preDispatch();
+
+		if (!Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) {
+			throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
+		}
+	}
+
     /**
      * Registriert einen Account mit der Identity und dem Credential
      */

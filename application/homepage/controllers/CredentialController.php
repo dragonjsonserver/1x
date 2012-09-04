@@ -20,6 +20,19 @@
 class CredentialController extends DragonX_Homepage_Controller_Abstract
 {
     /**
+     * Sorgt dafür dass der Controller nur mit Accountverwaltung erreichbar ist
+     * @throw Zend_Controller_Dispatcher_Exception
+     */
+    public function preDispatch()
+    {
+        parent::preDispatch();
+
+        if (!Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) {
+            throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
+        }
+    }
+
+    /**
      * Sendet für die Identität eine Passwort vergessen E-Mail
      */
     public function requestAction()
