@@ -14,24 +14,50 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 ?>
-<form class="well" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'changeidentity'), null, true); ?>" method="post">
-    <h2>E-Mail Adresse ändern</h2>
-    <label for="newidentity">Neue E-Mail Adresse:</label><input type="email" id="newidentity" name="newidentity"  required="required" />
-    <input type="submit" value="E-Mail Adresse ändern" />
+<form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'changeidentity'), null, true); ?>" method="post">
+    <legend>E-Mail Adresse ändern</legend>
+    <div class="control-group">
+        <label class="control-label" for="newidentity">Neue E-Mail Adresse:</label>
+        <div class="controls">
+            <input type="email" id="newidentity" name="newidentity" required="required">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">E-Mail Adresse ändern</button>
+        </div>
+    </div>
 </form>
-<form class="well" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'changecredential'), null, true); ?>" method="post">
-    <h2>Passwort ändern</h2>
-    <label for="newcredential">Neues Passwort:</label><input type="password" id="newcredential" name="newcredential"  required="required" />
-    <input type="submit" value="Passwort ändern" />
+<form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'changecredential'), null, true); ?>" method="post">
+    <legend>Passwort ändern</legend>
+    <div class="control-group">
+        <label class="control-label" for="newcredential">Neues Passwort:</label>
+        <div class="controls">
+            <input type="password" id="newcredential" name="newcredential" required="required">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">Passwort ändern</button>
+        </div>
+    </div>
 </form>
 <?php if (isset($this->recordDeletion)) { ?>
-<form class="well" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'deletedeletion'), null, true); ?>" method="post">
-    <h2>Accountlöschung zurücksetzen</h2>
-    <input type="submit" value="Accountlöschung zurücksetzen" />
+<form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'deletedeletion'), null, true); ?>" method="post">
+    <legend>Accountlöschung zurücksetzen</legend>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">Accountlöschung zurücksetzen</button>
+        </div>
+    </div>
 </form>
 <?php } else { ?>
-<form class="well" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'deleteaccount'), null, true); ?>" method="post">
-    <h2>Account löschen</h2>
-    <input type="submit" value="Account löschen" />
+<form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'deleteaccount'), null, true); ?>" method="post">
+    <legend>Account löschen</legend>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">Account löschen</button>
+        </div>
+    </div>
 </form>
 <?php } ?>

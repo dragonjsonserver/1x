@@ -15,28 +15,29 @@
  */
 ?>
 <div id="dragonjsonclient">
-    <form class="well">
+    <form class="form-horizontal">
         <div class="row-fluid">
-            <div class="span4">
-                <fieldset>
-                    <legend>Namensraum</legend>
-                    <div>
+            <div class="span6">
+                <legend>Service</legend>
+                <div class="control-group">
+                    <label class="control-label" for="newcredential">Namensraum:</label>
+                    <div class="controls">
                         <select id="namespace" name="namespace" onchange="dragonjsonclient.selectNamespace();"></select>
                     </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Methode</legend>
-                    <div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="newcredential">Methode:</label>
+                    <div class="controls">
                         <select id="method" name="method" onchange="dragonjsonclient.selectMethod();"></select>
                     </div>
-                </fieldset>
+                </div>
                 <fieldset>
                     <legend>Argumente</legend>
-                    <table id="arguments"></table>
+                    <div id="arguments"></div>
                 </fieldset>
             </div>
-            <div class="span8">
-                <input type="submit" class="btn" onclick="dragonjsonclient.sendRequest(); return false;" value="Anfrage senden" />
+            <div class="span6">
+                <button type="submit" class="btn" onclick="dragonjsonclient.sendRequest(); return false;">Anfrage senden</button>
                 <span id="applicationname"></span> <span id="applicationversion"></span> <span id="applicationcopyright"></span>
                 <br /><br />
                 <div id="response"></div>

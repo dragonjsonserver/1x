@@ -14,10 +14,25 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 ?>
-<form class="well" action="<?php echo $this->url(array('controller' => 'account', 'action' => 'login'), null, true); ?>" method="post">
-    <?php if (isset($this->redirect)) { echo '<input type="hidden" name="redirect" value="' . $this->escape($this->redirect) . '" />'; } ?>
-    <h2>Anmelden</h2>
-    <label for="identity">E-Mail Adresse:</label><input type="email" id="identity" name="identity"  required="required" />
-    <label for="credential">Passwort:</label><input type="password" id="credential" name="credential"  required="required" />
-    <input type="submit" value="Anmelden" /> <a href="<?php echo $this->url(array('controller' => 'credential', 'action' => 'showrequest'), null, true); ?>">Passwort vergessen</a>
+<form class="form-horizontal" action="<?php echo $this->url(array('controller' => 'account', 'action' => 'login'), null, true); ?>" method="post">
+    <?php if (isset($this->redirect)) { echo '<input type="hidden" name="redirect" value="' . $this->escape($this->redirect) . '">'; } ?>
+    <legend>Anmelden</legend>
+    <div class="control-group">
+        <label class="control-label" for="identity">E-Mail Adresse:</label>
+        <div class="controls">
+            <input type="email" id="identity" name="identity" required="required">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="credential">Passwort:</label>
+        <div class="controls">
+            <input type="password" id="credential" name="credential"  required="required">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">Anmelden</button>
+            <a href="<?php echo $this->url(array('controller' => 'credential', 'action' => 'showrequest'), null, true); ?>">Passwort vergessen</a>
+        </div>
+    </div>
 </form>
