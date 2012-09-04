@@ -31,11 +31,11 @@ class CredentialController extends DragonX_Homepage_Controller_Abstract
 	        $configCredential = new Dragon_Application_Config('dragonx/account/credential');
 	        $logicCredential->request($params['identity'], $configCredential->credentiallink);
         } catch (Exception $exception) {
-            $this->_helper->FlashMessenger('<span class="label label-important">E-Mail Adresse nicht vorhanden</span>');
+            $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse nicht vorhanden</div>');
             $this->_redirect('credential/showrequest');
         }
 
-        $this->_helper->FlashMessenger('<span class="label label-success">E-Mail mit einem Link zum Zurücksetzen des Passworts versendet</span>');
+        $this->_helper->FlashMessenger('<div class="alert alert-success">E-Mail mit einem Link zum Zurücksetzen des Passworts versendet</div>');
         $this->_redirect('startpage/index');
     }
 
@@ -58,14 +58,14 @@ class CredentialController extends DragonX_Homepage_Controller_Abstract
 	        $logicCredential = new DragonX_Account_Logic_Credential();
 	        $recordAccount = $logicCredential->reset($params['credentialhash'], $params['newcredential']);
         } catch (Exception $exception) {
-            $this->_helper->FlashMessenger('<span class="label label-important">Resetlink nicht korrekt</span>');
+            $this->_helper->FlashMessenger('<div class="alert alert-error">Resetlink nicht korrekt</div>');
             $this->_redirect('credential/showrequest');
         }
 
         $logicAccount = new DragonX_Account_Logic_Account();
         $logicAccount->loginAccount($recordAccount->identity, $params['newcredential']);
 
-        $this->_helper->FlashMessenger('<span class="label label-success">Zurücksetzen des Passworts erfolgreich</span>');
+        $this->_helper->FlashMessenger('<div class="alert alert-success">Zurücksetzen des Passworts erfolgreich</div>');
         $this->_redirect('administration');
     }
 
