@@ -52,5 +52,10 @@
     $(document).ready(function () {
         jsonclient = new JsonClient('<?php echo BASEURL; ?>');
         dragonjsonclient = new DragonJsonClient(jsonclient);
+        <?php
+        if (isset($this->recordAccount)) {
+        	echo "dragonjsonclient.setData('identity', '" . $this->escape($this->recordAccount->identity) . "');";
+        }
+        ?>
     });
 </script>
