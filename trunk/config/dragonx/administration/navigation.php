@@ -20,7 +20,6 @@
 return array(
     'header' => array(
         'startpage' => 'Startseite',
-        'dragonjsonclient' => 'DragonJsonClient',
     ),
     'footer' => array(),
 );
