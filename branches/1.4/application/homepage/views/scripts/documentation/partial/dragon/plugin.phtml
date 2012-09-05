@@ -1,0 +1,51 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Klasse Plugin Registry</h3>
+<ul>
+    <li>Kann genutzt werden um der Anwendung Einstiegspunkte zu geben an welche sich Plugins einhängen können</li>
+    <li>
+        Interface definieren welches den Einstiegspunkt definiert und von Plugins implementiert wird
+<pre>interace %packagenamespace%_%packagename%_Plugin_%interfacename%_Interface
+{
+    public function %methodname%(%param%);
+}</pre>
+    </li>
+    <li>
+        Plugin definieren welches sich in den Einstiegspunkt hängen kann
+<pre>class %packagenamespace%_%packagename%_Plugin_%pluginname%
+    implements %packagenamespace%_%packagename%_Plugin_%interfacename%_Interface
+{
+    public function %methodname%(%param%)
+    {}
+}</pre>
+    </li>
+    <li>
+        Plugin Registry nutzen um Plugins zu registrieren und die Einstiegspunkte aufzurufen
+<pre>$pluginRegistry = new Dragon_Plugin_Registry();
+$pluginRegistry
+    -&gt;addPlugin('%packagenamespace%_%packagename%_Plugin_%pluginname%');
+    -&gt;invoke('%packagenamespace%_%packagename%_Plugin_%interfacename%_Interface', array(%param%));</pre>
+    </li>
+    <li>addPlugin / addPlugins können auch das Objekt statt nur dessen Klassenname entgegen nehmen</li>
+    <li>getPlugins kann genutzt werden um alle Plugins einer Schnittstelle zurück geben zu können</li>
+    <li>invoke kann auch der Methodenname übergeben werden, wenn eine Pluginschnittstelle mehrere Methoden definiert</li>
+</ul>
+<h3>Nutzung mit Application und Package Registry</h3>
+<ul>
+    <li>Application legt das Objekt der Plugin Registry in der Zend Registry unter dem Key 'Dragon_Plugin_Registry' ab</li>
+    <li>Application registriert alle Plugins die in den Paketeinstellungen der Package Registry definiert wurden</li>
+</ul>
