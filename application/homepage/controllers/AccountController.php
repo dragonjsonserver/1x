@@ -33,6 +33,19 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
 	}
 
     /**
+     * Erstellt einen temporären Account der nur begrenzt gültig ist
+     */
+    public function temporaryAction()
+    {
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $sessionNamespace = new Zend_Session_Namespace();
+        $sessionNamespace->recordAccount = $logicAccount->temporaryAccount();
+
+        $this->_helper->FlashMessenger('<div class="alert alert-success">Erstellung des temporären Accounts erfolgreich</div>');
+        $this->_redirect('administration');
+    }
+
+    /**
      * Registriert einen Account mit der Identity und dem Credential
      */
     public function registerAction()
