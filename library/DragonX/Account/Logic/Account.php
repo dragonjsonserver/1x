@@ -47,19 +47,14 @@ class DragonX_Account_Logic_Account
      * @param string $identity
      * @param string $credential
      * @param Zend_Config $configMail
+     * @throws InvalidArgumentException
      */
     public function saveAccount(DragonX_Account_Record_Account $recordAccount, $identity, $credential, Zend_Config $configMail)
     {
-        $identity = strtolower($identity);
-        $validatorEmailAddress = new Zend_Validate_EmailAddress();
-        if (!$validatorEmailAddress->isValid($identity)) {
-            throw new InvalidArgumentException('invalid identity');
-        }
-
         $recordAccount->fromArray(array(
-            'identity' => $identity,
             'credential' => md5($credential),
         ));
+        $recordAccount->validateIdentity($identity);
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
         $this->deleteDeletion($recordAccount);
 
@@ -78,19 +73,14 @@ class DragonX_Account_Logic_Account
      * @param string $credential
      * @param Zend_Config $configMail
      * @return integer
+     * @throws InvalidArgumentException
      */
     public function registerAccount($identity, $credential, Zend_Config $configMail)
     {
-        $identity = strtolower($identity);
-    	$validatorEmailAddress = new Zend_Validate_EmailAddress();
-    	if (!$validatorEmailAddress->isValid($identity)) {
-    		throw new InvalidArgumentException('invalid identity');
-    	}
-
-    	$recordAccount = new DragonX_Account_Record_Account(array(
-    	    'identity' => $identity,
-    	    'credential' => md5($credential),
-    	));
+        $recordAccount = new DragonX_Account_Record_Account(array(
+            'credential' => md5($credential),
+        ));
+        $recordAccount->validateIdentity($identity);
     	Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
 
     	$logicValidation = new DragonX_Account_Logic_Validation();
@@ -150,16 +140,11 @@ class DragonX_Account_Logic_Account
      * @param DragonX_Account_Record_Account $recordAccount
      * @param string $newidentity
      * @param Zend_Config $configMail
+     * @throws InvalidArgumentException
      */
     public function changeIdentity(DragonX_Account_Record_Account $recordAccount, $newidentity, Zend_Config $configMail)
     {
-        $newidentity = strtolower($newidentity);
-        $validatorEmailAddress = new Zend_Validate_EmailAddress();
-        if (!$validatorEmailAddress->isValid($newidentity)) {
-            throw new InvalidArgumentException('invalid identity');
-        }
-
-    	$recordAccount->identity = $newidentity;
+    	$recordAccount->validateIdentity($newidentity);
     	Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
 
         $logicValidation = new DragonX_Account_Logic_Validation();
