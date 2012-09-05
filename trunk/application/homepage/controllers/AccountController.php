@@ -39,7 +39,9 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
     {
         $logicAccount = new DragonX_Account_Logic_Account();
         $sessionNamespace = new Zend_Session_Namespace();
-        $sessionNamespace->recordAccount = $logicAccount->temporaryAccount();
+        $sessionNamespace->sessionhash = $logicAccount->loginAccount(
+            $logicAccount->temporaryAccount()
+        );
 
         $this->_helper->FlashMessenger('<div class="alert alert-success">Erstellung des temporären Profils erfolgreich</div>');
         $this->_redirect('administration');
@@ -56,7 +58,10 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
             $logicAccount = new DragonX_Account_Logic_Account();
             $configValidation = new Dragon_Application_Config('dragonx/account/validation');
             $logicAccount->registerAccount($params['identity'], $params['credential'], $configValidation->validationlink);
-            $logicAccount->loginAccount($params['identity'], $params['credential']);
+	        $sessionNamespace = new Zend_Session_Namespace();
+            $sessionNamespace->sessionhash = $logicAccount->loginAccount(
+                $logicAccount->authenticateAccount($params['identity'], $params['credential'])
+            );
         } catch (InvalidArgumentException $exception) {
             $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse nicht korrekt</div>');
             $this->_redirect('account/showregister');
@@ -85,15 +90,16 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
         try {
             $params = $this->getRequiredParams(array('validationhash'));
 
+            $logicAccount = new DragonX_Account_Logic_Account();
             $logicValidation = new DragonX_Account_Logic_Validation();
-            $recordAccount = $logicValidation->validate($params['validationhash']);
+            $sessionNamespace = new Zend_Session_Namespace();
+            $sessionNamespace->sessionhash = $logicAccount->loginAccount(
+                $logicValidation->validate($params['validationhash'])
+            );
         } catch (Exception $exception) {
             $this->_helper->FlashMessenger('<div class="alert alert-error">Validierungslink nicht korrekt</div>');
             $this->_redirect('account/showlogin');
         }
-
-        $sessionNamespace = new Zend_Session_Namespace();
-        $sessionNamespace->recordAccount = $recordAccount;
 
         $this->_helper->FlashMessenger('<div class="alert alert-success">Validierung des Profils erfolgreich</div>');
         $this->_redirect('administration');
@@ -109,7 +115,10 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
             $params = $this->getRequiredParams(array('identity', 'credential'));
 
 	        $logicAccount = new DragonX_Account_Logic_Account();
-	        $logicAccount->loginAccount($params['identity'], $params['credential']);
+	        $sessionNamespace = new Zend_Session_Namespace();
+            $sessionNamespace->sessionhash = $logicAccount->loginAccount(
+                $logicAccount->authenticateAccount($params['identity'], $params['credential'])
+            );
     	} catch (Exception $exception) {
 	        $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse oder Passwort nicht korrekt</div>');
 	        if ($redirect == 'administration') {
@@ -131,5 +140,22 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
     {
     	$this->view->redirect = $this->getOptionalParam('redirect');
         $this->render('login');
+    }
+
+    /**
+     * Meldet den derzeit eingeloggten Account ab
+     */
+    public function logoutAction()
+    {
+        $sessionNamespace = new Zend_Session_Namespace();
+        if (!isset($sessionNamespace->sessionhash)) {
+            $this->_redirect('');
+        }
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $logicAccount->logoutAccount($sessionNamespace->sessionhash);
+        $sessionNamespace->unsetAll();
+
+        $this->_helper->FlashMessenger('<div class="alert alert-success">Abmeldung erfolgreich</div>');
+        $this->_redirect('');
     }
 }

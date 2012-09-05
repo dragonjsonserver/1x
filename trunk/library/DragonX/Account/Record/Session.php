@@ -15,8 +15,22 @@
  */
 
 /**
- * @return array
+ * Record zur Speicherung der Daten zu einer Session
  */
-return array(
-    'lifetime' => 3 * 24 * 60 * 60,
-);
+class DragonX_Account_Record_Session extends DragonX_Storage_Record_Abstract
+{
+    /**
+     * @var integer
+     */
+    public $accountid;
+
+    /**
+     * @var string
+     */
+    public $sessionhash;
+
+    /**
+     * @var integer
+     */
+    public $timestamp;
+}

@@ -15,13 +15,8 @@
  */
 
 /**
- * Plugins die vor der Löschung der Accounts aufgerufen werden
+ * @return array
  */
-interface DragonX_Account_Plugin_DeleteAccounts_Interface
-{
-    /**
-     * Wird vor der Löschung der Accounts aufgerufen
-     * @param DragonX_Storage_RecordList $listAccounts
-     */
-    public function deleteAccounts(DragonX_Storage_RecordList $listAccounts);
-}
+return array(
+    'lifetime' => 1 * 24 * 60 * 60,
+);

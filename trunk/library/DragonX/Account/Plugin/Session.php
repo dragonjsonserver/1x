@@ -15,7 +15,7 @@
  */
 
 /**
- * Plugin zur Löschung der Accounts die zum Löschen markiert wurden
+ * Plugin zur Löschung der Sessions die abgelaufen sind
  */
 class DragonX_Account_Plugin_Deletion implements DragonX_Cronjob_Plugin_Cronjob_Interface
 {
@@ -42,29 +42,14 @@ class DragonX_Account_Plugin_Deletion implements DragonX_Cronjob_Plugin_Cronjob_
      */
     public function execute()
     {
-    	$storage = Zend_Registry::get('DragonX_Storage_Engine');
-
-    	$timestamp = time();
-
-    	$listAccounts = $storage->loadBySqlStatement(
-    	    new DragonX_Account_Record_Account(),
-              "SELECT * FROM `dragonx_account_record_account` WHERE `id` IN ("
-                . "SELECT `accountid` FROM `dragonx_account_record_deletion` WHERE `timestamp` <= :timestamp"
-            . ")",
-            array('timestamp' => $timestamp)
+    	$listSessions = Zend_Registry::get('DragonX_Storage_Engine')->loadBySqlStatement(
+    	    new DragonX_Account_Record_Session(),
+            "SELECT * FROM `dragonx_account_record_session` WHERE `timestamp` <= :timestamp",
+            array('timestamp' => time())
         );
-        foreach ($listAccounts as $recordAccount) {
-	        Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
-	            'DragonX_Account_Plugin_DeleteAccount_Interface',
-	            array($recordAccount)
-	        );
+        $logicAccount = new DragonX_Account_Logic_Account();
+        foreach ($listSessions as $recordSession) {
+        	$logicAccount->logoutAccount($recordSession->sessionhash);
         }
-
-        Zend_Registry::get('DragonX_Storage_Engine')->executeSqlStatement(
-              "DELETE FROM `dragonx_account_record_account` WHERE `id` IN ("
-                . "SELECT `accountid` FROM `dragonx_account_record_deletion` WHERE `timestamp` <= :timestamp"
-            . ")",
-            array('timestamp' => $timestamp)
-        );
     }
 }
