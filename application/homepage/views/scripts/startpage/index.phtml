@@ -27,7 +27,7 @@ if (count($this->paginator) > 0) {
         }
         echo
               '<div class="span' . (int)(12 / $this->configNews->perrow) . '">'
-                . '<h2>' . $this->escape($news['title']) . '</h2>'
+                . '<h3>' . $this->escape($news['title']) . '</h3>'
                 . '<p>' . ($news['timestamp'] == 0 ? 'noch offen' : date('d.m.Y', $news['timestamp'])) . '</p>'
                 . '<p>' . $this->escape($news['content']) . '</p>'
             . '</div>';
