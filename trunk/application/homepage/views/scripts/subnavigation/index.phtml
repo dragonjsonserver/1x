@@ -25,7 +25,7 @@
                     } else {
                         echo
                               '<li' . ($this->actionname == $key ? ' class="active"' : '') . '>'
-                            . '   <a href="' . $this->url(array('controller' => $this->controllername, 'action' => $key), null, true) . '">' . $this->escape($value) . '   </a>'
+                            . '   <a href="' . $this->url(array('module' => $this->modulename, 'controller' => $this->controllername, 'action' => $key), null, true) . '">' . $this->escape($value) . '   </a>'
                             . '</li>';
                     }
                 }
