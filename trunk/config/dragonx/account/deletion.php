@@ -18,5 +18,6 @@
  * @return array
  */
 return array(
-    'offset' => 1 * 24 * 60 * 60,
+    'temporary' => 1 * 24 * 60 * 60,
+    'registered' => 3 * 24 * 60 * 60,
 );
