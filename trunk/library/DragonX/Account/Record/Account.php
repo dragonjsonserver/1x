@@ -28,4 +28,19 @@ class DragonX_Account_Record_Account extends DragonX_Storage_Record_Abstract
      * @var string
      */
     public $credential;
+
+    /**
+     * Validiert und setzt die übergebene E-Mail Adresse
+     * @param string $identity
+     * @throws InvalidArgumentException
+     */
+    public function validateIdentity($identity)
+    {
+        $identity = strtolower($identity);
+        $validatorEmailAddress = new Zend_Validate_EmailAddress();
+        if (!$validatorEmailAddress->isValid($identity)) {
+            throw new InvalidArgumentException('invalid identity');
+        }
+        $this->identity = $identity;
+    }
 }
