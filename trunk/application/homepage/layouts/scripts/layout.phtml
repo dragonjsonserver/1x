@@ -52,7 +52,7 @@
                     if (isset($this->recordAccount)) {
 	                    echo '<ul class="nav">';
                         if ($this->modulename == 'administration') {
-                            echo '<li><a href="' . $this->url(array('module' => 'homepage'), null, true) .'">Homepage</a></li>';
+                            echo '<li><a href="' . $this->url(array(), null, true) .'">Homepage</a></li>';
                         } else {
                             echo '<li><a href="' . $this->url(array('module' => 'administration'), null, true) .'">Administration</a></li>';
                         }
@@ -91,7 +91,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'showsave'), null, true); ?>">Speichern</a></li>
-                            <li><a href="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'logout'), null, true); ?>">Abmelden</a></li>
+                            <li><a href="<?php echo $this->url(array('controller' => 'account', 'action' => 'logout'), null, true); ?>">Abmelden</a></li>
                         </ul>
                         <?php } else { ?>
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="">
