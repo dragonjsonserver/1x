@@ -139,7 +139,7 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
         $sessionNamespace = new Zend_Session_Namespace();
         $logicAccount->deleteAccount($recordAccount);
 
-        $this->_helper->FlashMessenger('<div class="alert alert-success">Löschung des Accounts eingetragen</div>');
+        $this->_helper->FlashMessenger('<div class="alert alert-success">Löschung des Profils eingetragen</div>');
         $this->_redirect('administration');
     }
 
@@ -158,7 +158,7 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
         $sessionNamespace = new Zend_Session_Namespace();
         $logicAccount->deleteDeletion($recordAccount);
 
-        $this->_helper->FlashMessenger('<div class="alert alert-success">Löschung des Accounts zurückgesetzt</div>');
+        $this->_helper->FlashMessenger('<div class="alert alert-success">Löschung des Profils zurückgesetzt</div>');
         $this->_redirect('administration');
     }
 
