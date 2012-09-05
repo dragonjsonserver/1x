@@ -44,19 +44,19 @@
 </form>
 <?php if (isset($this->recordDeletion)) { ?>
 <form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'deletedeletion'), null, true); ?>" method="post">
-    <legend>Accountlöschung zurücksetzen</legend>
+    <legend>Profillöschung zurücksetzen</legend>
     <div class="control-group">
         <div class="controls">
-            <button type="submit" class="btn">Accountlöschung zurücksetzen</button>
+            <button type="submit" class="btn">Profillöschung zurücksetzen</button>
         </div>
     </div>
 </form>
 <?php } else { ?>
 <form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'deleteaccount'), null, true); ?>" method="post">
-    <legend>Account löschen</legend>
+    <legend>Profil löschen</legend>
     <div class="control-group">
         <div class="controls">
-            <button type="submit" class="btn">Account löschen</button>
+            <button type="submit" class="btn">Profil löschen</button>
         </div>
     </div>
 </form>

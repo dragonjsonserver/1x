@@ -22,8 +22,8 @@
 <h4>Erweiterungen der Accountverwaltung</h4>
 <ul>
     <li>Session auch per API ermöglichen, ein Service der einen Sessionhash für einen Account generiert und zurück gibt welcher dann bei jedem Service übergeben werden muss und für eine gewisse Zeit gültig ist statt bei jedem Aufruf Identität und Credential mitzugeben</li>
+    <li>Temporäre Accounts auch per API ermöglichen sodass ein Client ebenfalls temporäre Accounts registrieren, nutzen und speichern kann</li>
     <li>Für jeden Statuswechsel, also Gast -> registrierter Account -> validierter Account sollen andere Rechte vergeben werden können</li>
-    <li>"Sofort loslegen" Möglichkeit, sodass man einen temporären Account bekommt und weitere Funktionalitäten testen kann bevor man sich damit registriert. Die temporären Accounts sind an die Session gebunden und müssen mit einer E-Mail Adresse und einem Passwort bestätigt werden um sie zu vollwertigen Accounts zu machen</li>
 </ul>
 <h3>Version 1.4.0</h3>
 <h4>Releasedatum: noch offen</h4>
@@ -66,6 +66,7 @@
     <li>Ressourcenabfrage ist nun für die Homepage möglich. Zum Einen können Navigationseinträge an Ressourcen gebunden werden und zum Anderen können Controller im 'preDispatch()' oder in einzelnen Actions Ressourcen abfragen. Fehlt eine Ressource wird der Navigationseintrag nicht angezeigt bzw. bei Controlleraufrufen mit einer Meldung auf die Startseite weitergeleitet</li>
     <li>Die eigenen CSS Angaben sind nun ausgelagert in die CSS Datei 'layout.css' und nicht mehr im Layout Script direkt geschrieben</li>
     <li>Die Lizenz ist nun per Konfigurationsdatei 'dragonx/homepage/lizense.php' einstellbar und auch deaktivierbar falls das Projekt nicht unter einer Open Source Lizenz steht</li>
+    <li>"Sofort loslegen" Möglichkeit, sodass man einen temporären Account bekommt. Die temporären Accounts sind an die Session gebunden und müssen mit einer E-Mail Adresse und einem Passwort gespeichert werden um sie zu vollwertigen Accounts zu machen</li>
 </ul>
 <h4>DragonJsonClient</h4>
 <ul>

@@ -82,6 +82,12 @@ class DragonX_Account_Plugin_Install implements DragonX_Storage_Plugin_Install_I
                     . "UNIQUE KEY `accountid` (`accountid`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }
+        if (version_compare($oldversion, '1.4.0', '<')) {
+            $sqlstatements[] =
+                  "ALTER TABLE `dragonx_account_record_account` "
+                    . "CHANGE `identity` `identity` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL, "
+                    . "CHANGE `credential` `credential` CHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL";
+        }
         return $sqlstatements;
     }
 }

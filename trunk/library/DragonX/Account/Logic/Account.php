@@ -20,6 +20,53 @@
 class DragonX_Account_Logic_Account
 {
     /**
+     * Erstellt einen temporären Account der nur begrenzt gültig ist
+     * @return DragonX_Account_Record_Account
+     */
+    public function temporaryAccount()
+    {
+        $recordAccount = new DragonX_Account_Record_Account();
+        Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
+
+        Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
+            'DragonX_Account_Plugin_TemporaryAccount_Interface',
+            array($recordAccount)
+        );
+
+        return $recordAccount;
+    }
+
+    /**
+     * Speichert einen Account mit der Identity und dem Credential
+     * @param DragonX_Account_Record_Account $recordAccount
+     * @param string $identity
+     * @param string $credential
+     * @param Zend_Config $configMail
+     */
+    public function saveAccount(DragonX_Account_Record_Account $recordAccount, $identity, $credential, Zend_Config $configMail)
+    {
+        $identity = strtolower($identity);
+        $validatorEmailAddress = new Zend_Validate_EmailAddress();
+        if (!$validatorEmailAddress->isValid($identity)) {
+            throw new InvalidArgumentException('invalid identity');
+        }
+
+        $recordAccount->fromArray(array(
+            'identity' => $identity,
+            'credential' => md5($credential),
+        ));
+        Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
+
+        $logicValidation = new DragonX_Account_Logic_Validation();
+        $logicValidation->request($recordAccount, $configMail);
+
+        Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
+            'DragonX_Account_Plugin_SaveAccount_Interface',
+            array($recordAccount)
+        );
+    }
+
+    /**
      * Registriert einen Account mit der Identity und dem Credential
      * @param string $identity
      * @param string $credential
