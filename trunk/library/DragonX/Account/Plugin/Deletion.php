@@ -44,8 +44,7 @@ class DragonX_Account_Plugin_Deletion implements DragonX_Cronjob_Plugin_Cronjob_
     {
     	$storage = Zend_Registry::get('DragonX_Storage_Engine');
 
-        $configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
-    	$timestamp = time() - $configDeletion->offset;
+    	$timestamp = time();
 
     	$listAccounts = $storage->loadBySqlStatement(
     	    new DragonX_Account_Record_Account(),

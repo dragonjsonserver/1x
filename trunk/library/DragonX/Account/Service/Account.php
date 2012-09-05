@@ -97,10 +97,8 @@ class DragonX_Account_Service_Account
         $recordDeletion = $logicAccount->getDeletion(Zend_Registry::get('recordAccount'));
 
         if (isset($recordDeletion)) {
-            $configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
 	        return array(
 	            'timestamp' => $recordDeletion->timestamp,
-	            'offset' => $configDeletion->offset,
 	        );
         }
     }

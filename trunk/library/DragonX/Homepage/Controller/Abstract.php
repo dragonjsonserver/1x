@@ -31,6 +31,14 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
         if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) {
             $sessionNamespace = new Zend_Session_Namespace();
             $this->view->recordAccount = $recordAccount = $sessionNamespace->recordAccount;
+
+            if (isset($recordAccount)) {
+	            $logicAccount = new DragonX_Account_Logic_Account();
+	            $recordDeletion = $logicAccount->getDeletion($sessionNamespace->recordAccount);
+	            if (isset($recordDeletion)) {
+	                $this->view->recordDeletion = $recordDeletion;
+	            }
+            }
         }
 
         $this->view->configApplication = new Dragon_Application_Config('dragon/application/application');
@@ -74,13 +82,6 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
                 		$redirect = '?' . http_build_query($params);
                 	}
                 	$this->_redirect('account/showlogin' . $redirect);
-                }
-
-                $logicAccount = new DragonX_Account_Logic_Account();
-                $recordDeletion = $logicAccount->getDeletion($sessionNamespace->recordAccount);
-                if (isset($recordDeletion)) {
-	                $this->view->recordDeletion = $recordDeletion;
-                	$this->view->configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
                 }
 
 		        if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Acl')) {
