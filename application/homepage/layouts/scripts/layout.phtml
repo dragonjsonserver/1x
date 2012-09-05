@@ -82,7 +82,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'showedit'), null, true); ?>">Bearbeiten</a></li>
-                            <li><a href="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'logout'), null, true); ?>">Abmelden</a></li>
+                            <li><a href="<?php echo $this->url(array('controller' => 'account', 'action' => 'logout'), null, true); ?>">Abmelden</a></li>
                         </ul>
                         <?php } elseif (isset($this->recordAccount)) { ?>
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="">
@@ -112,7 +112,7 @@
         <div class="container">
             <?php
                 if (isset($this->recordAccount) && !isset($this->recordAccount->identity)) {
-                    $this->messages[] = '<div class="alert">Das Profil ist nur temporär und wird durch die Abmeldung wieder entfernt. Speichern sie das Profil um es dauerhaft verfügbar zu machen</div>';
+                    $this->messages[] = '<div class="alert">Das Profil ist nur temporär und wird durch die Abmeldung oder Auslauf der Session wieder entfernt. Speichern sie das Profil um es dauerhaft verfügbar zu machen</div>';
                 }
                 if (isset($this->recordDeletion)) {
                     $this->messages[] = '<div class="alert">Profil wurde zum Löschen eingetragen und wird nach dem ' . date('d.m.Y', $this->recordDeletion->timestamp) . ' gelöscht</div>';

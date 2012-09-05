@@ -28,11 +28,6 @@ class DragonX_Account_Logic_Account
         $recordAccount = new DragonX_Account_Record_Account();
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
 
-        $configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
-        if (isset($configDeletion->temporary)) {
-	        $this->deleteAccount($recordAccount, $configDeletion->temporary);
-        }
-
         Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
             'DragonX_Account_Plugin_TemporaryAccount_Interface',
             array($recordAccount)
@@ -56,7 +51,6 @@ class DragonX_Account_Logic_Account
         ));
         $recordAccount->validateIdentity($identity);
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
-        $this->deleteDeletion($recordAccount);
 
         $logicValidation = new DragonX_Account_Logic_Validation();
         $logicValidation->request($recordAccount, $configMail);
@@ -116,23 +110,62 @@ class DragonX_Account_Logic_Account
 
     /**
      * Meldet einen Account mit der Identity und dem Credential an
-     * @param string $identity
-     * @param string $credential
+     * @param DragonX_Account_Record_Account $recordAccount
+     * @return string
      * @throws InvalidArgumentException
      */
-    public function loginAccount($identity, $credential)
+    public function loginAccount(DragonX_Account_Record_Account $recordAccount)
     {
-        $sessionNamespace = new Zend_Session_Namespace();
-        $sessionNamespace->recordAccount = $this->authenticateAccount($identity, $credential);
+        $configSession = new Dragon_Application_Config('dragonx/account/session');
+    	$recordSession = new DragonX_Account_Record_Session(array(
+            'accountid' => $recordAccount->id,
+            'sessionhash' => md5($recordAccount->id . '.' . time()),
+            'timestamp' => time() + $configSession->lifetime,
+        ));
+        Zend_Registry::get('DragonX_Storage_Engine')->save($recordSession);
+        return $recordSession->sessionhash;
+    }
+
+    /**
+     * Gibt den Account zurück der zum übergebenen Sessionhash hinterlegt ist
+     * @param string $sessionhash
+     * @return DragonX_Account_Record_Account
+     * @throws InvalidArgumentException
+     */
+    public function getAccount($sessionhash)
+    {
+        $listAccounts = Zend_Registry::get('DragonX_Storage_Engine')->loadBySqlStatement(
+            new DragonX_Account_Record_Account(),
+              "SELECT `dragonx_account_record_account`.`id`, `dragonx_account_record_account`.`identity` FROM `dragonx_account_record_account` "
+            . "INNER JOIN `dragonx_account_record_session` ON `dragonx_account_record_session`.`accountid` = `dragonx_account_record_account`.`id` "
+            . "WHERE `dragonx_account_record_session`.`sessionhash` = :sessionhash",
+            array('sessionhash' => $sessionhash)
+        );
+        if (count($listAccounts) == 0) {
+            throw new InvalidArgumentException('incorrect sessionhash');
+        }
+        return $listAccounts[0];
     }
 
     /**
      * Meldet den aktuell eingeloggten Account wieder ab
+     * @param string $sessionhash
      */
-    public function logoutAccount()
+    public function logoutAccount($sessionhash)
     {
-        $sessionNamespace = new Zend_Session_Namespace();
-        $sessionNamespace->unsetAll();
+    	$storage = Zend_Registry::get('DragonX_Storage_Engine');
+    	$recordAccount = $this->getAccount($sessionhash);
+    	$storage->deleteByConditions(
+            new DragonX_Account_Record_Session(),
+            array('sessionhash' => $sessionhash)
+        );
+        if (!isset($recordAccount->identity)) {
+            Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
+                'DragonX_Account_Plugin_DeleteAccount_Interface',
+                array($recordAccount)
+            );
+            $storage->delete($recordAccount);
+        }
     }
 
     /**
@@ -170,18 +203,14 @@ class DragonX_Account_Logic_Account
     /**
      * Setzt den Löschstatus des Accounts sodass dieser gelöscht werden kann
      * @param DragonX_Account_Record_Account $recordAccount
-     * @param integer $offset
      */
-    public function deleteAccount(DragonX_Account_Record_Account $recordAccount, $offset = null)
+    public function deleteAccount(DragonX_Account_Record_Account $recordAccount)
     {
-    	if (!isset($offset)) {
-    		$configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
-    		$offset = $configDeletion->registered;
-    	}
+    	$configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
         Zend_Registry::get('DragonX_Storage_Engine')->save(
             new DragonX_Account_Record_Deletion(array(
                 'accountid' => $recordAccount->id,
-                'timestamp' => time() + $offset,
+                'timestamp' => time() + $configDeletion->lifetime,
             ))
         );
     }

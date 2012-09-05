@@ -20,24 +20,11 @@
 class Administration_AccountController extends DragonX_Homepage_Controller_Abstract
 {
     /**
-     * Meldet den derzeit eingeloggten Account ab
-     */
-    public function logoutAction()
-    {
-        $logicAccount = new DragonX_Account_Logic_Account();
-        $logicAccount->logoutAccount();
-
-        $this->_helper->FlashMessenger('<div class="alert alert-success">Abmeldung erfolgreich</div>');
-        $this->_redirect('');
-    }
-
-    /**
      * Speichert den Account mit der Identity und dem Credential
      */
     public function saveAction()
     {
-        $sessionNamespace = new Zend_Session_Namespace();
-        $recordAccount = $sessionNamespace->recordAccount;
+        $recordAccount = $this->view->recordAccount;
         if (isset($recordAccount->identity)) {
             throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
         }
@@ -65,9 +52,7 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
      */
     public function showsaveAction()
     {
-        $sessionNamespace = new Zend_Session_Namespace();
-        $recordAccount = $sessionNamespace->recordAccount;
-        if (isset($recordAccount->identity)) {
+        if (isset($this->view->recordAccount->identity)) {
             throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
         }
 
@@ -79,8 +64,7 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
      */
     public function changeidentityAction()
     {
-        $sessionNamespace = new Zend_Session_Namespace();
-        $recordAccount = $sessionNamespace->recordAccount;
+        $recordAccount = $this->view->recordAccount;
     	if (!isset($recordAccount->identity)) {
     		throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
     	}
@@ -108,8 +92,7 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
      */
     public function changecredentialAction()
     {
-        $sessionNamespace = new Zend_Session_Namespace();
-        $recordAccount = $sessionNamespace->recordAccount;
+        $recordAccount = $this->view->recordAccount;
         if (!isset($recordAccount->identity)) {
             throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
         }
@@ -117,7 +100,6 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
         $params = $this->getRequiredParams(array('newcredential'));
 
         $logicAccount = new DragonX_Account_Logic_Account();
-        $sessionNamespace = new Zend_Session_Namespace();
         $logicAccount->changeCredential($recordAccount, $params['newcredential']);
 
         $this->_helper->FlashMessenger('<div class="alert alert-success">Änderung des Passworts erfolgreich</div>');
@@ -129,14 +111,12 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
      */
     public function deleteaccountAction()
     {
-        $sessionNamespace = new Zend_Session_Namespace();
-        $recordAccount = $sessionNamespace->recordAccount;
+        $recordAccount = $this->view->recordAccount;
         if (!isset($recordAccount->identity)) {
             throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
         }
 
         $logicAccount = new DragonX_Account_Logic_Account();
-        $sessionNamespace = new Zend_Session_Namespace();
         $logicAccount->deleteAccount($recordAccount);
 
         $this->_helper->FlashMessenger('<div class="alert alert-success">Löschung des Profils eingetragen</div>');
@@ -148,14 +128,12 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
      */
     public function deletedeletionAction()
     {
-        $sessionNamespace = new Zend_Session_Namespace();
-        $recordAccount = $sessionNamespace->recordAccount;
+        $recordAccount = $this->view->recordAccount;
         if (!isset($recordAccount->identity)) {
             throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
         }
 
         $logicAccount = new DragonX_Account_Logic_Account();
-        $sessionNamespace = new Zend_Session_Namespace();
         $logicAccount->deleteDeletion($recordAccount);
 
         $this->_helper->FlashMessenger('<div class="alert alert-success">Löschung des Profils zurückgesetzt</div>');
@@ -167,9 +145,7 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
      */
     public function showeditAction()
     {
-        $sessionNamespace = new Zend_Session_Namespace();
-        $recordAccount = $sessionNamespace->recordAccount;
-        if (!isset($recordAccount->identity)) {
+        if (!isset($this->view->recordAccount->identity)) {
             throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
         }
 

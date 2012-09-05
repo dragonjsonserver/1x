@@ -76,7 +76,8 @@ class CredentialController extends DragonX_Homepage_Controller_Abstract
         }
 
         $logicAccount = new DragonX_Account_Logic_Account();
-        $logicAccount->loginAccount($recordAccount->identity, $params['newcredential']);
+        $sessionNamespace = new Zend_Session_Namespace();
+        $sessionNamespace->sessionhash = $logicAccount->loginAccount($recordAccount);
 
         $this->_helper->FlashMessenger('<div class="alert alert-success">Zurücksetzen des Passworts erfolgreich</div>');
         $this->_redirect('administration');

@@ -88,6 +88,17 @@ class DragonX_Account_Plugin_Install implements DragonX_Storage_Plugin_Install_I
                     . "CHANGE `identity` `identity` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL, "
                     . "CHANGE `credential` `credential` CHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL";
         }
+        if (version_compare($oldversion, '1.5.0', '<')) {
+            $sqlstatements[] =
+                  "CREATE TABLE `dragonx_account_record_session` ("
+                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`accountid` INT(10) UNSIGNED NOT NULL, "
+                    . "`sessionhash` CHAR(32) NOT NULL, "
+                    . "`timestamp` INT(10) UNSIGNED NOT NULL, "
+                    . "PRIMARY KEY (`id`), "
+                    . "UNIQUE KEY `sessionhash` (`sessionhash`)"
+                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+        }
         return $sqlstatements;
     }
 }
