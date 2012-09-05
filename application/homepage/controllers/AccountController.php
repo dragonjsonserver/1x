@@ -41,7 +41,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
         $sessionNamespace = new Zend_Session_Namespace();
         $sessionNamespace->recordAccount = $logicAccount->temporaryAccount();
 
-        $this->_helper->FlashMessenger('<div class="alert alert-success">Erstellung des temporären Accounts erfolgreich</div>');
+        $this->_helper->FlashMessenger('<div class="alert alert-success">Erstellung des temporären Profils erfolgreich</div>');
         $this->_redirect('administration');
     }
 
