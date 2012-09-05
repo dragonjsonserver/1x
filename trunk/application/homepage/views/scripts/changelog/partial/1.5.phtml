@@ -36,8 +36,14 @@
                 Account
                 <ul>
                     <li>Der Record für die Accountdaten bietet nun eine Methode an um die E-Mail Adresse zu validieren und zu setzen sodass dies nicht an den Stellen an denen es benötigt wird selbst gemacht werden muss</li>
+                    <li>Es gibt nun ein eigenes Sessionmanagement bei dem die Session die Datenbank geschrieben wird und temporäre Accounts nach Ablauf der Session oder beim Logout gelöscht werden</li>
                 </ul>
             </li>
         </ul>
     </li>
+</ul>
+<h4>Homepage</h4>
+<ul>
+    <li>Die Homepage nutzt nun das eigene Sessionmanagement und speichert den Sessionhash dabei in die PHP Session</li>
+    <li>Wenn die Session ausläuft während der Spieler sich auf der Homepage bewegt wird er mit einem Fehlerhinweis auf den Login weitergeleitet</li>
 </ul>
