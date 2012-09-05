@@ -28,7 +28,10 @@ class DragonX_Account_Logic_Account
         $recordAccount = new DragonX_Account_Record_Account();
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
 
-        $this->deleteAccount($recordAccount);
+        $configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
+        if (isset($configDeletion->temporary)) {
+	        $this->deleteAccount($recordAccount, $configDeletion->temporary);
+        }
 
         Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
             'DragonX_Account_Plugin_TemporaryAccount_Interface',
@@ -182,14 +185,18 @@ class DragonX_Account_Logic_Account
     /**
      * Setzt den Löschstatus des Accounts sodass dieser gelöscht werden kann
      * @param DragonX_Account_Record_Account $recordAccount
+     * @param integer $offset
      */
-    public function deleteAccount(DragonX_Account_Record_Account $recordAccount)
+    public function deleteAccount(DragonX_Account_Record_Account $recordAccount, $offset = null)
     {
-    	$configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
+    	if (!isset($offset)) {
+    		$configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
+    		$offset = $configDeletion->registered;
+    	}
         Zend_Registry::get('DragonX_Storage_Engine')->save(
             new DragonX_Account_Record_Deletion(array(
                 'accountid' => $recordAccount->id,
-                'timestamp' => time() + $configDeletion->offset,
+                'timestamp' => time() + $offset,
             ))
         );
     }
@@ -217,9 +224,9 @@ class DragonX_Account_Logic_Account
      */
     public function deleteDeletion(DragonX_Account_Record_Account $recordAccount)
     {
-    	$recordDeletion = $this->getDeletion($recordAccount);
-    	if (isset($recordDeletion)) {
-    		Zend_Registry::get('DragonX_Storage_Engine')->delete($recordDeletion);
-    	}
+    	Zend_Registry::get('DragonX_Storage_Engine')->deleteByConditions(
+            new DragonX_Account_Record_Deletion(),
+            array('accountid' => $recordAccount->id)
+    	);
     }
 }
