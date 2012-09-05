@@ -28,6 +28,8 @@ class DragonX_Account_Logic_Account
         $recordAccount = new DragonX_Account_Record_Account();
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
 
+        $this->deleteAccount($recordAccount);
+
         Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
             'DragonX_Account_Plugin_TemporaryAccount_Interface',
             array($recordAccount)
@@ -56,6 +58,7 @@ class DragonX_Account_Logic_Account
             'credential' => md5($credential),
         ));
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
+        $this->deleteDeletion($recordAccount);
 
         $logicValidation = new DragonX_Account_Logic_Validation();
         $logicValidation->request($recordAccount, $configMail);
@@ -182,10 +185,11 @@ class DragonX_Account_Logic_Account
      */
     public function deleteAccount(DragonX_Account_Record_Account $recordAccount)
     {
+    	$configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
         Zend_Registry::get('DragonX_Storage_Engine')->save(
             new DragonX_Account_Record_Deletion(array(
                 'accountid' => $recordAccount->id,
-                'timestamp' => time(),
+                'timestamp' => time() + $configDeletion->offset,
             ))
         );
     }

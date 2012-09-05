@@ -111,11 +111,11 @@
         </div>
         <div class="container">
             <?php
-                if (isset($this->recordDeletion)) {
-                    $this->messages[] = '<div class="alert">Profil wurde am ' . date('d.m.Y', $this->recordDeletion->timestamp) . ' zum Löschen eingetragen und wird nach dem ' . date('d.m.Y', $this->recordDeletion->timestamp + $this->configDeletion->offset) . ' gelöscht</div>';
-                }
                 if (isset($this->recordAccount) && !isset($this->recordAccount->identity)) {
                     $this->messages[] = '<div class="alert">Das Profil ist nur temporär und wird durch die Abmeldung wieder entfernt. Speichern sie das Profil um es dauerhaft verfügbar zu machen</div>';
+                }
+                if (isset($this->recordDeletion)) {
+                    $this->messages[] = '<div class="alert">Profil wurde zum Löschen eingetragen und wird nach dem ' . date('d.m.Y', $this->recordDeletion->timestamp) . ' gelöscht</div>';
                 }
                 foreach ($this->messages as $message) {
                 	echo $message;

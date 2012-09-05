@@ -33,6 +33,14 @@
         DragonX
         <ul>
             <li>
+                Account
+                <ul>
+                    <li>Das Offset für die Accountlöschung wird nun Eintragen auf den aktuellen Zeitpunkt gerechnet sodass Änderungen am Offset sich nicht auf Accounts auswirken die bereits zum Löschen markiert sind, was vor allem bei einer Verkürzung der Zeit problematisch wäre</li>
+                    <li>"Sofort loslegen" Möglichkeit, sodass ein temporärer Account erstellt und zurück gegeben wird. Dieser wird bei der Erstellung zum Löschen markiert sodass er nach der eingestellten Zeit für Accountlöschungen aus der Datenbank entfernt wird</li>
+                    <li>Temporäre Accounts können per Eingabe einer Identity und eines Credential zu vollwertigen Accounts gespeichert werden. Die Löschmarkierung wird dabei entfernt</li>
+                </ul>
+            </li>
+            <li>
                 Acl
                 <ul>
                     <li>'getResources()' der Acl Logikklasse erlaubt nun die Rückgabe aller Rechte eines beliebigen Accounts sodass bei Servoces der Account aus der Registry und bei der Homepage aus der Session verwendet werden kann</li>
@@ -66,7 +74,8 @@
     <li>Ressourcenabfrage ist nun für die Homepage möglich. Zum Einen können Navigationseinträge an Ressourcen gebunden werden und zum Anderen können Controller im 'preDispatch()' oder in einzelnen Actions Ressourcen abfragen. Fehlt eine Ressource wird der Navigationseintrag nicht angezeigt bzw. bei Controlleraufrufen mit einer Meldung auf die Startseite weitergeleitet</li>
     <li>Die eigenen CSS Angaben sind nun ausgelagert in die CSS Datei 'layout.css' und nicht mehr im Layout Script direkt geschrieben</li>
     <li>Die Lizenz ist nun per Konfigurationsdatei 'dragonx/homepage/lizense.php' einstellbar und auch deaktivierbar falls das Projekt nicht unter einer Open Source Lizenz steht</li>
-    <li>"Sofort loslegen" Möglichkeit, sodass man einen temporären Account bekommt. Die temporären Accounts sind an die Session gebunden und müssen mit einer E-Mail Adresse und einem Passwort gespeichert werden um sie zu vollwertigen Accounts zu machen</li>
+    <li>"Sofort loslegen" Möglichkeit auf der Homepage einbinden sodass man temporäre Accounts erstellen kann die an die Session gebunden sind und auch über den Administrationsbereich zu vollwertigen Accounts speichern kann</li>
+    <li>Die Löschmarkierung wann ein Account gelöscht werden soll wird nun auch angezeigt wenn man auf den Homepagebereich wechselt</li>
 </ul>
 <h4>DragonJsonClient</h4>
 <ul>
