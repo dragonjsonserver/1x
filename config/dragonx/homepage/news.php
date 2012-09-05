@@ -25,8 +25,13 @@ return array(
             'title' => 'Version 1.4.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.4.0 ist abgeschlossen und als Download '
-                . 'verfügbar.',
-            'timestamp' => 0,
+                . 'verfügbar. Geändert hat sich vor allem das Layout der '
+                . 'Homepage mit insbesondere die Startseite, das Pagination, '
+                . 'die Formulare und die Hinweismeldungen. Des Weiteren sind '
+                . 'nun auch die Ressourcenabfragen für Navigationselemente '
+                . 'und Controlleraufrufe nutzbar sowie die "Sofort loslegen" '
+                . 'Möglichkeit.',
+            'timestamp' => 1346854222,
         ),
         array(
             'title' => 'Version 1.3.1 zum Download verfügbar',
