@@ -20,17 +20,45 @@
 class DragonX_Account_Service_Account
 {
     /**
+     * Erstellt einen temporären Account der nur begrenzt gültig ist
+     * @return array
+     */
+	public function temporaryAccount()
+	{
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $sessionhash = $logicAccount->loginAccount(
+            $logicAccount->temporaryAccount()
+        );
+        return array('sessionhash' => $sessionhash);
+	}
+
+	/**
+     * Speichert den Account mit der Identity und dem Credential
+     * @param string $identity
+     * @param string $credential
+     * @dragonx_account_authenticate
+     */
+    public function saveAccount($identity, $credential)
+    {
+        $recordAccount = Zend_Registry::get('recordAccount');
+        if (isset($recordAccount->identity)) {
+            throw new Exception('account already saved');
+        }
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $configValidation = new Dragon_Application_Config('dragonx/account/validation');
+        $logicAccount->saveAccount($recordAccount, $identity, $credential, $configValidation->validationhash);
+    }
+
+    /**
      * Registriert einen Account mit der Identity und dem Credential
      * @param string $identity
      * @param string $credential
-     * @return array
      */
     public function registerAccount($identity, $credential)
     {
         $logicAccount = new DragonX_Account_Logic_Account();
         $configValidation = new Dragon_Application_Config('dragonx/account/validation');
         $accountid = $logicAccount->registerAccount($identity, $credential, $configValidation->validationhash);
-        return array('accountid' => $accountid);
     }
 
     /**
@@ -51,6 +79,31 @@ class DragonX_Account_Service_Account
     public function authenticateAccount()
     {
         return array('accountid' => Zend_Registry::get('recordAccount')->id);
+    }
+
+    /**
+     * Meldet den übergebenen Account an
+     * @param string $identity
+     * @param string $credential
+     * @return array
+     */
+    public function loginAccount($identity, $credential)
+    {
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $sessionhash = $logicAccount->loginAccount(
+            $logicAccount->authenticateAccount($identity, $credential)
+        );
+        return array('sessionhash' => $sessionhash);
+    }
+
+    /**
+     * Meldet den übergebenen Account ab
+     * @param string $sessionhash
+     */
+    public function logoutAccount($sessionhash)
+    {
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $logicAccount->logoutAccount($sessionhash);
     }
 
     /**

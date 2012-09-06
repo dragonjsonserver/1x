@@ -21,8 +21,6 @@
 </ul>
 <h4>Erweiterungen der Accountverwaltung</h4>
 <ul>
-    <li>Session auch per API ermöglichen, ein Service der einen Sessionhash für einen Account generiert und zurück gibt welcher dann bei jedem Service übergeben werden muss und für eine gewisse Zeit gültig ist statt bei jedem Aufruf Identität und Credential mitzugeben</li>
-    <li>Temporäre Accounts auch per API ermöglichen sodass ein Client ebenfalls temporäre Accounts registrieren, nutzen und speichern kann</li>
     <li>Für jeden Statuswechsel, also Gast -> registrierter Account -> validierter Account sollen andere Rechte vergeben werden können</li>
 </ul>
 <h3>Version 1.5.0</h3>
@@ -38,6 +36,8 @@
                     <li>Der Record für die Accountdaten bietet nun eine Methode an um die E-Mail Adresse zu validieren und zu setzen sodass dies nicht an den Stellen an denen es benötigt wird selbst gemacht werden muss</li>
                     <li>Es gibt nun ein eigenes Sessionmanagement bei dem die Session die Datenbank geschrieben wird und temporäre Accounts nach Ablauf der Session oder beim Logout gelöscht werden</li>
                     <li>Sessions können auch mit unendlicher Dauer eingestellt werden und werden dann somit nicht ablaufen und gelöscht</li>
+				    <li>Session auch per API ermöglichen, ein Service der einen Sessionhash für einen Account generiert und zurück gibt welcher dann bei jedem Service übergeben werden muss und für eine gewisse Zeit gültig ist statt bei jedem Aufruf Identität und Credential mitzugeben</li>
+				    <li>Temporäre Accounts auch per API ermöglichen sodass ein Client ebenfalls temporäre Accounts registrieren, nutzen und speichern kann</li>
                 </ul>
             </li>
         </ul>

@@ -48,9 +48,9 @@ class DragonX_Account_Plugin_Account
 		    return;
 		}
 
-		$params = $request->getRequiredParams(array('identity', 'credential'));
+		$params = $request->getRequiredParams(array('sessionhash'));
         $logicAccount = new DragonX_Account_Logic_Account();
-        $recordAccount = $logicAccount->authenticateAccount($params['identity'], $params['credential']);
+        $recordAccount = $logicAccount->getAccount($params['sessionhash']);
         Zend_Registry::set('recordAccount', $recordAccount);
 
         if (Zend_Registry::isRegistered('Zend_Log')) {
@@ -74,12 +74,7 @@ class DragonX_Account_Plugin_Account
             $service->addParams(array(
                 array(
                     'type' => 'string',
-                    'name' => 'identity',
-                    'optional' => false,
-                ),
-                array(
-                    'type' => 'string',
-                    'name' => 'credential',
+                    'name' => 'sessionhash',
                     'optional' => false,
                 ),
             ));
