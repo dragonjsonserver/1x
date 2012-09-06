@@ -88,6 +88,7 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
                 	if (count($params) > 0) {
                 		$redirect = '?' . http_build_query($params);
                 	}
+                    $this->_helper->FlashMessenger('<div class="alert alert-error">Die Session wurde noch nicht gestartet oder ist abgelaufen. Profil muss angemeldet werden</div>');
                 	$this->_redirect('account/showlogin' . $redirect);
                 }
 

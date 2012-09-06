@@ -117,10 +117,14 @@ class DragonX_Account_Logic_Account
     public function loginAccount(DragonX_Account_Record_Account $recordAccount)
     {
         $configSession = new Dragon_Application_Config('dragonx/account/session');
+        $timestamp = null;
+        if (isset($configSession->lifetime)) {
+        	$timestamp = time() + $configSession->lifetime;
+        }
     	$recordSession = new DragonX_Account_Record_Session(array(
             'accountid' => $recordAccount->id,
             'sessionhash' => md5($recordAccount->id . '.' . time()),
-            'timestamp' => time() + $configSession->lifetime,
+            'timestamp' => $timestamp,
         ));
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordSession);
         return $recordSession->sessionhash;

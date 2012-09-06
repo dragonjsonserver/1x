@@ -44,7 +44,7 @@ class DragonX_Account_Plugin_Deletion implements DragonX_Cronjob_Plugin_Cronjob_
     {
     	$listSessions = Zend_Registry::get('DragonX_Storage_Engine')->loadBySqlStatement(
     	    new DragonX_Account_Record_Session(),
-            "SELECT * FROM `dragonx_account_record_session` WHERE `timestamp` <= :timestamp",
+            "SELECT * FROM `dragonx_account_record_session` WHERE `timestamp` IS NOT NULL AND `timestamp` <= :timestamp",
             array('timestamp' => time())
         );
         $logicAccount = new DragonX_Account_Logic_Account();
