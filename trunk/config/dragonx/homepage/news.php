@@ -22,6 +22,13 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.6.0 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.6.0 ist abgeschlossen und als Download '
+                . 'verfügbar.',
+            'timestamp' => 0,
+        ),
+        array(
             'title' => 'Version 1.5.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.5.0 ist abgeschlossen und als Download '
