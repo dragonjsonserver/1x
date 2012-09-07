@@ -1,0 +1,42 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Account Service, Logik und Datenbank</h3>
+<ul>
+    <li>Der Account Service bietet Methoden für Registrierung, Authentifizierung sowie Änderung von E-Mail Adresse und Passwort an</li>
+    <li>Zur Authentifizierung wird eine Identity (E-Mail Adresse) und ein Credential (Passwort) benötigt</li>
+    <li>Bietet die Möglichkeit seinen Account zum Löschen zu markieren und diese Markierung wieder zurückzusetzen. Zum Löschen markierte Accounts werden nach einer einstellbaren Zeit von einem Cronjob gelöscht</li>
+    <li>Für die Registrierung, Validierung und Änderung der E-Mail Adresse eines Accounts und Löschung der Accounts gibt es Pluginschnittstellen um währenddessen Aktionen durchführen zu können</li>
+    <li>Es besteht zudem die Möglichkeit einen temporären Account zu erstellen der nur für die Dauer der Session gültig ist, in dieser Zeit genutzt und mit Eingabe der E-Mail Adresse und des Passworts zu einem vollwertigen Account gespeichert werden kann</li>
+    <li>Temporäre Accounts können bei der Erstellung zum Löschen markiert und daher nach einer eingestellbaren Zeit aus der Datenbank gelöscht werden</li>
+    <li>Bei der Speicherung eines temporären Accounts wird eine eventuell vorhandene Löschmarkierung entfernt</li>
+</ul>
+<h3>Account Plugin</h3>
+<ul>
+    <li>Alle Services die die Annotation '@dragonx_account_authenticate' haben benötigen eine Authentifizierung die abgefragt wird</li>
+    <li>Alle diese Services werden auch in der SMD erweitert um die notwendigen Parameter zur Authentifizierung</li>
+</ul>
+<h3>Credential Service, Logik und Datenbank</h3>
+<ul>
+    <li>Der Credential Service bietet Methoden für Passwort vergessen und Passwort zurücksetzen an</li>
+    <li>Beim Passwort vergessen wird die Identität abgefragt und eine E-Mail zu dieser als Authentifizierung geschickt</li>
+    <li>Wird das Passwort vergessen über den Service genutzt enthält die E-Mail nur den Hash der beim Passwort zurücksetzen angegeben werden muss</li>
+    <li>Wird das Passwort vergessen über die Homepage genutzt enthält die E-Mail den Link zur Passwort zurücksetzen Seite der Homepage</li>
+</ul>
+<h3>Besonderheit mit Zend_Log</h3>
+<ul>
+    <li>Ist in der Zend_Registry ein Zend_Log Objekt hinterlegt (Standardverhalten bei der Verwendung von DragonX_Log) wird bei allen Services die eine Authentifizierung benötigen die AccountID als Eventitem hinzugefügt</li>
+</ul>
