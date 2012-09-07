@@ -1,0 +1,28 @@
+body {
+	padding-top : 60px;
+	padding-bottom : 60px;
+}
+
+@media(max-width:979px)
+{
+	body {
+		padding-bottom : 0px;
+	}
+}
+
+.sidebar-nav {
+	padding : 9px 0;
+}
+
+th, td {
+	vertical-align : top;
+	text-align : left;
+}
+
+table, select, input {
+	width : 100%;
+}
+
+.navbar .brand:hover {
+	color : #999999;
+}
