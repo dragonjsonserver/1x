@@ -25,8 +25,11 @@ return array(
             'title' => 'Version 1.5.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.5.0 ist abgeschlossen und als Download '
-                . 'verfügbar.',
-            'timestamp' => 0,
+                . 'verfügbar. In der Version wurde die Accountverwaltung '
+                . 'durch ein für Homepage und API gemeinsames '
+                . 'Sessionmanagement abgeschlossen und durch die Möglichkeit '
+                . 'der temporären Profile abgerundet.',
+            'timestamp' => 1347036792,
         ),
         array(
             'title' => 'Version 1.4.0 zum Download verfügbar',

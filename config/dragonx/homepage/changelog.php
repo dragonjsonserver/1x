@@ -28,5 +28,6 @@ return array(
     '1.0' => 'Branch 1.0',
     'Nächster Branch',
     '1.6' => 'Branch 1.6',
+    '1.7' => 'Branch 1.7',
     'roadmap' => 'Ideensammlung',
 );
