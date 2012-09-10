@@ -1,0 +1,65 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+
+define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/..'));
+if ($environment = getenv('environment')) {
+	define('APPLICATION_ENV', getenv('environment'));
+} else {
+	define('APPLICATION_ENV', 'development');
+}
+define('BASEURL', 'http://' . $_SERVER["SERVER_NAME"] . '/');
+
+if (!$zendpath = getenv('zendpath')) {
+    $zendpath = APPLICATION_PATH . '/../../library';
+}
+$repositories = getenv('repositories');
+if ($repositories) {
+	if (!$packagenamespacespath = getenv('packagenamespacespath')) {
+        $packagenamespacespath = APPLICATION_PATH . '/../application/config/packagenamespaces.php';
+	}
+	if (is_file($packagenamespacespath)) {
+		$packagenamespaces = require $packagenamespacespath;
+	} else {
+		$packagenamespaces = require APPLICATION_PATH . '/config/packagenamespaces.php';
+	}
+	if (!$repositoriespath = getenv('repositoriespath')) {
+        $repositoriespath = APPLICATION_PATH . '/../application/config/repositories.php';
+    }
+    if (is_file($repositoriespath)) {
+    	$repositories = require $repositoriespath;
+    } else {
+    	$repositories = array('application' => APPLICATION_PATH . '/../application');
+    }
+} else {
+    $packagenamespaces = require APPLICATION_PATH . '/config/packagenamespaces.php';
+}
+
+require APPLICATION_PATH . '/library/Dragon/Application/Application.php';
+$application = new Dragon_Application_Application();
+$application
+    ->setEnvironment(APPLICATION_ENV)
+    ->setTimezone()
+    ->addLibrarypaths(array(
+        $zendpath,
+        APPLICATION_PATH . '/library',
+    ))
+    ->initAutoloader()
+    ->initPackageRegistry($packagenamespaces)
+    ->initPluginRegistry();
+if ($repositories) {
+	$application->initRepositoryRegistry($repositories);
+}
+$application->bootstrap();
