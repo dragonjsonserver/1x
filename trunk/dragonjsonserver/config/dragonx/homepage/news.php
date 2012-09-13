@@ -25,8 +25,12 @@ return array(
             'title' => 'Version 1.6.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.6.0 ist abgeschlossen und als Download '
-                . 'verfügbar.',
-            'timestamp' => 0,
+                . 'verfügbar. In der Version hat sie die Projektstruktur '
+                . 'durch die Unterstützung von Repositories geändert. Diese '
+                . 'erlauben es nun die eigenen Dateien von den Dateien des '
+                . 'Frameworks zu trennen und somit das Aktualisieren des '
+                . 'Framework zu vereinfachen.',
+            'timestamp' => 1347580549,
         ),
         array(
             'title' => 'Version 1.5.0 zum Download verfügbar',
