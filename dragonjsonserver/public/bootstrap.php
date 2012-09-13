@@ -14,47 +14,39 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 
-define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/..'));
+define('DRAGONJSONSERVER_PATH', realpath(dirname(__FILE__) . '/..'));
 if ($environment = getenv('environment')) {
-	define('APPLICATION_ENV', getenv('environment'));
+	define('APPLICATION_ENV', $environment);
 } else {
 	define('APPLICATION_ENV', 'development');
 }
 define('BASEURL', 'http://' . $_SERVER["SERVER_NAME"] . '/');
 
 if (!$zendpath = getenv('zendpath')) {
-    $zendpath = APPLICATION_PATH . '/../../library';
+    $zendpath = DRAGONJSONSERVER_PATH . '/../library';
 }
-$repositories = getenv('repositories');
-if ($repositories) {
-	if (!$packagenamespacespath = getenv('packagenamespacespath')) {
-        $packagenamespacespath = APPLICATION_PATH . '/../application/config/packagenamespaces.php';
-	}
-	if (is_file($packagenamespacespath)) {
-		$packagenamespaces = require $packagenamespacespath;
-	} else {
-		$packagenamespaces = require APPLICATION_PATH . '/config/packagenamespaces.php';
-	}
-	if (!$repositoriespath = getenv('repositoriespath')) {
-        $repositoriespath = APPLICATION_PATH . '/../application/config/repositories.php';
-    }
+$applicationpath = DRAGONJSONSERVER_PATH . '/../application';
+if (is_dir($applicationpath)) {
+    $repositoriespath = $applicationpath . '/config/repositories.php';
     if (is_file($repositoriespath)) {
     	$repositories = require $repositoriespath;
     } else {
-    	$repositories = array('application' => APPLICATION_PATH . '/../application');
+    	$repositories = array('application' => $applicationpath);
     }
+	$packagenamespaces = require $applicationpath . '/config/packagenamespaces.php';
 } else {
-    $packagenamespaces = require APPLICATION_PATH . '/config/packagenamespaces.php';
+	$repositories = false;
+    $packagenamespaces = require DRAGONJSONSERVER_PATH . '/config/packagenamespaces.php';
 }
 
-require APPLICATION_PATH . '/library/Dragon/Application/Application.php';
+require DRAGONJSONSERVER_PATH . '/library/Dragon/Application/Application.php';
 $application = new Dragon_Application_Application();
 $application
     ->setEnvironment(APPLICATION_ENV)
     ->setTimezone()
     ->addLibrarypaths(array(
         $zendpath,
-        APPLICATION_PATH . '/library',
+        DRAGONJSONSERVER_PATH . '/library',
     ))
     ->initAutoloader()
     ->initPackageRegistry($packagenamespaces)
