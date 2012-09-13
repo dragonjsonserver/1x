@@ -25,6 +25,6 @@ class Dragon_Application_Version
      */
     public function getVersion()
     {
-        return '1.3.0';
+        return '1.6.0';
     }
 }
