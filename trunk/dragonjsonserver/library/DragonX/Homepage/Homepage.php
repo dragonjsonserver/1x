@@ -27,7 +27,7 @@ class DragonX_Homepage_Homepage
     {
         $application = new Zend_Application(
             APPLICATION_ENV,
-            APPLICATION_PATH . '/config/dragonx/homepage/application.ini'
+            DRAGONJSONSERVER_PATH . '/config/dragonx/homepage/application.ini'
         );
         if (Zend_Registry::isRegistered('Dragon_Repository_Registry')) {
 	        $frontController = Zend_Controller_Front::getInstance();

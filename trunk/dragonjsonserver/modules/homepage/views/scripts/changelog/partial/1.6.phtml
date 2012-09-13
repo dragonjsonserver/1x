@@ -15,9 +15,89 @@
  */
 ?>
 <h3>Noch geplante Änderungen</h3>
-<h4>Projektstruktur</h4>
+<h4>Homepage</h4>
 <ul>
-    <li>Die Projektstruktur wird geändert sodass es möglich wird eine eigene Anwendung mit samt Konfigurationsdaten, Zend MVC Modulen und der Library mit den Services und Plugins getrennt zum Framework zu verwalten. Auf diese Weise werden zukünftige Updates sehr viel einfacher werden, da alle eigenen Dateien getrennt vom Framework sein werden.</li>
+    <li>Dokumentation aktualisieren auf die neue Projektstruktur mit Repositories</li>
 </ul>
 <h3>Version 1.6.0</h3>
 <h4>Releasedatum: noch offen</h4>
+<h4>Neue Pakete</h4>
+<ul>
+    <li>
+        Dragon
+        <ul>
+            <li>
+                Repository
+                <ul>
+                    <li>Neues Paket Repository um mehrere Repositories verwalten zu können</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Application
+                <ul>
+                    <li>Verschieben der abstrakten Eigenschaftenklasse in ein neues 'DragonX_Application' Paket</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4>Geänderte Pakete</h4>
+<ul>
+    <li>
+        Dragon
+        <ul>
+            <li>
+                Application
+                <ul>
+                    <li>Repository Registry mit Application anlegen und in der Zend Registry ablegen</li>
+                    <li>Konfigurationsdateien hierarchisch aus den Repositories und erst am Ende aus dem Framework laden</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Homepage
+                <ul>
+                    <li>Abstrakter Controller für Subnavigation umbenannt von '_ASubnavigation' zu 'Subnavigation_Abstract'</li>
+				    <li>
+				        Umstellung des Projektes auf Repositories
+				        <ul>
+				            <li>'DragonX_Homepage' fügt alle Zend MVC Module aller Repositores dem Front Controller hinzu</li>
+				        </ul>
+				    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4>Allgemein</h4>
+<ul>
+    <li>Umgebungsvariablen die gesetzt werden können werden nicht mehr im Framework vorgegeben</li>
+    <li>Repositories in der 'bootstrap.php' initialisieren wenn diese aktiviert sind</li>
+</ul>
+<h4>Homepage</h4>
+<ul>
+    <li>Umbenennung des Ordners 'application' in 'modules' für die Zend MVC Module</li>
+    <li>Einstellungsdateien der Navigationen der beiden Bereiche nun in einem Unterordner zusammengefasst</li>
+    <li>
+        Umstellung des Projektes auf Repositories
+		<ul>
+		    <li>Navigation im Layout immer mit Modulangabe der aktuellen Controllerarea</li>
+		    <li>Subnavigation immer mit Modulangabe des Repositories 'application' wenn Repositories aktiviert sind</li>
+		</ul>
+    </li>
+</ul>
+<h2>Migration vom Branch 1.5</h2>
+<h3>Benötigt</h3>
+<ul>
+    <li>Durch die Umstellung auf Repositories müssen alle eigenen Dateien aus dem bisherigen Projekt herausgezogen werden und in das Verzeichnis 'application' verschoben werden. Alle Dateien des DragonJsonServers kommen in das Verzeichnis 'dragonjsonserver'</li>
+    <li>Bei den Änderungen an der 'bootstrap.php' wurde die Konstante 'APPLICATION_PATH' umbenannt in 'DRAGONJSONSERVER_PATH' um den Pfad nicht mit dem Repository 'application' zu verwechseln. Dies muss berücksichtigt werden wenn die Konsante in eigenen Dateien genutzt wird</li>
+</ul>
