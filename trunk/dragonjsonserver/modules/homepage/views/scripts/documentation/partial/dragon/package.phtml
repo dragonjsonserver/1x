@@ -31,6 +31,11 @@
 );</pre>
     </li>
 </ul>
+<h3>Nutzung mit Application</h3>
+<ul>
+    <li>Application legt das Objekt der Package Registry in der Zend Registry unter dem Key 'Dragon_Package_Registry' ab</li>
+    <li>Application bekommt die Paketeinstellungen aus der '/config/packagenamespaces.php' und gibt diese an die Package Registry weiter</li>
+</ul>
 <h3>Klasse Package Registry</h3>
 <ul>
     <li>
@@ -41,11 +46,6 @@ $isAvailable = $packageregistry-&gt;isAvailable('%packagenamespace%', '%packagen
     <li>
         Kann zum Auslesen weiterer Bereiche der Paketeinstellungen genutzt werden
 <pre>$packageregistry = Zend_Registry::get('Dragon_Package_Registry');
-$classnames = $packageregistry-&gt;getClassnames('%directoryname%'));</pre>
+$classnames = $packageregistry-&gt;getClassnames('%directoryname%');</pre>
     </li>
-</ul>
-<h3>Nutzung mit Application</h3>
-<ul>
-    <li>Application legt das Objekt der Package Registry in der Zend Registry unter dem Key 'Dragon_Package_Registry' ab</li>
-    <li>Application bekommt die Paketeinstellungen aus der '/config/packagenamespaces.php' und gibt diese an die Package Registry weiter</li>
 </ul>

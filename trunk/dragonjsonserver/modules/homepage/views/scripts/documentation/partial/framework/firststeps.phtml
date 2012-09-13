@@ -14,21 +14,24 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 ?>
-<h3>Einrichtung Zend Framework</h3>
-<ul>
-    <li>Aktuelle Version des <a href="http://framework.zend.com/">Zend Frameworks</a> downloaden, entpacken und auf den Server uploaden</li>
-</ul>
 <h3>Download der Projektvorlage</h3>
 <ul>
     <li>Über den Download Button der Startseite auf den Downloadbereich gelangen</li>
     <li>Von den verfügbaren Downloads die Projektvorlage downloaden und entpacken</li>
 </ul>
-<h3>Anpassung der Konfigurationsdatei '/public/.htaccess'</h3>
-<pre>SetEnv zendpath '%zendpath%'</pre>
+<h3>Einrichtung DragonJsonServer</h3>
 <ul>
-    <li>zendpath auf den Verzeichnispfad setzen der das Zend Framework enthält</li>
+    <li>Von den verfügbaren Downloads den DragonJsonServers downloaden</li>
+    <li>Diese in das Verzeichnis 'dragonjsonserver' der Projektvorlage entpacken</li>
+    <li>Alternativ zum Download kann mit Subversion auch ein External auf den aktuellen Branch verwendet werden</li>
 </ul>
-<h3>Einrichtung einer Datenbank</h3>
+<h3>Einrichtung Zend Framework</h3>
+<ul>
+    <li>Aktuelle Version des <a href="http://framework.zend.com/downloads/latest#ZF1">Zend Frameworks 1</a> downloaden</li>
+    <li>Diese in das Verzeichnis 'library' der Projektvorlage entpacken</li>
+    <li>Alternativ zum Download kann mit Subversion auch ein External auf die aktuelle Version verwendet werden</li>
+</ul>
+<h3>Einstellung der Datenbank</h3>
 <ul>
     <li>
         Erstellen der Konfigurationsdatei '/config/dragonx/storage/database.php' durch Umbenennen und Anpassen der 'database.php.template' Datei
@@ -42,11 +45,12 @@
     ),
 );</pre>
     </li>
-    <li>Aufruf der 'install.php' sollte alle notwendigen Datenbanktabellen aller eingebunden Pakete erstellen</li>
 </ul>
 <h3>Upload und Test des Projektes</h3>
 <ul>
-    <li>Die Projektvorlage auf den Server uploaden (Subdomain möglich, Unterverzeichnis nicht ohne Anpassung)</li>
+    <li>Die Projektvorlage samt Zend Framework und DragonJsonServer auf den Server uploaden</li>
+    <li>Domain (oder Subdomain) muss auf 'dragonjsonserver/public' geleitet werden</li>
+    <li>Aufruf der '/install.php' sollte alle notwendigen Datenbanktabellen aller eingebunden Pakete erstellen</li>
     <li>Aufruf der '/index.php' sollte die Startseite der Homepage anzeigen</li>
     <li>Aufruf von '/dragonjsonclient' sollte den DragonJsonClient mit den Services aus der SMD anzeigen</li>
     <li>Request absenden beim DragonJsonClient (Namensraum Dragon.Application.Service.Application, Methode getApplication) sollte Anwendungsdaten zurückgeben</li>
