@@ -16,23 +16,27 @@
 ?>
 <h3>Klasse Application</h3>
 <ul>
-    <li>setEnvironment um die Ausgabe der Fehlerdetails anzuschalten mit 'development' oder auszublenden mit 'production'</li>
-    <li>addLibrarypath / addLibrarypaths um Verzeichnisse zum Include Path zum Laden von Klassen hinzuzufügen</li>
-    <li>initAutoloader zur Initialisierung des Zend Autoloaders und Dragon Autoloaders zum Nachladen aller Klassen</li>
-    <li>initPackageRegistry zur Initialisierung der Package Registry und Einbindung der übergebenen Pakete</li>
-    <li>initPluginRegistry zur Initlialisierung der Plugin Registry</li>
+    <li>'setEnvironment()' um die Ausgabe der Fehlerdetails mit 'development' anzuschalten oder mit 'production' auszublenden</li>
+    <li>'setTimezone()'</li>
+    <li>'addLibrarypath()' / 'addLibrarypaths()' um Verzeichnisse zum Include Path zum Laden von Klassen hinzuzufügen</li>
+    <li>'initAutoloader()' zur Initialisierung des Zend Autoloaders und Dragon Autoloaders zum Nachladen aller Klassen</li>
+    <li>'initPackageRegistry()' zur Initialisierung der Package Registry und Einbindung der übergebenen Pakete</li>
+    <li>'initPluginRegistry()' zur Initlialisierung der Plugin Registry</li>
+    <li>'initRepositoryRegistry()' zur Initlialisierung der Repository Registry</li>
     <li>
         bootstrap um den Paketen zu erlauben mit Plugins sich in den Bootstrapprozess einzuhängen
 <pre>$application = new Dragon_Application_Application();
 $application
     -&gt;setEnvironment('%environment%')
+    ->setTimezone()
     -&gt;addLibrarypaths(array(
         '%zendpath%',
-        '%applicationpath%/library',
+        '%dragonjsonserverpath%/library',
     ))
     -&gt;initAutoloader()
     -&gt;initPackageRegistry(require '%applicationpath%/config/packagenamespaces.php')
     -&gt;initPluginRegistry()
+    -&gt;initRepositoryRegistry(require '%applicationpath%/config/repositories.php')
     -&gt;bootstrap();</pre>
     </li>
 </ul>
@@ -73,4 +77,5 @@ $application
 <pre>$config = new Dragon_Application_Config('%packagenamespace%/%packagename%/%filename%');
 echo $config-&gt;key;</pre>
     </li>
+    <li>Bei der Verwendung von Repositories werden die Konfigurationsdateien hierarchisch gesucht und die erste gefundene Konfigurationsdatei geladen</li>
 </ul>

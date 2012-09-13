@@ -1,0 +1,64 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<ul>
+    <li>Das Paket dient lediglich als Sammlung von allgemeinen Klassen die von verschiedenen DragonX Paketen verwendet werden</li>
+</ul>
+<h3>Klasse Accessor</h3>
+<ul>
+    <li>Inspiriert durch das Feature der Eigenschaften aus C#</li>
+    <li>Kombiniert die Lesbarkeit und intuitive Nutzung von public Attributen mit der Kapselung durch protected Attribute und Setter/Getter Methoden</li>
+    <li>Public Attribute stehen wie gewohnt nach aussen hin zur Verfügung</li>
+    <li>Protected Attribute werden gekapselt, können aber wie public Attribute gesetzt (wenn eine Setter Methode definiert wurde) und gelesen (wenn eine Getter Methode definiert wurde) werden</li>
+    <li>
+        Protected Setter/Getter Methoden verhindern das direkte Nutzen dieser, falls die Methoden im Nachhinein wieder entfernt werden
+<pre>class %packagenamespace%_%packagename%_%classname% extends DragonX_Application_Accessor
+{
+    public $string;
+    protected $_integer = 0;
+
+    protected function setInteger($integer)
+    {
+        $this->_integer = (int)$integer;
+    }
+
+    protected function getInteger()
+    {
+        return $this->_integer;
+    }
+}
+$object = new %packagenamespace%_%packagename%_%classname%();
+$object->string = 'example';
+$object->integer += 1;</pre>
+    </li>
+    <li>
+        Der Konstruktur erlaubt das Setzen beliebiger Attribute durch ein Array oder eines anderen Eigenschaftobjektes. Alle Attribute werden durch die Setter Methoden gesetzt, wenn diese definiert wurden
+<pre>$first = new %packagenamespace%_%packagename%_%classname%(array('string' => 'example'));
+$second = new %packagenamespace%_%packagename%_%classname%($first);</pre>
+    </li>
+    <li>
+        'toArray()' kann genutzt werden um alle Attribute als Array zurück zu geben. Alle Attribute werden durch die Getter Methoden gelesen, wenn diese definiert wurden
+<pre>$object = new %packagenamespace%_%packagename%_%classname%(array('string' => 'example'));
+$array = $object->toArray();</pre>
+    </li>
+    <li>
+        'isset()' kann genutzt zur Prüfung auf Existenz bzw. Ungleichheit zu NULL und 'unset()' zum Setzen eines Attributes auf NULL genutzt werden
+<pre>$object = new %packagenamespace%_%packagename%_%classname%(array('string' => 'example'));
+$true = isset($object->string);
+unset($object->string);
+$false = isset($object->string);</pre>
+    </li>
+</ul>
