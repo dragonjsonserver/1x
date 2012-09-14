@@ -19,5 +19,5 @@
  */
 return array(
     'Aktueller Branch',
-    '1.0' => 'Branch 1.0',
+    '1.6' => 'Branch 1.6',
 );

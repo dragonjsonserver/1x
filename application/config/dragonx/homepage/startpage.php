@@ -18,6 +18,9 @@
  * @return array
  */
 return array(
-    'title' => '<h2>Willkommen</h2>',
-    'content' => '',
+    'title' => '<h2>Projektvorlage eines eigenen Projektes</h2>',
+    'content' =>
+          '<ul>'
+        . '    <li>Alle Informationen und Dokumentationen zum DragonJsonServer: <a title="Externer Link, Inhalt zuletzt geprüft am 14.09.2012" href="http://dragonjsonserver.de/">Homepage DragonJsonServer</a></li>'
+        . '</ul>',
 );

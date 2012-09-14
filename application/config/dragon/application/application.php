@@ -18,7 +18,7 @@
  * @return array
  */
 return array(
-    'name' => 'Application',
-    'version' => 'v1.0.0',
-    'copyright' => null,
+    'name' => 'Projektvorlage',
+    'version' => 'v1.6.0',
+    'copyright' => '(c) DragonProjects 2012',
 );
