@@ -1,0 +1,63 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'changeidentity'), null, true); ?>" method="post">
+    <legend>E-Mail Adresse ändern</legend>
+    <div class="control-group">
+        <label class="control-label" for="newidentity">Neue E-Mail Adresse:</label>
+        <div class="controls">
+            <input type="email" id="newidentity" name="newidentity" required="required">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">E-Mail Adresse ändern</button>
+        </div>
+    </div>
+</form>
+<form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'changecredential'), null, true); ?>" method="post">
+    <legend>Passwort ändern</legend>
+    <div class="control-group">
+        <label class="control-label" for="newcredential">Neues Passwort:</label>
+        <div class="controls">
+            <input type="password" id="newcredential" name="newcredential" required="required">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">Passwort ändern</button>
+        </div>
+    </div>
+</form>
+<?php if (isset($this->recordDeletion)) { ?>
+<form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'deletedeletion'), null, true); ?>" method="post">
+    <legend>Profillöschung zurücksetzen</legend>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">Profillöschung zurücksetzen</button>
+        </div>
+    </div>
+</form>
+<?php } else { ?>
+<form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'deleteaccount'), null, true); ?>" method="post">
+    <legend>Profil löschen</legend>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">Profil löschen</button>
+        </div>
+    </div>
+</form>
+<?php } ?>
