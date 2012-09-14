@@ -22,11 +22,13 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
-            'title' => 'Version 1.0.0 zum Download verfügbar',
+            'title' => 'Version 1.6.0 zum Download verfügbar',
             'content' =>
-                  'Die Version 1.0.0 ist abgeschlossen und als Download '
-                . 'verfügbar.',
-            'timestamp' => 0,
+                  'Die Version 1.6.0 ist abgeschlossen und als Download '
+                . 'verfügbar. In der Version wurde die Projektvorlage '
+                . 'und bietet nun eine einfache Vorlage für eigene Projekte '
+                . 'auf Basis des DragonJsonServers.',
+            'timestamp' => 1347580549,
         ),
     ),
 );

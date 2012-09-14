@@ -18,6 +18,6 @@
  * @return array
  */
 return array(
-    'webmaster' => '%webmaster%',
-    'mailingaddress' => '%mailingaddress%',
+    'webmaster' => 'Christoph Herrmann',
+    'mailingaddress' => 'webmaster@dragonjsonserver.de',
 );
