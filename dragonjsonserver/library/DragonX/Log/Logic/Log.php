@@ -42,7 +42,6 @@ class DragonX_Log_Logic_Log
                 $extras['params'] = Zend_Json::encode(array_shift($params));
                 break;
         }
-        $extras['timestamp'] = time();
         $logger = Zend_Registry::get('Zend_Log');
         $logger->__call($method, array($message, $extras));
     }
