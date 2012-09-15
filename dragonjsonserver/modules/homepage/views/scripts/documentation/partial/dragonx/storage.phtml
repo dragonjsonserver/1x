@@ -33,8 +33,9 @@
 </ul>
 <h3>Erstellung einer Recordklasse</h3>
 <ul>
+    <li>Definition der Recordklasse im eigenen Paket</li>
     <li>
-        Definition der Recordklasse im eigenen Paket
+        Es stehen mit 'DragonX_Storage_Record_Created' und 'DragonX_Storage_Record_CreatedModified' auch abstrakte Recordklassen zur Verfügung welche ein Erstellungs- und Änderungszeitpunkt definieren. Davon abgeleitete Records erhalten beim Speichern in eine Storage Engine automatisch die Zeitpunkte
 <pre>class %packagenamespace%_%packagename%_Record_%recordname% extends DragonX_Storage_Record_Abstract
 {
     public $attribute;
