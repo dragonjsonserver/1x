@@ -42,7 +42,7 @@ class DragonX_Cronjob_Logic_Cronjob
             if ((
                     isset($recordCronjob)
                     &&
-                    (((int)($timestamp / 60)) - ((int)($recordCronjob->timestamp / 60))) <= $intervall
+                    (((int)($timestamp / 60)) - ((int)($recordCronjob->modified / 60))) <= $intervall
                 )
                 ||
                 (((int)($timestamp / 60)) - $plugin->getOffset()) % $intervall > 0) {
@@ -54,12 +54,10 @@ class DragonX_Cronjob_Logic_Cronjob
             }
             if (isset($recordCronjob)) {
             	$recordCronjob->count += 1;
-            	$recordCronjob->timestamp = $timestamp;
             } else {
                 $recordCronjob = new DragonX_Cronjob_Record_Cronjob(array(
                 	'pluginname' => $pluginname,
                 	'count' => 1,
-                	'timestamp' => $timestamp
                 ));
             }
             $storage->save($recordCronjob);
