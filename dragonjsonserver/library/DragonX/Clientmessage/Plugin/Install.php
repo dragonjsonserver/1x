@@ -49,6 +49,23 @@ class DragonX_Clientmessage_Plugin_Install implements DragonX_Storage_Plugin_Ins
                     . "KEY (`timestamp`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }
+        if (version_compare($oldversion, '1.7.0', '<')) {
+            $sqlstatements[] =
+                  "ALTER TABLE `dragonx_clientmessage_record_account` "
+                    . "ADD `created` INT(10) UNSIGNED NOT NULL AFTER `id`";
+            $sqlstatements[] = "UPDATE `dragonx_clientmessage_record_account` SET `created` = `timestamp`";
+            $sqlstatements[] =
+                  "ALTER TABLE `dragonx_clientmessage_record_account` "
+                    . "DROP `timestamp`";
+
+            $sqlstatements[] =
+                  "ALTER TABLE `dragonx_clientmessage_record_all` "
+                    . "ADD `created` INT(10) UNSIGNED NOT NULL AFTER `id`";
+            $sqlstatements[] = "UPDATE `dragonx_clientmessage_record_all` SET `created` = `timestamp`";
+            $sqlstatements[] =
+                  "ALTER TABLE `dragonx_clientmessage_record_all` "
+                    . "DROP `timestamp`";
+        }
         return $sqlstatements;
     }
 }

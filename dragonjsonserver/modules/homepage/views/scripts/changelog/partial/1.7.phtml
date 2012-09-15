@@ -27,6 +27,12 @@
         DragonX
         <ul>
             <li>
+                Clientmessage
+                <ul>
+                    <li>Umstellung der Records für die beiden Clientmessagequellen auf die neue Recordklasse mit einem Erstellungszeitpunkt</li>
+                </ul>
+            </li>
+            <li>
                 Cronjob
                 <ul>
                     <li>Umstellung der Records für die Cronjobs auf die neue Recordklasse mit einem Erstellungs- und Änderungszeitpunkt</li>
@@ -47,4 +53,9 @@
             </li>
         </ul>
     </li>
+</ul>
+<h2>Migration vom Branch 1.6</h2>
+<h3>Benötigt</h3>
+<ul>
+    <li>Durch die Umstellung der beiden Clientmessagequellen auf die neue Recordklasse mit einem Erstellungszeitpunkt erhält der Client nun bei jeder Clientmessage ihren Erstellungszeitpunkt als 'created' statt als 'timestamp'</li>
 </ul>
