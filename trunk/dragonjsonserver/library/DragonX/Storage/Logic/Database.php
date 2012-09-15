@@ -29,6 +29,8 @@ class DragonX_Storage_Logic_Database
     	$storage->executeSqlStatement(
               "CREATE TABLE IF NOT EXISTS `dragonx_storage_record_package` ("
                 . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                . "`created` INT(10) UNSIGNED NOT NULL, "
+                . "`modified` INT(10) UNSIGNED NOT NULL, "
                 . "`packagenamespace` VARCHAR(255) NOT NULL, "
                 . "`packagename` VARCHAR(255) NOT NULL, "
                 . "`version` VARCHAR(255) NOT NULL, "
@@ -36,6 +38,14 @@ class DragonX_Storage_Logic_Database
                 . "UNIQUE KEY (`packagenamespace`, `packagename`)"
             . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
     	);
+        try {
+        	$storage->executeSqlStatement(
+                  "ALTER TABLE `dragonx_storage_record_package` "
+                    . "ADD `created` INT(10) UNSIGNED NOT NULL AFTER `id`, "
+                    . "ADD `modified` INT(10) UNSIGNED NOT NULL AFTER `created`"
+            );
+        } catch (Exception $exception) {
+        }
     	try {
             $storage->executeSqlStatement(
                   "INSERT INTO `dragonx_storage_record_package` (`packagenamespace`, `packagename`, `version`) "
@@ -76,7 +86,11 @@ class DragonX_Storage_Logic_Database
                 $version = new $classname();
                 if (isset($listPackages[$packagenamespace]) && isset($listPackages[$packagenamespace][$packagename])) {
                     list($recordPackage) = $listPackages[$packagenamespace][$packagename];
-                	$recordPackage->version = $version->getVersion();
+                    $version = $version->getVersion();
+                    if ($recordPackage->version == $version) {
+                    	continue;
+                    }
+                	$recordPackage->version = $version;
                 } else {
                 	$recordPackage = new DragonX_Storage_Record_Package(array(
                 	    'packagenamespace' => $packagenamespace,
