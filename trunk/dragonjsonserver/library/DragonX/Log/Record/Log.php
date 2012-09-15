@@ -17,7 +17,7 @@
 /**
  * Record zur Speicherung der Daten zu einem Request
  */
-class DragonX_Log_Record_Log extends DragonX_Storage_Record_Abstract
+class DragonX_Log_Record_Log extends DragonX_Storage_Record_Created
 {
     /**
      * @var integer
@@ -43,9 +43,4 @@ class DragonX_Log_Record_Log extends DragonX_Storage_Record_Abstract
      * @var string
      */
     public $params;
-
-    /**
-     * @var integer
-     */
-    public $timestamp;
 }

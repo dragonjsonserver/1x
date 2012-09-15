@@ -89,6 +89,15 @@ class DragonX_Log_Plugin_Install implements DragonX_Storage_Plugin_Install_Inter
                 . "SELECT `logid`, `requestid`, `accountid`, `priority`, `message`, `params`, UNIX_TIMESTAMP(`timestamp`) FROM `dragonx_log_logs`";
             $sqlstatements[] = "DROP TABLE `dragonx_log_logs`";
         }
+        if (version_compare($oldversion, '1.7.0', '<')) {
+            $sqlstatements[] =
+                  "ALTER TABLE `dragonx_log_record_log` "
+                    . "ADD `created` INT(10) UNSIGNED NOT NULL AFTER `id`";
+            $sqlstatements[] = "UPDATE `dragonx_log_record_log` SET `created` = `timestamp`";
+            $sqlstatements[] =
+                  "ALTER TABLE `dragonx_log_record_log` "
+                    . "DROP `timestamp`";
+        }
         return $sqlstatements;
     }
 }
