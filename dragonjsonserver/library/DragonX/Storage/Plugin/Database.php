@@ -25,6 +25,13 @@ class DragonX_Storage_Plugin_Database implements Dragon_Application_Plugin_Boots
     public function bootstrap()
     {
         $configDatabase = new Dragon_Application_Config('dragonx/storage/database');
-        Zend_Registry::set('Zend_Db_Adapter', Zend_Db::factory($configDatabase->adapter, $configDatabase->config));
+        if (isset($configDatabase->adapter)) {
+	        Zend_Registry::set('Zend_Db_Adapter', Zend_Db::factory($configDatabase->adapter, $configDatabase->config));
+        } else {
+        	$configDatabases = $configDatabase;
+        	foreach ($configDatabases as $key => $configDatabase) {
+                Zend_Registry::set($key, Zend_Db::factory($configDatabase->adapter, $configDatabase->config));
+        	}
+        }
     }
 }
