@@ -228,5 +228,18 @@ $logicDatabase-&gt;installPackages();</pre>
     }
 }</pre>
     </li>
+    <li>
+        Ein Plugin kann über die Schnittstelle 'DragonX_Storage_Plugin_GetStoragekey_Interface' eine andere Storage Engine angeben auf der es installiert wird
+<pre>class %packagenamespace%_%packagename%_Plugin_%pluginname%
+    implements DragonX_Storage_Plugin_Install_Interface,
+               DragonX_Storage_Plugin_GetStoragekey_Interface
+{
+    public function getStoragekey()
+    {
+        return '%storagekey%';
+    }
+    ...
+}</pre>
+    </li>
     <li>Die Logikklasse Database speichert danach alle Pakete mit ihren aktuellen Versionsnummer in der Datenbank für das nächste Update</li>
 </ul>

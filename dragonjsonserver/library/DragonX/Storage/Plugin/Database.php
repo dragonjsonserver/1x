@@ -29,8 +29,8 @@ class DragonX_Storage_Plugin_Database implements Dragon_Application_Plugin_Boots
 	        Zend_Registry::set('Zend_Db_Adapter', Zend_Db::factory($configDatabase->adapter, $configDatabase->config));
         } else {
         	$configDatabases = $configDatabase;
-        	foreach ($configDatabases as $key => $configDatabase) {
-                Zend_Registry::set($key, Zend_Db::factory($configDatabase->adapter, $configDatabase->config));
+        	foreach ($configDatabases as $storagekey => $configDatabase) {
+                Zend_Registry::set($storagekey, Zend_Db::factory($configDatabase->adapter, $configDatabase->config));
         	}
         }
     }
