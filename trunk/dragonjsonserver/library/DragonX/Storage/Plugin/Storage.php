@@ -29,8 +29,8 @@ class DragonX_Storage_Plugin_Storage implements Dragon_Application_Plugin_Bootst
         	Zend_Registry::set('DragonX_Storage_Engine', $configEngine->engine);
         } else {
             $configEngines = $configEngine;
-            foreach ($configEngines as $key => $configEngine) {
-                Zend_Registry::set($key, $configEngine->engine);
+            foreach ($configEngines as $storagekey => $configEngine) {
+                Zend_Registry::set($storagekey, $configEngine->engine);
             }
         }
     }

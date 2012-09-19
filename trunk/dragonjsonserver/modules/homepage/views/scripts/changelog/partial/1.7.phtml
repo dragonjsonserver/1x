@@ -19,16 +19,6 @@
 <ul>
     <li>Accounterstellung und Verknüpfung an E-Mail Adresse und Passwort (und deren Verwaltung) trennen, sodass weitere Verknüpfungsmöglichkeiten einfacher angebaut werden können</li>
 </ul>
-<h4>Erweiterungen der Storage Engine</h4>
-<ul>
-    <li>
-        Möglichkeit einbauen mehrere Storage Engines zu konfigurieren und zu verwalten
-		<ul>
-		    <li>Verwaltung der Storage Engines sodass Bereiche wie Request und Logdaten getrennt von den anderen Daten in einer eigenen Datenbank abgelegt werden können</li>
-		    <li>Installationsplugins erweitern sodass man die Datenbankstruktur verschiedener Datenbanken verwalten kann</li>
-		</ul>
-    </li>
-</ul>
 <h3>Version 1.7.0</h3>
 <h4>Releasedatum: noch offen</h4>
 <h4>Geänderte Pakete</h4>
@@ -60,8 +50,14 @@
                 <ul>
                     <li>Abstrakte Recordklassen hinzugefügt die ein Erstellungs- und Änderungszeitpunkt definieren. Davon abgeleitete Records erhalten beim Speichern in eine Storage Engine automatisch die Zeitpunkte</li>
                     <li>Umstellung der Records für die Pakete auf die neuen Recordklassen sodass nun ersichtlich ist wann ein Paket hinzugefügt und zuletzt aktualisiert wurde</li>
-                    <li>Es ist nun möglich in der Konfigurationsdatei '/config/dragonx/storage/database.php' mehrere Datenbankverbindungen zu definieren die in verschiedene Keys der Zend Registry hinterlegt werden</li>
-                    <li>Es ist nun möglich in der Konfigurationsdatei '/config/dragonx/storage/engine.php' mehrere Storage Engines zu definieren die in verschiedene Keys der Zend Registry hinterlegt werden</li>
+                    <li>
+                        Die Storage Engine wurde erweitert sodass mehrere Datenbankadapter und Storage Engines definiert werden können
+                        <ul>
+		                    <li>Es ist nun möglich in der Konfigurationsdatei '/config/dragonx/storage/database.php' mehrere Datenbankverbindungen zu definieren die in verschiedene Keys der Zend Registry hinterlegt werden</li>
+		                    <li>Es ist nun möglich in der Konfigurationsdatei '/config/dragonx/storage/engine.php' mehrere Storage Engines zu definieren die in verschiedene Keys der Zend Registry hinterlegt werden</li>
+		                    <li>Installationsplugins und deren Verwaltung wurde erweitert sodass man die Datenbankstruktur verschiedener Datenbanken damit verwalten kann</li>
+		                </ul>
+                    </li>
                 </ul>
             </li>
         </ul>
