@@ -20,6 +20,35 @@
     <li>Record und RecordList um Daten strukturiert und einfach zu verwalten</li>
     <li>Nicht überladen mit Features durch SQL Abstraktion. SQL ist effektiv und kann verwendet werden</li>
 </ul>
+<h3>Einstellung einer Datenbankverbindung</h3>
+<ul>
+    <li>
+        Erstellen der Konfigurationsdatei '/config/dragonx/storage/database.php' durch Umbenennen und Anpassen der 'database.php.template' Datei
+<pre>return array(
+    'adapter' =&gt; '%adapter%',
+    'config' =&gt; array(
+        'host' =&gt; '%host%',
+        'username' =&gt; '%username%',
+        'password' =&gt; '%password%',
+        'dbname' =&gt; '%dbname%',
+    ),
+);</pre>
+    </li>
+    <li>
+        In der Konfigurationsdatei können auch mehrere Datenbankverbindungen mit den Keys für die Zend Registry hinterlegt werden. Folgende Einstellungen sind daher gleichbedeutend zur ersten Datei
+<pre>return array(
+    'Zend_Db_Adapter' => array(
+	    'adapter' =&gt; '%adapter%',
+	    'config' =&gt; array(
+	        'host' =&gt; '%host%',
+	        'username' =&gt; '%username%',
+	        'password' =&gt; '%password%',
+	        'dbname' =&gt; '%dbname%',
+	    ),
+    )
+);</pre>
+    </li>
+</ul>
 <h3>Einstellung einer Storage Engine</h3>
 <ul>
     <li>
