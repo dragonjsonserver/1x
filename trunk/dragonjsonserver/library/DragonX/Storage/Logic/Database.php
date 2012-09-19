@@ -39,10 +39,13 @@ class DragonX_Storage_Logic_Database
             . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
     	);
         try {
-        	$storage->executeSqlStatement(
+            $storage->executeSqlStatement(
                   "ALTER TABLE `dragonx_storage_record_package` "
                     . "ADD `created` INT(10) UNSIGNED NOT NULL AFTER `id`, "
                     . "ADD `modified` INT(10) UNSIGNED NOT NULL AFTER `created`"
+            );
+            $storage->executeSqlStatement(
+                  "UPDATE `dragonx_storage_record_package` SET `created` = UNIX_TIMESTAMP(NOW()), `modified` = UNIX_TIMESTAMP(NOW())"
             );
         } catch (Exception $exception) {
         }
