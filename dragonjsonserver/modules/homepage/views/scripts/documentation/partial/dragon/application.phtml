@@ -21,8 +21,8 @@
     <li>'addLibrarypath()' / 'addLibrarypaths()' um Verzeichnisse zum Include Path zum Laden von Klassen hinzuzufügen</li>
     <li>'initAutoloader()' zur Initialisierung des Zend Autoloaders und Dragon Autoloaders zum Nachladen aller Klassen</li>
     <li>'initPackageRegistry()' zur Initialisierung der Package Registry und Einbindung der übergebenen Pakete</li>
-    <li>'initPluginRegistry()' zur Initlialisierung der Plugin Registry</li>
     <li>'initRepositoryRegistry()' zur Initlialisierung der Repository Registry</li>
+    <li>'initPluginRegistry()' zur Initlialisierung der Plugin Registry</li>
     <li>
         bootstrap um den Paketen zu erlauben mit Plugins sich in den Bootstrapprozess einzuhängen
 <pre>$application = new Dragon_Application_Application();
@@ -35,8 +35,8 @@ $application
     ))
     -&gt;initAutoloader()
     -&gt;initPackageRegistry(require '%applicationpath%/config/packagenamespaces.php')
-    -&gt;initPluginRegistry()
     -&gt;initRepositoryRegistry(require '%applicationpath%/config/repositories.php')
+    -&gt;initPluginRegistry()
     -&gt;bootstrap();</pre>
     </li>
 </ul>
