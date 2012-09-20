@@ -26,10 +26,10 @@ class DragonX_Clientmessage_Plugin_Clientmessage implements Dragon_Json_Plugin_P
 	 */
 	private function _compareMessages($messageA, $messageB)
 	{
-        if ($messageA['created'] == $messageB['created']) {
+        if ($messageA['timestamp'] == $messageB['timestamp']) {
             return 0;
         }
-        if ($messageA['created'] > $messageB['created']) {
+        if ($messageA['timestamp'] > $messageB['timestamp']) {
             return 1;
         }
         return -1;
@@ -57,7 +57,7 @@ class DragonX_Clientmessage_Plugin_Clientmessage implements Dragon_Json_Plugin_P
                 	if (!isset($messages[$record->key])) {
                 		$messages[$record->key] = array();
                 	}
-                	$messages[$record->key][] = array('created' => $record->created, 'result' => Zend_Json::decode($record->result));
+                	$messages[$record->key][] = array('timestamp' => $record->timestamp, 'result' => Zend_Json::decode($record->result));
                 }
         	}
         	foreach ($messages as $key => &$submessages) {

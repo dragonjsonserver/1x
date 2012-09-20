@@ -17,7 +17,7 @@
 /**
  * Record zur Speicherung der Daten zu einem Cronjob
  */
-class DragonX_Cronjob_Record_Cronjob extends DragonX_Storage_Record_CreatedModified
+class DragonX_Cronjob_Record_Cronjob extends DragonX_Storage_Record_Abstract
 {
     /**
      * @var string
@@ -28,4 +28,9 @@ class DragonX_Cronjob_Record_Cronjob extends DragonX_Storage_Record_CreatedModif
      * @var integer
      */
     public $count;
+
+    /**
+     * @var integer
+     */
+    public $timestamp;
 }

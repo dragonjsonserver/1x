@@ -20,23 +20,6 @@
 class DragonX_Cronjob_Service_Cronjob
 {
     /**
-     * Führt einen Cronjob aus auch wenn sein Intervall noch nicht erreicht ist
-     * @param string $securitytoken
-     * @param string $pluginname
-     * @throws InvalidArgumentException
-     */
-    public function executeCronjob($securitytoken, $pluginname)
-    {
-        $configCronjob = new Dragon_Application_Config('dragonx/cronjob/cronjob');
-        if ($configCronjob->securitytoken != $securitytoken) {
-            throw new InvalidArgumentException('incorrect securitytoken');
-        }
-
-        $logicCronjob = new DragonX_Cronjob_Logic_Cronjob();
-        $logicCronjob->executeCronjob($pluginname);
-    }
-
-    /**
      * Führt alle Cronjobs deren Intervall erreicht wurde aus
      * @param string $securitytoken
      * @throws InvalidArgumentException

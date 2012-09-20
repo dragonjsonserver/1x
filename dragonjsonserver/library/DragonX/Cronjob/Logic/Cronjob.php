@@ -20,26 +20,6 @@
 class DragonX_Cronjob_Logic_Cronjob
 {
     /**
-     * Führt einen Cronjob aus auch wenn sein Intervall noch nicht erreicht ist
-     * @param string $pluginname
-     */
-    public function executeCronjob($pluginname)
-    {
-        $plugin = new $pluginname();
-        if (!$plugin instanceof DragonX_Cronjob_Plugin_Cronjob_Interface) {
-        	throw new InvalidArgumentException('invalid pluginname');
-        }
-        $plugin->execute();
-        $timestamp = time();
-        Zend_Registry::get('DragonX_Storage_Engine')->executeSqlStatement(
-              "INSERT INTO `dragonx_cronjob_record_cronjob` (`pluginname`, `count`, `created`, `modified`) "
-            . "VALUES (:pluginname, 1, :timestamp, :timestamp) "
-            . "ON DUPLICATE KEY UPDATE `count` = `count` + 1, `modified` = :timestamp",
-            array('pluginname' => $pluginname, 'timestamp' => $timestamp)
-        );
-    }
-
-    /**
      * Führt alle Cronjobs aus deren Intervall erreicht wurde
      */
     public function executeCronjobs()
@@ -62,7 +42,7 @@ class DragonX_Cronjob_Logic_Cronjob
             if ((
                     isset($recordCronjob)
                     &&
-                    (((int)($timestamp / 60)) - ((int)($recordCronjob->modified / 60))) <= $intervall
+                    (((int)($timestamp / 60)) - ((int)($recordCronjob->timestamp / 60))) <= $intervall
                 )
                 ||
                 (((int)($timestamp / 60)) - $plugin->getOffset()) % $intervall > 0) {
@@ -74,10 +54,12 @@ class DragonX_Cronjob_Logic_Cronjob
             }
             if (isset($recordCronjob)) {
             	$recordCronjob->count += 1;
+            	$recordCronjob->timestamp = $timestamp;
             } else {
                 $recordCronjob = new DragonX_Cronjob_Record_Cronjob(array(
                 	'pluginname' => $pluginname,
                 	'count' => 1,
+                	'timestamp' => $timestamp
                 ));
             }
             $storage->save($recordCronjob);

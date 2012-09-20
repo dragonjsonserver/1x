@@ -55,16 +55,6 @@ class DragonX_Cronjob_Plugin_Install implements DragonX_Storage_Plugin_Install_I
                 . "SELECT `cronjobid`, `pluginname`, `count`, UNIX_TIMESTAMP(`lasttimestamp`) FROM `dragonx_cronjob_cronjobs`";
             $sqlstatements[] = "DROP TABLE `dragonx_cronjob_cronjobs`";
         }
-        if (version_compare($oldversion, '1.7.0', '<')) {
-            $sqlstatements[] =
-                  "ALTER TABLE `dragonx_cronjob_record_cronjob` "
-                    . "ADD `created` INT(10) UNSIGNED NOT NULL AFTER `id`, "
-                    . "ADD `modified` INT(10) UNSIGNED NOT NULL AFTER `created`";
-            $sqlstatements[] = "UPDATE `dragonx_cronjob_record_cronjob` SET `created` = `timestamp`, `modified` = `timestamp`";
-            $sqlstatements[] =
-                  "ALTER TABLE `dragonx_cronjob_record_cronjob` "
-                    . "DROP `timestamp`";
-        }
         return $sqlstatements;
     }
 }

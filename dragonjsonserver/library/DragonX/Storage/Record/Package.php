@@ -17,7 +17,7 @@
 /**
  * Record zur Speicherung der Daten zu einem Paket
  */
-class DragonX_Storage_Record_Package extends DragonX_Storage_Record_CreatedModified
+class DragonX_Storage_Record_Package extends DragonX_Storage_Record_Abstract
 {
     /**
      * @var string

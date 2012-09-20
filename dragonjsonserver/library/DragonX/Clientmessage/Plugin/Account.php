@@ -34,7 +34,7 @@ class DragonX_Clientmessage_Plugin_Account implements DragonX_Clientmessage_Plug
     	    new DragonX_Clientmessage_Record_Account(),
     	      "SELECT * FROM `dragonx_clientmessage_record_account` "
     	    . "WHERE "
-    	    . "    `created` BETWEEN :lastResponse AND :actualResponse "
+    	    . "    `timestamp` BETWEEN :lastResponse AND :actualResponse "
     	    . "    AND "
     	    . "    `accountid` = :accountid",
     	    array(

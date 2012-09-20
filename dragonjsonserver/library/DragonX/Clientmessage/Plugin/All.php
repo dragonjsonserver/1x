@@ -31,7 +31,7 @@ class DragonX_Clientmessage_Plugin_All implements DragonX_Clientmessage_Plugin_S
             new DragonX_Clientmessage_Record_All(),
               "SELECT * FROM `dragonx_clientmessage_record_all` "
             . "WHERE "
-            . "    `created` BETWEEN :lastResponse AND :actualResponse",
+            . "    `timestamp` BETWEEN :lastResponse AND :actualResponse",
             array(
                 'lastResponse' => $lastResponse,
                 'actualResponse' => $actualResponse - 1,

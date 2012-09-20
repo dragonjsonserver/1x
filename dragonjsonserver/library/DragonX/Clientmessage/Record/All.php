@@ -17,7 +17,7 @@
 /**
  * Record zur Speicherung einer Clientmessage für Alle
  */
-class DragonX_Clientmessage_Record_All extends DragonX_Storage_Record_Created
+class DragonX_Clientmessage_Record_All extends DragonX_Storage_Record_Abstract
 {
     /**
      * @var string
@@ -28,6 +28,11 @@ class DragonX_Clientmessage_Record_All extends DragonX_Storage_Record_Created
      * @var string
      */
     public $result;
+
+    /**
+     * @var integer
+     */
+    public $timestamp;
 
     /**
      * Nimmt die ID, ein Array oder eine andere Eigenschaft als Datenquelle an
@@ -43,5 +48,18 @@ class DragonX_Clientmessage_Record_All extends DragonX_Storage_Record_Created
         	    'result' => Zend_Json::encode($key->toArray())
         	));
         }
+    }
+
+    /**
+     * Setzt alle Attribute des Records aus den Daten des Arrays
+     * @param array $data
+     * @return DragonX_Storage_Record_Abstract
+     */
+    public function fromArray(array $data)
+    {
+    	if (!isset($data['timestamp'])) {
+    		$data['timestamp'] = time();
+    	}
+    	parent::fromArray($data);
     }
 }
