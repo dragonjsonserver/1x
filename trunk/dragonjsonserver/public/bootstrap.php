@@ -49,9 +49,10 @@ $application
         DRAGONJSONSERVER_PATH . '/library',
     ))
     ->initAutoloader()
-    ->initPackageRegistry($packagenamespaces)
-    ->initPluginRegistry();
+    ->initPackageRegistry($packagenamespaces);
 if ($repositories) {
-	$application->initRepositoryRegistry($repositories);
+    $application->initRepositoryRegistry($repositories);
 }
-$application->bootstrap();
+$application
+    ->initPluginRegistry()
+    ->bootstrap();

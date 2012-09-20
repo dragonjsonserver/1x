@@ -95,18 +95,6 @@ class Dragon_Application_Application
     }
 
     /**
-     * Initialisiert die Plugin Registry zum Verwalten von Plugins
-     * @return Dragon_Application_Application
-     */
-    public function initPluginRegistry()
-    {
-        $packageregistry = Zend_Registry::get('Dragon_Package_Registry');
-        $pluginregistry = new Dragon_Plugin_Registry($packageregistry->getClassnames('Plugin'));
-        Zend_Registry::set('Dragon_Plugin_Registry', $pluginregistry);
-        return $this;
-    }
-
-    /**
      * Initialisiert die Repository Registry zum Verwalten von Repositories
      * @param array $repositories
      * @return Dragon_Application_Application
@@ -115,6 +103,18 @@ class Dragon_Application_Application
     {
         $repositoryregistry = new Dragon_Repository_Registry($this, $repositories);
         Zend_Registry::set('Dragon_Repository_Registry', $repositoryregistry);
+        return $this;
+    }
+
+    /**
+     * Initialisiert die Plugin Registry zum Verwalten von Plugins
+     * @return Dragon_Application_Application
+     */
+    public function initPluginRegistry()
+    {
+        $packageregistry = Zend_Registry::get('Dragon_Package_Registry');
+        $pluginregistry = new Dragon_Plugin_Registry($packageregistry->getClassnames('Plugin'));
+        Zend_Registry::set('Dragon_Plugin_Registry', $pluginregistry);
         return $this;
     }
 
