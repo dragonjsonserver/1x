@@ -22,6 +22,16 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.6.1 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.6.1 ist abgeschlossen und als Download '
+                . 'verfügbar. In der Version wurde ein Fehler in der '
+				. 'Reihenfolge der Initialisierungen von Plugin und '
+				. 'Repository Registry behoben wodurch es nun auch möglich '
+				. 'ist Plugins in anderen Repositories zu definieren.',
+            'timestamp' => 1348162516,
+        ),
+        array(
             'title' => 'Version 1.6.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.6.0 ist abgeschlossen und als Download '
