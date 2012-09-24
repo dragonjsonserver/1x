@@ -39,9 +39,6 @@ if (is_dir(APPLICATION_PATH)) {
     $packagenamespaces = require DRAGONJSONSERVER_PATH . '/config/packagenamespaces.php';
 }
 
-require DRAGONJSONSERVER_PATH . '/../mobilestrategy/library/Strategy/Application/Autoloader.php';
-new Strategy_Application_Autoloader();
-
 require DRAGONJSONSERVER_PATH . '/library/Dragon/Application/Application.php';
 $application = new Dragon_Application_Application();
 $application
