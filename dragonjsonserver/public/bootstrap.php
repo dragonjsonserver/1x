@@ -17,9 +17,9 @@
 define('DRAGONJSONSERVER_PATH', realpath(dirname(__FILE__) . '/..'));
 define('APPLICATION_PATH', DRAGONJSONSERVER_PATH . '/../application');
 if ($environment = getenv('environment')) {
-    define('APPLICATION_ENV', $environment);
+	define('APPLICATION_ENV', $environment);
 } else {
-    define('APPLICATION_ENV', 'development');
+	define('APPLICATION_ENV', 'development');
 }
 define('BASEURL', 'http://' . $_SERVER["SERVER_NAME"] . '/');
 
@@ -29,15 +29,18 @@ if (!$zendpath = getenv('zendpath')) {
 if (is_dir(APPLICATION_PATH)) {
     $repositoriespath = APPLICATION_PATH . '/config/repositories.php';
     if (is_file($repositoriespath)) {
-        $repositories = require $repositoriespath;
+    	$repositories = require $repositoriespath;
     } else {
-        $repositories = array('application' => APPLICATION_PATH);
+    	$repositories = array('application' => APPLICATION_PATH);
     }
-    $packagenamespaces = require APPLICATION_PATH . '/config/packagenamespaces.php';
+	$packagenamespaces = require APPLICATION_PATH . '/config/packagenamespaces.php';
 } else {
-    $repositories = false;
+	$repositories = false;
     $packagenamespaces = require DRAGONJSONSERVER_PATH . '/config/packagenamespaces.php';
 }
+
+require DRAGONJSONSERVER_PATH . '/../mobilestrategy/library/Strategy/Application/Autoloader.php';
+new Strategy_Application_Autoloader();
 
 require DRAGONJSONSERVER_PATH . '/library/Dragon/Application/Application.php';
 $application = new Dragon_Application_Application();
