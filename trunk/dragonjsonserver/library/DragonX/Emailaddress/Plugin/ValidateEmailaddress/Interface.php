@@ -15,13 +15,13 @@
  */
 
 /**
- * Plugins die nach der Speicherung eines Accounts aufgerufen werden
+ * Plugins die nach der Validierung einer E-Mail Adresse aufgerufen werden
  */
-interface DragonX_Account_Plugin_SaveAccount_Interface
+interface DragonX_Emailaddress_Plugin_ValidateEmailaddress_Interface
 {
     /**
-     * Wird nach der Speicherung eines Accounts aufgerufen
-     * @param DragonX_Account_Record_Account $recordAccount
+     * Wird nach der Validierung einer E-Mail Adresse aufgerufen
+     * @param DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress
      */
-    public function saveAccount(DragonX_Account_Record_Account $recordAccount);
+    public function validateEmailaddress(DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress);
 }

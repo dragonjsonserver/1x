@@ -15,7 +15,13 @@
  */
 
 /**
- * Record zur Speicherung der Daten zu einem Account
+ * Plugins die nach der Anmeldung eines Accounts aufgerufen werden
  */
-class DragonX_Account_Record_Account extends DragonX_Storage_Record_CreatedModified
-{}
+interface DragonX_Account_Plugin_LoginAccount_Interface
+{
+    /**
+     * Wird nach der Anmeldung eines Accounts aufgerufen
+     * @param DragonX_Account_Record_Account $recordAccount
+     */
+    public function loginAccount(DragonX_Account_Record_Account $recordAccount);
+}

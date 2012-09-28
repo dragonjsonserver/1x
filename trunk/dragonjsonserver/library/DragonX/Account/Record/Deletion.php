@@ -17,15 +17,10 @@
 /**
  * Record zur Speicherung der Daten zu einer Accountlöschung
  */
-class DragonX_Account_Record_Deletion extends DragonX_Storage_Record_Abstract
+class DragonX_Account_Record_Deletion extends DragonX_Storage_Record_Created
 {
     /**
      * @var integer
      */
     public $accountid;
-
-    /**
-     * @var integer
-     */
-    public $timestamp;
 }

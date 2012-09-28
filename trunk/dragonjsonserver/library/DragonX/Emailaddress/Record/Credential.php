@@ -15,13 +15,17 @@
  */
 
 /**
- * Plugins die nach der Registrierung eines Accounts aufgerufen werden
+ * Record zur Speicherung der Daten zu einem Passwort vergessen Request
  */
-interface DragonX_Account_Plugin_RegisterAccount_Interface
+class DragonX_Account_Record_Credential extends DragonX_Storage_Record_Created
 {
     /**
-     * Wird nach der Registrierung eines Accounts aufgerufen
-     * @param DragonX_Account_Record_Account $recordAccount
+     * @var integer
      */
-    public function registerAccount(DragonX_Account_Record_Account $recordAccount);
+    public $emailaddressid;
+
+    /**
+     * @var string
+     */
+    public $credentialhash;
 }

@@ -17,4 +17,4 @@
 /**
  * @var array
  */
-return array('credential', 'newcredential', 'securitytoken');
+return array('password', 'newpassword', 'securitytoken');

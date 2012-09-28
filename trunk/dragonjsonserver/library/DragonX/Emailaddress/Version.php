@@ -15,13 +15,16 @@
  */
 
 /**
- * Plugins die nach der Erstellung eines temporären Accounts aufgerufen werden
+ * Klasse mit der Versionsnummer des Paketes
  */
-interface DragonX_Account_Plugin_TemporaryAccount_Interface
+class DragonX_Emailaddress_Version
 {
     /**
-     * Wird nach der Erstellung eines temporären Accounts aufgerufen
-     * @param DragonX_Account_Record_Account $recordAccount
+     * Gibt die Versionsnummer des Paketes zurück
+     * @return string
      */
-    public function temporaryAccount(DragonX_Account_Record_Account $recordAccount);
+    public function getVersion()
+    {
+        return '1.7.0';
+    }
 }

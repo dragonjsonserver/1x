@@ -49,10 +49,12 @@ class DragonX_Account_Plugin_Account
 		}
 
 		$params = $request->getRequiredParams(array('sessionhash'));
+        $logicSession = new DragonX_Account_Logic_Session();
+        $recordAccount = $logicSession->getAccount($params['sessionhash']);
         $logicAccount = new DragonX_Account_Logic_Account();
-        $recordAccount = $logicAccount->getAccount($params['sessionhash']);
-        Zend_Registry::set('recordAccount', $recordAccount);
+        $logicAccount->requestAccount($recordAccount);
 
+        Zend_Registry::set('recordAccount', $recordAccount);
         if (Zend_Registry::isRegistered('Zend_Log')) {
             $logger = Zend_Registry::get('Zend_Log');
             $logger->setEventItem('accountid', $recordAccount->id);

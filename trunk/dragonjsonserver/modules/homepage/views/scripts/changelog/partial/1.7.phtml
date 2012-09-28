@@ -65,10 +65,11 @@
 </ul>
 <h4>Allgemein</h4>
 <ul>
-    <li>Die Konstante 'APPLICATION_PATH' in der 'bootstrap.php' definieren wenn das Repository 'application' vorhanden ist</li>
+    <li>Die Konstante 'APPLICATION_PATH' wird in der 'bootstrap.php' definiert wenn das Repository 'application' vorhanden ist</li>
 </ul>
 <h2>Migration vom Branch 1.6</h2>
 <h3>Benötigt</h3>
+<div class="alert alert-warning">Achtung: Durch die Trennung der Pakete Account und Emailaddress muss vor der Ausführung der 'install.php' das Paket Emailaddress hinzugefügt werden, da sonst alle Verknüpfungen zu den Accounts verloren gehen.</div>
 <ul>
     <li>Durch die Umstellung der beiden Clientmessagequellen auf die neue Recordklasse mit einem Erstellungszeitpunkt erhält der Client nun bei jeder Clientmessage ihren Erstellungszeitpunkt als 'created' statt als 'timestamp'</li>
 </ul>

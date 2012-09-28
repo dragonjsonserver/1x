@@ -15,13 +15,17 @@
  */
 
 /**
- * Plugins die nach der Änderung der E-Mail Adresse aufgerufen werden
+ * Record zur Speicherung der Daten zu einer Validierungsabfragen
  */
-interface DragonX_Account_Plugin_ChangeIdentity_Interface
+class DragonX_Emailaddress_Record_Validation extends DragonX_Storage_Record_Created
 {
     /**
-     * Wird nach der Änderung der E-Mail Adresse aufgerufen
-     * @param DragonX_Account_Record_Account $recordAccount
+     * @var integer
      */
-    public function changeIdentity(DragonX_Account_Record_Account $recordAccount);
+    public $emailaddressid;
+
+    /**
+     * @var string
+     */
+    public $validationhash;
 }

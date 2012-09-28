@@ -17,31 +17,41 @@
 /**
  * Logikklasse zur Verarbeitung von Passwort vergessen Abfragen
  */
-class DragonX_Account_Logic_Credential
+class DragonX_Emailaddress_Logic_Credential
 {
     /**
+     * Ändert das Passwort für den Account
+     * @param DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress
+     * @param string $newpassword
+     */
+    public function changePassword(DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress, $newpassword)
+    {
+        $recordEmailaddress->hashPassword($newpassword);
+        Zend_Registry::get('DragonX_Storage_Engine')->save($recordEmailaddress);
+    }
+
+    /**
      * Lädt den Account und speichert einen neuen Passwort vergessen Hash
-     * @param string $identity
+     * @param string $emailaddress
      * @param Zend_Config $configMail
      */
-    public function request($identity, Zend_Config $configMail)
+    public function request($emailaddress, Zend_Config $configMail)
     {
-        $identity = strtolower($identity);
-    	$storage = Zend_Registry::get('DragonX_Storage_Engine');
+        $emailaddress = strtolower($emailaddress);
+        $storage = Zend_Registry::get('DragonX_Storage_Engine');
 
-        $listAccounts = $storage->loadByConditions(
-            new DragonX_Account_Record_Account(),
-            array('identity' => $identity)
+        $listEmailaddresses = $storage->loadByConditions(
+            new DragonX_Emailaddress_Record_Emailaddress(),
+            array('emailaddress' => $emailaddress)
         );
-        if (count($listAccounts) == 0) {
-            throw new InvalidArgumentException('incorrect identity');
+        if (count($listEmailaddresses) == 0) {
+            throw new InvalidArgumentException('incorrect emailaddress');
         }
-        list($recordAccount) = $listAccounts;
+        list($recordEmailaddress) = $listEmailaddresses;
 
-        $recordCredential = new DragonX_Account_Record_Credential(array(
-            'accountid' => $recordAccount->id,
-            'credentialhash' => md5($recordAccount->id . '.' . time()),
-            'timestamp' => time(),
+        $recordCredential = new DragonX_Emailaddress_Record_Credential(array(
+            'emailaddressid' => $recordEmailaddress->id,
+            'credentialhash' => md5($recordEmailaddress->id . '.' . time()),
         ));
         $storage->save($recordCredential);
 
@@ -56,7 +66,7 @@ class DragonX_Account_Logic_Credential
         $mail = new Zend_Mail();
         $mail
             ->setBodyText($bodytext)
-            ->addTo($identity)
+            ->addTo($emailaddress)
             ->setSubject($configMail->subject)
             ->send();
     }
@@ -64,14 +74,15 @@ class DragonX_Account_Logic_Credential
     /**
      * Setzt das Passwort zurück und entfernt den Passwort vergessen Hash
      * @param string $credentialhash
-     * @param string $newcredential
+     * @param string $newpassword
+     * @return DragonX_Emailaddress_Record_Emailaddress
      */
-    public function reset($credentialhash, $newcredential)
+    public function reset($credentialhash, $newpassword)
     {
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
 
         $listCredentials = $storage->loadByConditions(
-            new DragonX_Account_Record_Credential(),
+            new DragonX_Emailaddress_Record_Credential(),
             array('credentialhash' => $credentialhash)
         );
         if (count($listCredentials) == 0) {
@@ -79,13 +90,16 @@ class DragonX_Account_Logic_Credential
         }
         list($recordCredential) = $listCredentials;
 
-        if (!$recordAccount = $storage->load(new DragonX_Account_Record_Account($recordCredential->accountid))) {
-        	throw new Exception('incorrect accountid');
+        if (!$recordEmailaddress = $storage->load(new DragonX_Emailaddress_Record_Credential($recordCredential->emailaddressid))) {
+            throw new Exception('incorrect emailaddressid');
         }
-        $recordAccount->credential = md5($newcredential);
-        $storage->save($recordAccount);
+        $recordEmailaddress->hashPassword($newpassword);
+        $storage->save($recordEmailaddress);
         $storage->delete($recordCredential);
 
+        if (!$recordAccount = $storage->load(new DragonX_Account_Record_Account($recordEmailaddress->accountid))) {
+            throw new Exception('incorrect accountid');
+        }
         return $recordAccount;
     }
 }

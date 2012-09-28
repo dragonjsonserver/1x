@@ -15,7 +15,13 @@
  */
 
 /**
- * Record zur Speicherung der Daten zu einem Account
+ * Plugins die nach der Änderung einer E-Mail Adresse aufgerufen werden
  */
-class DragonX_Account_Record_Account extends DragonX_Storage_Record_CreatedModified
-{}
+interface DragonX_Emailaddress_Plugin_ChangeEmailaddress_Interface
+{
+    /**
+     * Wird nach der Änderung einer E-Mail Adresse aufgerufen
+     * @param DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress
+     */
+    public function changeEmailaddress(DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress);
+}

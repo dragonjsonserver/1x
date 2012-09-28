@@ -99,6 +99,54 @@ class DragonX_Account_Plugin_Install implements DragonX_Storage_Plugin_Install_I
                     . "UNIQUE KEY `sessionhash` (`sessionhash`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }
+        if (version_compare($oldversion, '1.7.0', '<')) {
+        	if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Emailaddress')) {
+                $installEmailaddress = new DragonX_Emailaddress_Plugin_Install();
+                $sqlstatements = array_merge($sqlstatements, $installEmailaddress->getInstall());
+
+                $sqlstatements[] =
+                      "INSERT INTO `dragonx_emailaddress_record_emailaddress` (`created`, `modified`, `accountid`, `emailaddress`, `passwordhash`) "
+                    . "SELECT UNIX_TIMESTAMP(NOW()), UNIX_TIMESTAMP(NOW()), `id`, `identity`, `credential` FROM `dragonx_account_record_account` WHERE `identity` IS NOT NULL";
+
+                $sqlstatements[] =
+                      "INSERT INTO `dragonx_emailaddress_record_credential` (`created`, `emailaddressid`, `credentialhash`) "
+                    . "SELECT `dragonx_account_record_credential`.`timestamp`, `dragonx_emailaddress_record_emailaddress`.`id`, `dragonx_account_record_credential`.`credentialhash` "
+                    . "FROM `dragonx_account_record_credential` "
+                    . "INNER JOIN `dragonx_emailaddress_record_emailaddress` ON `dragonx_emailaddress_record_emailaddress`.`accountid` = `dragonx_account_record_credential`.`accountid`";
+
+                $sqlstatements[] =
+                      "INSERT INTO `dragonx_emailaddress_record_validation` (`created`, `emailaddressid`, `validationhash`) "
+                    . "SELECT `dragonx_account_record_validation`.`timestamp`, `dragonx_emailaddress_record_emailaddress`.`id`, `dragonx_account_record_validation`.`validationhash` "
+                    . "FROM `dragonx_account_record_validation` "
+                    . "INNER JOIN `dragonx_emailaddress_record_emailaddress` ON `dragonx_emailaddress_record_emailaddress`.`accountid` = `dragonx_account_record_validation`.`accountid`";
+        	}
+            $sqlstatements[] =
+                  "ALTER TABLE `dragonx_account_record_account` "
+                    . "ADD `created` INT(10) UNSIGNED NOT NULL AFTER `id`, "
+                    . "ADD `modified` INT(10) UNSIGNED NOT NULL AFTER `created`, "
+                    . "DROP `identity`, "
+                    . "DROP `credential`";
+            $sqlstatements[] = "UPDATE `dragonx_account_record_account` SET `created` = UNIX_TIMESTAMP(NOW()), `modified` = UNIX_TIMESTAMP(NOW())";
+
+            $sqlstatements[] =
+                  "ALTER TABLE `dragonx_account_record_deletion` "
+                    . "ADD `created` INT(10) UNSIGNED NOT NULL AFTER `id`";
+            $sqlstatements[] = "UPDATE `dragonx_account_record_deletion` SET `created` = `timestamp`";
+            $sqlstatements[] =
+                  "ALTER TABLE `dragonx_account_record_deletion` "
+                    . "DROP `timestamp`";
+
+            $sqlstatements[] =
+                  "ALTER TABLE `dragonx_account_record_session` "
+                    . "ADD `created` INT(10) UNSIGNED NOT NULL AFTER `id`";
+            $sqlstatements[] = "UPDATE `dragonx_account_record_session` SET `created` = `timestamp`";
+            $sqlstatements[] =
+                  "ALTER TABLE `dragonx_account_record_session` "
+                    . "DROP `timestamp`";
+
+            $sqlstatements[] = "DROP TABLE `dragonx_account_record_credential`";
+            $sqlstatements[] = "DROP TABLE `dragonx_account_record_validation`";
+        }
         return $sqlstatements;
     }
 }
