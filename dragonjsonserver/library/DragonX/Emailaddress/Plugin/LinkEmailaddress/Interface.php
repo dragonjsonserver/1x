@@ -15,22 +15,14 @@
  */
 
 /**
- * Record zur Speicherung der Daten zu einem Passwort vergessen Request
+ * Plugins die nach der Verknüpfung einer E-Mail Adresse aufgerufen werden
  */
-class DragonX_Account_Record_Credential extends DragonX_Storage_Record_Abstract
+interface DragonX_Emailaddress_Plugin_LinkEmailaddress_Interface
 {
     /**
-     * @var integer
+     * Wird nach der Verknüpfung einer E-Mail Adresse aufgerufen
+     * @param DragonX_Account_Record_Account $recordAccount
+     * @param DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress
      */
-    public $accountid;
-
-    /**
-     * @var string
-     */
-    public $credentialhash;
-
-    /**
-     * @var integer
-     */
-    public $timestamp;
+    public function linkEmailaddress(DragonX_Account_Record_Account $recordAccount, DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress);
 }

@@ -15,7 +15,17 @@
  */
 
 /**
- * Record zur Speicherung der Daten zu einem Account
+ * Serviceklasse zur Verwaltung einer Session
  */
-class DragonX_Account_Record_Account extends DragonX_Storage_Record_CreatedModified
-{}
+class DragonX_Account_Service_Session
+{
+    /**
+     * Meldet den Account ab und entfernt die Session
+     * @param string $sessionhash
+     */
+    public function logoutAccount($sessionhash)
+    {
+        $logicSession = new DragonX_Account_Logic_Session();
+        $logicSession->logoutAccount($sessionhash);
+    }
+}

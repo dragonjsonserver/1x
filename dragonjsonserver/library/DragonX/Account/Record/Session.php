@@ -17,7 +17,7 @@
 /**
  * Record zur Speicherung der Daten zu einer Session
  */
-class DragonX_Account_Record_Session extends DragonX_Storage_Record_Abstract
+class DragonX_Account_Record_Session extends DragonX_Storage_Record_Created
 {
     /**
      * @var integer
@@ -28,9 +28,4 @@ class DragonX_Account_Record_Session extends DragonX_Storage_Record_Abstract
      * @var string
      */
     public $sessionhash;
-
-    /**
-     * @var integer
-     */
-    public $timestamp;
 }

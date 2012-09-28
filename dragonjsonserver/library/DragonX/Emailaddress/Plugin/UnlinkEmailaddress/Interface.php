@@ -15,22 +15,13 @@
  */
 
 /**
- * Record zur Speicherung der Daten zu einer Validierungsabfragen
+ * Plugins die nach der Entfernung einer E-Mail Adresse aufgerufen werden
  */
-class DragonX_Account_Record_Validation extends DragonX_Storage_Record_Abstract
+interface DragonX_Emailaddress_Plugin_UnlinkEmailaddress_Interface
 {
     /**
-     * @var integer
+     * Wird nach der Entfernung einer E-Mail Adresse aufgerufen
+     * @param DragonX_Account_Record_Account $recordAccount
      */
-    public $accountid;
-
-    /**
-     * @var string
-     */
-    public $validationhash;
-
-    /**
-     * @var integer
-     */
-    public $timestamp;
+    public function unlinkEmailaddress(DragonX_Account_Record_Account $recordAccount);
 }

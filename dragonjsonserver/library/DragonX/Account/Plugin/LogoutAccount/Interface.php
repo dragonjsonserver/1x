@@ -15,13 +15,13 @@
  */
 
 /**
- * Plugins die nach der Validierung eines Accounts aufgerufen werden
+ * Plugins die nach der Abmeldung eines Accounts aufgerufen werden
  */
-interface DragonX_Account_Plugin_ValidateAccount_Interface
+interface DragonX_Account_Plugin_LogoutAccount_Interface
 {
     /**
-     * Wird nach der Validierung eines Accounts aufgerufen
+     * Wird nach der Abmeldung eines Accounts aufgerufen
      * @param DragonX_Account_Record_Account $recordAccount
      */
-    public function validateAccount(DragonX_Account_Record_Account $recordAccount);
+    public function logoutAccount(DragonX_Account_Record_Account $recordAccount);
 }

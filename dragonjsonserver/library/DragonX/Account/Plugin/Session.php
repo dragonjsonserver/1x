@@ -17,7 +17,7 @@
 /**
  * Plugin zur Löschung der Sessions die abgelaufen sind
  */
-class DragonX_Account_Plugin_Deletion implements DragonX_Cronjob_Plugin_Cronjob_Interface
+class DragonX_Account_Plugin_Session implements DragonX_Cronjob_Plugin_Cronjob_Interface
 {
     /**
      * Gibt den Intervall zwischen den Cronjobs zurück
@@ -42,10 +42,11 @@ class DragonX_Account_Plugin_Deletion implements DragonX_Cronjob_Plugin_Cronjob_
      */
     public function execute()
     {
+        $configSession = new Dragon_Application_Config('dragonx/account/session');
     	$listSessions = Zend_Registry::get('DragonX_Storage_Engine')->loadBySqlStatement(
     	    new DragonX_Account_Record_Session(),
-            "SELECT * FROM `dragonx_account_record_session` WHERE `timestamp` IS NOT NULL AND `timestamp` <= :timestamp",
-            array('timestamp' => time())
+            "SELECT * FROM `dragonx_account_record_session` WHERE `created` IS NOT NULL AND `created` <= :timestamp",
+            array('timestamp' => time() - $configSession->lifetime)
         );
         $logicAccount = new DragonX_Account_Logic_Account();
         foreach ($listSessions as $recordSession) {
