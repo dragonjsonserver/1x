@@ -39,13 +39,18 @@ function JsonRequest(id, method, params)
  */
 function JsonClient(serverurl, options, callbacks, defaultparams)
 {
-	var applicationname = 'JsonClient';
-	var applicationversion = 'v1.3.0';
+	var libraryname = 'JsonClient';
+	var libraryversion = 'v1.7.0';
+
+    $('#libraryname').html(libraryname);
+    $('#libraryversion').html(libraryversion);
+    $('#librarycopyright').html('© DragonProjects 2012');
 	
     this.serverurl = serverurl;
     this.options = options || {};
     this.callbacks = callbacks || {};
     this.defaultparams = defaultparams || {};
+    this.authenticate = undefined;
     this.timestamp = undefined;
 
     var self = this;
@@ -69,6 +74,18 @@ function JsonClient(serverurl, options, callbacks, defaultparams)
      */
     this.setDefaultParam = function (param, value) {
     	self.defaultparams[param] = value;
+        return self;
+    }
+
+    var self = this;
+    /**
+     * Setzt den Htaccess der bei jedem Request mitgesendet wird
+     * @param string username
+     * @param string password
+     * @return JsonClient
+     */
+    this.setAuthenticate = function (username, password) {
+    	self.authenticate = {username : username, password : password};
         return self;
     }
 
@@ -101,6 +118,11 @@ function JsonClient(serverurl, options, callbacks, defaultparams)
             type: 'POST',
             dataType : 'json',
             data : JSON.stringify(jsonrequest),
+            beforeSend: function (jqXHR) {
+        		if (self.authenticate != undefined) {
+        			jqXHR.setRequestHeader('Authorization', 'Basic ' + base64encode(self.authenticate.username + ':' + self.authenticate.password));
+        		}
+        	},
         }, self.options, options, {
             success : function (json) {
         		var clientmessageResponse = json;
@@ -150,7 +172,12 @@ function JsonClient(serverurl, options, callbacks, defaultparams)
         var options = options || {};
         $.ajax($.extend({}, self.options, options, {
             url : self.serverurl + 'jsonrpc2.php',
-            dataType : 'json'
+            dataType : 'json',
+            beforeSend: function (jqXHR) {
+        		if (self.authenticate != undefined) {
+        			jqXHR.setRequestHeader('Authorization', 'Basic ' + base64encode(self.authenticate.username + ':' + self.authenticate.password));
+        		}
+        	},
         }));
         return self;
     }
