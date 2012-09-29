@@ -42,7 +42,7 @@ class DragonX_Emailaddress_Logic_Emailaddress
         if (!$recordEmailaddress->verifyPassword($password)) {
             throw new InvalidArgumentException('incorrect password');
         }
-        if (!$recordAccount = $storage->load(new DragonX_Account_Record_Account($recordEmailaddress->accountid))) {
+        if (!$recordAccount = $storage->load(DragonX_Account_Record_Account::newInstance($recordEmailaddress->accountid))) {
             throw new Exception('incorrect accountid');
         }
 

@@ -25,7 +25,7 @@ class DragonX_Account_Logic_Account
      */
     public function createAccount()
     {
-        $recordAccount = new DragonX_Account_Record_Account();
+        $recordAccount = DragonX_Account_Record_Account::newInstance();
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
         Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
             'DragonX_Account_Plugin_CreateAccount_Interface',

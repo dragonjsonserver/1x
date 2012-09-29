@@ -92,16 +92,16 @@ class DragonX_Storage_Engine_ZendDbAdataper
         }
     	if (!isset($record->id)) {
             if ($record instanceof DragonX_Storage_Record_Created) {
-                $record->created = time();
+                $array['created'] = time();
 	            if ($record instanceof DragonX_Storage_Record_CreatedModified) {
-	                $record->modified = $record->created;
+	            	$array['modified'] = $array['created'];
 	            }
             }
     		$rowCount = $this->_getAdapter()->insert($this->getTablename($record), $array);
     		$record->id = $this->_getAdapter()->lastInsertId();
     	} else {
 	        if ($record instanceof DragonX_Storage_Record_CreatedModified) {
-	            $record->modified = time();
+                $array['modified'] = time();
 	        }
     		$rowCount = $this->_getAdapter()->update($this->getTablename($record), $array, 'id = ' . (int)$record->id);
     	}
