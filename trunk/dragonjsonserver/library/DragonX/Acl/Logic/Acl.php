@@ -25,12 +25,15 @@ class DragonX_Acl_Logic_Acl
      */
     public function getResources(DragonX_Account_Record_Account $recordAccount)
     {
-        $result = Zend_Registry::get('DragonX_Storage_Engine')->executeSqlStatement(
+    	$storage = Zend_Registry::get('DragonX_Storage_Engine');
+
+        $voidRecordAccount = DragonX_Account_Record_Account::newInstance();
+        $result = $storage->executeSqlStatement(
               "SELECT DISTINCT "
                 . "resources.name "
             . "FROM "
-                . "dragonx_account_record_account "
-	            . "INNER JOIN dragonx_acl_record_accountrole ON dragonx_account_record_account.id = dragonx_acl_record_accountrole.accountid "
+                . "" . $storage->getTablename($voidRecordAccount) . " AS account "
+	            . "INNER JOIN dragonx_acl_record_accountrole ON account.id = dragonx_acl_record_accountrole.accountid "
 	            . "INNER JOIN ( "
 	                . "SELECT "
 	                    . "n.id AS parentid, "
@@ -56,7 +59,7 @@ class DragonX_Acl_Logic_Acl
 	                . "GROUP BY o.lft "
 	            . ") resources ON resources.parentid = dragonx_acl_record_roleresource.resourceid "
             . "WHERE "
-                . "dragonx_account_record_account.id = :accountid",
+                . "account.id = :accountid",
             array('accountid' => $recordAccount->id)
         );
         $resources = array();

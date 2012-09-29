@@ -96,7 +96,7 @@ class DragonX_Emailaddress_Logic_Validation
             array($recordEmailaddress)
         );
 
-        if (!$recordAccount = $storage->load(new DragonX_Account_Record_Account($recordEmailaddress->accountid))) {
+        if (!$recordAccount = $storage->load(DragonX_Account_Record_Account::newInstance($recordEmailaddress->accountid))) {
             throw new Exception('incorrect accountid');
         }
         return $recordAccount;

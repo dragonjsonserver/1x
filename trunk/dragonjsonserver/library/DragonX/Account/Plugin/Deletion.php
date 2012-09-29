@@ -47,9 +47,10 @@ class DragonX_Account_Plugin_Deletion implements DragonX_Cronjob_Plugin_Cronjob_
     	$configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
     	$timestamp = time() - $configDeletion->lifetime;
 
+    	$voidRecordAccount = DragonX_Account_Record_Account::newInstance();
     	$listAccounts = $storage->loadBySqlStatement(
-    	    new DragonX_Account_Record_Account(),
-              "SELECT * FROM `dragonx_account_record_account` WHERE `id` IN ("
+    	    $voidRecordAccount,
+              "SELECT * FROM `" . $storage->getTablename($voidRecordAccount) . "` WHERE `id` IN ("
                 . "SELECT `accountid` FROM `dragonx_account_record_deletion` WHERE `created` <= :timestamp"
             . ")",
             array('timestamp' => $timestamp)
@@ -61,7 +62,7 @@ class DragonX_Account_Plugin_Deletion implements DragonX_Cronjob_Plugin_Cronjob_
 	        );
         }
         Zend_Registry::get('DragonX_Storage_Engine')->executeSqlStatement(
-              "DELETE FROM `dragonx_account_record_account` WHERE `id` IN ("
+              "DELETE FROM `" . $storage->getTablename($voidRecordAccount) . "` WHERE `id` IN ("
                 . "SELECT `accountid` FROM `dragonx_account_record_deletion` WHERE `created` <= :timestamp"
             . ")",
             array('timestamp' => $timestamp)
