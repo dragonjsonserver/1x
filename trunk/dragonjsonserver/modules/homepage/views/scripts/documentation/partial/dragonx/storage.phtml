@@ -143,6 +143,18 @@ $storage->save($record);</pre>
 );</pre>
     </li>
 </ul>
+<h3>Besonderheit bei Records mit Arrays</h3>
+<ul>
+    <li>
+        Wenn in einem Records Arrays definiert sind dann wird der besteht der Name der Datenbankspalte aus Arrayname, '_' und dem Key
+<pre>class %packagenamespace%_%packagename%_%classname% extends DragonX_Storage_Record_Abstract
+{
+    public $array = array('key' => 'value');
+}
+//Spaltenname in der Datenbank wäre in diesem Fall 'array_key'
+</pre>
+    </li>
+</ul>
 <h3>Verwendung von RecordList</h3>
 <ul>
     <li>

@@ -31,7 +31,7 @@ class DragonX_Clientmessage_Record_All extends DragonX_Storage_Record_Created
 
     /**
      * Nimmt die ID, ein Array oder eine andere Eigenschaft als Datenquelle an
-     * @param integer|array|DragonX_Application_Accessor $data
+     * @param integer|array|DragonX_Clientmessage_Key_Abstract $data
      * @param DragonX_Clientmessage_Key_Abstract $key
      */
     public function __construct($data = array(), DragonX_Clientmessage_Key_Abstract $key = null)

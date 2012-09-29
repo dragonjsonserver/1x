@@ -27,6 +27,13 @@
         DragonX
         <ul>
             <li>
+                Application
+                <ul>
+                    <li>Die abstrakte Eigenschaftsklasse wurde umbenannt von 'DragonX_Application_Accessor' in 'DragonX_Application_Accessor_Abstract'</li>
+                    <li>Es wird nun das Befüllen von Arrays sowohl beim einzelnen Setzen als auch das Befüllen aus einem Array mit '_' unterstützt</li>
+                </ul>
+            </li>
+            <li>
                 Clientmessage
                 <ul>
                     <li>Umstellung der Records für die beiden Clientmessagequellen auf die neue Recordklasse mit einem Erstellungszeitpunkt</li>
@@ -58,6 +65,7 @@
 		                    <li>Installationsplugins und deren Verwaltung wurde erweitert sodass man die Datenbankstruktur verschiedener Datenbanken damit verwalten kann</li>
 		                </ul>
                     </li>
+                    <li>Es wird nun das Speichern von Records mit Arrays unterstützt und mit '_' in den Spaltennamen umgesetzt</li>
                 </ul>
             </li>
         </ul>
@@ -72,4 +80,5 @@
 <div class="alert alert-warning">Achtung: Durch die Trennung der Pakete Account und Emailaddress muss vor der Ausführung der 'install.php' das Paket Emailaddress hinzugefügt werden, da sonst alle Verknüpfungen zu den Accounts verloren gehen.</div>
 <ul>
     <li>Durch die Umstellung der beiden Clientmessagequellen auf die neue Recordklasse mit einem Erstellungszeitpunkt erhält der Client nun bei jeder Clientmessage ihren Erstellungszeitpunkt als 'created' statt als 'timestamp'</li>
+    <li>Durch die Umbennung der Eigenschaftsklasse 'DragonX_Application_Accessor' in 'DragonX_Application_Accessor_Abstract' müssen alle eigenen davon abgeleiteten Klassen angepasst werden</li>
 </ul>

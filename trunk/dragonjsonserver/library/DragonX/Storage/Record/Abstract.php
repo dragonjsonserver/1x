@@ -18,7 +18,7 @@
  * Abstrakte Klasse mit den Basismethoden eines Records
  * @property integer $id
  */
-abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Accessor
+abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Accessor_Abstract
 {
 	/**
      * @var integer
@@ -27,7 +27,7 @@ abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Acces
 
     /**
      * Nimmt die ID, ein Array oder eine andere Eigenschaft als Datenquelle an
-     * @param integer|array|DragonX_Application_Accessor $data
+     * @param integer|array|DragonX_Application_Accessor_Abstract $data
      */
     public function __construct($data = array())
     {

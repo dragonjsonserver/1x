@@ -17,15 +17,15 @@
 /**
  * Abstrakte Klasse mit den Basismethoden einer Eigenschaft
  */
-abstract class DragonX_Application_Accessor
+abstract class DragonX_Application_Accessor_Abstract
 {
     /**
      * Nimmt ein Array oder eine andere Eigenschaft als Datenquelle an
-     * @param array|DragonX_Application_Accessor $data
+     * @param array|DragonX_Application_Accessor_Abstract $data
      */
     public function __construct($data = array())
     {
-        if ($data instanceof DragonX_Application_Accessor) {
+        if ($data instanceof DragonX_Application_Accessor_Abstract) {
             $data = $data->toArray();
         }
         $this->fromArray($data);
@@ -34,7 +34,7 @@ abstract class DragonX_Application_Accessor
     /**
      * Setzt alle Attribute der Eigenschaft aus den Daten des Arrays
      * @param array $data
-     * @return DragonX_Application_Accessor
+     * @return DragonX_Application_Accessor_Abstract
      */
     public function fromArray(array $data)
     {
@@ -81,9 +81,21 @@ abstract class DragonX_Application_Accessor
             }
         } catch (Exception $exception) {
         }
-        $methodname = 'set' . ucfirst($key);
-        if (!method_exists($this, $methodname)) {
-            throw new InvalidArgumentException('missing attribute "' . $key . '"');
+        try {
+	        $methodname = 'set' . ucfirst($key);
+	        if (!method_exists($this, $methodname)) {
+	            throw new InvalidArgumentException('missing attribute "' . $key . '"');
+	        }
+        } catch (Exception $exception) {
+        	$array = explode('_', $key, 2);
+        	if (count($array) > 1) {
+        		list ($key, $subkey) = $array;
+                if (isset($this->$key)) {
+        		    $this->{$key}[$subkey] = $value;
+		        	return;
+                }
+        	}
+        	throw $exception;
         }
         call_user_func(array($this, $methodname), $value);
     }
