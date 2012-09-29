@@ -25,7 +25,7 @@
     <li>Protected Attribute werden gekapselt, können aber wie public Attribute gesetzt (wenn eine Setter Methode definiert wurde) und gelesen (wenn eine Getter Methode definiert wurde) werden</li>
     <li>
         Protected Setter/Getter Methoden verhindern das direkte Nutzen dieser, falls die Methoden im Nachhinein wieder entfernt werden
-<pre>class %packagenamespace%_%packagename%_%classname% extends DragonX_Application_Accessor
+<pre>class %packagenamespace%_%packagename%_%classname% extends DragonX_Application_Accessor_Abstract
 {
     public $string;
     protected $_integer = 0;
@@ -60,5 +60,17 @@ $array = $object->toArray();</pre>
 $true = isset($object->string);
 unset($object->string);
 $false = isset($object->string);</pre>
+    </li>
+    <li>
+        Arrays werden unterstützt mit '_' sowohl beim einzelnen Setzen eines Wertes als auch beim Befüllen aus einem Array
+<pre>class %packagenamespace%_%packagename%_%classname% extends DragonX_Application_Accessor_Abstract
+{
+    public $array = array('key' => 'value');
+}
+$object = new %packagenamespace%_%packagename%_%classname%();
+$object->array['key'] = 'value';
+$object->array_key = 'value';
+$object->fromArray(array('array' => array('key' => 'value')));
+$object->fromArray(array('array_key' => 'value'));</pre>
     </li>
 </ul>

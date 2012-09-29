@@ -71,6 +71,15 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function save(DragonX_Storage_Record_Abstract $record)
     {
+        $array = $record->toArray();
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                foreach ($value as $subkey => $subvalue) {
+                    $array[$key . '_' . $subkey] = $subvalue;
+                }
+                unset($array[$key]);
+            }
+        }
     	if (!isset($record->id)) {
             if ($record instanceof DragonX_Storage_Record_Created) {
                 $record->created = time();
@@ -78,13 +87,13 @@ class DragonX_Storage_Engine_ZendDbAdataper
 	                $record->modified = $record->created;
 	            }
             }
-    		$rowCount = $this->_getAdapter()->insert($this->getTablename($record), $record->toArray());
+    		$rowCount = $this->_getAdapter()->insert($this->getTablename($record), $array);
     		$record->id = $this->_getAdapter()->lastInsertId();
     	} else {
 	        if ($record instanceof DragonX_Storage_Record_CreatedModified) {
 	            $record->modified = time();
 	        }
-    		$rowCount = $this->_getAdapter()->update($this->getTablename($record), $record->toArray(), 'id = ' . (int)$record->id);
+    		$rowCount = $this->_getAdapter()->update($this->getTablename($record), $array, 'id = ' . (int)$record->id);
     	}
         return $rowCount;
     }
