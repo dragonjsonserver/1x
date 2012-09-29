@@ -52,6 +52,16 @@ class DragonX_Storage_Engine_ZendDbAdataper
     }
 
     /**
+     * Gibt den Datenbanknamen der Storage Engine zurück
+     * @return string
+     */
+    public function getDatabasename()
+    {
+    	$config = $this->_adapter->getConfig();
+    	return $config['dbname'];
+    }
+
+    /**
      * Gibt den Tabellennamen zum übergebenen Record oder Namespace zurück
      * @param mixed $data
      * @return string
