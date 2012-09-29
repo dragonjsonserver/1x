@@ -22,7 +22,7 @@
 function DragonJsonClient(jsonclient)
 {
 	var applicationname = 'DragonJsonClient';
-	var applicationversion = 'v1.4.0';
+	var applicationversion = 'v1.7.0';
 
     $('#applicationname').html(applicationname);
     $('#applicationversion').html(applicationversion);
@@ -130,12 +130,20 @@ function DragonJsonClient(jsonclient)
                 $('<label class="control-label" for="newcredential"></label>')
                     .html(parameter.name + ':')
                     .appendTo(controlgroup);
-
+                
+                var value = '';
+                if (parameter.optional) {
+                	value = parameter.default;
+                }
+                if (self.data[parameter.name] != undefined) {
+                	value = self.data[parameter.name];
+                }
+                
                 $('<div class="controls"></div>')
                     .appendTo(controlgroup)
                     .append($('<input>')
                                 .attr({'type' : 'text', 'name' : parameter.name})
-                                .val(self.data[parameter.name]));
+                                .val(value));
             });
         } else {
         	div.html('Keine Argumente benötigt');
@@ -157,13 +165,7 @@ function DragonJsonClient(jsonclient)
                     self.namespaces[namespace] = {};
                 }
                 var method = servicename.substr(servicename.lastIndexOf('.') + 1);
-                self.namespaces[namespace][method] = [];
-                $.each(service.parameters, function(index, parameter) {
-                    self.namespaces[namespace][method].push({
-                        name : parameter.name,
-                        type : parameter.type
-                    });
-                });
+                self.namespaces[namespace][method] = service.parameters;
             });
         }
     });
