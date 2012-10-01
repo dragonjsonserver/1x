@@ -23,16 +23,16 @@ class DragonX_Acl_Logic_Acl
      * Gibt die Liste aller Rechte zum übergebenen Account zurück
      * @return array
      */
-    public function getResources(DragonX_Account_Record_Account $recordAccount)
+    public function getResources(Application_Account_Record_Account $recordAccount)
     {
     	$storage = Zend_Registry::get('DragonX_Storage_Engine');
 
-        $voidRecordAccount = DragonX_Account_Record_Account::newInstance();
+        $voidRecordAccount = new Application_Account_Record_Account();
         $result = $storage->executeSqlStatement(
               "SELECT DISTINCT "
                 . "resources.name "
             . "FROM "
-                . "" . $storage->getTablename($voidRecordAccount) . " AS account "
+                . "application_account_record_account AS account "
 	            . "INNER JOIN dragonx_acl_record_accountrole ON account.id = dragonx_acl_record_accountrole.accountid "
 	            . "INNER JOIN ( "
 	                . "SELECT "

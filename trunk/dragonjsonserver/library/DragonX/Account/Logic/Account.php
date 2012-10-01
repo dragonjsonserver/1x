@@ -21,11 +21,11 @@ class DragonX_Account_Logic_Account
 {
     /**
      * Erstellt einen neuen Account
-     * @return DragonX_Account_Record_Account
+     * @return Application_Account_Record_Account
      */
     public function createAccount()
     {
-        $recordAccount = DragonX_Account_Record_Account::newInstance();
+        $recordAccount = new Application_Account_Record_Account();
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
         Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
             'DragonX_Account_Plugin_CreateAccount_Interface',
@@ -36,9 +36,9 @@ class DragonX_Account_Logic_Account
 
     /**
      * Setzt den Zeitpunkt des letzten Requests auf den aktuellen Zeitpunkt
-     * @param DragonX_Account_Record_Account $recordAccount
+     * @param Application_Account_Record_Account $recordAccount
      */
-    public function requestAccount(DragonX_Account_Record_Account $recordAccount)
+    public function requestAccount(Application_Account_Record_Account $recordAccount)
     {
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
     }

@@ -117,7 +117,7 @@ class DragonX_Storage_Logic_Database
 
         $configEngine = new Dragon_Application_Config('dragonx/storage/engine');
         $storagekeys = array();
-        if (isset($configEngine->adapter)) {
+        if (isset($configEngine->engine)) {
             $storagekeys[] = 'DragonX_Storage_Engine';
         } else {
             foreach (array_keys($configEngine->toArray()) as $storagekey) {

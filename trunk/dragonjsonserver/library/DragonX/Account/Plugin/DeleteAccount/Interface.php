@@ -21,7 +21,7 @@ interface DragonX_Account_Plugin_DeleteAccount_Interface
 {
     /**
      * Wird vor der Löschung eines Accounts aufgerufen
-     * @param DragonX_Account_Record_Account $recordAccount
+     * @param Application_Account_Record_Account $recordAccount
      */
-    public function deleteAccount(DragonX_Account_Record_Account $recordAccount);
+    public function deleteAccount(Application_Account_Record_Account $recordAccount);
 }

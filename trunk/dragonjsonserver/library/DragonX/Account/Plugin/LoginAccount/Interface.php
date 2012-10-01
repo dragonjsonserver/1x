@@ -21,7 +21,7 @@ interface DragonX_Account_Plugin_LoginAccount_Interface
 {
     /**
      * Wird nach der Anmeldung eines Accounts aufgerufen
-     * @param DragonX_Account_Record_Account $recordAccount
+     * @param Application_Account_Record_Account $recordAccount
      */
-    public function loginAccount(DragonX_Account_Record_Account $recordAccount);
+    public function loginAccount(Application_Account_Record_Account $recordAccount);
 }

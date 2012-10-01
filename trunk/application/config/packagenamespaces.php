@@ -29,8 +29,8 @@ return array(
     ),
     'DragonX' => array(
         'Account' => array(
-            'Plugin' => array('Account', 'Install'),
-            'Service' => array('Account', 'Credential'),
+            'Plugin' => array('Account', 'Deletion', 'Session', 'Install'),
+            'Service' => array('Account', 'Deletion', 'Session'),
         ),
         'Acl' => array(
             'Plugin' => array('Acl', 'Install'),
@@ -43,6 +43,10 @@ return array(
             'Plugin' => array('Install'),
             'Service' => array('Cronjob'),
         ),
+        'Emailaddress' => array(
+            'Plugin' => array('Install'),
+            'Service' => array('Credential', 'Emailaddress', 'Validation'),
+        ),
         'Homepage',
         'Log' => array(
             'Plugin' => array('Log', 'Request', 'Install'),
@@ -53,8 +57,11 @@ return array(
         ),
     ),
     'Application' => array(
-        'Application' => array(
-            'Service' => array('Application')
+        'Account' => array(
+            'Plugin' => array('Install'),
         ),
-    )
+        'Application' => array(
+            'Service' => array('Application'),
+        ),
+    ),
 );

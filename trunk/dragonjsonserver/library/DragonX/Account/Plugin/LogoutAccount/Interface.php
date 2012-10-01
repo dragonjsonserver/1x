@@ -21,7 +21,7 @@ interface DragonX_Account_Plugin_LogoutAccount_Interface
 {
     /**
      * Wird nach der Abmeldung eines Accounts aufgerufen
-     * @param DragonX_Account_Record_Account $recordAccount
+     * @param Application_Account_Record_Account $recordAccount
      */
-    public function logoutAccount(DragonX_Account_Record_Account $recordAccount);
+    public function logoutAccount(Application_Account_Record_Account $recordAccount);
 }

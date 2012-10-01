@@ -21,7 +21,7 @@ interface DragonX_Account_Plugin_CreateAccount_Interface
 {
     /**
      * Wird nach der Erstellung eines Accounts aufgerufen
-     * @param DragonX_Account_Record_Account $recordAccount
+     * @param Application_Account_Record_Account $recordAccount
      */
-    public function createAccount(DragonX_Account_Record_Account $recordAccount);
+    public function createAccount(Application_Account_Record_Account $recordAccount);
 }

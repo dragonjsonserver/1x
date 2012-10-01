@@ -17,13 +17,5 @@
 /**
  * Record zur Speicherung der Daten zu einem Account
  */
-class DragonX_Account_Record_Account extends DragonX_Storage_Record_CreatedModified
-{
-    public static function newInstance($data = array())
-    {
-    	if (class_exists('Application_Account_Record_Account')) {
-    		return new Application_Account_Record_Account($data);
-    	}
-    	return new DragonX_Account_Record_Account($data);
-    }
-}
+abstract class DragonX_Account_Record_Account extends DragonX_Storage_Record_CreatedModified
+{}

@@ -100,6 +100,14 @@ class DragonX_Account_Plugin_Install implements DragonX_Storage_Plugin_Install_I
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }
         if (version_compare($oldversion, '1.7.0', '<')) {
+            if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('Application', 'Account')) {
+                $installAccount = new Application_Account_Plugin_Install();
+                $sqlstatements = array_merge($sqlstatements, $installAccount->getInstall());
+
+                $sqlstatements[] =
+                      "INSERT INTO `application_account_record_account` (`id`, `created`, `modified`) "
+                    . "SELECT `id`, UNIX_TIMESTAMP(NOW()), UNIX_TIMESTAMP(NOW()) FROM `dragonx_account_record_account`";
+            }
         	if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Emailaddress')) {
                 $installEmailaddress = new DragonX_Emailaddress_Plugin_Install();
                 $sqlstatements = array_merge($sqlstatements, $installEmailaddress->getInstall());
@@ -120,13 +128,7 @@ class DragonX_Account_Plugin_Install implements DragonX_Storage_Plugin_Install_I
                     . "FROM `dragonx_account_record_validation` "
                     . "INNER JOIN `dragonx_emailaddress_record_emailaddress` ON `dragonx_emailaddress_record_emailaddress`.`accountid` = `dragonx_account_record_validation`.`accountid`";
         	}
-            $sqlstatements[] =
-                  "ALTER TABLE `dragonx_account_record_account` "
-                    . "ADD `created` INT(10) UNSIGNED NOT NULL AFTER `id`, "
-                    . "ADD `modified` INT(10) UNSIGNED NOT NULL AFTER `created`, "
-                    . "DROP `identity`, "
-                    . "DROP `credential`";
-            $sqlstatements[] = "UPDATE `dragonx_account_record_account` SET `created` = UNIX_TIMESTAMP(NOW()), `modified` = UNIX_TIMESTAMP(NOW())";
+            $sqlstatements[] = "DROP TABLE `dragonx_account_record_account`";
 
             $sqlstatements[] =
                   "ALTER TABLE `dragonx_account_record_deletion` "

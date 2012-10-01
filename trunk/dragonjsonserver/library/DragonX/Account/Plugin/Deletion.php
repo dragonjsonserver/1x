@@ -47,10 +47,9 @@ class DragonX_Account_Plugin_Deletion implements DragonX_Cronjob_Plugin_Cronjob_
     	$configDeletion = new Dragon_Application_Config('dragonx/account/deletion');
     	$timestamp = time() - $configDeletion->lifetime;
 
-    	$voidRecordAccount = DragonX_Account_Record_Account::newInstance();
     	$listAccounts = $storage->loadBySqlStatement(
-    	    $voidRecordAccount,
-              "SELECT * FROM `" . $storage->getTablename($voidRecordAccount) . "` WHERE `id` IN ("
+    	    new Application_Account_Record_Account(),
+              "SELECT * FROM `application_account_record_account` WHERE `id` IN ("
                 . "SELECT `accountid` FROM `dragonx_account_record_deletion` WHERE `created` <= :timestamp"
             . ")",
             array('timestamp' => $timestamp)

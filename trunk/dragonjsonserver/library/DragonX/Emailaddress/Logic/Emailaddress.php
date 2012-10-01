@@ -24,7 +24,7 @@ class DragonX_Emailaddress_Logic_Emailaddress
      * @param string $emailaddress
      * @param string $password
      * @throws InvalidArgumentException
-     * @return DragonX_Account_Record_Account
+     * @return Application_Account_Record_Account
      */
     public function getAccount($emailaddress, $password)
     {
@@ -42,7 +42,7 @@ class DragonX_Emailaddress_Logic_Emailaddress
         if (!$recordEmailaddress->verifyPassword($password)) {
             throw new InvalidArgumentException('incorrect password');
         }
-        if (!$recordAccount = $storage->load(DragonX_Account_Record_Account::newInstance($recordEmailaddress->accountid))) {
+        if (!$recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->accountid))) {
             throw new Exception('incorrect accountid');
         }
 
@@ -51,13 +51,13 @@ class DragonX_Emailaddress_Logic_Emailaddress
 
     /**
      * Verknüpft einen Account mit E-Mail Adresse und Passwort
-     * @param DragonX_Account_Record_Account $recordAccount
+     * @param Application_Account_Record_Account $recordAccount
      * @param string $emailaddress
      * @param string $password
      * @param Zend_Config $configMail
      * @throws InvalidArgumentException
      */
-    public function linkAccount(DragonX_Account_Record_Account $recordAccount, $emailaddress, $password, Zend_Config $configMail)
+    public function linkAccount(Application_Account_Record_Account $recordAccount, $emailaddress, $password, Zend_Config $configMail)
     {
     	$recordEmailaddress = new DragonX_Emailaddress_Record_Emailaddress(
     	    array('accountid' => $recordAccount->id)
@@ -78,9 +78,9 @@ class DragonX_Emailaddress_Logic_Emailaddress
 
     /**
      * Entfernt die Verknüpfung eines Accounts mit E-Mail Adresse und Passwort
-     * @param DragonX_Account_Record_Account $recordAccount
+     * @param Application_Account_Record_Account $recordAccount
      */
-    public function unlinkAccount(DragonX_Account_Record_Account $recordAccount)
+    public function unlinkAccount(Application_Account_Record_Account $recordAccount)
     {
         Zend_Registry::get('DragonX_Storage_Engine')->deleteByConditions(
             new DragonX_Emailaddress_Record_Emailaddress(),

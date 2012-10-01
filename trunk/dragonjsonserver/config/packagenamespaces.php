@@ -56,4 +56,9 @@ return array(
             'Plugin' => array('Database', 'Storage'),
         ),
     ),
+    'Application' => array(
+        'Account' => array(
+            'Plugin' => array('Install'),
+        ),
+    ),
 );
