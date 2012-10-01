@@ -38,7 +38,7 @@ class DragonX_Account_Plugin_Account
 	}
 
     /**
-     * Prüft bei jedem Request ist die Authentifizierung
+     * Prüft bei jedem Request die Authentifizierung
      * @param Dragon_Json_Server_Request_Http $request
      */
     public function preDispatch(Dragon_Json_Server_Request_Http $request)
