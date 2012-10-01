@@ -23,7 +23,7 @@ class DragonX_Account_Service_Account
      * Erstellt einen neuen Account der an eine Session gebunden ist
      * @return array
      */
-    public function temporaryAccount()
+    public function createAccount()
     {
         $logicAccount = new DragonX_Account_Logic_Account();
         $logicSession = new DragonX_Account_Logic_Session();
