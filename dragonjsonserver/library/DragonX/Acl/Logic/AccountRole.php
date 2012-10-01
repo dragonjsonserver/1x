@@ -27,7 +27,7 @@ class DragonX_Acl_Logic_AccountRole
     public function addAccountRole($accountid, $roleid)
     {
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
-        if (!$storage->load(DragonX_Account_Record_Account::newInstance($accountid))) {
+        if (!$storage->load(new Application_Account_Record_Account($accountid))) {
             throw Exception('missing account');
         }
         if (!$storage->load(new DragonX_Acl_Record_Role($roleid))) {

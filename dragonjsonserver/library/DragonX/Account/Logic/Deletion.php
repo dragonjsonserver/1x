@@ -21,9 +21,9 @@ class DragonX_Account_Logic_Deletion
 {
     /**
      * Setzt den Löschstatus des Accounts sodass dieser gelöscht werden kann
-     * @param DragonX_Account_Record_Account $recordAccount
+     * @param Application_Account_Record_Account $recordAccount
      */
-    public function deleteAccount(DragonX_Account_Record_Account $recordAccount)
+    public function deleteAccount(Application_Account_Record_Account $recordAccount)
     {
         Zend_Registry::get('DragonX_Storage_Engine')->save(
             new DragonX_Account_Record_Deletion(array(
@@ -34,10 +34,10 @@ class DragonX_Account_Logic_Deletion
 
     /**
      * Gibt des Löschstatus des Accounts zurück
-     * @param DragonX_Account_Record_Account $recordAccount
+     * @param Application_Account_Record_Account $recordAccount
      * @return DragonX_Account_Record_Deletion|null
      */
-    public function getDeletion(DragonX_Account_Record_Account $recordAccount)
+    public function getDeletion(Application_Account_Record_Account $recordAccount)
     {
         $listDeletions = Zend_Registry::get('DragonX_Storage_Engine')->loadByConditions(
             new DragonX_Account_Record_Deletion(),
@@ -51,9 +51,9 @@ class DragonX_Account_Logic_Deletion
 
     /**
      * Setzt den Löschstatus des Accounts zurück
-     * @param DragonX_Account_Record_Account $recordAccount
+     * @param Application_Account_Record_Account $recordAccount
      */
-    public function deleteDeletion(DragonX_Account_Record_Account $recordAccount)
+    public function deleteDeletion(Application_Account_Record_Account $recordAccount)
     {
         Zend_Registry::get('DragonX_Storage_Engine')->deleteByConditions(
             new DragonX_Account_Record_Deletion(),

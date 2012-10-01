@@ -24,7 +24,7 @@ class DragonX_Emailaddress_Service_Emailaddress
      * @param string $emailaddress
      * @param string $password
      * @throws InvalidArgumentException
-     * @return DragonX_Account_Record_Account
+     * @return array
      */
     public function loginAccount($emailaddress, $password)
     {

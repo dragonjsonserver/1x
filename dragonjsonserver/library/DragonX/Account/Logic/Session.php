@@ -21,11 +21,11 @@ class DragonX_Account_Logic_Session
 {
     /**
      * Meldet einen Account an und erstellt für diesen eine neue Session
-     * @param DragonX_Account_Record_Account $recordAccount
+     * @param Application_Account_Record_Account $recordAccount
      * @return string
      * @throws InvalidArgumentException
      */
-    public function loginAccount(DragonX_Account_Record_Account $recordAccount)
+    public function loginAccount(Application_Account_Record_Account $recordAccount)
     {
         $recordSession = new DragonX_Account_Record_Session(array(
             'accountid' => $recordAccount->id,
@@ -42,16 +42,15 @@ class DragonX_Account_Logic_Session
     /**
      * Gibt den Account zurück der zum übergebenen Sessionhash hinterlegt ist
      * @param string $sessionhash
-     * @return DragonX_Account_Record_Account
+     * @return Application_Account_Record_Account
      * @throws InvalidArgumentException
      */
     public function getAccount($sessionhash)
     {
     	$storage = Zend_Registry::get('DragonX_Storage_Engine');
-    	$voidRecordAccount = DragonX_Account_Record_Account::newInstance();
         $listAccounts = $storage->loadBySqlStatement(
-            $voidRecordAccount,
-              "SELECT `account`.* FROM `" . $storage->getTablename($voidRecordAccount) . "` AS `account` "
+            new Application_Account_Record_Account(),
+              "SELECT `account`.* FROM `application_account_record_account` AS `account` "
             . "INNER JOIN `dragonx_account_record_session` AS `session` ON `session`.`accountid` = `account`.`id` "
             . "WHERE `session`.`sessionhash` = :sessionhash",
             array('sessionhash' => $sessionhash)

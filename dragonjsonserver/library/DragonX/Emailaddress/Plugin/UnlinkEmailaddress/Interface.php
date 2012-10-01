@@ -21,7 +21,7 @@ interface DragonX_Emailaddress_Plugin_UnlinkEmailaddress_Interface
 {
     /**
      * Wird nach der Entfernung einer E-Mail Adresse aufgerufen
-     * @param DragonX_Account_Record_Account $recordAccount
+     * @param Application_Account_Record_Account $recordAccount
      */
-    public function unlinkEmailaddress(DragonX_Account_Record_Account $recordAccount);
+    public function unlinkEmailaddress(Application_Account_Record_Account $recordAccount);
 }
