@@ -96,6 +96,7 @@
                     </li>
                     <li>Es wird nun das Speichern von Records mit Arrays unterstützt und mit '_' in den Spaltennamen umgesetzt</li>
                     <li>Der Datenbankname für die Storage Engine steht nun mit 'getDatabasename()' zur Verfügung</li>
+                    <li>Der Adapter für die Storage Engine steht nun mit 'getAdapter()' auch nach aussen zur Verfügung</li>
                 </ul>
             </li>
         </ul>
@@ -116,8 +117,9 @@
 </ul>
 <h2>Migration vom Branch 1.6</h2>
 <h3>Benötigt</h3>
-<div class="alert alert-warning">Achtung: Durch die Trennung der Pakete Account und Emailaddress muss vor der Ausführung der 'install.php' das Paket Emailaddress hinzugefügt werden, da sonst alle Verknüpfungen zu den Accounts verloren gehen.</div>
+<div class="alert alert-warning">Achtung: Durch die Trennung der Pakete Account und Emailaddress muss vor der Ausführung der 'install.php' das Paket Emailaddress hinzugefügt werden, da sonst alle Verknüpfungen zu den Accounts verloren gehen. Ebenfalls aktiviert werden muss das Paket Account aus dem Application Namensraum, da sind die Accounts verloren gehen.</div>
 <ul>
     <li>Durch die Umstellung der beiden Clientmessagequellen auf die neue Recordklasse mit einem Erstellungszeitpunkt erhält der Client nun bei jeder Clientmessage ihren Erstellungszeitpunkt als 'created' statt als 'timestamp'</li>
     <li>Durch die Umbennung der Eigenschaftsklasse 'DragonX_Application_Accessor' in 'DragonX_Application_Accessor_Abstract' müssen alle eigenen davon abgeleiteten Klassen angepasst werden</li>
+    <li>Clients die bereits die Accountverwaltung genutzt haben müssen angepasst werden auf die neuen Services</li>
 </ul>
