@@ -49,7 +49,7 @@ return array(
         ),
         'Homepage',
         'Log' => array(
-            'Plugin' => array('Log', 'Request', 'Install'),
+            'Plugin' => array('Account', 'Log', 'Request', 'Install'),
         ),
         'NestedSet',
         'Storage' => array(
