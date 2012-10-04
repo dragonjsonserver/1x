@@ -54,6 +54,11 @@ class DragonX_Account_Plugin_Account
         $logicAccount = new DragonX_Account_Logic_Account();
         $logicAccount->requestAccount($recordAccount);
 
+        Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
+            'DragonX_Account_Plugin_LoadAccount_Interface',
+            array($recordAccount)
+        );
+
         Zend_Registry::set('recordAccount', $recordAccount);
         if (Zend_Registry::isRegistered('Zend_Log')) {
             $logger = Zend_Registry::get('Zend_Log');
