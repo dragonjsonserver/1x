@@ -60,10 +60,6 @@ class DragonX_Account_Plugin_Account
         );
 
         Zend_Registry::set('recordAccount', $recordAccount);
-        if (Zend_Registry::isRegistered('Zend_Log')) {
-            $logger = Zend_Registry::get('Zend_Log');
-            $logger->setEventItem('accountid', $recordAccount->id);
-        }
     }
 
     /**
