@@ -82,9 +82,7 @@ class DragonX_Emailaddress_Logic_Validation
             array('validationhash' => $validationhash)
         );
 
-        if (!$recordEmailaddress = $storage->load(new DragonX_Emailaddress_Record_Emailaddress($recordValidation->emailaddressid))) {
-            throw new Exception('incorrect emailaddressid');
-        }
+        $recordEmailaddress = $storage->load(new DragonX_Emailaddress_Record_Emailaddress($recordValidation->emailaddressid));
         $storage->delete($recordValidation);
 
         Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
@@ -92,9 +90,7 @@ class DragonX_Emailaddress_Logic_Validation
             array($recordEmailaddress)
         );
 
-        if (!$recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->accountid))) {
-            throw new Exception('incorrect accountid');
-        }
+        $recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->accountid));
         return $recordAccount;
     }
 }

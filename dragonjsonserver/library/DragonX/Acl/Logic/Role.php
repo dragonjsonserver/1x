@@ -53,9 +53,7 @@ class DragonX_Acl_Logic_Role
     public function renameRole($roleid, $name)
     {
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
-        if (!$recordRole = $storage->load(new DragonX_Acl_Record_Role($roleid))) {
-        	throw Exception('missing role');
-        }
+        $recordRole = $storage->load(new DragonX_Acl_Record_Role($roleid));
         $recordRole->name = $name;
         $storage->save($recordRole);
     }

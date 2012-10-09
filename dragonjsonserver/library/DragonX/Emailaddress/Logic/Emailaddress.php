@@ -38,10 +38,8 @@ class DragonX_Emailaddress_Logic_Emailaddress
         if (!$recordEmailaddress->verifyPassword($password)) {
             throw new InvalidArgumentException('incorrect password');
         }
-        if (!$recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->accountid))) {
-            throw new Exception('incorrect accountid');
-        }
 
+        $recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->accountid));
         return $recordAccount;
     }
 

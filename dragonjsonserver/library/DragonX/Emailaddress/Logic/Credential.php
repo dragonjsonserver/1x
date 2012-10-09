@@ -82,16 +82,12 @@ class DragonX_Emailaddress_Logic_Credential
             array('credentialhash' => $credentialhash)
         );
 
-        if (!$recordEmailaddress = $storage->load(new DragonX_Emailaddress_Record_Credential($recordCredential->emailaddressid))) {
-            throw new Exception('incorrect emailaddressid');
-        }
+        $recordEmailaddress = $storage->load(new DragonX_Emailaddress_Record_Credential($recordCredential->emailaddressid));
         $recordEmailaddress->hashPassword($newpassword);
         $storage->save($recordEmailaddress);
         $storage->delete($recordCredential);
 
-        if (!$recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->accountid))) {
-            throw new Exception('incorrect accountid');
-        }
+        $recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->accountid));
         return $recordAccount;
     }
 }
