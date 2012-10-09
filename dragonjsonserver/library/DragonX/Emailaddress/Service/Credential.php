@@ -26,14 +26,10 @@ class DragonX_Emailaddress_Service_Credential
      */
     public function changePassword($newpassword)
     {
-        $listEmailaddresses = Zend_Registry::get('DragonX_Storage_Engine')->loadByConditions(
+        list ($recordEmailaddress) = Zend_Registry::get('DragonX_Storage_Engine')->loadByConditions(
             new DragonX_Emailaddress_Record_Emailaddress(),
             array('accountid' => Zend_Registry::get('recordAccount')->id)
         );
-        if (count($listEmailaddresses) == 0) {
-            throw new InvalidArgumentException('invalid accountid');
-        }
-        list ($recordEmailaddress) = $listEmailaddresses;
         $logicCredential = new DragonX_Emailaddress_Logic_Credential();
         $logicCredential->changePassword($recordEmailaddress, $newpassword);
     }

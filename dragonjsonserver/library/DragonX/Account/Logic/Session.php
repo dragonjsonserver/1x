@@ -48,17 +48,14 @@ class DragonX_Account_Logic_Session
     public function getAccount($sessionhash)
     {
     	$storage = Zend_Registry::get('DragonX_Storage_Engine');
-        $listAccounts = $storage->loadBySqlStatement(
+        list ($recordAccount) = $storage->loadBySqlStatement(
             new Application_Account_Record_Account(),
               "SELECT `account`.* FROM `application_account_record_account` AS `account` "
             . "INNER JOIN `dragonx_account_record_session` AS `session` ON `session`.`accountid` = `account`.`id` "
             . "WHERE `session`.`sessionhash` = :sessionhash",
             array('sessionhash' => $sessionhash)
         );
-        if (count($listAccounts) == 0) {
-            throw new InvalidArgumentException('incorrect sessionhash');
-        }
-        return $listAccounts[0];
+        return $recordAccount;
     }
 
     /**
