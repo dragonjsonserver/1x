@@ -20,9 +20,23 @@
 class DragonX_Storage_RecordList extends ArrayObject
 {
     /**
+     * Gibt das Element der Liste zurück wenn es existiert
+     * @param mixed $index
+     * @throws InvalidArgumentException
+     */
+    public function offsetGet($index)
+    {
+        if (!parent::offsetExists($index)) {
+            throw new InvalidArgumentException('missing record');
+        }
+        return parent::offsetGet($index);
+    }
+
+    /**
      * Schränkt die erlaubten Objekte für die RecordList ein
      * @param string $key
      * @param mixed $value
+     * @throws InvalidArgumentException
      */
     public function offsetSet($key, $value)
     {
