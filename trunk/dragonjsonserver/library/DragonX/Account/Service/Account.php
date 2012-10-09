@@ -32,4 +32,14 @@ class DragonX_Account_Service_Account
         );
         return array('sessionhash' => $sessionhash);
     }
+
+    /**
+     * Gib die Daten des aktuellen Accounts zurück
+     * @return array
+     * @dragonx_account_authenticate
+     */
+    public function getAccount()
+    {
+        return Zend_Registry::get('recordAccount');
+    }
 }
