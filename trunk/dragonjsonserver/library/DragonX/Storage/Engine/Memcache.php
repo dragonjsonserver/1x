@@ -95,17 +95,16 @@ class DragonX_Storage_Engine_Memcache
     /**
      * Lädt den übergebenen Record aus dem Storage
      * @param DragonX_Storage_Record_Abstract $record
-     * @return DragonX_Storage_Record_Abstract|boolean
+     * @return DragonX_Storage_Record_Abstract
+     * @throw InvalidArgumentException
      */
     public function load(DragonX_Storage_Record_Abstract $record)
     {
         $result = $this->_getMemcache()->get($this->_getKey($record));
-        if ($result) {
-            $record->fromArray($result);
-        } else {
-            unset($record->id);
-            return false;
+        if (!$result) {
+            throw new InvalidArgumentException('incorrect id');
         }
+        $record->fromArray($result);
         return $record;
     }
 
@@ -117,7 +116,11 @@ class DragonX_Storage_Engine_Memcache
     public function loadList(DragonX_Storage_RecordList $list)
     {
         foreach ($list as $record) {
-            $this->load($record);
+            try {
+                $this->load($record);
+            } catch (Exception $exception) {
+                unset($record->id);
+            }
         }
         return $list;
     }

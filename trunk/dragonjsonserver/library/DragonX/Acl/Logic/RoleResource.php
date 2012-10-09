@@ -27,12 +27,8 @@ class DragonX_Acl_Logic_RoleResource
     public function addRoleResource($roleid, $resourceid)
     {
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
-        if (!$storage->load(new DragonX_Acl_Record_Role($roleid))) {
-            throw Exception('missing role');
-        }
-        if (!$storage->load(new DragonX_Acl_Record_Resource($resourceid))) {
-            throw Exception('missing resource');
-        }
+        $storage->load(new DragonX_Acl_Record_Role($roleid));
+        $storage->load(new DragonX_Acl_Record_Resource($resourceid));
         $storage->save(
             new DragonX_Acl_Record_RoleResource(array('roleid' => $roleid, 'resourceid' => $resourceid))
         );

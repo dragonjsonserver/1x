@@ -126,19 +126,18 @@ class DragonX_Storage_Engine_ZendDbAdataper
     /**
      * Lädt den übergebenen Record aus dem Storage
      * @param DragonX_Storage_Record_Abstract $record
-     * @return DragonX_Storage_Record_Abstract|boolean
+     * @return DragonX_Storage_Record_Abstract
+     * @throw InvalidArgumentException
      */
     public function load(DragonX_Storage_Record_Abstract $record)
     {
     	$row = $this->getAdapter()->fetchRow(
     	    "SELECT * FROM `" . $this->getTablename($record) . "` WHERE id = " . (int)$record->id
     	);
-    	if ($row) {
-    		$record->fromArray($row);
-    	} else {
-    		unset($record->id);
-    		return false;
+    	if (!$row) {
+    	    throw new InvalidArgumentException('incorrect id');
     	}
+		$record->fromArray($row);
         return $record;
     }
 

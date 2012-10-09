@@ -47,12 +47,14 @@ class DragonX_NestedSet_Logic_NestedSet
         	if (!$node instanceof $parent) {
         		throw new Exception('node must be instance of same class as parent');
         	}
-            if (!$storage->load($parent)) {
-            	if ($transaction) {
-            	    $storage->rollback();
-            	}
-            	throw new Exception('missing parent');
-            }
+        	try {
+        	    $storage->load($parent);
+        	} catch (Exception $exception) {
+                if ($transaction) {
+                    $storage->rollback();
+                }
+        	    throw $exception;
+        	}
             $node->lft = $parent->rgt;
             $node->rgt = $node->lft + 1;
             $storage->executeSqlStatement(
@@ -82,12 +84,14 @@ class DragonX_NestedSet_Logic_NestedSet
     {
     	$storage = Zend_Registry::get('DragonX_Storage_Engine');
     	$transaction = $storage->beginTransaction();
-    	if (!$storage->load($node)) {
+        try {
+            $storage->load($node);
+        } catch (Exception $exception) {
             if ($transaction) {
                 $storage->rollback();
             }
-    		return;
-    	}
+            return;
+        }
         $storage->executeSqlStatement(
             "DELETE FROM `" . $storage->getTablename($node) . "` WHERE `lft` BETWEEN :lft AND :rgt",
             array('lft' => $node->lft, 'rgt' => $node->rgt)
