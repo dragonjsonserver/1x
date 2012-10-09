@@ -40,6 +40,6 @@ class DragonX_Account_Service_Account
      */
     public function getAccount()
     {
-        return Zend_Registry::get('recordAccount');
+        return Zend_Registry::get('recordAccount')->toArray();
     }
 }
