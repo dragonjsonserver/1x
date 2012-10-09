@@ -34,6 +34,11 @@ if (is_dir(APPLICATION_PATH)) {
     	$repositories = array('application' => APPLICATION_PATH);
     }
 	$packagenamespaces = require APPLICATION_PATH . '/config/packagenamespaces.php';
+
+	$bootstrappath = APPLICATION_PATH . '/bootstrap.php';
+    if (is_file($bootstrappath)) {
+        require $bootstrappath;
+    }
 } else {
 	$repositories = false;
     $packagenamespaces = require DRAGONJSONSERVER_PATH . '/config/packagenamespaces.php';
