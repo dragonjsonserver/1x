@@ -77,14 +77,10 @@ class DragonX_Emailaddress_Logic_Validation
     {
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
 
-        $listValidations = $storage->loadByConditions(
+        list ($recordValidation) = $storage->loadByConditions(
             new DragonX_Emailaddress_Record_Validation(),
             array('validationhash' => $validationhash)
         );
-        if (count($listValidations) == 0) {
-            throw new InvalidArgumentException('incorrect validationhash');
-        }
-        list($recordValidation) = $listValidations;
 
         if (!$recordEmailaddress = $storage->load(new DragonX_Emailaddress_Record_Emailaddress($recordValidation->emailaddressid))) {
             throw new Exception('incorrect emailaddressid');

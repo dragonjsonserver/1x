@@ -26,14 +26,10 @@ class DragonX_Emailaddress_Service_Validation
      */
     public function changeEmailaddress($newemailaddress)
     {
-        $listEmailaddresses = Zend_Registry::get('DragonX_Storage_Engine')->loadByConditions(
+        list ($recordEmailaddress) = Zend_Registry::get('DragonX_Storage_Engine')->loadByConditions(
             new DragonX_Emailaddress_Record_Emailaddress(),
             array('accountid' => Zend_Registry::get('recordAccount')->id)
         );
-        if (count($listEmailaddresses) == 0) {
-            throw new InvalidArgumentException('invalid accountid');
-        }
-        list ($recordEmailaddress) = $listEmailaddresses;
         $logicValidation = new DragonX_Emailaddress_Logic_Validation();
         $configValidation = new Dragon_Application_Config('dragonx/emailaddress/validation');
         $logicValidation->changeEmailaddress($recordEmailaddress, $newemailaddress, $configValidation->validationhash);

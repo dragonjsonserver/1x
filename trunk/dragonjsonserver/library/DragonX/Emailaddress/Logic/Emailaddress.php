@@ -31,14 +31,10 @@ class DragonX_Emailaddress_Logic_Emailaddress
         $emailaddress = strtolower($emailaddress);
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
 
-        $listEmailaddresses = $storage->loadByConditions(
+        list ($recordEmailaddress) = $storage->loadByConditions(
             new DragonX_Emailaddress_Record_Emailaddress(),
             array('emailaddress' => $emailaddress)
         );
-        if (count($listEmailaddresses) == 0) {
-            throw new InvalidArgumentException('incorrect emailaddress');
-        }
-        list($recordEmailaddress) = $listEmailaddresses;
         if (!$recordEmailaddress->verifyPassword($password)) {
             throw new InvalidArgumentException('incorrect password');
         }

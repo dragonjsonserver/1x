@@ -40,14 +40,10 @@ class DragonX_Emailaddress_Logic_Credential
         $emailaddress = strtolower($emailaddress);
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
 
-        $listEmailaddresses = $storage->loadByConditions(
+        list ($recordEmailaddress) = $storage->loadByConditions(
             new DragonX_Emailaddress_Record_Emailaddress(),
             array('emailaddress' => $emailaddress)
         );
-        if (count($listEmailaddresses) == 0) {
-            throw new InvalidArgumentException('incorrect emailaddress');
-        }
-        list($recordEmailaddress) = $listEmailaddresses;
 
         $recordCredential = new DragonX_Emailaddress_Record_Credential(array(
             'emailaddressid' => $recordEmailaddress->id,
@@ -81,14 +77,10 @@ class DragonX_Emailaddress_Logic_Credential
     {
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
 
-        $listCredentials = $storage->loadByConditions(
+        list ($recordCredential) = $storage->loadByConditions(
             new DragonX_Emailaddress_Record_Credential(),
             array('credentialhash' => $credentialhash)
         );
-        if (count($listCredentials) == 0) {
-            throw new InvalidArgumentException('incorrect credentialhash');
-        }
-        list($recordCredential) = $listCredentials;
 
         if (!$recordEmailaddress = $storage->load(new DragonX_Emailaddress_Record_Credential($recordCredential->emailaddressid))) {
             throw new Exception('incorrect emailaddressid');

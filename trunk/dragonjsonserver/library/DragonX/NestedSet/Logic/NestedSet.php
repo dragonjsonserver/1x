@@ -27,11 +27,8 @@ class DragonX_NestedSet_Logic_NestedSet
     public function getRootNode(DragonX_NestedSet_Record_NestedSet $node)
     {
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
-        $listNodes = $storage->loadByConditions($node, array('lft' => 1));
-        if (count($listNodes) == 0) {
-            throw new Exception('missing rootnode');
-        }
-        return $listNodes[0];
+        list ($recordNode) = $storage->loadByConditions($node, array('lft' => 1));
+        return $recordNode;
     }
 
     /**
