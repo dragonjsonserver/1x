@@ -44,40 +44,31 @@ class DragonX_Cronjob_Logic_Cronjob
      */
     public function executeCronjobs()
     {
-    	$storage = Zend_Registry::get('DragonX_Storage_Engine');
+        $storage = Zend_Registry::get('DragonX_Storage_Engine');
 
-    	$listCronjobs = $storage
-    	    ->loadByConditions(new DragonX_Cronjob_Record_Cronjob())
-    	    ->indexBy('pluginname');
+        $listCronjobs = $storage
+            ->loadByConditions(new DragonX_Cronjob_Record_Cronjob())
+            ->indexBy('pluginname');
 
         $pluginregistry = Zend_Registry::get('Dragon_Plugin_Registry');
         $plugins = $pluginregistry->getPlugins('DragonX_Cronjob_Plugin_Cronjob_Interface');
         foreach ($plugins as $plugin) {
-            $pluginname = get_class($plugin);
-            if (isset($listCronjobs[$pluginname])) {
-                list($recordCronjob) = $listCronjobs[$pluginname];
-            }
             $timestamp = time();
-            $intervall = $plugin->getIntervall();
-            if ((
-                    isset($recordCronjob)
-                    &&
-                    (((int)($timestamp / 60)) - ((int)($recordCronjob->modified / 60))) <= $intervall
-                )
-                ||
-                (((int)($timestamp / 60)) - $plugin->getOffset()) % $intervall > 0) {
+            if ((((int)($timestamp / 60)) - $plugin->getOffset()) % $plugin->getIntervall() > 0) {
                 continue;
             }
             try {
                 $plugin->execute();
             } catch(Exception $exception) {
             }
-            if (isset($recordCronjob)) {
-            	$recordCronjob->count += 1;
+            $pluginname = get_class($plugin);
+            if (isset($listCronjobs[$pluginname])) {
+                list($recordCronjob) = $listCronjobs[$pluginname];
+                $recordCronjob->count += 1;
             } else {
                 $recordCronjob = new DragonX_Cronjob_Record_Cronjob(array(
-                	'pluginname' => $pluginname,
-                	'count' => 1,
+                    'pluginname' => $pluginname,
+                    'count' => 1,
                 ));
             }
             $storage->save($recordCronjob);
