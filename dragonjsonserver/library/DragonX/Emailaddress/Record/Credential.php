@@ -17,7 +17,7 @@
 /**
  * Record zur Speicherung der Daten zu einem Passwort vergessen Request
  */
-class DragonX_Account_Record_Credential extends DragonX_Storage_Record_Created
+class DragonX_Account_Record_Credential extends DragonX_Storage_Record_Created_Abstract
 {
     /**
      * @var integer

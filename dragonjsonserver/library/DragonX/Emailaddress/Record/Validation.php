@@ -17,7 +17,7 @@
 /**
  * Record zur Speicherung der Daten zu einer Validierungsabfragen
  */
-class DragonX_Emailaddress_Record_Validation extends DragonX_Storage_Record_Created
+class DragonX_Emailaddress_Record_Validation extends DragonX_Storage_Record_Created_Abstract
 {
     /**
      * @var integer

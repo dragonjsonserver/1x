@@ -15,12 +15,12 @@
  */
 
 /**
- * Record zur Speicherung der Daten mit Erstellungs- und Änderungszeitpunkt
+ * Record zur Speicherung der Daten mit Erstellungszeitpunkt
  */
-abstract class DragonX_Storage_Record_CreatedModified extends DragonX_Storage_Record_Created
+abstract class DragonX_Storage_Record_Created_Abstract extends DragonX_Storage_Record_Abstract
 {
     /**
      * @var integer
      */
-    public $modified;
+    public $created;
 }
