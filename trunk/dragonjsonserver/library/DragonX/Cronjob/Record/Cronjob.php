@@ -17,7 +17,7 @@
 /**
  * Record zur Speicherung der Daten zu einem Cronjob
  */
-class DragonX_Cronjob_Record_Cronjob extends DragonX_Storage_Record_CreatedModified
+class DragonX_Cronjob_Record_Cronjob extends DragonX_Storage_Record_CreatedModified_Abstract
 {
     /**
      * @var string
