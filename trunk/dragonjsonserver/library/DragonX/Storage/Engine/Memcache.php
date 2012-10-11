@@ -62,15 +62,15 @@ class DragonX_Storage_Engine_Memcache
     public function save(DragonX_Storage_Record_Abstract $record)
     {
         if (!isset($record->id)) {
-            if ($record instanceof DragonX_Storage_Record_Created) {
+            if ($record instanceof DragonX_Storage_Record_Created_Abstract) {
                 $record->created = time();
-                if ($record instanceof DragonX_Storage_Record_CreatedModified) {
+                if ($record instanceof DragonX_Storage_Record_CreatedModified_Abstract) {
                     $record->modified = $record->created;
                 }
             }
             $record->id = uniqid();
         } else {
-	        if ($record instanceof DragonX_Storage_Record_CreatedModified) {
+	        if ($record instanceof DragonX_Storage_Record_CreatedModified_Abstract) {
 	            $record->modified = time();
 	        }
         }

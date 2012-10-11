@@ -17,7 +17,7 @@
 /**
  * Record zur Speicherung einer Clientmessage für Alle
  */
-class DragonX_Clientmessage_Record_All extends DragonX_Storage_Record_Created
+class DragonX_Clientmessage_Record_All extends DragonX_Storage_Record_Created_Abstract
 {
     /**
      * @var string

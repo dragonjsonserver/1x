@@ -19,7 +19,7 @@ require 'password.php';
 /**
  * Record zur Speicherung der Verknüpfungsdaten zu einem Account
  */
-class DragonX_Emailaddress_Record_Emailaddress extends DragonX_Storage_Record_CreatedModified
+class DragonX_Emailaddress_Record_Emailaddress extends DragonX_Storage_Record_CreatedModified_Abstract
 {
     /**
      * @var integer

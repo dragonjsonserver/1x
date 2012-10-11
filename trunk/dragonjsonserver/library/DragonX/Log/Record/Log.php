@@ -17,7 +17,7 @@
 /**
  * Record zur Speicherung der Daten zu einem Request
  */
-class DragonX_Log_Record_Log extends DragonX_Storage_Record_Created
+class DragonX_Log_Record_Log extends DragonX_Storage_Record_Created_Abstract
 {
     /**
      * @var integer

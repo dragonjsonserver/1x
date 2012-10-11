@@ -17,5 +17,5 @@
 /**
  * Record zur Speicherung der Daten zu einem Account
  */
-abstract class DragonX_Account_Record_Account extends DragonX_Storage_Record_CreatedModified
+abstract class DragonX_Account_Record_Account extends DragonX_Storage_Record_CreatedModified_Abstract
 {}
