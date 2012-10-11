@@ -114,7 +114,7 @@ class DragonX_Account_Plugin_Install implements DragonX_Storage_Plugin_Install_I
 
                 $sqlstatements[] =
                       "INSERT INTO `dragonx_emailaddress_record_emailaddress` (`created`, `modified`, `accountid`, `emailaddress`, `passwordhash`) "
-                    . "SELECT UNIX_TIMESTAMP(NOW()), UNIX_TIMESTAMP(NOW()), `id`, `identity`, `credential` FROM `dragonx_account_record_account` WHERE `identity` IS NOT NULL";
+                    . "SELECT UNIX_TIMESTAMP(NOW()), UNIX_TIMESTAMP(NOW()), `id`, `identity`, '' FROM `dragonx_account_record_account` WHERE `identity` IS NOT NULL";
 
                 $sqlstatements[] =
                       "INSERT INTO `dragonx_emailaddress_record_credential` (`created`, `emailaddressid`, `credentialhash`) "
