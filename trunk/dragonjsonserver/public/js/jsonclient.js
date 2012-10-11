@@ -124,7 +124,7 @@ function JsonClient(serverurl, options, callbacks, defaultparams)
         		}
         	},
         }, self.options, options, {
-            success : function (json) {
+            success : function (json, statusText, jqXHR) {
         		var clientmessageResponse = json;
         		if ($.isArray(json)) {
         			clientmessageResponse = json[json.length - 1];
@@ -153,9 +153,9 @@ function JsonClient(serverurl, options, callbacks, defaultparams)
 	                clientmessageResponse.result = clientmessageResponse.result.result;
         		}
 				if (options.success != undefined) {
-					options.success(json);
+					options.success(json, statusText, jqXHR);
 				} else if (self.options.success != undefined) {
-					self.options.success(json);
+					self.options.success(json, statusText, jqXHR);
 				}
             }
         }));
