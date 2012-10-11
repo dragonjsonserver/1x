@@ -78,9 +78,13 @@ class DragonX_Storage_Engine_ZendDbAdataper
      * Speichert den übergebenen Record im Storage
      * @param DragonX_Storage_Record_Abstract $record
      * @return integer
+     * @throws InvalidArgumentException
      */
     public function save(DragonX_Storage_Record_Abstract $record)
     {
+    	if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
+            throw new InvalidArgumentException('record is readonly');
+    	}
         if (!isset($record->id)) {
             if ($record instanceof DragonX_Storage_Record_Created_Abstract) {
                 $record->created = time();
@@ -121,7 +125,10 @@ class DragonX_Storage_Engine_ZendDbAdataper
     {
     	$count = 0;
     	foreach ($list as $record) {
-    		$count += $this->save($record);
+    		try {
+    		    $count += $this->save($record);
+    		} catch (Exception $exception) {
+    		}
     	}
         return $count;
     }
@@ -170,9 +177,13 @@ class DragonX_Storage_Engine_ZendDbAdataper
      * Entfernt den übergebenen Record aus dem Storage
      * @param DragonX_Storage_Record_Abstract $record
      * @return integer
+     * @throws InvalidArgumentException
      */
     public function delete(DragonX_Storage_Record_Abstract $record)
     {
+        if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
+            throw new InvalidArgumentException('record is readonly');
+        }
         if (isset($record->id)) {
             $count = $this->getAdapter()->delete($this->getTablename($record), 'id = ' . (int)$record->id);
             unset($record->id);
@@ -190,6 +201,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
     {
     	$count = 0;
         foreach ($list->indexByNamespace() as $namespace => $sublist) {
+        	$sublist->unsetReadOnlyRecords();
             $count += $this->executeSqlStatement(
                 "DELETE FROM `" . $this->getTablename($namespace) . "` WHERE id IN (" . implode(', ', $sublist->getIds()) . ")"
             )->rowCount();
@@ -261,9 +273,13 @@ class DragonX_Storage_Engine_ZendDbAdataper
      * @param array $values
      * @param array $conditions
      * @return integer
+     * @throws InvalidArgumentException
      */
     public function updateByConditions(DragonX_Storage_Record_Abstract $record, array $values, array $conditions = array())
     {
+        if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
+            throw new InvalidArgumentException('record is readonly');
+        }
     	return $this->getAdapter()->update($this->getTablename($record), $values, $conditions);
     }
 
@@ -272,9 +288,13 @@ class DragonX_Storage_Engine_ZendDbAdataper
      * @param DragonX_Storage_Record_Abstract $record
      * @param array $conditions
      * @return integer
+     * @throws InvalidArgumentException
      */
     public function deleteByConditions(DragonX_Storage_Record_Abstract $record, array $conditions = array())
     {
+        if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
+            throw new InvalidArgumentException('record is readonly');
+        }
         return $this->getAdapter()->delete($this->getTablename($record), $conditions);
     }
 
