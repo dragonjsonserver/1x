@@ -22,12 +22,22 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.7.0 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.7.0 der Projektvorlage ist abgeschlossen und '
+                . 'als Download verfügbar. In der Version wurde die '
+                . 'Einstellungsdatei \'/config/packagenamespaces.php\' '
+                . 'erweitert um standardmäßig alle Plugins und Services der '
+                . 'Namensräume Dragon und DragonX einzubinden.',
+            'timestamp' => 0,
+        ),
+        array(
             'title' => 'Version 1.6.0 zum Download verfügbar',
             'content' =>
-                  'Die Version 1.6.0 ist abgeschlossen und als Download '
-                . 'verfügbar. In der Version wurde die Projektvorlage '
-                . 'und bietet nun eine einfache Vorlage für eigene Projekte '
-                . 'auf Basis des DragonJsonServers.',
+                  'Die Version 1.6.0 der Projektvorlage ist abgeschlossen und '
+                . 'als Download verfügbar. In der Version wurde die '
+                . 'Projektvorlage als einfacher Einstieg für eigene Projekte '
+                . 'auf Basis des DragonJsonServers erstellt.',
             'timestamp' => 1347580549,
         ),
     ),
