@@ -34,6 +34,10 @@ abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Acces
     	if (is_numeric($data)) {
     		$data = array('id' => $data);
     	}
+        if ($data instanceof DragonX_Application_Accessor_Abstract) {
+            $data = $data->toArray();
+            unset($data['id']);
+        }
     	parent::__construct($data);
     }
 
