@@ -28,9 +28,14 @@ class DragonX_Account_Logic_Account
         $recordAccount = new Application_Account_Record_Account();
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordAccount);
         Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
+            'DragonX_Account_Plugin_LoadAccount_Interface',
+            array($recordAccount)
+        );
+        Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
             'DragonX_Account_Plugin_CreateAccount_Interface',
             array($recordAccount)
         );
+        Zend_Registry::set('recordAccount', $recordAccount);
         return $recordAccount;
     }
 
