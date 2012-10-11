@@ -14,6 +14,8 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 
+require 'password.php';
+
 /**
  * Record zur Speicherung der Verknüpfungsdaten zu einem Account
  */
@@ -58,7 +60,7 @@ class DragonX_Emailaddress_Record_Emailaddress extends DragonX_Storage_Record_Cr
      */
     public function hashPassword($password)
     {
-        $this->passwordhash = md5($password);
+        $this->passwordhash = password_hash($password, PASSWORD_DEFAULT);
     }
 
     /**
@@ -68,6 +70,6 @@ class DragonX_Emailaddress_Record_Emailaddress extends DragonX_Storage_Record_Cr
      */
     public function verifyPassword($password)
     {
-        return $this->passwordhash == md5($password);
+        return password_verify($password, $this->passwordhash);
     }
 }

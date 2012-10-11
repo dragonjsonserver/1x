@@ -119,7 +119,8 @@
 </ul>
 <h2>Migration vom Branch 1.6</h2>
 <h3>Benötigt</h3>
-<div class="alert alert-warning">Achtung: Durch die Trennung der Pakete Account und Emailaddress muss vor der Ausführung der 'install.php' das Paket Emailaddress hinzugefügt werden, da sonst alle Verknüpfungen zu den Accounts verloren gehen. Ebenfalls aktiviert werden muss das Paket Account aus dem Application Namensraum, da sind die Accounts verloren gehen.</div>
+<div class="alert alert-warning">Achtung: Durch die Trennung der Pakete Account und Emailaddress muss vor der Ausführung der 'install.php' das Paket Emailaddress hinzugefügt werden, da sonst alle Verknüpfungen zu den Accounts verloren gehen. Ebenfalls aktiviert werden muss das Paket Account aus dem Application Namensraum, da sonst die Accounts verloren gehen.</div>
+<div class="alert alert-warning">Achtung: Durch die Umstellung der Passwort Hashes auf bcrypt werden alle vorhandenen Passwort Hashes verworfen. Bestehende Accounts müssen durch die Passwort vergessen Möglichkeit neue Passwörter setzen.</div>
 <ul>
     <li>Durch die Umstellung der beiden Clientmessagequellen auf die neue Recordklasse mit einem Erstellungszeitpunkt erhält der Client nun bei jeder Clientmessage ihren Erstellungszeitpunkt als 'created' statt als 'timestamp'</li>
     <li>Durch die Umbennung der Eigenschaftsklasse 'DragonX_Application_Accessor' in 'DragonX_Application_Accessor_Abstract' müssen alle eigenen davon abgeleiteten Klassen angepasst werden</li>

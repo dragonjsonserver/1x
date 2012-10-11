@@ -35,7 +35,7 @@ class DragonX_Emailaddress_Plugin_Install implements DragonX_Storage_Plugin_Inst
                     . "`modified` INT(10) UNSIGNED NOT NULL, "
                     . "`accountid` INT(10) UNSIGNED NOT NULL, "
                     . "`emailaddress` VARCHAR(255) NOT NULL, "
-                    . "`passwordhash` CHAR(32) NOT NULL, "
+                    . "`passwordhash` CHAR(60) BINARY NOT NULL, "
                     . "PRIMARY KEY (`id`), "
                     . "UNIQUE KEY `accountid` (`accountid`), "
                     . "UNIQUE KEY `emailaddress` (`emailaddress`)"
