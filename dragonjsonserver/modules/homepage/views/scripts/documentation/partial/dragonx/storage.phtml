@@ -72,14 +72,15 @@
 </ul>
 <h3>Erstellung einer Recordklasse</h3>
 <ul>
-    <li>Definition der Recordklasse im eigenen Paket</li>
     <li>
-        Es stehen mit 'DragonX_Storage_Record_Created_Abstract' und 'DragonX_Storage_Record_CreatedModified_Abstract' auch abstrakte Recordklassen zur Verfügung welche ein Erstellungs- und Änderungszeitpunkt definieren. Davon abgeleitete Records erhalten beim Speichern in eine Storage Engine automatisch die Zeitpunkte
+        Definition der Recordklasse im eigenen Paket
 <pre>class %packagenamespace%_%packagename%_Record_%recordname% extends DragonX_Storage_Record_Abstract
 {
     public $attribute;
 }</pre>
     </li>
+    <li>Es stehen mit 'DragonX_Storage_Record_Created_Abstract' und 'DragonX_Storage_Record_CreatedModified_Abstract' auch abstrakte Recordklassen zur Verfügung welche ein Erstellungs- und Änderungszeitpunkt definieren. Davon abgeleitete Records erhalten beim Speichern in eine Storage Engine automatisch die Zeitpunkte</li>
+    <li>Mit der Implementierung von 'DragonX_Storage_Record_ReadOnly_Interface' können Recordklassen definiert werden, welche nicht in persistenten Storage Engines gespeichert werden können</li>
     <li>Verwendung von geschützten Attributen mit Settern/Gettern</li>
     <li>
         Die geschützten Attribute stehen nach aussen wie öffentliche Attribute zur Verfügung

@@ -74,6 +74,7 @@
                 <ul>
                     <li>Umstellung der Records für die Cronjobs auf die neue Recordklasse mit einem Erstellungs- und Änderungszeitpunkt</li>
                     <li>Es ist nun möglich einzelne Cronjobs gezielt auszuführen auch wenn sie zeitlich noch nicht ausgeführt werden sollen</li>
+                    <li>Cronjobs prüfen nicht mehr den letzten Ausführungszeitpunkt sondern werden bei jedem Intervall ausgeführt</li>
                 </ul>
             </li>
             <li>
@@ -100,6 +101,10 @@
                     <li>Der Datenbankname für die Storage Engine steht nun mit 'getDatabasename()' zur Verfügung</li>
                     <li>Der Adapter für die Storage Engine steht nun mit 'getAdapter()' auch nach aussen zur Verfügung</li>
                     <li>Bei der Übergabe eines Records an einen anderen Record werden nun alle Daten bis auf die ID übernommen</li>
+                    <li>Beim Laden eines einzelnen Records aus einer Storage Engine wird nun eine Exception geworfen wenn der Record nicht vorhanden ist</li>
+                    <li>'offsetGet()' der RecordList wirft nun eine Exception wenn der Index nicht belegt ist. Somit kann man sich den ersten Datensatz einer RecordList immer mit 'list()' holen und muss nicht selbst vorher prüfen ob Records enthalten sind</li>
+                    <li>Die Schnittstelle 'DragonX_Storage_Record_ReadOnly_Interface' steht nun für Records zur Verfügung die nicht in einer persistenten Storage Engine gespeichert werden dürfen. Bei schreibende Aktionen mit solchen Records werden von der ZendDbAdataper Storage Engine Exceptions geworfen</li>
+                    <li>Wenn Record Listen gefiltert werden durch das Entfernen von neuen, geladenen oder ReadOnly Records werden die Keys nun neu durchnummeriert</li>
                 </ul>
             </li>
         </ul>
@@ -108,10 +113,12 @@
 <h4>Allgemein</h4>
 <ul>
     <li>Die Konstante 'APPLICATION_PATH' wird in der 'bootstrap.php' definiert wenn das Repository 'application' vorhanden ist</li>
+    <li>Es besteht nun die Möglichkeit weitere Aktionen über eine 'bootstrap.php' im Application Repository zu definieren die vor allen anderen Aktionen (auch den normalen Bootstrap Plugins) ausgeführt werden</li>
 </ul>
 <h4>JsonClient</h4>
 <ul>
     <li>Unterstützt nun Htaccess Authentifizierung durch die Methode 'setAuthenticate()'</li>
+    <li>Bei der Callbackfunktion für 'success' werden nun alle Parameter weitergereicht die jQuery Ajax Requests anbieten</li>
 </ul>
 <h4>DragonJsonClient</h4>
 <ul>

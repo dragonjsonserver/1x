@@ -63,6 +63,7 @@ class DragonX_Storage_RecordList extends ArrayObject
         foreach ($nullKeys as $nullKey) {
             unset($this[$nullKey]);
         }
+        $this->exchangeArray(array_values((array)$this));
         return $this;
     }
 
@@ -81,6 +82,26 @@ class DragonX_Storage_RecordList extends ArrayObject
         foreach ($nullKeys as $nullKey) {
             unset($this[$nullKey]);
         }
+        $this->exchangeArray(array_values((array)$this));
+        return $this;
+    }
+
+    /**
+     * Entfernt alle ReadOnly Records aus der Liste
+     * @return DragonX_Storage_RecordList
+     */
+    public function unsetReadOnlyRecords()
+    {
+        $nullKeys = array();
+        foreach ($this as $key => $record) {
+            if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
+                $nullKeys[] = $key;
+            }
+        }
+        foreach ($nullKeys as $nullKey) {
+            unset($this[$nullKey]);
+        }
+        $this->exchangeArray(array_values((array)$this));
         return $this;
     }
 
