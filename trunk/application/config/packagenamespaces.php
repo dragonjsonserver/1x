@@ -17,51 +17,11 @@
 /**
  * @return array
  */
+$packagenamespaces = require DRAGONJSONSERVER_PATH . '/config/packagenamespaces.php';
 return array(
-    'Dragon' => array(
-        'Application' => array(
-            'Service' => array('Application')
-        ),
-        'Json',
-        'Package',
-        'Plugin',
-        'Repository',
-    ),
-    'DragonX' => array(
-        'Account' => array(
-            'Plugin' => array('Account', 'Deletion', 'Session', 'Install'),
-            'Service' => array('Account', 'Deletion', 'Session'),
-        ),
-        'Acl' => array(
-            'Plugin' => array('Acl', 'Install'),
-        ),
-        'Application',
-        'Clientmessage' => array(
-            'Plugin' => array('Clientmessage', 'Account', 'All', 'Install'),
-        ),
-        'Cronjob' => array(
-            'Plugin' => array('Install'),
-            'Service' => array('Cronjob'),
-        ),
-        'Emailaddress' => array(
-            'Plugin' => array('Install'),
-            'Service' => array('Credential', 'Emailaddress', 'Validation'),
-        ),
-        'Homepage',
-        'Log' => array(
-            'Plugin' => array('Account', 'Log', 'Request', 'Install'),
-        ),
-        'NestedSet',
-        'Storage' => array(
-            'Plugin' => array('Database', 'Storage'),
-        ),
-    ),
     'Application' => array(
-        'Account' => array(
-            'Plugin' => array('Install'),
-        ),
         'Application' => array(
             'Service' => array('Application'),
         ),
-    ),
-);
+    ) + $packagenamespaces['Application'],
+) + $packagenamespaces;
