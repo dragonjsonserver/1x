@@ -49,21 +49,31 @@ class DragonX_Storage_RecordList extends ArrayObject
     }
 
     /**
+     * Entfernt alle Records aus der Liste mit den übergebenen Keys
+     * @return DragonX_Storage_RecordList
+     */
+    public function unsetKeys(array $keys)
+    {
+        foreach ($keys as $key) {
+            unset($this[$nullKey]);
+        }
+        $this->exchangeArray(array_values((array)$this));
+        return $this;
+    }
+
+    /**
      * Entfernt alle Records aus der Liste die neu sind
      * @return DragonX_Storage_RecordList
      */
     public function unsetNewRecords()
     {
-        $nullKeys = array();
+        $keys = array();
         foreach ($this as $key => $record) {
             if (!isset($record->id)) {
-                $nullKeys[] = $key;
+                $keys[] = $key;
             }
         }
-        foreach ($nullKeys as $nullKey) {
-            unset($this[$nullKey]);
-        }
-        $this->exchangeArray(array_values((array)$this));
+        $this->unsetKeys($keys);
         return $this;
     }
 
@@ -73,16 +83,13 @@ class DragonX_Storage_RecordList extends ArrayObject
      */
     public function unsetLoadedRecords()
     {
-        $nullKeys = array();
+        $keys = array();
         foreach ($this as $key => $record) {
             if (isset($record->id)) {
-                $nullKeys[] = $key;
+                $keys[] = $key;
             }
         }
-        foreach ($nullKeys as $nullKey) {
-            unset($this[$nullKey]);
-        }
-        $this->exchangeArray(array_values((array)$this));
+        $this->unsetKeys($keys);
         return $this;
     }
 
@@ -92,16 +99,13 @@ class DragonX_Storage_RecordList extends ArrayObject
      */
     public function unsetReadOnlyRecords()
     {
-        $nullKeys = array();
+        $keys = array();
         foreach ($this as $key => $record) {
             if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
-                $nullKeys[] = $key;
+                $keys[] = $key;
             }
         }
-        foreach ($nullKeys as $nullKey) {
-            unset($this[$nullKey]);
-        }
-        $this->exchangeArray(array_values((array)$this));
+        $this->unsetKeys($keys);
         return $this;
     }
 
@@ -113,7 +117,9 @@ class DragonX_Storage_RecordList extends ArrayObject
     {
         $ids = array();
         foreach ($this as $record) {
-            $ids[] = $record->id;
+            if (isset($record->id)) {
+                $ids[] = $record->id;
+            }
         }
         return $ids;
     }
@@ -187,8 +193,8 @@ class DragonX_Storage_RecordList extends ArrayObject
     public function toArray()
     {
         $array = array();
-        foreach ($this as $key => $record) {
-            $array[$key] = $record->toArray();
+        foreach ($this as $key => $value) {
+            $array[$key] = $value->toArray();
         }
         return $array;
     }
