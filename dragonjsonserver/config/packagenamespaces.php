@@ -43,6 +43,10 @@ return array(
             'Plugin' => array('Install'),
             'Service' => array('Cronjob'),
         ),
+        'Device' => array(
+            'Plugin' => array('Install'),
+            'Service' => array('Device'),
+        ),
         'Emailaddress' => array(
             'Plugin' => array('Install'),
             'Service' => array('Credential', 'Emailaddress', 'Validation'),
