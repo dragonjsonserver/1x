@@ -36,8 +36,6 @@ class DragonX_Device_Plugin_Install implements DragonX_Storage_Plugin_Install_In
                     . "`accountid` INT(10) UNSIGNED NOT NULL, "
                     . "`platform` VARCHAR(255) NOT NULL, "
                     . "`name` VARCHAR(255) NOT NULL, "
-                    . "`pushnotification_platform` VARCHAR(255) NOT NULL, "
-                    . "`pushnotification_token` VARCHAR(255) NOT NULL, "
                     . "PRIMARY KEY (`id`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }

@@ -23,13 +23,11 @@ class DragonX_Device_Service_Device
      * Fügt dem Account ein Gerät hinzu
      * @param string $platform
      * @param string $name
-     * @param string $pushnotification_platform
-     * @param string $pushnotification_token
      * @dragonx_account_authenticate
      */
-    public function addDevice($platform, $name, $pushnotification_platform, $pushnotification_token)
+    public function addDevice($platform, $name)
     {
         $logicDevice = new DragonX_Device_Logic_Device();
-        $logicDevice->addDevice(Zend_Registry::get('recordAccount'), $platform, $name, $pushnotification_platform, $pushnotification_token);
+        $logicDevice->addDevice(Zend_Registry::get('recordAccount'), $platform, $name);
     }
 }
