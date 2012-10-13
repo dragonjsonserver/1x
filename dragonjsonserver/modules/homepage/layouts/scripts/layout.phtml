@@ -76,22 +76,13 @@
                     </ul>
                     <?php if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) { ?>
                     <div class="btn-group pull-right">
-                        <?php if (isset($this->recordAccount) && isset($this->recordAccount->identity)) { ?>
+                        <?php if (isset($this->recordAccount)) { ?>
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="">
-                            <?php echo $this->recordAccount->identity; ?>
+                            <?php echo $this->recordEmailaddress->emailaddress; ?>
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'showedit'), null, true); ?>">Bearbeiten</a></li>
-                            <li><a href="<?php echo $this->url(array('controller' => 'account', 'action' => 'logout'), null, true); ?>">Abmelden</a></li>
-                        </ul>
-                        <?php } elseif (isset($this->recordAccount)) { ?>
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="">
-                            Temporäres Profil
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'showsave'), null, true); ?>">Speichern</a></li>
                             <li><a href="<?php echo $this->url(array('controller' => 'account', 'action' => 'logout'), null, true); ?>">Abmelden</a></li>
                         </ul>
                         <?php } else { ?>
@@ -101,7 +92,6 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo $this->url(array('controller' => 'account', 'action' => 'showlogin'), null, true); ?>">Anmelden</a></li>
-                            <li><a href="<?php echo $this->url(array('controller' => 'account', 'action' => 'temporary'), null, true); ?>">Sofort loslegen</a></li>
                             <li><a href="<?php echo $this->url(array('controller' => 'account', 'action' => 'showregister'), null, true); ?>">Registrieren</a></li>
                         </ul>
                         <?php } ?>
@@ -112,11 +102,8 @@
         </div>
         <div class="container">
             <?php
-                if (isset($this->recordAccount) && !isset($this->recordAccount->identity)) {
-                    $this->messages[] = '<div class="alert">Das Profil ist nur temporär und wird durch die Abmeldung oder Auslauf der Session wieder entfernt. Speichern sie das Profil um es dauerhaft verfügbar zu machen</div>';
-                }
                 if (isset($this->recordDeletion)) {
-                    $this->messages[] = '<div class="alert">Profil wurde zum Löschen eingetragen und wird nach dem ' . date('d.m.Y', $this->recordDeletion->timestamp) . ' gelöscht</div>';
+                    $this->messages[] = '<div class="alert">Profil wurde zum Löschen eingetragen und wird nach dem ' . date('d.m.Y', $this->recordDeletion->created) . ' gelöscht</div>';
                 }
                 foreach ($this->messages as $message) {
                 	echo $message;

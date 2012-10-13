@@ -33,35 +33,22 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
 	}
 
     /**
-     * Erstellt einen temporären Account der nur begrenzt gültig ist
-     */
-    public function temporaryAction()
-    {
-        $logicAccount = new DragonX_Account_Logic_Account();
-        $sessionNamespace = new Zend_Session_Namespace();
-        $sessionNamespace->sessionhash = $logicAccount->loginAccount(
-            $logicAccount->temporaryAccount()
-        );
-
-        $this->_helper->FlashMessenger('<div class="alert alert-success">Erstellung des temporären Profils erfolgreich</div>');
-        $this->_redirect('administration');
-    }
-
-    /**
-     * Registriert einen Account mit der Identity und dem Credential
+     * Registriert einen Account mit der E-Mail Adresse und dem Passwort
      */
     public function registerAction()
     {
         try {
-            $params = $this->getRequiredParams(array('identity', 'credential'));
+            $params = $this->getRequiredParams(array('emailaddress', 'password'));
 
             $logicAccount = new DragonX_Account_Logic_Account();
-            $configValidation = new Dragon_Application_Config('dragonx/account/validation');
-            $logicAccount->registerAccount($params['identity'], $params['credential'], $configValidation->validationlink);
-	        $sessionNamespace = new Zend_Session_Namespace();
-            $sessionNamespace->sessionhash = $logicAccount->loginAccount(
-                $logicAccount->authenticateAccount($params['identity'], $params['credential'])
-            );
+            $recordAccount = $logicAccount->createAccount();
+            $logicEmailaddress = new DragonX_Emailaddress_Logic_Emailaddress();
+            $configValidation = new Dragon_Application_Config('dragonx/emailaddress/validation');
+            $logicEmailaddress->linkAccount($recordAccount, $params['emailaddress'], $params['password'], $configValidation->validationlink);
+
+            $logicSession = new DragonX_Account_Logic_Session();
+            $sessionNamespace = new Zend_Session_Namespace();
+            $sessionNamespace->sessionhash = $logicSession->loginAccount($recordAccount);
         } catch (InvalidArgumentException $exception) {
             $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse nicht korrekt</div>');
             $this->_redirect('account/showregister');
@@ -90,12 +77,12 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
         try {
             $params = $this->getRequiredParams(array('validationhash'));
 
-            $logicAccount = new DragonX_Account_Logic_Account();
             $logicValidation = new DragonX_Account_Logic_Validation();
+            $recordAccount = $logicValidation->validate($params['validationhash']);
+
+            $logicSession = new DragonX_Account_Logic_Session();
             $sessionNamespace = new Zend_Session_Namespace();
-            $sessionNamespace->sessionhash = $logicAccount->loginAccount(
-                $logicValidation->validate($params['validationhash'])
-            );
+            $sessionNamespace->sessionhash = $logicSession->loginAccount($recordAccount);
         } catch (Exception $exception) {
             $this->_helper->FlashMessenger('<div class="alert alert-error">Validierungslink nicht korrekt</div>');
             $this->_redirect('account/showlogin');
@@ -112,13 +99,16 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
     {
     	$redirect = $this->getOptionalParam('redirect', 'administration');
     	try {
-            $params = $this->getRequiredParams(array('identity', 'credential'));
+            $params = $this->getRequiredParams(array('emailaddress', 'password'));
 
-	        $logicAccount = new DragonX_Account_Logic_Account();
-	        $sessionNamespace = new Zend_Session_Namespace();
-            $sessionNamespace->sessionhash = $logicAccount->loginAccount(
-                $logicAccount->authenticateAccount($params['identity'], $params['credential'])
+            $logicEmailaddress = new DragonX_Emailaddress_Logic_Emailaddress();
+            $recordAccount = $logicEmailaddress->getAccount(
+                $params['emailaddress'], $params['password']
             );
+
+            $logicSession = new DragonX_Account_Logic_Session();
+            $sessionNamespace = new Zend_Session_Namespace();
+            $sessionNamespace->sessionhash = $logicSession->loginAccount($recordAccount);
     	} catch (Exception $exception) {
 	        $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse oder Passwort nicht korrekt</div>');
 	        if ($redirect == 'administration') {
@@ -151,8 +141,8 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
         if (!isset($sessionNamespace->sessionhash)) {
             $this->_redirect('');
         }
-        $logicAccount = new DragonX_Account_Logic_Account();
-        $logicAccount->logoutAccount($sessionNamespace->sessionhash);
+        $logicSession = new DragonX_Account_Logic_Session();
+        $logicSession->logoutAccount($sessionNamespace->sessionhash);
         $sessionNamespace->unsetAll();
 
         $this->_helper->FlashMessenger('<div class="alert alert-success">Abmeldung erfolgreich</div>');

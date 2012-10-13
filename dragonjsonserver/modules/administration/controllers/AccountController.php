@@ -20,61 +20,16 @@
 class Administration_AccountController extends DragonX_Homepage_Controller_Abstract
 {
     /**
-     * Speichert den Account mit der Identity und dem Credential
-     */
-    public function saveAction()
-    {
-        $recordAccount = $this->view->recordAccount;
-        if (isset($recordAccount->identity)) {
-            throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
-        }
-
-        try {
-            $params = $this->getRequiredParams(array('identity', 'credential'));
-
-            $logicAccount = new DragonX_Account_Logic_Account();
-            $configValidation = new Dragon_Application_Config('dragonx/account/validation');
-            $logicAccount->saveAccount($recordAccount, $params['identity'], $params['credential'], $configValidation->validationlink);
-        } catch (InvalidArgumentException $exception) {
-            $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse nicht korrekt</div>');
-            $this->_redirect('account/showedit');
-        } catch (Exception $exception) {
-            $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse bereits vergeben</div>');
-            $this->_redirect('account/showedit');
-        }
-
-        $this->_helper->FlashMessenger('<div class="alert alert-success">Speicherung des Profils erfolgreich</div>');
-        $this->_redirect('administration');
-    }
-
-    /**
-     * Zeigt das Formular zur Speicherung eines Accounts an
-     */
-    public function showsaveAction()
-    {
-        if (isset($this->view->recordAccount->identity)) {
-            throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
-        }
-
-        $this->render('save');
-    }
-
-    /**
      * Ändert die E-Mail Adresse trägt eine neue Validierungabfrage ein
      */
-    public function changeidentityAction()
+    public function changeemailaddressAction()
     {
-        $recordAccount = $this->view->recordAccount;
-    	if (!isset($recordAccount->identity)) {
-    		throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
-    	}
-
         try {
-            $params = $this->getRequiredParams(array('newidentity'));
+            $params = $this->getRequiredParams(array('newemailaddress'));
 
-            $logicAccount = new DragonX_Account_Logic_Account();
-            $configValidation = new Dragon_Application_Config('dragonx/account/validation');
-            $logicAccount->changeIdentity($recordAccount, $params['newidentity'], $configValidation->validationlink);
+	        $logicValidation = new DragonX_Emailaddress_Logic_Validation();
+	        $configValidation = new Dragon_Application_Config('dragonx/emailaddress/validation');
+	        $logicValidation->changeEmailaddress(Zend_Registry::get('recordAccount'), $params['newemailaddress'], $configValidation->validationlink);
         } catch (InvalidArgumentException $exception) {
             $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse nicht korrekt</div>');
             $this->_redirect('account/showedit');
@@ -90,17 +45,12 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
     /**
      * Ändert das Passwort für den Account
      */
-    public function changecredentialAction()
+    public function changepasswordAction()
     {
-        $recordAccount = $this->view->recordAccount;
-        if (!isset($recordAccount->identity)) {
-            throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
-        }
+        $params = $this->getRequiredParams(array('newpassword'));
 
-        $params = $this->getRequiredParams(array('newcredential'));
-
-        $logicAccount = new DragonX_Account_Logic_Account();
-        $logicAccount->changeCredential($recordAccount, $params['newcredential']);
+        $logicCredential = new DragonX_Emailaddress_Logic_Credential();
+        $logicCredential->changePassword(Zend_Registry::get('recordAccount'), $params['newpassword']);
 
         $this->_helper->FlashMessenger('<div class="alert alert-success">Änderung des Passworts erfolgreich</div>');
         $this->_redirect('administration');
@@ -111,13 +61,8 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
      */
     public function deleteaccountAction()
     {
-        $recordAccount = $this->view->recordAccount;
-        if (!isset($recordAccount->identity)) {
-            throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
-        }
-
-        $logicAccount = new DragonX_Account_Logic_Account();
-        $logicAccount->deleteAccount($recordAccount);
+        $logicDeletion = new DragonX_Account_Logic_Deletion();
+        $logicDeletion->deleteAccount(Zend_Registry::get('recordAccount'));
 
         $this->_helper->FlashMessenger('<div class="alert alert-success">Löschung des Profils eingetragen</div>');
         $this->_redirect('administration');
@@ -128,13 +73,8 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
      */
     public function deletedeletionAction()
     {
-        $recordAccount = $this->view->recordAccount;
-        if (!isset($recordAccount->identity)) {
-            throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
-        }
-
-        $logicAccount = new DragonX_Account_Logic_Account();
-        $logicAccount->deleteDeletion($recordAccount);
+        $logicDeletion = new DragonX_Account_Logic_Deletion();
+        $logicDeletion->deleteDeletion(Zend_Registry::get('recordAccount'));
 
         $this->_helper->FlashMessenger('<div class="alert alert-success">Löschung des Profils zurückgesetzt</div>');
         $this->_redirect('administration');
@@ -145,10 +85,6 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
      */
     public function showeditAction()
     {
-        if (!isset($this->view->recordAccount->identity)) {
-            throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $this->getRequest()->getControllerName() . ')');
-        }
-
         $this->render('edit');
     }
 }

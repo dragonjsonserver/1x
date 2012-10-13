@@ -20,6 +20,21 @@
 class DragonX_Emailaddress_Logic_Emailaddress
 {
     /**
+     * Gibt die Daten der E-Mail Adresse zum Account zurück
+     * @param Application_Account_Record_Account $recordAccount
+     * @throws InvalidArgumentException
+     * @return DragonX_Emailaddress_Record_Emailaddress
+     */
+    public function getEmailaddress(Application_Account_Record_Account $recordAccount)
+    {
+        list ($recordEmailaddress) = Zend_Registry::get('DragonX_Storage_Engine')->loadByConditions(
+            new DragonX_Emailaddress_Record_Emailaddress(),
+            array('accountid' => $recordAccount->id)
+        );
+        return $recordEmailaddress;
+    }
+
+    /**
      * Gibt den Account mit der E-Mail Adresse und dem Passwort zurück
      * @param string $emailaddress
      * @param string $password

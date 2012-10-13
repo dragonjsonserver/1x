@@ -37,10 +37,15 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
         if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) {
             $sessionNamespace = new Zend_Session_Namespace();
             if (isset($sessionNamespace->sessionhash)) {
-	            $logicAccount = new DragonX_Account_Logic_Account();
+	            $logicSession = new DragonX_Account_Logic_Session();
 	            try {
-            	    $this->view->recordAccount = $recordAccount = $logicAccount->getAccount($sessionNamespace->sessionhash);
-	                $recordDeletion = $logicAccount->getDeletion($recordAccount);
+	            	$recordAccount = $logicSession->getAccount($sessionNamespace->sessionhash);
+	            	Zend_Registry::set('recordAccount', $recordAccount);
+            	    $this->view->recordAccount = $recordAccount;
+            	    $logicEmailaddress = new DragonX_Emailaddress_Logic_Emailaddress();
+            	    $this->view->recordEmailaddress = $logicEmailaddress->getEmailaddress($recordAccount);
+            	    $logicDeletion = new DragonX_Account_Logic_Deletion();
+	                $recordDeletion = $logicDeletion->getDeletion($recordAccount);
 	                if (isset($recordDeletion)) {
 	                    $this->view->recordDeletion = $recordDeletion;
 	                }

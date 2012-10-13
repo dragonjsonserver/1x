@@ -21,11 +21,13 @@ class DragonX_Emailaddress_Logic_Credential
 {
     /**
      * Ändert das Passwort für den Account
-     * @param DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress
+     * @param Application_Account_Record_Account $recordAccount
      * @param string $newpassword
      */
-    public function changePassword(DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress, $newpassword)
+    public function changePassword(Application_Account_Record_Account $recordAccount, $newpassword)
     {
+        $logicEmailaddress = new DragonX_Emailaddress_Logic_Emailaddress();
+        $recordEmailaddress = $logicEmailaddress->getEmailaddress($recordAccount);
         $recordEmailaddress->hashPassword($newpassword);
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordEmailaddress);
     }
@@ -82,7 +84,7 @@ class DragonX_Emailaddress_Logic_Credential
             array('credentialhash' => $credentialhash)
         );
 
-        $recordEmailaddress = $storage->load(new DragonX_Emailaddress_Record_Credential($recordCredential->emailaddressid));
+        $recordEmailaddress = $storage->load(new DragonX_Emailaddress_Record_Emailaddress($recordCredential->emailaddressid));
         $recordEmailaddress->hashPassword($newpassword);
         $storage->save($recordEmailaddress);
         $storage->delete($recordCredential);
