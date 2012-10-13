@@ -26,12 +26,8 @@ class DragonX_Emailaddress_Service_Credential
      */
     public function changePassword($newpassword)
     {
-        list ($recordEmailaddress) = Zend_Registry::get('DragonX_Storage_Engine')->loadByConditions(
-            new DragonX_Emailaddress_Record_Emailaddress(),
-            array('accountid' => Zend_Registry::get('recordAccount')->id)
-        );
         $logicCredential = new DragonX_Emailaddress_Logic_Credential();
-        $logicCredential->changePassword($recordEmailaddress, $newpassword);
+        $logicCredential->changePassword(Zend_Registry::get('recordAccount'), $newpassword);
     }
 
     /**

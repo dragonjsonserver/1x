@@ -38,11 +38,11 @@ class CredentialController extends DragonX_Homepage_Controller_Abstract
     public function requestAction()
     {
         try {
-            $params = $this->getRequiredParams(array('identity'));
+            $params = $this->getRequiredParams(array('emailaddress'));
 
-	        $logicCredential = new DragonX_Account_Logic_Credential();
-	        $configCredential = new Dragon_Application_Config('dragonx/account/credential');
-	        $logicCredential->request($params['identity'], $configCredential->credentiallink);
+	        $logicCredential = new DragonX_Emailaddress_Logic_Credential();
+	        $configCredential = new Dragon_Application_Config('dragonx/emailaddress/credential');
+	        $logicCredential->request($params['emailaddress'], $configCredential->credentiallink);
         } catch (Exception $exception) {
             $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse nicht vorhanden</div>');
             $this->_redirect('credential/showrequest');
@@ -66,18 +66,18 @@ class CredentialController extends DragonX_Homepage_Controller_Abstract
     public function resetAction()
     {
         try {
-            $params = $this->getRequiredParams(array('credentialhash', 'newcredential'));
+            $params = $this->getRequiredParams(array('credentialhash', 'newpassword'));
 
-	        $logicCredential = new DragonX_Account_Logic_Credential();
-	        $recordAccount = $logicCredential->reset($params['credentialhash'], $params['newcredential']);
+	        $logicCredential = new DragonX_Emailaddress_Logic_Credential();
+	        $recordAccount = $logicCredential->reset($params['credentialhash'], $params['newpassword']);
         } catch (Exception $exception) {
             $this->_helper->FlashMessenger('<div class="alert alert-error">Resetlink nicht korrekt</div>');
             $this->_redirect('credential/showrequest');
         }
 
-        $logicAccount = new DragonX_Account_Logic_Account();
+        $logicSession = new DragonX_Account_Logic_Session();
         $sessionNamespace = new Zend_Session_Namespace();
-        $sessionNamespace->sessionhash = $logicAccount->loginAccount($recordAccount);
+        $sessionNamespace->sessionhash = $logicSession->loginAccount($recordAccount);
 
         $this->_helper->FlashMessenger('<div class="alert alert-success">Zurücksetzen des Passworts erfolgreich</div>');
         $this->_redirect('administration');

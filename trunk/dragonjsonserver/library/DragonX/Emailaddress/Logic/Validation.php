@@ -21,14 +21,16 @@ class DragonX_Emailaddress_Logic_Validation
 {
     /**
      * Ändert die E-Mail Adresse trägt eine neue Validierungabfrage ein
-     * @param DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress
+     * @param Application_Account_Record_Account $recordAccount
      * @param string $newemailaddress
      * @param Zend_Config $configMail
      * @throws InvalidArgumentException
      */
-    public function changeEmailaddress(DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress, $newemailaddress, Zend_Config $configMail)
+    public function changeEmailaddress(Application_Account_Record_Account $recordAccount, $newemailaddress, Zend_Config $configMail)
     {
-        $recordEmailaddress->validateEmailaddress($newemailaddress);
+        $logicEmailaddress = new DragonX_Emailaddress_Logic_Emailaddress();
+        $recordEmailaddress = $logicEmailaddress->getEmailaddress($recordAccount);
+    	$recordEmailaddress->validateEmailaddress($newemailaddress);
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordEmailaddress);
 
         $logicValidation = new DragonX_Emailaddress_Logic_Validation();
