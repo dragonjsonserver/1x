@@ -33,12 +33,4 @@ class DragonX_Device_Record_Device extends DragonX_Storage_Record_CreatedModifie
      * @var string
      */
     public $name;
-
-    /**
-     * @var array
-     */
-    public $pushnotification = array(
-        'platform' => '',
-        'name' => '',
-    );
 }

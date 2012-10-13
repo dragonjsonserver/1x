@@ -24,20 +24,14 @@ class DragonX_Device_Logic_Device
      * @param Application_Account_Record_Account $recordAccount
      * @param string $platform
      * @param string $name
-     * @param string $pushnotification_platform
-     * @param string $pushnotification_token
      */
-    public function addDevice($recordAccount, $platform, $name, $pushnotification_platform, $pushnotification_token)
+    public function addDevice($recordAccount, $platform, $name)
     {
     	Zend_Registry::get('DragonX_Storage_Engine')->save(
     	    new DragonX_Device_Record_Device(array(
     	        'accountid' => $recordAccount->id,
     	        'platform' => $platform,
     	        'name' => $name,
-    	        'pushnotification' => array(
-    	            'platform' => $pushnotification_platform,
-    	            'token' => $pushnotification_token,
-    	        ),
     	    ))
     	);
     }
