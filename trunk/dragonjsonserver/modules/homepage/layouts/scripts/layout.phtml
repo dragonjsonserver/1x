@@ -119,7 +119,7 @@
                         <div class="container">
                             <?php
                             if (isset($this->configApplication->copyright)) {
-                             	echo '<span class="brand">' . $this->configApplication->copyright . '</span>';
+                            	echo '<a href="' . $this->url(array('controller' => 'startpage'), null, true) . '" class="brand">' . $this->configApplication->copyright . '</a>';
                             }
                             ?>
                             <ul class="nav">
