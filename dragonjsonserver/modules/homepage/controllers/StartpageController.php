@@ -32,7 +32,8 @@ class StartpageController extends DragonX_Homepage_Controller_Abstract
     	$paginator = new Zend_Paginator(new Zend_Paginator_Adapter_Array($configNews->news->toArray()));
     	$paginator
     	    ->setCurrentPageNumber($page)
-    	    ->setItemCountPerPage($configNews->perpage);
+    	    ->setItemCountPerPage($configNews->perpage)
+    	    ->setPageRange(5);
         $this->view->paginator = $paginator;
     }
 }
