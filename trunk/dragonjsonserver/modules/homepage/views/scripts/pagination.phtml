@@ -18,9 +18,9 @@
 if ($this->pageCount > 0) {
 	echo '<div class="pagination pagination-centered"><ul>';
 	if (isset($this->previous)) {
-		echo '<li><a href="?page=' . $this->previous . '">Vorherige Seite</a></li>';
+		echo '<li><a href="?page=' . $this->previous . '">&laquo;</a></li>';
 	} else {
-		echo '<li class="disabled"><a>Vorherige Seite</a></li>';
+		echo '<li class="disabled"><a>&laquo;</a></li>';
 	}
 	foreach ($this->pagesInRange as $page) {
 		if ($page == $this->current) {
@@ -30,9 +30,9 @@ if ($this->pageCount > 0) {
 		}
 	}
     if (isset($this->next)) {
-        echo '<li><a href="?page=' . $this->next . '">Nächste Seite</a></li>';
+        echo '<li><a href="?page=' . $this->next . '">&raquo;</a></li>';
     } else {
-        echo '<li class="disabled"><a>Nächste Seite</a></li>';
+        echo '<li class="disabled"><a>&raquo;</a></li>';
     }
     echo '</ul></div>';
 }
