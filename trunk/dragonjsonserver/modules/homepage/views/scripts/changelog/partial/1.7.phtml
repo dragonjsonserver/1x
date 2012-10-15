@@ -110,6 +110,7 @@
                     <li>'offsetGet()' der RecordList wirft nun eine Exception wenn der Index nicht belegt ist. Somit kann man sich den ersten Datensatz einer RecordList immer mit 'list()' holen und muss nicht selbst vorher prüfen ob Records enthalten sind</li>
                     <li>Die Schnittstelle 'DragonX_Storage_Record_ReadOnly_Interface' steht nun für Records zur Verfügung die nicht in einer persistenten Storage Engine gespeichert werden dürfen. Bei schreibende Aktionen mit solchen Records werden von der ZendDbAdataper Storage Engine Exceptions geworfen</li>
                     <li>Wenn Record Listen gefiltert werden durch das Entfernen von neuen, geladenen oder ReadOnly Records werden die Keys nun neu durchnummeriert</li>
+                    <li>Es ist nun auch möglich Records bei der ZendDbAdapter Storage Engine per 'loadByConditions()' zu laden wenn ein Wert 'null' sein soll</li>
                 </ul>
             </li>
         </ul>

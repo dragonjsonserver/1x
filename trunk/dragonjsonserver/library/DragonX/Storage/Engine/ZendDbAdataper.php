@@ -260,7 +260,11 @@ class DragonX_Storage_Engine_ZendDbAdataper
         if (count($conditions) > 0) {
             $where .= " WHERE ";
             foreach ($conditions as $key => $value) {
-                $where .= "`" . $key . "` = " . $this->getAdapter()->quote($value) . " AND ";
+                if (isset($value)) {
+                    $where .= "`" . $key . "` = " . $this->getAdapter()->quote($value) . " AND ";
+                } else {
+                    $where .= "`" . $key . "` IS NULL AND ";
+                }
             }
             $where = substr($where, 0, -5);
         }
