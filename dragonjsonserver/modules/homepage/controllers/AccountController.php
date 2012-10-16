@@ -77,7 +77,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
         try {
             $params = $this->getRequiredParams(array('validationhash'));
 
-            $logicValidation = new DragonX_Account_Logic_Validation();
+            $logicValidation = new DragonX_Emailaddress_Logic_Validation();
             $recordAccount = $logicValidation->validate($params['validationhash']);
 
             $logicSession = new DragonX_Account_Logic_Session();
