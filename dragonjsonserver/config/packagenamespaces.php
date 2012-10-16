@@ -20,7 +20,7 @@
 return array(
     'Dragon' => array(
         'Application' => array(
-            'Service' => array('Application')
+            'Service' => array('Application'),
         ),
         'Json',
         'Package',
