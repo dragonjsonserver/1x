@@ -59,7 +59,7 @@ class DragonX_Emailaddress_Logic_Validation
             array('%validationhash%', '%validationlink%'),
             array(
                 $recordValidation->validationhash,
-                BASEURL . 'validation/validate?validationhash=' . $recordValidation->validationhash
+                BASEURL . 'account/validate?validationhash=' . $recordValidation->validationhash
             ),
             $configMail->bodytext
         );
