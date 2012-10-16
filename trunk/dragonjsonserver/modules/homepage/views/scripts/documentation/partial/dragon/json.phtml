@@ -67,6 +67,10 @@ $params = $request-&gt;getRequiredParams(array('%name%', '%name%'));</pre>
 $params = $request-&gt;getOptionalParams(array('%name%' =&gt; '%defaultvalue%', '%name%' =&gt; '%defaultvalue%'));</pre>
     </li>
 </ul>
+<h3>Cache für die Servicedefinitionen</h3>
+<ul>
+    <li>Ist in der Konfigurationsdatei '/config/dragon/json/cache.php' ein Dateipfad hinterlegt werden die Servicedefinitionen gecacht</li>
+</ul>
 <h3>Nutzung mit Application und Package Registry</h3>
 <ul>
     <li>Der Json Server registriert alle Services die in den Paketeinstellungen der Package Registry definiert wurden</li>

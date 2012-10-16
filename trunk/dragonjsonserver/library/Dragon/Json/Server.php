@@ -61,9 +61,15 @@ class Dragon_Json_Server extends Zend_Json_Server
         if (!isset($requestmethod)) {
             $requestmethod = $_SERVER['REQUEST_METHOD'];
         }
-        $packageregistry = Zend_Registry::get('Dragon_Package_Registry');
-        foreach ($packageregistry->getClassnames('Service') as $servicename) {
-            $this->setClass($servicename, str_replace('_', '.', $servicename));
+        $configCache = new Dragon_Application_Config('dragon/json/cache');
+        if (!isset($configCache->filepath) || !Zend_Server_Cache::get($configCache->filepath, $this)) {
+            $packageregistry = Zend_Registry::get('Dragon_Package_Registry');
+            foreach ($packageregistry->getClassnames('Service') as $servicename) {
+                $this->setClass($servicename, str_replace('_', '.', $servicename));
+            }
+            if (isset($configCache->filepath)) {
+                Zend_Server_Cache::save($configCache->filepath, $this);
+            }
         }
         switch ($requestmethod) {
             case 'POST':
