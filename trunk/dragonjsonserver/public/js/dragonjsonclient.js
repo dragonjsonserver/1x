@@ -54,8 +54,19 @@ function DragonJsonClient(jsonclient)
     {
         var data = {};
         $("input[type='text']").each(function (index, element) {
-            if (element.value != '') {
-                data[element.name] = element.value;
+        	var element = $(element);
+        	var value = element.val();
+            if (value != '') {
+            	var parametername = element.attr('data-parametername');
+            	var keyname = element.attr('data-keyname');
+            	if (parametername != undefined && keyname != undefined) {
+            		if (data[parametername] == undefined) {
+            			data[parametername] = {};
+            		}
+            		data[parametername][keyname] = value;
+            	} else {
+            		data[element.attr('name')] = value;
+            	}
             }
         });
         return data;
@@ -125,13 +136,13 @@ function DragonJsonClient(jsonclient)
             $.each(this.namespaces[namespace][method], function(index, parameter) {
                 var controlgroup = 
                 	$('<div class="control-group"></div>')
-                    	.appendTo(div);
-                
-                $('<label class="control-label" for="newcredential"></label>')
-                    .html(parameter.name + ':')
+                    	.appendTo(div)
+                    	.append($('<label class="control-label" for="' + parameter.name + '"></label>')
+                            .html(parameter.name + ':'));
+                var controls = $('<div class="controls"></div>')
                     .appendTo(controlgroup);
                 
-                var value = '';
+                var value = undefined;
                 if (parameter.optional) {
                 	value = parameter.default;
                 }
@@ -139,11 +150,36 @@ function DragonJsonClient(jsonclient)
                 	value = self.data[parameter.name];
                 }
                 
-                $('<div class="controls"></div>')
-                    .appendTo(controlgroup)
-                    .append($('<input>')
-                                .attr({'type' : 'text', 'name' : parameter.name})
-                                .val(value));
+                switch (parameter.type) {
+                	case 'object':
+                    	if (value == undefined) {
+                    		value = {'':''};
+                    	}
+                    	$.each(value, function(subindex, subvalue) {
+                            var subcontrolgroup = 
+                            	$('<div class="control-group"></div>')
+                                	.appendTo(controls)
+                                	.append($('<label class="control-label" for="' + parameter.name + '_' + subindex + '"></label>')
+                                        .html(subindex + ':'));
+                            var subcontrols = $('<div class="controls"></div>')
+                            	.appendTo(subcontrolgroup);
+                            var subinput = $('<input>')
+				                .attr({'type' : 'text', 'id' : parameter.name + '_' + subindex, 'name' : parameter.name + '_' + subindex, 'data-parametername' : parameter.name, 'data-keyname' : subindex})
+				                .val(subvalue);
+                            subcontrols
+    	                		.append(subinput);
+                    	});
+                		break;
+                	default:
+                    	if (value == undefined) {
+                    		value = '';
+                    	}
+                    	controls
+    	            		.append($('<input>')
+    			                .attr({'type' : 'text', 'id' : parameter.name, 'name' : parameter.name})
+    			                .val(value));
+                    	break;
+                }
             });
         } else {
         	div.html('Keine Argumente benötigt');
