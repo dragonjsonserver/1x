@@ -159,7 +159,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
     public function loadList(DragonX_Storage_RecordList $list)
     {
         foreach ($list->indexByNamespace() as $namespace => $sublist) {
-            $rows = $this->getAdapter()->fetchAssoc(
+            $rows = $this->getAdapter()->fetchAll(
                 "SELECT * FROM `" . $this->getTablename($namespace) . "` WHERE id IN (" . implode(', ', $sublist->getIds()) . ")"
             );
             foreach ($sublist as $record) {
@@ -311,7 +311,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function loadBySqlStatement(DragonX_Storage_Record_Abstract $record, $sqlstatement, array $params = array())
     {
-        $rows = $this->getAdapter()->fetchAssoc($sqlstatement, $params);
+        $rows = $this->getAdapter()->fetchAll($sqlstatement, $params);
         $list = new DragonX_Storage_RecordList();
         $classname = get_class($record);
         foreach ($rows as $row) {
