@@ -17,4 +17,9 @@
 <address>
 	<p><?php echo $this->escape($this->configImprint->webmaster); ?></p>
 	<p><a href="<?php echo $this->escape($this->configImprint->mailingaddress); ?>"><?php echo $this->escape($this->configImprint->mailingaddress); ?></a></p>
+    <?php
+    if (isset($this->configApplication->copyright)) {
+        echo $this->configApplication->copyright;
+    }
+    ?>
 </address>
