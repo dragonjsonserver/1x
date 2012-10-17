@@ -69,6 +69,10 @@ function DragonJsonClient(jsonclient)
             	}
             }
         });
+        $("input[type='checkbox']").each(function (index, element) {
+			element = $(element);
+        	data[element.attr('name')] = element.attr('checked') == 'checked';
+        });
         return data;
     };
 
@@ -169,6 +173,14 @@ function DragonJsonClient(jsonclient)
                     			$(element.target).before($('<input>')
 					                .attr({'type' : 'text', 'id' : parameter.name + '_' + subindex, 'name' : parameter.name + '_' + subindex, 'data-parametername' : parameter.name, 'data-keyname' : subindex}));
                     		}));
+                    	break;
+	            	case 'boolean':
+                    	if (value == undefined) {
+                    		value = false;
+                    	}
+                    	controls
+    	            		.append($('<input>')
+    			                .attr({'type' : 'checkbox', 'id' : parameter.name, 'name' : parameter.name, 'checked' : value}));
                     	break;
                 	case 'object':
                     	if (value == undefined) {
