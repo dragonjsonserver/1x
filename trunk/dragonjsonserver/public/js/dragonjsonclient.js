@@ -54,7 +54,7 @@ function DragonJsonClient(jsonclient)
     {
         var data = {};
         $("input[type='text']").each(function (index, element) {
-        	var element = $(element);
+        	element = $(element);
         	var value = element.val();
             if (value != '') {
             	var parametername = element.attr('data-parametername');
@@ -151,6 +151,24 @@ function DragonJsonClient(jsonclient)
                 }
                 
                 switch (parameter.type) {
+	            	case 'array':
+	                	if (value == undefined) {
+	                		value = [''];
+	                	}
+                    	$.each(value, function(subindex, subvalue) {
+                            controls
+                            	.attr('id', 'controls_' + parameter.name)
+                            	.append($('<input>')
+					                .attr({'type' : 'text', 'id' : parameter.name + '_' + subindex, 'name' : parameter.name + '_' + subindex, 'data-parametername' : parameter.name, 'data-keyname' : subindex})
+					                .val(subvalue));
+                    	});
+                    	controls.append($('<a class="btn">' + '+' + '</a>')
+                    		.click(function(element) {
+                    			var subindex = controls.children().length - 1;
+                    			$(element.target).before($('<input>')
+					                .attr({'type' : 'text', 'id' : parameter.name + '_' + subindex, 'name' : parameter.name + '_' + subindex, 'data-parametername' : parameter.name, 'data-keyname' : subindex}));
+                    		}));
+                    	break;
                 	case 'object':
                     	if (value == undefined) {
                     		value = {'':''};
@@ -161,13 +179,11 @@ function DragonJsonClient(jsonclient)
                                 	.appendTo(controls)
                                 	.append($('<label class="control-label" for="' + parameter.name + '_' + subindex + '"></label>')
                                         .html(subindex + ':'));
-                            var subcontrols = $('<div class="controls"></div>')
-                            	.appendTo(subcontrolgroup);
-                            var subinput = $('<input>')
-				                .attr({'type' : 'text', 'id' : parameter.name + '_' + subindex, 'name' : parameter.name + '_' + subindex, 'data-parametername' : parameter.name, 'data-keyname' : subindex})
-				                .val(subvalue);
-                            subcontrols
-    	                		.append(subinput);
+                            $('<div class="controls"></div>')
+                            	.appendTo(subcontrolgroup)
+    	                		.append($('<input>')
+					                .attr({'type' : 'text', 'id' : parameter.name + '_' + subindex, 'name' : parameter.name + '_' + subindex, 'data-parametername' : parameter.name, 'data-keyname' : subindex})
+					                .val(subvalue));
                     	});
                 		break;
                 	default:
