@@ -166,13 +166,15 @@ function DragonJsonClient(jsonclient)
 					                .attr({'type' : 'text', 'id' : parameter.name + '_' + subindex, 'name' : parameter.name + '_' + subindex, 'data-parametername' : parameter.name, 'data-keyname' : subindex})
 					                .val(subvalue));
                     	});
+                    	var a = $('<a class="btn"></a>');
                     	controls
-                    		.append($('<a class="btn">+</a>')
-                    		.click(function(element) {
-                    			var subindex = controls.children().length - 1;
-                    			$(element.target).before($('<input>')
-					                .attr({'type' : 'text', 'id' : parameter.name + '_' + subindex, 'name' : parameter.name + '_' + subindex, 'data-parametername' : parameter.name, 'data-keyname' : subindex}));
-                    		}));
+                    		.append(a
+	                    		.append($('<i class="icon-plus-sign"></i>'))
+	                    		.click(function(element) {
+	                    			var subindex = controls.children().length - 1;
+	                    			a.before($('<input>')
+						                .attr({'type' : 'text', 'id' : parameter.name + '_' + subindex, 'name' : parameter.name + '_' + subindex, 'data-parametername' : parameter.name, 'data-keyname' : subindex}));
+	                    		}));
                     	break;
 	            	case 'boolean':
                     	if (value == undefined) {
