@@ -58,12 +58,19 @@ function DragonJsonClient(jsonclient)
         	var value = element.val();
             if (value != '') {
             	var parametername = element.attr('data-parametername');
-            	var keyname = element.attr('data-keyname');
-            	if (parametername != undefined && keyname != undefined) {
-            		if (data[parametername] == undefined) {
-            			data[parametername] = {};
+            	if (parametername != undefined) {
+            		var keyname = element.attr('data-keyname');
+            		if (keyname != undefined) {
+                		if (data[parametername] == undefined) {
+                			data[parametername] = {};
+                		}
+                		data[parametername][keyname] = value;
+            		} else {
+                		if (data[parametername] == undefined) {
+                			data[parametername] = [];
+                		}
+                		data[parametername].push(value);
             		}
-            		data[parametername][keyname] = value;
             	} else {
             		data[element.attr('name')] = value;
             	}
@@ -119,7 +126,7 @@ function DragonJsonClient(jsonclient)
                 .html(method)
                 .appendTo(select);
         });
-        self.selectMethod();
+        self.selectMethod(true);
         return self;
     };
 
@@ -128,9 +135,11 @@ function DragonJsonClient(jsonclient)
      * Selektiert eine andere Methode und baut die GUI entsprechend um
      * @return DragonJsonClient
      */
-    this.selectMethod = function ()
+    this.selectMethod = function (clearresponse)
     {
-        $('#response').html('<pre>Antwort</pre>');
+    	if (clearresponse) {
+    		$('#response').html('<pre>Antwort</pre>');
+    	}
         $.extend(self.data, self.getData());
         var namespace = $('#namespace').val();
         var method = $('#method').val();
@@ -160,10 +169,11 @@ function DragonJsonClient(jsonclient)
 	                		value = [''];
 	                	}
                     	$.each(value, function(subindex, subvalue) {
+                    		var subindex = controls.children().length;
                             controls
                             	.attr('id', 'controls_' + parameter.name)
                             	.append($('<input>')
-					                .attr({'type' : 'text', 'id' : parameter.name + '_' + subindex, 'name' : parameter.name + '_' + subindex, 'data-parametername' : parameter.name, 'data-keyname' : subindex})
+					                .attr({'type' : 'text', 'data-parametername' : parameter.name})
 					                .val(subvalue));
                     	});
                     	var a = $('<a class="btn"></a>');
@@ -171,9 +181,13 @@ function DragonJsonClient(jsonclient)
                     		.append(a
 	                    		.append($('<i class="icon-plus-sign"></i>'))
 	                    		.click(function(element) {
-	                    			var subindex = controls.children().length - 1;
+	                    			var subindex = controls.children().length - 2;
 	                    			a.before($('<input>')
-						                .attr({'type' : 'text', 'id' : parameter.name + '_' + subindex, 'name' : parameter.name + '_' + subindex, 'data-parametername' : parameter.name, 'data-keyname' : subindex}));
+						                .attr({'type' : 'text', 'data-parametername' : parameter.name}));
+	                    		}))
+	                    	.append($('<a class="btn"><i class="icon-refresh"></i></a>')
+                    			.click(function(element) {
+                    				self.selectMethod();
 	                    		}));
                     	break;
 	            	case 'boolean':
