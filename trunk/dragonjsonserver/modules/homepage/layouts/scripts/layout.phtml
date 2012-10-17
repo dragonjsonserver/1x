@@ -42,6 +42,19 @@
         <link href="<?php echo $this->baseUrl('css/bootstrap.min.css'); ?>" rel="stylesheet">
         <link href="<?php echo $this->baseUrl('css/bootstrap-responsive.min.css'); ?>" rel="stylesheet">
         <link href="<?php echo $this->baseUrl('css/layout.css'); ?>" rel="stylesheet">
+        <?php if (count($this->configNavigation->footer) > 0) { ?>
+        <style type="text/css">
+            body {
+			    padding-bottom : 60px;
+			}
+			@media(max-width:979px)
+			{
+			    body {
+			        padding-bottom : 0px;
+			    }
+			}
+		</style>
+        <?php } ?>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     </head>
     <body>
@@ -76,13 +89,15 @@
 	                        	if (isset($navigation->resource) && !in_array($navigation->resource, $this->resources)) {
 	                                continue;
 	                        	}
-	                            echo '<li' . ($this->modulename == $navigation->modulename && $this->controllername == $controller ? ' class="active"' : '') . '><a href="' . $this->url(array('module' => $navigation->modulename, 'controller' => $controller), null, true) . '">' . $navigation->label . '</a></li>';
+	                            echo '<li' . ($this->modulename == $navigation->modulename && $this->controllername == $controller ? ' class="active"' : '') . '><a href="' . $this->url(array('module' => $navigation->modulename, 'controller' => $controller), null, true) . '">'
+	                               . (isset($navigation->icon) ? '<i class="icon-' . $navigation->icon . ' icon-white"></i> ' : '') . $navigation->label
+	                               . '</a></li>';
 	                        }
 	                        ?>
 	                    <?php if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) { ?>
                             <?php if (isset($this->recordAccount)) { ?>
 		                    <li class="dropdown">
-		                        <a href="" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->recordEmailaddress->emailaddress; ?> <b class="caret"></b></a>
+		                        <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> <?php echo $this->recordEmailaddress->emailaddress; ?> <b class="caret"></b></a>
 		                        <ul class="dropdown-menu">
                                     <li><a href="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'showedit'), null, true); ?>">Bearbeiten</a></li>
                                     <li><a href="<?php echo $this->url(array('controller' => 'account', 'action' => 'logout'), null, true); ?>">Abmelden</a></li>
@@ -90,7 +105,7 @@
 		                    </li>
 		                    <?php } else { ?>
                             <li class="dropdown">
-                                <a href="" class="dropdown-toggle" data-toggle="dropdown">Profil <b class="caret"></b></a>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> Profil <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="<?php echo $this->url(array('controller' => 'account', 'action' => 'showlogin'), null, true); ?>">Anmelden</a></li>
                                     <li><a href="<?php echo $this->url(array('controller' => 'account', 'action' => 'showregister'), null, true); ?>">Registrieren</a></li>
@@ -113,15 +128,11 @@
                 }
             ?>
             <?php echo $this->layout()->content ?>
+            <?php if (count($this->configNavigation->footer) > 0) { ?>
             <footer>
                 <div class="navbar navbar-inverse navbar-fixed-bottom">
                     <div class="navbar-inner">
                         <div class="container">
-                            <?php
-                            if (isset($this->configApplication->copyright)) {
-                            	echo '<a href="' . $this->url(array('controller' => 'startpage'), null, true) . '" class="brand">' . $this->configApplication->copyright . '</a>';
-                            }
-                            ?>
                             <ul class="nav">
                                 <?php
 		                        foreach ($this->configNavigation->footer as $controller => $navigation) {
@@ -131,7 +142,9 @@
 		                            if (isset($navigation->resource) && !in_array($navigation->resource, $this->resources)) {
 		                                continue;
 		                            }
-		                            echo '<li' . ($this->modulename == $navigation->modulename && $this->controllername == $controller ? ' class="active"' : '') . '><a href="' . $this->url(array('module' => $navigation->modulename, 'controller' => $controller), null, true) . '">' . $navigation->label . '</a></li>';
+	                                echo '<li' . ($this->modulename == $navigation->modulename && $this->controllername == $controller ? ' class="active"' : '') . '><a href="' . $this->url(array('module' => $navigation->modulename, 'controller' => $controller), null, true) . '">'
+	                                   . (isset($navigation->icon) ? '<i class="icon-' . $navigation->icon . ' icon-white"></i> ' : '') . $navigation->label
+	                                   . '</a></li>';
 		                        }
 		                        ?>
                             </ul>
@@ -139,6 +152,7 @@
                     </div>
                 </div>
             </footer>
+            <?php } ?>
         </div>
         <script src="<?php echo $this->baseUrl('js/bootstrap.min.js'); ?>"></script>
         <!--[if lt IE 9]>
