@@ -162,7 +162,8 @@ function DragonJsonClient(jsonclient)
 					                .attr({'type' : 'text', 'id' : parameter.name + '_' + subindex, 'name' : parameter.name + '_' + subindex, 'data-parametername' : parameter.name, 'data-keyname' : subindex})
 					                .val(subvalue));
                     	});
-                    	controls.append($('<a class="btn">+</a>')
+                    	controls
+                    		.append($('<a class="btn">+</a>')
                     		.click(function(element) {
                     			var subindex = controls.children().length - 1;
                     			$(element.target).before($('<input>')
