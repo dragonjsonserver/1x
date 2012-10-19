@@ -272,6 +272,22 @@ class DragonX_Storage_Engine_ZendDbAdataper
     }
 
     /**
+     * Setzt die Bedingungen von Key/Value Paaren auf die Zend Struktur um
+     * @param array $conditions
+     * @return array
+     */
+    private function _parseConditions(array $conditions)
+    {
+        foreach ($conditions as $key => $value) {
+            if (strpos($key, '?') === false) {
+                unset($conditions[$key]);
+                $conditions[$key . ' = ?'] = $value;
+            }
+        }
+        return $conditions;
+    }
+
+    /**
      * Aktualisiert alle Records welche auf die Bedingungen zutreffen
      * @param DragonX_Storage_Record_Abstract $record
      * @param array $values
@@ -284,7 +300,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
         if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
             throw new InvalidArgumentException('record is readonly');
         }
-    	return $this->getAdapter()->update($this->getTablename($record), $values, $conditions);
+    	return $this->getAdapter()->update($this->getTablename($record), $values, $this->_parseConditions($conditions));
     }
 
     /**
@@ -299,7 +315,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
         if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
             throw new InvalidArgumentException('record is readonly');
         }
-        return $this->getAdapter()->delete($this->getTablename($record), $conditions);
+        return $this->getAdapter()->delete($this->getTablename($record), $this->_parseConditions($conditions));
     }
 
     /**
