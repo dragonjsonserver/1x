@@ -18,8 +18,6 @@
  * @return array
  */
 return array(
-    'header' => array(
-        'startpage' => 'Startseite',
-    ),
+    'header' => array(),
     'footer' => array(),
 );

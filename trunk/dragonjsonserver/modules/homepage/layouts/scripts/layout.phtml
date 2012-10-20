@@ -78,7 +78,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-                    <a href="<?php echo $this->url(array('controller' => 'startpage'), null, true); ?>" class="brand"><?php echo $this->configApplication->name . ' ' . $this->configApplication->version; ?></a>
+                    <a href="<?php echo $this->url(array('module' => $this->controllerarea, 'controller' => 'startpage'), null, true); ?>" class="brand"><?php echo $this->configApplication->name . ' ' . $this->configApplication->version; ?></a>
                     <div class="nav-collapse collapse">
 	                    <ul class="nav">
 	                        <?php
