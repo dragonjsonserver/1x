@@ -260,11 +260,16 @@ class DragonX_Storage_Engine_ZendDbAdataper
         if (count($conditions) > 0) {
             $where .= " WHERE ";
             foreach ($conditions as $key => $value) {
-                if (isset($value)) {
-                    $where .= "`" . $key . "` = " . $this->getAdapter()->quote($value) . " AND ";
+	            if (strpos($key, 'NULL') !== false) {
+            		$where .= $key;
+                } elseif (strpos($key, 'LIKE') !== false) {
+                    $where .= $this->getAdapter()->quoteInto($key, $value);
+                } elseif (!isset($value)) {
+                    $where .= "`" . $key . "` IS NULL";
                 } else {
-                    $where .= "`" . $key . "` IS NULL AND ";
+                    $where .= "`" . $key . "` = " . $this->getAdapter()->quote($value);
                 }
+                $where .= " AND ";
             }
             $where = substr($where, 0, -5);
         }
@@ -282,9 +287,9 @@ class DragonX_Storage_Engine_ZendDbAdataper
             if (strpos($key, 'NULL') !== false || strpos($key, 'LIKE') !== false) {
                 continue;
             }
-        	if (!isset($value)) {
+            if (!isset($value)) {
         		unset($conditions[$key]);
-                $conditions[$key . ' IS NULL'] = $value;
+                $conditions[$key . ' IS NULL'] = null;
         	} elseif (strpos($key, '?') === false) {
                 unset($conditions[$key]);
                 $conditions[$key . ' = ?'] = $value;
