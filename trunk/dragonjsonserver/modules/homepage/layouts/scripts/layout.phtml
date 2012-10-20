@@ -62,7 +62,7 @@
             <div class="navbar-inner">
                 <div class="container">
                     <?php
-                    if (isset($this->recordAccount)) {
+                    if (isset($this->recordEmailaddress)) {
 	                    echo '<ul class="nav">';
 
                         if ($this->controllerarea == 'administration') {
@@ -95,7 +95,7 @@
 	                        }
 	                        ?>
 	                    <?php if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) { ?>
-                            <?php if (isset($this->recordAccount)) { ?>
+                            <?php if (isset($this->recordEmailaddress)) { ?>
 		                    <li class="dropdown">
 		                        <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> <?php echo $this->recordEmailaddress->emailaddress; ?> <b class="caret"></b></a>
 		                        <ul class="dropdown-menu">
