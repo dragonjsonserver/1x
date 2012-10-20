@@ -279,7 +279,13 @@ class DragonX_Storage_Engine_ZendDbAdataper
     private function _parseConditions(array $conditions)
     {
         foreach ($conditions as $key => $value) {
-            if (strpos($key, '?') === false) {
+            if (strpos($key, 'NULL') !== false || strpos($key, 'LIKE') !== false) {
+                continue;
+            }
+        	if (!isset($value)) {
+        		unset($conditions[$key]);
+                $conditions[$key . ' IS NULL'] = $value;
+        	} elseif (strpos($key, '?') === false) {
                 unset($conditions[$key]);
                 $conditions[$key . ' = ?'] = $value;
             }
