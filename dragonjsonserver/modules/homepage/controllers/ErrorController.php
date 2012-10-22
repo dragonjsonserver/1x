@@ -29,10 +29,12 @@ class ErrorController extends DragonX_Homepage_Controller_Abstract
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ROUTE:
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
+                $this->getResponse()->setHttpResponseCode(404);
                 $this->view->message = 'Seite nicht verfügbar';
                 break;
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_OTHER:
             default:
+                $this->getResponse()->setHttpResponseCode(500);
                 $this->view->message = 'Interner Anwendungsfehler';
                 break;
         }
