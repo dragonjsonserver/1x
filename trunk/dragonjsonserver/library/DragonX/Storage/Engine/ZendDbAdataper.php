@@ -348,6 +348,21 @@ class DragonX_Storage_Engine_ZendDbAdataper
     }
 
     /**
+     * Gibt die Werte für eine IN Abfrage zurück
+     * @param array $values
+     * @return string
+     */
+    public function getInCondition(array $values)
+    {
+        $adapter = $this->getAdapter();
+        $condition = "";
+        foreach ($values as $value) {
+            $condition .= $adapter->quote($value) . ", ";
+        }
+        return "(" . substr($condition, 0, -2) . ")";
+    }
+
+    /**
      * Führt ein beliebiges SQL Statement aus
      * @param string $sqlstatement
      * @return Zend_Db_Statement_Interface
