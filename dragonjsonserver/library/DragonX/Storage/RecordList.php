@@ -126,34 +126,44 @@ class DragonX_Storage_RecordList extends ArrayObject
 
     /**
      * Gibt eine neue Liste gruppiert auf die Klassennamen zurück
+     * @param bool $unique
      * @return DragonX_Storage_RecordList
      */
-    public function indexByClassname()
+    public function indexByClassname($unique = false)
     {
         $list = new DragonX_Storage_RecordList();
         foreach ($this as $record) {
             $classname = get_class($record);
-            if (!isset($list[$classname])) {
-                $list[$classname] = new DragonX_Storage_RecordList();
+            if ($unique) {
+                $list[$classname] = $record;
+            } else {
+                if (!isset($list[$classname])) {
+                    $list[$classname] = new DragonX_Storage_RecordList();
+                }
+                $list[$classname][] = $record;
             }
-            $list[$classname][] = $record;
         }
         return $list;
     }
 
     /**
      * Gibt eine neue Liste gruppiert auf dem Namespace zurück
+     * @param bool $unique
      * @return DragonX_Storage_RecordList
      */
-    public function indexByNamespace()
+    public function indexByNamespace($unique = false)
     {
         $list = new DragonX_Storage_RecordList();
         foreach ($this as $record) {
             $namespace = $record->getNamespace();
-            if (!isset($list[$namespace])) {
-                $list[$namespace] = new DragonX_Storage_RecordList();
+            if ($unique) {
+                $list[$namespace] = $record;
+            } else {
+                if (!isset($list[$namespace])) {
+                    $list[$namespace] = new DragonX_Storage_RecordList();
+                }
+                $list[$namespace][] = $record;
             }
-            $list[$namespace][] = $record;
         }
         return $list;
     }
@@ -161,9 +171,10 @@ class DragonX_Storage_RecordList extends ArrayObject
     /**
      * Gibt eine neue Liste gruppiert auf die Attribute zurück
      * @param string|array $indexby
+     * @param bool $unique
      * @return DragonX_Storage_RecordList
      */
-    public function indexBy($indexby)
+    public function indexBy($indexby, $unique = false)
     {
         if (!is_array($indexby)) {
             $indexby = array($indexby);
@@ -172,12 +183,16 @@ class DragonX_Storage_RecordList extends ArrayObject
         $attributename = array_shift($indexby);
         foreach ($this as $record) {
             $attribute = $record->$attributename;
-            if (!isset($list[$attribute])) {
-                $list[$attribute] = new DragonX_Storage_RecordList();
+            if ($unique) {
+                $list[$attribute] = $record;
+            } else {
+                if (!isset($list[$attribute])) {
+                    $list[$attribute] = new DragonX_Storage_RecordList();
+                }
+                $list[$attribute][] = $record;
             }
-            $list[$attribute][] = $record;
         }
-        if (count($indexby) > 0) {
+        if (!$unique && count($indexby) > 0) {
             foreach ($list as &$sublist) {
                 $sublist = $sublist->indexBy($indexby);
             }
