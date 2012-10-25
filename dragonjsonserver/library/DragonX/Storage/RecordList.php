@@ -183,7 +183,7 @@ class DragonX_Storage_RecordList extends ArrayObject
         $attributename = array_shift($indexby);
         foreach ($this as $record) {
             $attribute = $record->$attributename;
-            if ($unique) {
+            if (count($indexby) == 0 && $unique) {
                 $list[$attribute] = $record;
             } else {
                 if (!isset($list[$attribute])) {
@@ -192,9 +192,9 @@ class DragonX_Storage_RecordList extends ArrayObject
                 $list[$attribute][] = $record;
             }
         }
-        if (!$unique && count($indexby) > 0) {
+        if (count($indexby) > 0) {
             foreach ($list as &$sublist) {
-                $sublist = $sublist->indexBy($indexby);
+                $sublist = $sublist->indexBy($indexby, $unique);
             }
             unset($sublist);
         }
