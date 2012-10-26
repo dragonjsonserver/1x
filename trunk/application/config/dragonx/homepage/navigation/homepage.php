@@ -19,14 +19,13 @@
  */
 return array(
     'header' => array(
-        'startpage' => 'Startseite',
-        'dragonjsonclient' => 'DragonJsonClient',
-        'documentation' => 'Dokumentation',
-        'changelog' => 'Changelog',
+        'dragonjsonclient' => array('icon' => 'tasks', 'label' => 'DragonJsonClient'),
+        'documentation' => array('icon' => 'book', 'label' => 'Dokumentation'),
+        'changelog' => array('icon' => 'file', 'label' => 'Changelog'),
         'application' => array('label' => 'Application', 'modulename' => 'application_homepage'),
     ),
     'footer' => array(
-        'license' => 'Lizenz',
-        'imprint' => 'Impressum',
+        'license' => array('icon' => 'briefcase', 'label' => 'Lizenz'),
+        'imprint' => array('icon' => 'envelope', 'label' => 'Impressum'),
     ),
 );
