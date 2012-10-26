@@ -19,7 +19,6 @@
  */
 return array(
     'header' => array(
-        'startpage' => 'Startseite',
         'application' => array('label' => 'Application', 'modulename' => 'application_administration'),
     ),
     'footer' => array(),
