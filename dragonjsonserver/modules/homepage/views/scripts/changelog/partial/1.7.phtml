@@ -124,6 +124,8 @@
                     <li>Es ist nun auch möglich Records bei der ZendDbAdapter Storage Engine per 'loadByConditions()' zu laden wenn ein Wert 'null' sein soll</li>
                     <li>'loadBySqlStatement()' nimmt nun nicht mehr die erste Spalte als Key der RecordList sondern nummeriert von 0 ab durch sodass 'list()' genutzt werden kann</li>
                     <li>'...ByConditions()' Methoden nutzen nun die übergebene Conditions richtig mit der erweiterten Form von Zend inklusive der Unterstützung von 'LIKE' und 'NULL' Abfragen</li>
+                    <li>'indexBy...()' Methoden der RecordList unterstützen nun durch Angabe eines zusätzlichen Parameter einmalige Werte sodass bei jedem Index direkt der Record liegt und keine RecordList</li>
+                    <li>Hilfsmethode 'getInCondition()' bei der Storage Engine des ZendDbAdapters um IN Abfragen mit mehreren Werten zu unterstützen</li>
                 </ul>
             </li>
         </ul>
