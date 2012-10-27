@@ -27,7 +27,7 @@ class DragonX_Account_Logic_Deletion
     {
         Zend_Registry::get('DragonX_Storage_Engine')->save(
             new DragonX_Account_Record_Deletion(array(
-                'accountid' => $recordAccount->id,
+                'account_id' => $recordAccount->id,
             ))
         );
     }
@@ -41,7 +41,7 @@ class DragonX_Account_Logic_Deletion
     {
         $listDeletions = Zend_Registry::get('DragonX_Storage_Engine')->loadByConditions(
             new DragonX_Account_Record_Deletion(),
-            array('accountid' => $recordAccount->id)
+            array('account_id' => $recordAccount->id)
         );
         if (count($listDeletions) == 0) {
             return;
@@ -57,7 +57,7 @@ class DragonX_Account_Logic_Deletion
     {
         Zend_Registry::get('DragonX_Storage_Engine')->deleteByConditions(
             new DragonX_Account_Record_Deletion(),
-            array('accountid' => $recordAccount->id)
+            array('account_id' => $recordAccount->id)
         );
     }
 }

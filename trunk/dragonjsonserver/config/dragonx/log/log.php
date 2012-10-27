@@ -19,8 +19,8 @@
  */
 return array(
     'eventitems' => array(
-        'requestid' => null,
-        'accountid' => null,
+        'request_id' => null,
+        'account_id' => null,
         'params' => null,
     ),
     'writers' => array(

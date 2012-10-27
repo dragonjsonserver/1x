@@ -50,7 +50,7 @@ class DragonX_Emailaddress_Logic_Validation
     public function request(DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress, Zend_Config $configMail)
     {
         $recordValidation = new DragonX_Emailaddress_Record_Validation(array(
-            'emailaddressid' => $recordEmailaddress->id,
+            'emailaddress_id' => $recordEmailaddress->id,
             'validationhash' => md5($recordEmailaddress->id . '.' . time()),
         ));
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordValidation);
@@ -84,7 +84,7 @@ class DragonX_Emailaddress_Logic_Validation
             array('validationhash' => $validationhash)
         );
 
-        $recordEmailaddress = $storage->load(new DragonX_Emailaddress_Record_Emailaddress($recordValidation->emailaddressid));
+        $recordEmailaddress = $storage->load(new DragonX_Emailaddress_Record_Emailaddress($recordValidation->emailaddress_id));
         $storage->delete($recordValidation);
 
         Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
@@ -92,7 +92,7 @@ class DragonX_Emailaddress_Logic_Validation
             array($recordEmailaddress)
         );
 
-        $recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->accountid));
+        $recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->account_id));
         return $recordAccount;
     }
 }

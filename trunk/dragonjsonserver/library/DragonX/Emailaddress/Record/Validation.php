@@ -22,7 +22,7 @@ class DragonX_Emailaddress_Record_Validation extends DragonX_Storage_Record_Crea
     /**
      * @var integer
      */
-    public $emailaddressid;
+    public $emailaddress_id;
 
     /**
      * @var string

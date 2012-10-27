@@ -21,28 +21,28 @@ class DragonX_Acl_Logic_RoleResource
 {
     /**
      * Fügt eine neue Zuordnung von einer Rolle zu einer Ressource hinzu
-     * @param integer $roleid
-     * @param integer $resourceid
+     * @param integer $role_id
+     * @param integer $resource_id
      */
-    public function addRoleResource($roleid, $resourceid)
+    public function addRoleResource($role_id, $resource_id)
     {
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
-        $storage->load(new DragonX_Acl_Record_Role($roleid));
-        $storage->load(new DragonX_Acl_Record_Resource($resourceid));
+        $storage->load(new DragonX_Acl_Record_Role($role_id));
+        $storage->load(new DragonX_Acl_Record_Resource($resource_id));
         $storage->save(
-            new DragonX_Acl_Record_RoleResource(array('roleid' => $roleid, 'resourceid' => $resourceid))
+            new DragonX_Acl_Record_RoleResource(array('role_id' => $role_id, 'resource_id' => $resource_id))
         );
     }
 
     /**
      * Entfernt eine Zuordnung von einer Rolle zu einer Ressource
-     * @param integer $roleresourceid
+     * @param integer $roleresource_id
      */
-    public function removeRoleResource($roleresourceid)
+    public function removeRoleResource($roleresource_id)
     {
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
         $storage->delete(
-            new DragonX_Acl_Record_RoleResource($roleresourceid)
+            new DragonX_Acl_Record_RoleResource($roleresource_id)
         );
     }
 }

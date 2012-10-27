@@ -22,7 +22,7 @@ class DragonX_Account_Record_Session extends DragonX_Storage_Record_Created_Abst
     /**
      * @var integer
      */
-    public $accountid;
+    public $account_id;
 
     /**
      * @var string

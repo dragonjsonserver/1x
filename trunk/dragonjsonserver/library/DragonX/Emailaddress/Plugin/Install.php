@@ -29,7 +29,7 @@ class DragonX_Emailaddress_Plugin_Install implements DragonX_Storage_Plugin_Inst
         $sqlstatements = array();
         if (version_compare($oldversion, '1.7.0', '<')) {
             $sqlstatements[] =
-                  "CREATE TABLE IF NOT EXISTS `dragonx_emailaddress_record_emailaddress` ("
+                  "CREATE TABLE `dragonx_emailaddress_record_emailaddress` ("
                     . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`created` INT(10) UNSIGNED NOT NULL, "
                     . "`modified` INT(10) UNSIGNED NOT NULL, "
@@ -42,7 +42,7 @@ class DragonX_Emailaddress_Plugin_Install implements DragonX_Storage_Plugin_Inst
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
             $sqlstatements[] =
-                  "CREATE TABLE IF NOT EXISTS `dragonx_emailaddress_record_credential` ("
+                  "CREATE TABLE `dragonx_emailaddress_record_credential` ("
                     . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`created` INT(10) UNSIGNED NOT NULL, "
                     . "`emailaddressid` INT(10) UNSIGNED NOT NULL, "
@@ -52,7 +52,7 @@ class DragonX_Emailaddress_Plugin_Install implements DragonX_Storage_Plugin_Inst
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
             $sqlstatements[] =
-                  "CREATE TABLE IF NOT EXISTS `dragonx_emailaddress_record_validation` ("
+                  "CREATE TABLE `dragonx_emailaddress_record_validation` ("
                     . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`created` INT(10) UNSIGNED NOT NULL, "
                     . "`emailaddressid` INT(10) UNSIGNED NOT NULL, "
@@ -61,6 +61,11 @@ class DragonX_Emailaddress_Plugin_Install implements DragonX_Storage_Plugin_Inst
                     . "UNIQUE KEY `validationhash` (`validationhash`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }
+	    if (version_compare($oldversion, '1.8.0', '<')) {
+	        $sqlstatements[] = "ALTER TABLE `dragonx_emailaddress_record_credential` CHANGE `emailaddressid` `emailaddress_id` INT(10) UNSIGNED NOT NULL";
+	        $sqlstatements[] = "ALTER TABLE `dragonx_emailaddress_record_emailaddress` CHANGE `accountid` `account_id` INT(10) UNSIGNED NOT NULL";
+	        $sqlstatements[] = "ALTER TABLE `dragonx_emailaddress_record_validation` CHANGE `emailaddressid` `emailaddress_id` INT(10) UNSIGNED NOT NULL";
+	    }
         return $sqlstatements;
     }
 }

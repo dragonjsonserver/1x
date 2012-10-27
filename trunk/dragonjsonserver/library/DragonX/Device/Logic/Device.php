@@ -29,7 +29,7 @@ class DragonX_Device_Logic_Device
     {
     	Zend_Registry::get('DragonX_Storage_Engine')->save(
     	    new DragonX_Device_Record_Device(array(
-    	        'accountid' => $recordAccount->id,
+    	        'account_id' => $recordAccount->id,
     	        'platform' => $platform,
     	        'name' => $name,
     	    ))

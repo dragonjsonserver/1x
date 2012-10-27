@@ -48,7 +48,7 @@ class DragonX_Emailaddress_Logic_Credential
         );
 
         $recordCredential = new DragonX_Emailaddress_Record_Credential(array(
-            'emailaddressid' => $recordEmailaddress->id,
+            'emailaddress_id' => $recordEmailaddress->id,
             'credentialhash' => md5($recordEmailaddress->id . '.' . time()),
         ));
         $storage->save($recordCredential);
@@ -84,12 +84,12 @@ class DragonX_Emailaddress_Logic_Credential
             array('credentialhash' => $credentialhash)
         );
 
-        $recordEmailaddress = $storage->load(new DragonX_Emailaddress_Record_Emailaddress($recordCredential->emailaddressid));
+        $recordEmailaddress = $storage->load(new DragonX_Emailaddress_Record_Emailaddress($recordCredential->emailaddress_id));
         $recordEmailaddress->hashPassword($newpassword);
         $storage->save($recordEmailaddress);
         $storage->delete($recordCredential);
 
-        $recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->accountid));
+        $recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->account_id));
         return $recordAccount;
     }
 }
