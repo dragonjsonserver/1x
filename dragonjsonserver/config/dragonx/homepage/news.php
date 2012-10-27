@@ -25,8 +25,12 @@ return array(
             'title' => 'Version 1.7.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.7.0 ist abgeschlossen und als Download '
-                . 'verfügbar.',
-            'timestamp' => 0,
+                . 'verfügbar. Vor allem die neue Accountverwaltung bei der '
+                . 'Accounts nun an beliebige Loginmechanismen wie E-Mail '
+                . 'Adresse und Passwort Kombination verknüpft werden können '
+                . 'und viele Verbesserungen an der Storage Engine zählen zu '
+                . 'den Inhalten der Version.',
+            'timestamp' => 1351342158,
         ),
         array(
             'title' => 'Version 1.6.1 zum Download verfügbar',
