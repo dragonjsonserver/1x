@@ -111,7 +111,11 @@ class DragonX_Storage_Logic_Database
         foreach ($storagekeysqlstatements as $storagekey => $sqlstatements) {
         	$storage = Zend_Registry::get($storagekey);
         	foreach ($sqlstatements as $sqlstatement) {
-        	    $storage->executeSqlStatement($sqlstatement);
+        		try {
+        	       $storage->executeSqlStatement($sqlstatement);
+        		} catch (Exception $e) {
+        			var_dump($e);
+        		}
         	}
         }
 

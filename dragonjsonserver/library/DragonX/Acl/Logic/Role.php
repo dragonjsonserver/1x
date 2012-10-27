@@ -22,38 +22,38 @@ class DragonX_Acl_Logic_Role
     /**
      * Fügt eine neue Rolle hinzu
      * @param string $name
-     * @param integer $parentroleid
+     * @param integer $parentrole_id
      */
-    public function addRole($name, $parentroleid)
+    public function addRole($name, $parentrole_id)
     {
     	$logicNestedSet = new DragonX_NestedSet_Logic_NestedSet();
     	$logicNestedSet->addNode(
     	    new DragonX_Acl_Record_Role(array('name' => $name)),
-    	    new DragonX_Acl_Record_Role($parentroleid)
+    	    new DragonX_Acl_Record_Role($parentrole_id)
     	);
     }
 
     /**
      * Entfernt eine Rolle samt untergeordneten Rollen
-     * @param integer $roleid
+     * @param integer $role_id
      */
-    public function removeRole($roleid)
+    public function removeRole($role_id)
     {
         $logicNestedSet = new DragonX_NestedSet_Logic_NestedSet();
         $logicNestedSet->removeNode(
-            new DragonX_Acl_Record_Role($roleid)
+            new DragonX_Acl_Record_Role($role_id)
         );
     }
 
     /**
      * Benennt eine Rolle um
-     * @param integer $roleid
+     * @param integer $role_id
      * @param string $name
      */
-    public function renameRole($roleid, $name)
+    public function renameRole($role_id, $name)
     {
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
-        $recordRole = $storage->load(new DragonX_Acl_Record_Role($roleid));
+        $recordRole = $storage->load(new DragonX_Acl_Record_Role($role_id));
         $recordRole->name = $name;
         $storage->save($recordRole);
     }

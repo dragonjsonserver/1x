@@ -53,7 +53,7 @@ class DragonX_Log_Logic_Request
 
         if (Zend_Registry::isRegistered('Zend_Log')) {
             $logger = Zend_Registry::get('Zend_Log');
-            $logger->setEventItem('requestid', self::$_recordRequest->id);
+            $logger->setEventItem('request_id', self::$_recordRequest->id);
         }
     }
 

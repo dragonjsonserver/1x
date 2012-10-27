@@ -66,6 +66,9 @@ class DragonX_Clientmessage_Plugin_Install implements DragonX_Storage_Plugin_Ins
                   "ALTER TABLE `dragonx_clientmessage_record_all` "
                     . "DROP `timestamp`";
         }
+        if (version_compare($oldversion, '1.8.0', '<')) {
+            $sqlstatements[] = "ALTER TABLE `dragonx_clientmessage_record_account` CHANGE `accountid` `account_id` INT(10) UNSIGNED NOT NULL";
+        }
         return $sqlstatements;
     }
 }

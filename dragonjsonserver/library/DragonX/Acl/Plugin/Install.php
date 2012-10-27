@@ -74,6 +74,16 @@ class DragonX_Acl_Plugin_Install implements DragonX_Storage_Plugin_Install_Inter
                     . "UNIQUE KEY (`accountid`, `roleid`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }
+        if (version_compare($oldversion, '1.8.0', '<')) {
+            $sqlstatements[] =
+                  "ALTER TABLE `dragonx_acl_record_accountrole` "
+                    . "CHANGE `accountid` `account_id` INT(10) UNSIGNED NOT NULL, "
+                    . "CHANGE `roleid` `role_id` INT(10) UNSIGNED NOT NULL";
+            $sqlstatements[] =
+                  "ALTER TABLE `dragonx_acl_record_roleresource` "
+                    . "CHANGE `roleid` `role_id` INT(10) UNSIGNED NOT NULL, "
+                    . "CHANGE `resourceid` `resource_id` INT(10) UNSIGNED NOT NULL";
+        }
         return $sqlstatements;
     }
 }

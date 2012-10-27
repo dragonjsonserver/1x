@@ -24,7 +24,7 @@ class DragonX_Emailaddress_Record_Emailaddress extends DragonX_Storage_Record_Cr
     /**
      * @var integer
      */
-    public $accountid;
+    public $account_id;
 
     /**
      * @var string

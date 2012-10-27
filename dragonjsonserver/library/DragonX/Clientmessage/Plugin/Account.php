@@ -36,11 +36,11 @@ class DragonX_Clientmessage_Plugin_Account implements DragonX_Clientmessage_Plug
     	    . "WHERE "
     	    . "    `created` BETWEEN :lastResponse AND :actualResponse "
     	    . "    AND "
-    	    . "    `accountid` = :accountid",
+    	    . "    `account_id` = :account_id",
     	    array(
     	        'lastResponse' => $lastResponse,
     	        'actualResponse' => $actualResponse - 1,
-    	        'accountid' => Zend_Registry::get('recordAccount')->id,
+    	        'account_id' => Zend_Registry::get('recordAccount')->id,
     	    )
     	);
     }

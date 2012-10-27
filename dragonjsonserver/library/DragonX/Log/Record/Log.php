@@ -22,12 +22,12 @@ class DragonX_Log_Record_Log extends DragonX_Storage_Record_Created_Abstract
     /**
      * @var integer
      */
-    public $requestid;
+    public $request_id;
 
     /**
      * @var integer
      */
-    public $accountid;
+    public $account_id;
 
     /**
      * @var integer

@@ -27,7 +27,7 @@ class DragonX_Log_Plugin_Account implements DragonX_Account_Plugin_LoadAccount_I
     {
         if (Zend_Registry::isRegistered('Zend_Log')) {
             $logger = Zend_Registry::get('Zend_Log');
-            $logger->setEventItem('accountid', $recordAccount->id);
+            $logger->setEventItem('account_id', $recordAccount->id);
         }
     }
 }

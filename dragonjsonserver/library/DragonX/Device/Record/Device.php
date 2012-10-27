@@ -22,7 +22,7 @@ class DragonX_Device_Record_Device extends DragonX_Storage_Record_CreatedModifie
     /**
      * @var integer
      */
-    public $accountid;
+    public $account_id;
 
     /**
      * @var string

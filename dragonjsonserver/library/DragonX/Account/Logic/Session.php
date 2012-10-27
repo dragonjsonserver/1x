@@ -28,7 +28,7 @@ class DragonX_Account_Logic_Session
     public function loginAccount(Application_Account_Record_Account $recordAccount)
     {
         $recordSession = new DragonX_Account_Record_Session(array(
-            'accountid' => $recordAccount->id,
+            'account_id' => $recordAccount->id,
             'sessionhash' => md5($recordAccount->id . '.' . time()),
         ));
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordSession);
@@ -51,7 +51,7 @@ class DragonX_Account_Logic_Session
         list ($recordAccount) = $storage->loadBySqlStatement(
             new Application_Account_Record_Account(),
               "SELECT `account`.* FROM `application_account_record_account` AS `account` "
-            . "INNER JOIN `dragonx_account_record_session` AS `session` ON `session`.`accountid` = `account`.`id` "
+            . "INNER JOIN `dragonx_account_record_session` AS `session` ON `session`.`account_id` = `account`.`id` "
             . "WHERE `session`.`sessionhash` = :sessionhash",
             array('sessionhash' => $sessionhash)
         );

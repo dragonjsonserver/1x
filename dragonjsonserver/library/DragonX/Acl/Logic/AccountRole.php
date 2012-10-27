@@ -21,28 +21,28 @@ class DragonX_Acl_Logic_AccountRole
 {
     /**
      * Fügt eine neue Zuordnung von einem Account zu einer Rolle hinzu
-     * @param integer $accountid
-     * @param integer $roleid
+     * @param integer $account_id
+     * @param integer $role_id
      */
-    public function addAccountRole($accountid, $roleid)
+    public function addAccountRole($account_id, $role_id)
     {
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
-        $storage->load(new Application_Account_Record_Account($accountid));
-        $storage->load(new DragonX_Acl_Record_Role($roleid));
+        $storage->load(new Application_Account_Record_Account($account_id));
+        $storage->load(new DragonX_Acl_Record_Role($role_id));
         $storage->save(
-            new DragonX_Acl_Record_AccountRole(array('accountid' => $accountid, 'roleid' => $roleid))
+            new DragonX_Acl_Record_AccountRole(array('account_id' => $account_id, 'role_id' => $role_id))
         );
     }
 
     /**
      * Entfernt eine Zuordnung von einem Account zu einer Rolle
-     * @param integer $accountroleid
+     * @param integer $accountrole_id
      */
-    public function removeAccountRole($accountroleid)
+    public function removeAccountRole($accountrole_id)
     {
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
         $storage->delete(
-            new DragonX_Acl_Record_AccountRole($accountroleid)
+            new DragonX_Acl_Record_AccountRole($accountrole_id)
         );
     }
 }

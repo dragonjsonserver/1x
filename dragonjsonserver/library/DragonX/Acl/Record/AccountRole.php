@@ -22,10 +22,10 @@ class DragonX_Acl_Record_AccountRole extends DragonX_Storage_Record_Abstract
     /**
      * @var integer
      */
-    public $accountid;
+    public $account_id;
 
     /**
      * @var integer
      */
-    public $roleid;
+    public $role_id;
 }

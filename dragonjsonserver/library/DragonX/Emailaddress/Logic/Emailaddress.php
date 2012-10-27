@@ -29,7 +29,7 @@ class DragonX_Emailaddress_Logic_Emailaddress
     {
         list ($recordEmailaddress) = Zend_Registry::get('DragonX_Storage_Engine')->loadByConditions(
             new DragonX_Emailaddress_Record_Emailaddress(),
-            array('accountid' => $recordAccount->id)
+            array('account_id' => $recordAccount->id)
         );
         return $recordEmailaddress;
     }
@@ -54,7 +54,7 @@ class DragonX_Emailaddress_Logic_Emailaddress
             throw new InvalidArgumentException('incorrect password');
         }
 
-        $recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->accountid));
+        $recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->account_id));
         return $recordAccount;
     }
 
@@ -69,7 +69,7 @@ class DragonX_Emailaddress_Logic_Emailaddress
     public function linkAccount(Application_Account_Record_Account $recordAccount, $emailaddress, $password, Zend_Config $configMail)
     {
     	$recordEmailaddress = new DragonX_Emailaddress_Record_Emailaddress(
-    	    array('accountid' => $recordAccount->id)
+    	    array('account_id' => $recordAccount->id)
     	);
     	$recordEmailaddress
     	    ->validateEmailaddress($emailaddress)
@@ -93,7 +93,7 @@ class DragonX_Emailaddress_Logic_Emailaddress
     {
         Zend_Registry::get('DragonX_Storage_Engine')->deleteByConditions(
             new DragonX_Emailaddress_Record_Emailaddress(),
-            array('accountid' => $recordAccount->id)
+            array('account_id' => $recordAccount->id)
         );
         Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
             'DragonX_Emailaddress_Plugin_UnlinkEmailaddress_Interface',

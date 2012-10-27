@@ -22,5 +22,5 @@ class DragonX_Account_Record_Deletion extends DragonX_Storage_Record_Created_Abs
     /**
      * @var integer
      */
-    public $accountid;
+    public $account_id;
 }

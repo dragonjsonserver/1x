@@ -22,26 +22,26 @@ class DragonX_Acl_Logic_Resource
     /**
      * Fügt eine neue Ressource hinzu
      * @param string $name
-     * @param integer $parentresourceid
+     * @param integer $parentresource_id
      */
-    public function addResource($name, $parentresourceid)
+    public function addResource($name, $parentresource_id)
     {
         $logicNestedSet = new DragonX_NestedSet_Logic_NestedSet();
         $logicNestedSet->addNode(
             new DragonX_Acl_Record_Resource(array('name' => $name)),
-            new DragonX_Acl_Record_Resource($parentresourceid)
+            new DragonX_Acl_Record_Resource($parentresource_id)
         );
     }
 
     /**
      * Entfernt eine Ressource samt untergeordneten Ressourcen
-     * @param integer $resourceid
+     * @param integer $resource_id
      */
-    public function removeResource($resourceid)
+    public function removeResource($resource_id)
     {
         $logicNestedSet = new DragonX_NestedSet_Logic_NestedSet();
         $logicNestedSet->removeNode(
-            new DragonX_Acl_Record_Resource($resourceid)
+            new DragonX_Acl_Record_Resource($resource_id)
         );
     }
 }

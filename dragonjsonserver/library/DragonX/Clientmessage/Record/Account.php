@@ -22,5 +22,5 @@ class DragonX_Clientmessage_Record_Account extends DragonX_Clientmessage_Record_
     /**
      * @var integer
      */
-    public $accountid;
+    public $account_id;
 }

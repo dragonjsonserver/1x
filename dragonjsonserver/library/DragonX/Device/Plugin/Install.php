@@ -39,6 +39,9 @@ class DragonX_Device_Plugin_Install implements DragonX_Storage_Plugin_Install_In
                     . "PRIMARY KEY (`id`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
         }
+	    if (version_compare($oldversion, '1.8.0', '<')) {
+	        $sqlstatements[] = "ALTER TABLE `dragonx_device_record_device` CHANGE `accountid` `account_id` INT(10) UNSIGNED NOT NULL";
+	    }
         return $sqlstatements;
     }
 }

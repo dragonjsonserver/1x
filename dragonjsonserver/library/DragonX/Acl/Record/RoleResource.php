@@ -22,10 +22,10 @@ class DragonX_Acl_Record_RoleResource extends DragonX_Storage_Record_Abstract
     /**
      * @var integer
      */
-    public $roleid;
+    public $role_id;
 
     /**
      * @var integer
      */
-    public $resourceid;
+    public $resource_id;
 }
