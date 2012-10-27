@@ -40,6 +40,7 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
 	            $logicSession = new DragonX_Account_Logic_Session();
 	            try {
 	            	$recordAccount = $logicSession->getAccount($sessionNamespace->sessionhash);
+	            	$this->view->sessionhash = $sessionNamespace->sessionhash;
 	            	Zend_Registry::set('recordAccount', $recordAccount);
             	    $this->view->recordAccount = $recordAccount;
             	    $logicEmailaddress = new DragonX_Emailaddress_Logic_Emailaddress();
