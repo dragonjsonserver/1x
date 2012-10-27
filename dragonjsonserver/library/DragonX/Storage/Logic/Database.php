@@ -141,7 +141,7 @@ class DragonX_Storage_Logic_Database
 	                $version = new $classname();
                     $listPackages = $this->_getListPackages($storagekey);
 	                if (isset($listPackages[$packagenamespace]) && isset($listPackages[$packagenamespace][$packagename])) {
-	                    list($recordPackage) = $listPackages[$packagenamespace][$packagename];
+	                    $recordPackage = $listPackages[$packagenamespace][$packagename];
 	                    $version = $version->getVersion();
 	                    if ($recordPackage->version == $version) {
 	                    	continue;

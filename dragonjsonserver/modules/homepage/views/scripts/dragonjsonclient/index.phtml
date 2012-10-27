@@ -55,8 +55,11 @@
         jsonclient = new JsonClient('<?php echo BASEURL; ?>');
         dragonjsonclient = new DragonJsonClient(jsonclient);
         <?php
+        if (isset($this->sessionhash)) {
+            echo "dragonjsonclient.setData('sessionhash', '" . $this->escape($this->sessionhash) . "');";
+        }
         if (isset($this->recordEmailaddress)) {
-        	echo "dragonjsonclient.setData('identity', '" . $this->escape($this->recordEmailaddress->emailaddress) . "');";
+        	echo "dragonjsonclient.setData('emailaddress', '" . $this->escape($this->recordEmailaddress->emailaddress) . "');";
         }
         ?>
     });
