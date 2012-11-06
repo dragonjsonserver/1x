@@ -97,21 +97,12 @@ class DragonX_Storage_Engine_ZendDbAdataper
                 $record->modified = time();
             }
         }
-        $array = $record->toArray();
-        foreach ($array as $key => $value) {
-            if (is_array($value)) {
-                foreach ($value as $subkey => $subvalue) {
-                    $array[$key . '_' . $subkey] = $subvalue;
-                }
-                unset($array[$key]);
-            }
-        }
     	if (!isset($record->id)) {
             $adapter = $this->getAdapter();
-    		$rowCount = $adapter->insert($this->getTablename($record), $array);
+    		$rowCount = $adapter->insert($this->getTablename($record), $record->toArray(false));
     		$record->id = $adapter->lastInsertId();
     	} else {
-    		$rowCount = $this->getAdapter()->update($this->getTablename($record), $array, 'id = ' . (int)$record->id);
+    		$rowCount = $this->getAdapter()->update($this->getTablename($record), $record->toArray(false), 'id = ' . (int)$record->id);
     	}
         return $rowCount;
     }
