@@ -49,9 +49,10 @@ abstract class DragonX_Application_Accessor_Abstract
 
     /**
      * Gibt alle Attribute der Eigenschaft als Array zurück
+     * @param boolean $subarrays
      * @return array
      */
-    public function toArray()
+    public function toArray($subarrays = true)
     {
         $array = array();
         foreach ($this as $key => $value) {
@@ -59,7 +60,14 @@ abstract class DragonX_Application_Accessor_Abstract
                 $key = substr($key, 1);
             }
             try {
-                $array[$key] = $this->__get($key);
+            	$value = $this->__get($key);
+            	if (!$subarrays && is_array($value)) {
+            		foreach ($value as $subkey => $subvalue) {
+            			$array[$key . '_' . $subkey] = $subvalue;
+            		}
+            	} else {
+            		$array[$key] = $value;
+            	}
             } catch (Exception $exception) {
             }
         }
@@ -114,9 +122,20 @@ abstract class DragonX_Application_Accessor_Abstract
             }
         } catch (Exception $exception) {
         }
-        $methodname = 'get' . ucfirst($key);
-        if (!method_exists($this, $methodname)) {
-            throw new InvalidArgumentException('missing attribute "' . $key . '"');
+        try {
+	        $methodname = 'get' . ucfirst($key);
+	        if (!method_exists($this, $methodname)) {
+	            throw new InvalidArgumentException('missing attribute "' . $key . '"');
+	        }
+        } catch (Exception $exception) {
+        	$array = explode('_', $key, 2);
+        	if (count($array) > 1) {
+        		list ($key, $subkey) = $array;
+                if (isset($this->$key)) {
+		        	return $this->{$key}[$subkey];
+                }
+        	}
+        	throw $exception;
         }
         return call_user_func(array($this, $methodname));
     }
