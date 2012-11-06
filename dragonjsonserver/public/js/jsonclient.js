@@ -19,14 +19,15 @@
  * @param string id
  * @param string method
  * @param object params
+ * @param function success
  * @constructor
  */
-function JsonRequest(id, method, params, callback)
+function JsonRequest(id, method, params, success)
 {
     this.id = id;
     this.method = method;
     this.params = params || {};
-    this.callback = callback;
+    this.success = success;
     this.jsonrpc = '2.0';
 }
 
@@ -154,20 +155,20 @@ function JsonClient(serverurl, options, callbacks, defaultparams)
 	                clientmessageResponse.result = clientmessageResponse.result.result;
         		}
 	    		if ($.isArray(jsonrequest) && $.isArray(json)) {
-	    			var callbacks = {};
+	    			var successes = {};
 	    			$.each(jsonrequest, function (key, jsonrequest) {
-			    		if (jsonrequest.callback != undefined) {
-			    			callbacks[jsonrequest.id] = jsonrequest.callback;
+			    		if (jsonrequest.success != undefined) {
+			    			successes[jsonrequest.id] = jsonrequest.success;
 			    		}
 	    			});
 	    			$.each(json, function (key, json) {
-			    		if (callbacks[json.id] != undefined) {
-			    			callbacks[json.id](json, statusText, jqXHR);
+			    		if (successes[json.id] != undefined) {
+			    			successes[json.id](json, statusText, jqXHR);
 			    		}
 	    			});
 	    		} else {
-		    		if (jsonrequest.callback != undefined) {
-		    			jsonrequest.callback(json, statusText, jqXHR);
+		    		if (jsonrequest.success != undefined) {
+		    			jsonrequest.success(json, statusText, jqXHR);
 		    		}
 	    		}
 				if (options.success != undefined) {
