@@ -16,12 +16,3 @@
 
 require 'bootstrap.php';
 $storage = Zend_Registry::get('DragonX_Storage_Engine');
-
-class A extends DragonX_Application_Accessor_Abstract
-{
-	public $a = array('b' => 1);
-}
-$a = new A();
-print $a->a_b;
-
-var_dump($a->toArray(false));
