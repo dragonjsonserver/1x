@@ -21,11 +21,12 @@
  * @param object params
  * @constructor
  */
-function JsonRequest(id, method, params)
+function JsonRequest(id, method, params, callback)
 {
     this.id = id;
     this.method = method;
     this.params = params || {};
+    this.callback = callback;
     this.jsonrpc = '2.0';
 }
 
@@ -40,7 +41,7 @@ function JsonRequest(id, method, params)
 function JsonClient(serverurl, options, callbacks, defaultparams)
 {
 	var libraryname = 'JsonClient';
-	var libraryversion = 'v1.7.0';
+	var libraryversion = 'v1.8.0';
 
     $('#libraryname').html(libraryname);
     $('#libraryversion').html(libraryversion);
@@ -152,6 +153,23 @@ function JsonClient(serverurl, options, callbacks, defaultparams)
 	                });
 	                clientmessageResponse.result = clientmessageResponse.result.result;
         		}
+	    		if ($.isArray(jsonrequest) && $.isArray(json)) {
+	    			var callbacks = {};
+	    			$.each(jsonrequest, function (key, jsonrequest) {
+			    		if (jsonrequest.callback != undefined) {
+			    			callbacks[jsonrequest.id] = jsonrequest.callback;
+			    		}
+	    			});
+	    			$.each(json, function (key, json) {
+			    		if (callbacks[json.id] != undefined) {
+			    			callbacks[json.id](json, statusText, jqXHR);
+			    		}
+	    			});
+	    		} else {
+		    		if (jsonrequest.callback != undefined) {
+		    			jsonrequest.callback(json, statusText, jqXHR);
+		    		}
+	    		}
 				if (options.success != undefined) {
 					options.success(json, statusText, jqXHR);
 				} else if (self.options.success != undefined) {
