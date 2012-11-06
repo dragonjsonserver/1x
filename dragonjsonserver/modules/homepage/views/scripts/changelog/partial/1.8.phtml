@@ -16,9 +16,41 @@
 ?>
 <h3>Noch geplante Änderungen</h3>
 <ul>
-    <li>Spalten und Variablen die eine ID enthalten mit "_id" abschliessen</li>
     <li>Umsetzung von Arrays in Records rekursiv machen sodass belieb tiefe Arraystrukturen möglich sind</li>
-    <li>"indexBy...()" auch auf Arraywerte in Records ermöglichen</li>
 </ul>
 <h3>Version 1.8.0</h3>
 <h4>Releasedatum: noch offen</h4>
+<h4>Geänderte Pakete</h4>
+<ul>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Application
+                <ul>
+                    <li>Attribute in Arrays von Eigenschaftsklassen können nun auch mit "_" angesprochen werden. Daher statt $record->array['key'] funktioniert nun auch $record->array_key</li>
+                    <li>"toArray()" der Eigenschaftklassen bietet nun die Möglichkeit an die Arraystruktur auf eine flache Struktur aufzulösen</li>
+                </ul>
+            </li>
+            <li>
+                Storage
+                <ul>
+                    <li>Nutzung der "toArray()" Methode zur Auflösung der Arraystrukturen von Records in flache Strukturen zur Speicherung in der Datenbank</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4>Allgemein</h4>
+<ul>
+    <li>Alle Spalten, Attribut- und Variablennamen die eine eindeutige ID als Wert beinhalten haben als Suffix nun "_id" statt nur "id"</li>
+</ul>
+<h4>JsonClient</h4>
+<ul>
+    <li>Es ist nun möglich jedem JsonRequest eine eigene Success Callbackmethode zu übergeben das mit der dazugehörigen Response aufgerufen wird. Dies vereinfacht vor allem das Handling der Responses bei Multirequests</li>
+</ul>
+<h2>Migration vom Branch 1.7</h2>
+<h3>Benötigt</h3>
+<ul>
+    <li>Die Umstellung der Spalten, Attribut- und Variablennamen die eine eindeutige ID als Wert beinhalten müssen bei darauf basierenden Klassen und auch Clientanfragen angepasst werden. Zum Client hin betrifft dies vor allem die "accountid" die nun "account_id" heisst</li>
+</ul>
