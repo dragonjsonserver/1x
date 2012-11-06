@@ -21,12 +21,12 @@ if ($environment = getenv('environment')) {
 } else {
 	define('APPLICATION_ENV', 'development');
 }
-define('BASEURL', 'http://' . $_SERVER["SERVER_NAME"] . '/');
+define('BASEURL', 'http://' . $_SERVER["HTTP_HOST"] . dirname($_SERVER['SCRIPT_NAME']) . '/');
 
 if (!$zendpath = getenv('zendpath')) {
     $zendpath = DRAGONJSONSERVER_PATH . '/../library';
 }
-if (is_dir(APPLICATION_PATH)) {
+if (is_dir(APPLICATION_PATH) && !getenv('disablerepositories')) {
     $repositoriespath = APPLICATION_PATH . '/config/repositories.php';
     if (is_file($repositoriespath)) {
     	$repositories = require $repositoriespath;
