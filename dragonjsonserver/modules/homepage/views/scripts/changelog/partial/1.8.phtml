@@ -17,7 +17,6 @@
 <h3>Noch geplante Änderungen</h3>
 <ul>
     <li>Umsetzung von Arrays in Records rekursiv machen sodass belieb tiefe Arraystrukturen möglich sind</li>
-    <li>Errorhandling für den Client verbessern sodass Ausnahmen vom Server nicht mehr in der "success" Callback landen sondern in eine eigene "exception" Callback</li>
     <li>"set_error_handler()" verwenden um einen Error Handler zu registrieren der auftretende PHP Fehler die nicht zum Abbruch eines Skriptes führen loggt und somit die PHP Fehler nicht in der Response landen</li>
     <li>Mapping von Responseparametern für den nachfolgenden Request bei Multirequests sodass der Client ein Mapping für jeden einzelnen Request mitgeben kann und nicht mehr nur die Responseparameter mit dem gleichen Namen wie Requestparameter übernommen werden können</li>
     <li>Install Plugins umbauen sodass Transaktionen verwendet werden für jedes einzelne Plugin und die Versionsverwaltung ebenfalls auf Pluginebene geht</li>
@@ -54,6 +53,7 @@
 <h4>JsonClient</h4>
 <ul>
     <li>Es ist nun möglich jedem JsonRequest eine eigene Success Callbackmethode zu übergeben das mit der dazugehörigen Response aufgerufen wird. Dies vereinfacht vor allem das Handling der Responses bei Multirequests</li>
+    <li>Einem JsonRequest kann nun auch eine Exception Callbackmethode übergeben werden welche aufgerufen wird wenn der Server eine Exception geworfen hat für diesen Request</li>
 </ul>
 <h4>DragonJsonClient</h4>
 <ul>
