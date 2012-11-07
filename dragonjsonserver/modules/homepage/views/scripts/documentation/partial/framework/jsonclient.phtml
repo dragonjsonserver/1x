@@ -25,24 +25,34 @@
     <li>
         Einzelner Request
 <pre>jsonclient.send(
-    new JsonRequest('%id%', '%method%', %params%),
-    {
-        success : function (json) {
+    new JsonRequest(
+        '%id%', '%method%', %params%,
+        {
+            success : function (json, statusText, jqXHR) {},
+            exception : function (json, statusText, jqXHR) {},
         }
-    }
+    )
 );</pre>
     </li>
     <li>
         Multirequest
 <pre>jsonclient.send(
     [
-        new JsonRequest('%id%', '%method%', %params%),
-        new JsonRequest('%id%', '%method%', %params%)
-    ],
-    {
-        success : function (json) {
-        }
-    }
+        new JsonRequest(
+            '%id%', '%method%', %params%,
+            {
+                success : function (json, statusText, jqXHR) {},
+                exception : function (json, statusText, jqXHR) {},
+            }
+        ),
+        new JsonRequest(
+            '%id%', '%method%', %params%,
+            {
+                success : function (json, statusText, jqXHR) {},
+                exception : function (json, statusText, jqXHR) {},
+            }
+        )
+    ]
 );</pre>
     </li>
     <li>
@@ -69,11 +79,8 @@
     <li>
         Bei jeder Response wird diese nach Clientnachrichten überprüft und anhand der Keys entsprechend aufgerufen
 <pre>jsonclient.setCallback(
-    'key',
-    function(json, timestamp) {
-        console.log(json);
-        console.log(timestamp);
-    }
+    '%key%',
+    function(json, timestamp) {}
 );</pre>
     </li>
     <li>Die Keys 'response' und 'timestamp' werden für die Kommunikation bereits verwendet und sind daher nicht erlaubt</li>
