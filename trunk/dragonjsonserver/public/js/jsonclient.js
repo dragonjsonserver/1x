@@ -19,16 +19,19 @@
  * @param string id
  * @param string method
  * @param object params
- * @param function success
+ * @param object options
  * @constructor
  */
-function JsonRequest(id, method, params, success)
+function JsonRequest(id, method, params, options)
 {
     this.id = id;
     this.method = method;
     this.params = params || {};
-    this.success = success;
     this.jsonrpc = '2.0';
+    if (typeof options == 'function') {
+    	options = {success : options};
+    }
+    this.options = options || {};
 }
 
 /**
@@ -154,28 +157,29 @@ function JsonClient(serverurl, options, callbacks, defaultparams)
 	                });
 	                clientmessageResponse.result = clientmessageResponse.result.result;
         		}
-	    		if ($.isArray(jsonrequest) && $.isArray(json)) {
-	    			var successes = {};
-	    			$.each(jsonrequest, function (key, jsonrequest) {
-			    		if (jsonrequest.success != undefined) {
-			    			successes[jsonrequest.id] = jsonrequest.success;
-			    		}
-	    			});
-	    			$.each(json, function (key, json) {
-			    		if (successes[json.id] != undefined) {
-			    			successes[json.id](json, statusText, jqXHR);
-			    		}
-	    			});
-	    		} else {
-		    		if (jsonrequest.success != undefined) {
-		    			jsonrequest.success(json, statusText, jqXHR);
-		    		}
-	    		}
 				if (options.success != undefined) {
 					options.success(json, statusText, jqXHR);
 				} else if (self.options.success != undefined) {
 					self.options.success(json, statusText, jqXHR);
 				}
+				if (!$.isArray(jsonrequest)) {
+					jsonrequest = [jsonrequest];
+				}
+				if (!$.isArray(json)) {
+					json = [json];
+				}
+    			var jsonrequestoptions = {};
+    			$.each(jsonrequest, function (key, jsonrequest) {
+    				jsonrequestoptions[jsonrequest.id] = jsonrequest.options;
+    			});
+    			$.each(json, function (key, json) {
+	    			if (json.result != undefined && jsonrequestoptions[json.id].success != undefined) {
+	    				jsonrequestoptions[json.id].success(json, statusText, jqXHR);
+	    			}
+	    			if (json.error != undefined && jsonrequestoptions[json.id].exception != undefined) {
+	    				jsonrequestoptions[json.id].exception(json, statusText, jqXHR);
+	    			}
+    			});
             }
         }));
         return self;
