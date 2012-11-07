@@ -22,7 +22,7 @@
 function DragonJsonClient(jsonclient)
 {
 	var applicationname = 'DragonJsonClient';
-	var applicationversion = 'v1.7.0';
+	var applicationversion = 'v1.8.0';
 
     $('#applicationname').html(applicationname);
     $('#applicationversion').html(applicationversion);
@@ -53,7 +53,7 @@ function DragonJsonClient(jsonclient)
     this.getData = function ()
     {
         var data = {};
-        $("input[type='text']").each(function (index, element) {
+        $("#arguments input[type='text']").each(function (index, element) {
         	element = $(element);
         	var value = element.val();
             if (value != '') {
@@ -76,7 +76,7 @@ function DragonJsonClient(jsonclient)
             	}
             }
         });
-        $("input[type='checkbox']").each(function (index, element) {
+        $("#arguments input[type='checkbox']").each(function (index, element) {
 			element = $(element);
         	data[element.attr('name')] = element.attr('checked') == 'checked';
         });
@@ -90,11 +90,23 @@ function DragonJsonClient(jsonclient)
      */
     this.sendRequest = function ()
     {
+    	var namespace = $('#namespace').val();
+    	var method = $('#method').val();
+    	var data = self.getData();
+    	$('#uri').val(
+    		new URI()
+		    	.search({
+		    		namespace : namespace,
+		    		method : method,
+		    		data : JSON.stringify(data),
+		    	})
+		    + ''
+		);
         jsonclient.send(
             new JsonRequest(
                 applicationname + ' ' + applicationversion,
-                $('#namespace').val() + '.' + $('#method').val(),
-                self.getData()
+                namespace + '.' + method,
+                data
             ),
             {
                 async : false,
@@ -115,10 +127,14 @@ function DragonJsonClient(jsonclient)
     var self = this;
     /**
      * Selektiert einen anderen Namespace und baut die GUI entsprechend um
+     * @param object query
      * @return DragonJsonClient
      */
-    this.selectNamespace = function ()
+    this.selectNamespace = function (query)
     {
+    	if (query && query.namespace != undefined) {
+	        $('#namespace').val(query.namespace);
+    	}
         var namespace = $('#namespace').val();
         var select = $('#method').html('');
         $.each(this.namespaces[namespace], function(method, parameters) {
@@ -126,19 +142,24 @@ function DragonJsonClient(jsonclient)
                 .html(method)
                 .appendTo(select);
         });
-        self.selectMethod(true);
+        self.selectMethod(true, query);
         return self;
     };
 
     var self = this;
     /**
      * Selektiert eine andere Methode und baut die GUI entsprechend um
+     * @param boolean clearresponse
+     * @param object query
      * @return DragonJsonClient
      */
-    this.selectMethod = function (clearresponse)
+    this.selectMethod = function (clearresponse, query)
     {
     	if (clearresponse) {
     		$('#response').html('<pre>Antwort</pre>');
+    	}
+    	if (query && query.method != undefined) {
+	        $('#method').val(query.method);
     	}
         $.extend(self.data, self.getData());
         var namespace = $('#namespace').val();
@@ -257,5 +278,9 @@ function DragonJsonClient(jsonclient)
             .html(namespace)
             .appendTo(select);
     });
-    this.selectNamespace();
+    var query = new URI().query(true);
+    if (query.data) {
+    	$.extend(this.data, $.parseJSON(query.data));
+    }
+    this.selectNamespace(query);
 }
