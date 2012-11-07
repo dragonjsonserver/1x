@@ -17,6 +17,10 @@
 <h3>Noch geplante Änderungen</h3>
 <ul>
     <li>Umsetzung von Arrays in Records rekursiv machen sodass belieb tiefe Arraystrukturen möglich sind</li>
+    <li>Errorhandling für den Client verbessern sodass Ausnahmen vom Server nicht mehr in der "success" Callback landen sondern in eine eigene "exception" Callback</li>
+    <li>"set_error_handler()" verwenden um einen Error Handler zu registrieren der auftretende PHP Fehler die nicht zum Abbruch eines Skriptes führen loggt und somit die PHP Fehler nicht in der Response landen</li>
+    <li>GET Parameter für den DragonJsonClient sodass man die Vorauswahl des Namensraums, der Methode sowie die Vorbelegung der Eingabefelder per URL bestimmen kann</li>
+    <li>Mapping von Responseparametern für den nachfolgenden Request bei Multirequests sodass der Client ein Mapping für jeden einzelnen Request mitgeben kann und nicht mehr nur die Responseparameter mit dem gleichen Namen wie Requestparameter übernommen werden können</li>
 </ul>
 <h3>Version 1.8.0</h3>
 <h4>Releasedatum: noch offen</h4>
@@ -44,8 +48,8 @@
 <h4>Allgemein</h4>
 <ul>
     <li>Alle Spalten, Attribut- und Variablennamen die eine eindeutige ID als Wert beinhalten haben als Suffix nun "_id" statt nur "id"</li>
-    <li>BASEURL wird nun zus�tzlich mit dem Verzeichnis belegt in welchem sich das Script beim Aufruf befindet. Dadurch ist es m�glich das Projekt in ein Unterverzeichnis der Domain/Subdomain zu legen</li>
-    <li>Es ist nun m�glich die Nutzung des Application Repositories per ".htaccess" zu deaktivieren. Dadurch kann der Inhalt der DragonJsonServer Homepage angezeigt werden auch wenn ein Application Repsoritory vorhanden ist</li>
+    <li>BASEURL wird nun zus�tzlich mit dem Verzeichnis belegt in welchem sich das Script beim Aufruf befindet. Dadurch ist es m�glich das Projekt in ein Unterverzeichnis der Domain/Subdomain zu legen</li>
+    <li>Es ist nun m�glich die Nutzung des Application Repositories per ".htaccess" zu deaktivieren. Dadurch kann der Inhalt der DragonJsonServer Homepage angezeigt werden auch wenn ein Application Repsoritory vorhanden ist</li>
 </ul>
 <h4>JsonClient</h4>
 <ul>
