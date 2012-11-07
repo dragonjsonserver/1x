@@ -19,41 +19,34 @@
     <li>Unterstützt sowohl einzelne Requests als auch Multirequests</li>
     <li>Benötigt die jQuery Bibliothek</li>
     <li>
-        Initialisierung
-<pre>var jsonclient = new JsonClient('http://%hostname%');</pre>
+        Initialisierung mit der URI zum Server
+<pre>var jsonclient = new JsonClient('%uri%');</pre>
     </li>
     <li>
-        Einzelner Request
-<pre>jsonclient.send(
-    new JsonRequest(
-        '%id%', '%method%', %params%,
+        Einzelner Request mit "success" und "exception" Callbackmethode
+<pre>jsonclient.send(new JsonRequest('%id%', '%method%', %params%,
+    {
+        success : function (json, statusText, jqXHR) {},
+        exception : function (json, statusText, jqXHR) {},
+    }
+));</pre>
+    </li>
+    <li>
+        Für Multirequest können mehrere einzelne JsonRequests übergeben werden. Dabei muss beachtet werden dass die übergebene ID jedes Requests eindeutig ist innerhalb des Multirequests sodass die einzelnen Antworten für die "success" und "exception" Callbackmethoden voneinander unterschieden werden können
+<pre>jsonclient.send([
+    new JsonRequest('%id%', '%method%', %params%,
+        {
+            success : function (json, statusText, jqXHR) {},
+            exception : function (json, statusText, jqXHR) {},
+        }
+    ),
+    new JsonRequest('%id%', '%method%', %params%,
         {
             success : function (json, statusText, jqXHR) {},
             exception : function (json, statusText, jqXHR) {},
         }
     )
-);</pre>
-    </li>
-    <li>
-        Multirequest
-<pre>jsonclient.send(
-    [
-        new JsonRequest(
-            '%id%', '%method%', %params%,
-            {
-                success : function (json, statusText, jqXHR) {},
-                exception : function (json, statusText, jqXHR) {},
-            }
-        ),
-        new JsonRequest(
-            '%id%', '%method%', %params%,
-            {
-                success : function (json, statusText, jqXHR) {},
-                exception : function (json, statusText, jqXHR) {},
-            }
-        )
-    ]
-);</pre>
+]);</pre>
     </li>
     <li>
         Setzen von Defaultwerten für jeden nachfolgenden Request
@@ -65,12 +58,7 @@
     </li>
     <li>
         Abfrage der SMD
-<pre>jsonclient.smd(
-    {
-        success : function (json) {
-        }
-    }
-);</pre>
+<pre>jsonclient.smd({success : function (json) {}});</pre>
     </li>
 </ul>
 <h3>Clientnachrichten</h3>
