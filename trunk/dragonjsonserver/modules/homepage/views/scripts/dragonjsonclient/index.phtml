@@ -20,6 +20,13 @@
     <form class="form-horizontal">
         <div class="row-fluid">
             <div class="span6">
+                <legend>URI</legend>
+                <div class="control-group">
+                    <label class="control-label" for="uri">URI:</label>
+                    <div class="controls">
+                        <input id="uri" name="uri" type="text" readonly="readonly" />
+                    </div>
+                </div>
                 <legend>Service</legend>
                 <div class="control-group">
                     <label class="control-label" for="namespace">Namensraum:</label>
@@ -47,6 +54,7 @@
     </form>
 </div>
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/jsonclient.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/URI.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/dragonjsonclient.js'); ?>"></script>
 <script type="text/javascript">
     var jsonclient;
