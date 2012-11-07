@@ -21,7 +21,11 @@ if ($environment = getenv('environment')) {
 } else {
 	define('APPLICATION_ENV', 'development');
 }
-define('BASEURL', 'http://' . $_SERVER["HTTP_HOST"] . dirname($_SERVER['SCRIPT_NAME']) . '/');
+$dirname = dirname($_SERVER['SCRIPT_NAME']);
+if (substr($dirname, -1) != '/') {
+	$dirname .= '/';
+}
+define('BASEURL', 'http://' . $_SERVER["HTTP_HOST"] . $dirname);
 
 if (!$zendpath = getenv('zendpath')) {
     $zendpath = DRAGONJSONSERVER_PATH . '/../library';
