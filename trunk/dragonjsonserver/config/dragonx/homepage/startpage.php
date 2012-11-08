@@ -26,6 +26,7 @@ return array(
         . '    <li>Paketstruktur und Plugins um neue Funktionalitäten einfach einbinden zu können</li>'
         . '    <li>New BSD Lizenz zur freien Verwendung aller Projektbestandteile</li>'
         . '    <li>Weitere optionale Pakete zur Erweiterung der Funktionalitäten des Json Servers</li>'
+        . '    <li>Systemvoraussetzung: mindestens PHP 5.3.7</li>'
         . '</ul>'
         . '<a class="btn" href="http://code.google.com/p/dragonjsonserver/downloads/list"><i class="icon-download"></i> Download &raquo;</a>',
 );
