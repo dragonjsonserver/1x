@@ -1,0 +1,162 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+        <title>
+            <?php
+                echo $this->configApplication->name;
+                if (isset($this->configNavigation->header->{$this->controllername})) {
+                	$navigation = $this->configNavigation->header->{$this->controllername};
+                    if (!$navigation instanceof Zend_Config) {
+                        $navigation = new Zend_Config(array('label' => $navigation));
+                    }
+                    echo ' - ' . $navigation->label;
+                }
+                if (isset($this->configNavigation->footer->{$this->controllername})) {
+                    $navigation = $this->configNavigation->footer->{$this->controllername};
+                    if (!$navigation instanceof Zend_Config) {
+                        $navigation = new Zend_Config(array('label' => $navigation));
+                    }
+                    echo ' - ' . $navigation->label;
+                }
+            ?>
+        </title>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo $this->baseUrl('feed.php'); ?>" />
+        <link href="<?php echo $this->baseUrl('css/bootstrap.min.css'); ?>" rel="stylesheet">
+        <link href="<?php echo $this->baseUrl('css/bootstrap-responsive.min.css'); ?>" rel="stylesheet">
+        <link href="<?php echo $this->baseUrl('css/layout.css'); ?>" rel="stylesheet">
+        <?php if (count($this->configNavigation->footer) > 0) { ?>
+        <style type="text/css">
+            body {
+			    padding-bottom : 60px;
+			}
+			@media(max-width:979px)
+			{
+			    body {
+			        padding-bottom : 0px;
+			    }
+			}
+		</style>
+        <?php } ?>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <?php
+                    if (isset($this->recordEmailaddress)) {
+	                    echo '<ul class="nav">';
+
+                        if ($this->controllerarea == 'administration') {
+                            echo '<li><a href="' . $this->url(array(), null, true) .'">Homepage</a></li>';
+                        } else {
+                            echo '<li><a href="' . $this->url(array('module' => 'administration'), null, true) .'">Administration</a></li>';
+                        }
+                        echo '</ul>';
+                    }
+                    ?>
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+                    <a href="<?php echo $this->url(array('module' => $this->controllerarea, 'controller' => 'startpage'), null, true); ?>" class="brand"><?php echo $this->configApplication->name . ' ' . $this->configApplication->version; ?></a>
+                    <div class="nav-collapse collapse">
+	                    <ul class="nav">
+	                        <?php
+	                        foreach ($this->configNavigation->header as $controller => $navigation) {
+	                        	if (!$navigation instanceof Zend_Config) {
+	                                $navigation = new Zend_Config(array('label' => $navigation, 'modulename' => $this->controllerarea));
+	                        	}
+	                        	if (isset($navigation->resource) && !in_array($navigation->resource, $this->resources)) {
+	                                continue;
+	                        	}
+	                            echo '<li' . ($this->modulename == $navigation->modulename && $this->controllername == $controller ? ' class="active"' : '') . '><a href="' . $this->url(array('module' => $navigation->modulename, 'controller' => $controller), null, true) . '">'
+	                               . (isset($navigation->icon) ? '<i class="icon-' . $navigation->icon . ' icon-white"></i> ' : '') . $navigation->label
+	                               . '</a></li>';
+	                        }
+	                        ?>
+	                    <?php if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) { ?>
+                            <?php if (isset($this->recordEmailaddress)) { ?>
+		                    <li class="dropdown">
+		                        <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> <?php echo $this->recordEmailaddress->emailaddress; ?> <b class="caret"></b></a>
+		                        <ul class="dropdown-menu">
+                                    <li><a href="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'showedit'), null, true); ?>">Bearbeiten</a></li>
+                                    <li><a href="<?php echo $this->url(array('controller' => 'account', 'action' => 'logout'), null, true); ?>">Abmelden</a></li>
+                                </ul>
+		                    </li>
+		                    <?php } else { ?>
+                            <li class="dropdown">
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> Profil <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?php echo $this->url(array('controller' => 'account', 'action' => 'showlogin'), null, true); ?>">Anmelden</a></li>
+                                    <li><a href="<?php echo $this->url(array('controller' => 'account', 'action' => 'showregister'), null, true); ?>">Registrieren</a></li>
+                                </ul>
+                            </li>
+                            <?php } ?>
+	                    <?php } ?>
+	                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <?php
+                if (isset($this->recordDeletion)) {
+                    $this->messages[] = '<div class="alert">Profil wurde zum Löschen eingetragen und wird nach dem ' . date('d.m.Y', $this->recordDeletion->created) . ' gelöscht</div>';
+                }
+                foreach ($this->messages as $message) {
+                	echo $message;
+                }
+            ?>
+            <?php echo $this->layout()->content ?>
+            <?php if (count($this->configNavigation->footer) > 0) { ?>
+            <footer>
+                <div class="navbar navbar-inverse navbar-fixed-bottom">
+                    <div class="navbar-inner">
+                        <div class="container">
+                            <ul class="nav">
+                                <?php
+		                        foreach ($this->configNavigation->footer as $controller => $navigation) {
+		                            if (!$navigation instanceof Zend_Config) {
+		                                $navigation = new Zend_Config(array('label' => $navigation, 'modulename' => $this->controllerarea));
+		                            }
+		                            if (isset($navigation->resource) && !in_array($navigation->resource, $this->resources)) {
+		                                continue;
+		                            }
+	                                echo '<li' . ($this->modulename == $navigation->modulename && $this->controllername == $controller ? ' class="active"' : '') . '><a href="' . $this->url(array('module' => $navigation->modulename, 'controller' => $controller), null, true) . '">'
+	                                   . (isset($navigation->icon) ? '<i class="icon-' . $navigation->icon . ' icon-white"></i> ' : '') . $navigation->label
+	                                   . '</a></li>';
+		                        }
+		                        ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <?php } ?>
+        </div>
+        <script src="<?php echo $this->baseUrl('js/bootstrap.min.js'); ?>"></script>
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Neuigkeiten und Newsletter</h3>
+<ul>
+    <li>Neuigkeiten in der Datenbank speichern</li>
+    <li>Verwaltung von Neuigkeiten im Administrationsbereich (Neuigkeiten anlegen, veröffentlichen, ändern und entfernen)</li>
+    <li>Newsletter An-/Abmeldung, Neuigkeiten werden bei der Veröffentlichung als Newsletter versendet</li>
+</ul>
+<h3>Paketverwaltung</h3>
+<ul>
+    <li>Pakete und deren Plugins und Services an-/abschalten</li>
+    <li>Einstellungen von Paketen bearbeiten</li>
+    <li>Abhängigkeiten zwischen Paketen anzeigen und abhängige Pakete mit an-/abschalten</li>
+    <li>Update von Paketen</li>
+</ul>
+<h3>Erweiterungen des DragonJsonClients</h3>
+<ul>
+    <li>Multirequests unterstützen durch Hinzufügen (am Ende oder nach anderen Requests der Queue), Ändern und Entfernen von Einzelrequests</li>
+    <li>Dauerhafte Speicherung von Requests zum Laden, Ändern und erneuten Ausführen</li>
+    <li>Export von Einzel- und Multirequests im jQuery Format zur Einbindung in einen eigenen Client</li>
+</ul>
+<h3>Neue Schnittstellen an den Server</h3>
+<ul>
+    <li>RestAPI</li>
+    <li>XML RPC</li>
+    <li>Websocket</li>
+</ul>
+<h3>Sonstiges</h3>
+<ul>
+    <li>Wenn der JsonServer mehr kann als nur Json durch Hinzufügen von weiteren Schnittstellen sollte die Domain und das Projekt umbenannt werden</li>
+    <li>Zend Translate unterstützen um alle Beschriftungen und Meldungen sowie Zend Locale um alle Datumsangaben der Homepage lokalisiert auszugeben</li>
+    <li>Storage Engine variabler machen sodass man Records auf verschiedene Storage Engines verteilen kann, vor allem Logdaten trennen von den Anwendungsdaten</li>
+    <li>Fehlerbehandlung überarbeiten, Exceptions loggen und ausführlicher werfen um Fehler nachvollziehen zu können, vor allem falsche SQL Statements</li>
+    <li>Session von Account trennen sodass man die Session in eine andere Storage Engine verschieben kann</li>
+    <li>Service anbieten für den Client um die Pakete abzufragen die aktiviert sind sodass dieser seine Funktionalitäten die er anbietet anpassen kann</li>
+    <li>Installationskript erweitern und einen Installationsprozess anbieten für Erst-/Neuinstallation bzw. Upgrades bei denen man sieht was geupgradet werden muss und auch Hinweise anzeigen lassen kann wie im Changelog der Version 1.7.0. Das Ganze etwas absichern, damit es von aussen nicht von jedem Aufrufbar ist</li>
+    <li>Die Konfigurationsdatei '/config/packagenamespaces.php' im Repository 'application' anpassen sodass sie standardmäßig alle Plugins und Services von Dragon und DragonX aktiviert hat sodass nicht mit jedem neuen oder geänderten Paket die Projektvorlage angepasst werden muss</li>
+</ul>
