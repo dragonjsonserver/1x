@@ -25,8 +25,15 @@ return array(
             'title' => 'Version 1.8.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.8.0 ist abgeschlossen und als Download '
-                . 'verfügbar.',
-            'timestamp' => 0,
+                . 'verfügbar. In der Version wurden die Struktur für die '
+                . 'Install Plugins umgebaut, sodass jedes Plugin sich nun '
+                . 'in einer eigenen Transaktionen installiert/updatet und '
+                . 'Fehler nicht mehr zu inkonsistenten Zuständen führen. '
+                . 'diesen nicht die Datenbankstruktur gefährden. Des Weiteren '
+                . 'wurde das Handling der Multirequests beim Client '
+                . 'vereinfacht und auch der DragonJsonClient hat durch die '
+                . 'URI Funktionalität Features dazugewonnen.',
+            'timestamp' => 1352411135,
         ),
         array(
             'title' => 'Version 1.7.0 zum Download verfügbar',
