@@ -25,6 +25,6 @@ class DragonX_Storage_Version
      */
     public function getVersion()
     {
-        return '1.7.0';
+        return '1.8.0';
     }
 }
