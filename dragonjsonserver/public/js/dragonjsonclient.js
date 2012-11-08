@@ -95,7 +95,7 @@ function DragonJsonClient(jsonclient)
     	var data = self.getData();
     	$('#uri').val(
     		new URI()
-		    	.search({
+		    	.query({
 		    		namespace : namespace,
 		    		method : method,
 		    		data : JSON.stringify(data),
