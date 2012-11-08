@@ -14,7 +14,7 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 
-define('DRAGONJSONSERVER_PATH', realpath(dirname(__FILE__) . '/..'));
+define('DRAGONJSONSERVER_PATH', realpath(__DIR__ . '/..'));
 define('APPLICATION_PATH', DRAGONJSONSERVER_PATH . '/../application');
 $dirname = dirname($_SERVER['SCRIPT_NAME']);
 if (substr($dirname, -1) != '/') {
