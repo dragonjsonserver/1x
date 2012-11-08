@@ -19,6 +19,11 @@
  */
 class Dragon_Json_Server_Request_Http extends Zend_Json_Server_Request_Http
 {
+	/**
+	 * @var array
+	 */
+	private $_map = array();
+
     /**
      * Übernimmt die übergebenen Parameter oder holt diese aus den Post Daten
      * @param array $options
@@ -30,6 +35,24 @@ class Dragon_Json_Server_Request_Http extends Zend_Json_Server_Request_Http
         } else {
             parent::__construct();
         }
+    }
+
+    /**
+     * Setzt die Map für die Ausgabeparameter
+     * @param array $map
+     */
+    public function setMap(array $map)
+    {
+        $this->_map = $map;
+    }
+
+    /**
+     * Gibt die Map für die Ausgabeparameter zurück
+     * @return array
+     */
+    public function getMap()
+    {
+        return $this->_map;
     }
 
     /**
