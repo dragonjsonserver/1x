@@ -228,31 +228,35 @@ $logicDatabase-&gt;installPackages();</pre>
     <li>Die Pakete müssen dafür Plugins der Install Schnittstelle bereit stellen</li>
     <li>
         Das Plugin bekommt die Version des Paketes das bisher verwendet wurde und kann somit auf seine aktuelle Version updaten
-<pre>class %packagenamespace%_%packagename%_Plugin_%pluginname%
+<pre>class %packagenamespace%_%packagename%_Plugin_Install_%tablename%
     implements DragonX_Storage_Plugin_Install_Interface
 {
-    public function getInstall($version = '0.0.0')
+    public function install($storage, $version = '0.0.0')
     {
-        $sqlstatements = array();
         if (version_compare($version, '1.0.0', '&lt;')) {
-            $sqlstatements[] = "%sqlstatement%";
+            $storage->executeSqlStatement("%sqlstatement%");
         }
-        return $sqlstatements;
     }
 }</pre>
     </li>
     <li>
         Ein Plugin kann über die Schnittstelle 'DragonX_Storage_Plugin_GetStoragekey_Interface' eine andere Storage Engine angeben auf der es installiert wird
-<pre>class %packagenamespace%_%packagename%_Plugin_%pluginname%
-    implements DragonX_Storage_Plugin_Install_Interface,
-               DragonX_Storage_Plugin_GetStoragekey_Interface
+<pre>class %packagenamespace%_%packagename%_Plugin_Install_%tablename%
+    implements DragonX_Storage_Plugin_GetStoragekey_Interface,
+               DragonX_Storage_Plugin_Install_Interface
 {
     public function getStoragekey()
     {
         return '%storagekey%';
     }
-    ...
+
+    public function install($storage, $version = '0.0.0')
+    {
+        if (version_compare($version, '1.0.0', '&lt;')) {
+            $storage->executeSqlStatement("%sqlstatement%");
+        }
+    }
 }</pre>
     </li>
-    <li>Die Logikklasse Database speichert danach alle Pakete mit ihren aktuellen Versionsnummer in der Datenbank für das nächste Update</li>
+    <li>Die Logikklasse Database speichert danach alle Plugins mit ihren aktuellen Versionsnummer in der Datenbank für das nächste Update</li>
 </ul>

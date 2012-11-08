@@ -24,13 +24,17 @@ class DragonX_Acl_Logic_Role
      * @param string $name
      * @param integer $parentrole_id
      */
-    public function addRole($name, $parentrole_id)
+    public function addRole($name, $parentrole_id = null)
     {
-    	$logicNestedSet = new DragonX_NestedSet_Logic_NestedSet();
-    	$logicNestedSet->addNode(
-    	    new DragonX_Acl_Record_Role(array('name' => $name)),
-    	    new DragonX_Acl_Record_Role($parentrole_id)
-    	);
+        $recordRoleParent = null;
+        if (isset($parentrole_id)) {
+            $recordRoleParent = new DragonX_Acl_Record_Role($parentrole_id);
+        }
+        $logicNestedSet = new DragonX_NestedSet_Logic_NestedSet();
+        $logicNestedSet->addNode(
+            new DragonX_Acl_Record_Role(array('name' => $name)),
+            $recordRoleParent
+        );
     }
 
     /**

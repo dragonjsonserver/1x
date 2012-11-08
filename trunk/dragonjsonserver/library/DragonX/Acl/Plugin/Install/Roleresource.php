@@ -15,14 +15,27 @@
  */
 
 /**
- * Plugins zur Installation des Paketes
+ * Plugin zur Installation des Paketes
  */
-interface DragonX_Storage_Plugin_Install_Interface
+class DragonX_Acl_Plugin_Install_Roleresource implements DragonX_Storage_Plugin_Install_Interface
 {
     /**
      * Installiert das Plugin in der übergebenen Datenbank
      * @param DragonX_Storage_Engine_ZendDbAdataper $storage
      * @param string $version
      */
-    public function install(DragonX_Storage_Engine_ZendDbAdataper $storage, $version = '0.0.0');
+    public function install(DragonX_Storage_Engine_ZendDbAdataper $storage, $version = '0.0.0')
+    {
+        if (version_compare($version, '1.8.0', '<')) {
+            $storage->executeSqlStatement(
+                  "CREATE TABLE `dragonx_acl_record_roleresource` ("
+                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`role_id` INT(10) UNSIGNED NOT NULL, "
+                    . "`resource_id` INT(10) UNSIGNED NOT NULL, "
+                    . "PRIMARY KEY (`id`), "
+                    . "UNIQUE KEY (`role_id`, `resource_id`)"
+                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            );
+        }
+    }
 }

@@ -15,14 +15,28 @@
  */
 
 /**
- * Plugins zur Installation des Paketes
+ * Plugin zur Installation des Paketes
  */
-interface DragonX_Storage_Plugin_Install_Interface
+class DragonX_Clientmessage_Plugin_Install_All implements DragonX_Storage_Plugin_Install_Interface
 {
     /**
      * Installiert das Plugin in der übergebenen Datenbank
      * @param DragonX_Storage_Engine_ZendDbAdataper $storage
      * @param string $version
      */
-    public function install(DragonX_Storage_Engine_ZendDbAdataper $storage, $version = '0.0.0');
+    public function install(DragonX_Storage_Engine_ZendDbAdataper $storage, $version = '0.0.0')
+    {
+        if (version_compare($version, '1.8.0', '<')) {
+            $storage->executeSqlStatement(
+                  "CREATE TABLE `dragonx_clientmessage_record_all` ("
+                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`created` INT(10) UNSIGNED NOT NULL, "
+                    . "`key` VARCHAR(255) NOT NULL, "
+                    . "`result` TEXT NOT NULL, "
+                    . "PRIMARY KEY (`id`), "
+                    . "KEY (`created`)"
+                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            );
+        }
+    }
 }

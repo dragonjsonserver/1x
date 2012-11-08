@@ -24,12 +24,16 @@ class DragonX_Acl_Logic_Resource
      * @param string $name
      * @param integer $parentresource_id
      */
-    public function addResource($name, $parentresource_id)
+    public function addResource($name, $parentresource_id = null)
     {
+    	$recordResourceParent = null;
+    	if (isset($parentresource_id)) {
+    		$recordResourceParent = new DragonX_Acl_Record_Resource($parentresource_id);
+    	}
         $logicNestedSet = new DragonX_NestedSet_Logic_NestedSet();
         $logicNestedSet->addNode(
             new DragonX_Acl_Record_Resource(array('name' => $name)),
-            new DragonX_Acl_Record_Resource($parentresource_id)
+            $recordResourceParent
         );
     }
 

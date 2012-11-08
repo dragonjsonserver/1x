@@ -17,25 +17,26 @@
 /**
  * Plugin zur Installation des Paketes
  */
-class Application_Account_Plugin_Install implements DragonX_Storage_Plugin_Install_Interface
+class DragonX_Emailaddress_Plugin_Install_Validation implements DragonX_Storage_Plugin_Install_Interface
 {
     /**
-     * Gibt die SQL Statements zurück um das Paket zu updaten
-     * @param string $oldversion
-     * @return array
+     * Installiert das Plugin in der übergebenen Datenbank
+     * @param DragonX_Storage_Engine_ZendDbAdataper $storage
+     * @param string $version
      */
-    public function getInstall($oldversion = '0.0.0')
+    public function install(DragonX_Storage_Engine_ZendDbAdataper $storage, $version = '0.0.0')
     {
-        $sqlstatements = array();
-        if (version_compare($oldversion, '1.7.0', '<')) {
-            $sqlstatements[] =
-                  "CREATE TABLE IF NOT EXISTS `application_account_record_account` ("
+        if (version_compare($version, '1.8.0', '<')) {
+            $storage->executeSqlStatement(
+                  "CREATE TABLE `dragonx_emailaddress_record_validation` ("
                     . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`created` INT(10) UNSIGNED NOT NULL, "
-                    . "`modified` INT(10) UNSIGNED NOT NULL, "
-                    . "PRIMARY KEY (`id`)"
-                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+                    . "`emailaddress_id` INT(10) UNSIGNED NOT NULL, "
+                    . "`validationhash` CHAR(32) NOT NULL, "
+                    . "PRIMARY KEY (`id`), "
+                    . "UNIQUE KEY (`validationhash`)"
+                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            );
         }
-        return $sqlstatements;
     }
 }
