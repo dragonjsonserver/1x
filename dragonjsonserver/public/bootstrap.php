@@ -16,21 +16,30 @@
 
 define('DRAGONJSONSERVER_PATH', realpath(dirname(__FILE__) . '/..'));
 define('APPLICATION_PATH', DRAGONJSONSERVER_PATH . '/../application');
-if ($environment = getenv('environment')) {
-	define('APPLICATION_ENV', $environment);
-} else {
-	define('APPLICATION_ENV', 'development');
-}
 $dirname = dirname($_SERVER['SCRIPT_NAME']);
 if (substr($dirname, -1) != '/') {
 	$dirname .= '/';
 }
 define('BASEURL', 'http://' . $_SERVER["HTTP_HOST"] . $dirname);
 
-if (!$zendpath = getenv('zendpath')) {
-    $zendpath = DRAGONJSONSERVER_PATH . '/../library';
-}
+$enablerespositories = false;
 if (is_dir(APPLICATION_PATH) && !getenv('disablerepositories')) {
+    $enablerespositories = true;
+}
+if ($enablerespositories) {
+    $bootstrappath = APPLICATION_PATH . '/bootstrap.php';
+    if (is_file($bootstrappath)) {
+        require $bootstrappath;
+    }
+}
+if (!defined('APPLICATION_ENV')) {
+    if ($environment = getenv('environment')) {
+        define('APPLICATION_ENV', $environment);
+    } else {
+        define('APPLICATION_ENV', 'development');
+    }
+}
+if ($enablerespositories) {
     $repositoriespath = APPLICATION_PATH . '/config/repositories.php';
     if (is_file($repositoriespath)) {
     	$repositories = require $repositoriespath;
@@ -38,16 +47,14 @@ if (is_dir(APPLICATION_PATH) && !getenv('disablerepositories')) {
     	$repositories = array('application' => APPLICATION_PATH);
     }
 	$packagenamespaces = require APPLICATION_PATH . '/config/packagenamespaces.php';
-
-	$bootstrappath = APPLICATION_PATH . '/bootstrap.php';
-    if (is_file($bootstrappath)) {
-        require $bootstrappath;
-    }
 } else {
 	$repositories = false;
     $packagenamespaces = require DRAGONJSONSERVER_PATH . '/config/packagenamespaces.php';
 }
 
+if (!$zendpath = getenv('zendpath')) {
+    $zendpath = DRAGONJSONSERVER_PATH . '/../library';
+}
 require DRAGONJSONSERVER_PATH . '/library/Dragon/Application/Application.php';
 $application = new Dragon_Application_Application();
 $application
