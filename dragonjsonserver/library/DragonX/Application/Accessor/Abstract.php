@@ -62,9 +62,18 @@ abstract class DragonX_Application_Accessor_Abstract
             try {
             	$value = $this->__get($key);
             	if (!$subarrays && is_array($value)) {
-            		foreach ($value as $subkey => $subvalue) {
-            			$array[$key . '_' . $subkey] = $subvalue;
-            		}
+	                $function = function ($function, $key, array $value) {
+	                    $subarray = array();
+	                    foreach ($value as $subkey => $subvalue) {
+	                        if (is_array($subvalue)) {
+	                            $subarray += $function($function, $key . '_' . $subkey, $subvalue);
+	                        } else {
+	                            $subarray[$key . '_' . $subkey] = $subvalue;
+	                        }
+	                    }
+	                    return $subarray;
+	                };
+	                $array += $function($function, $key, $value);
             	} else {
             		$array[$key] = $value;
             	}
@@ -95,13 +104,22 @@ abstract class DragonX_Application_Accessor_Abstract
 	            throw new InvalidArgumentException('missing attribute "' . $key . '"');
 	        }
         } catch (Exception $exception) {
-        	$array = explode('_', $key, 2);
-        	if (count($array) > 1) {
-        		list ($key, $subkey) = $array;
-                if (isset($this->$key)) {
-        		    $this->{$key}[$subkey] = $value;
-		        	return;
-                }
+        	$array = explode('_', $key);
+        	$self = $this;
+        	while (count($array) > 1) {
+        		$key = array_shift($array);
+        		if (isset($self->$key)) {
+        			$self = &$self->$key;
+        		} elseif (isset($self[$key])) {
+        			$self = &$self[$key];
+        		} else {
+        			break;
+        		}
+        		$subkey = implode('_', $array);
+        		if (isset($self[$subkey])) {
+                    $self[$subkey] = $value;
+                    return;
+        		}
         	}
         	throw $exception;
         }
@@ -128,13 +146,22 @@ abstract class DragonX_Application_Accessor_Abstract
 	            throw new InvalidArgumentException('missing attribute "' . $key . '"');
 	        }
         } catch (Exception $exception) {
-        	$array = explode('_', $key, 2);
-        	if (count($array) > 1) {
-        		list ($key, $subkey) = $array;
-                if (isset($this->$key)) {
-		        	return $this->{$key}[$subkey];
+            $array = explode('_', $key);
+            $self = $this;
+            while (count($array) > 1) {
+                $key = array_shift($array);
+                if (isset($self->$key)) {
+                    $self = &$self->$key;
+                } elseif (isset($self[$key])) {
+                    $self = &$self[$key];
+                } else {
+                    break;
                 }
-        	}
+                $subkey = implode('_', $array);
+                if (isset($self[$subkey])) {
+                    return $self[$subkey];
+                }
+            }
         	throw $exception;
         }
         return call_user_func(array($this, $methodname));
