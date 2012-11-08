@@ -29,31 +29,31 @@ return array(
     ),
     'DragonX' => array(
         'Account' => array(
-            'Plugin' => array('Account', 'Deletion', 'Session', 'Install'),
+            'Plugin' => array('Account', 'Deletion', 'Session', 'Install_Deletion', 'Install_Session'),
             'Service' => array('Account', 'Deletion', 'Session'),
         ),
         'Acl' => array(
-            'Plugin' => array('Acl', 'Install'),
+            'Plugin' => array('Acl', 'Install_Accountrole', 'Install_Resource', 'Install_Role', 'Install_Roleresource'),
         ),
         'Application',
         'Clientmessage' => array(
-            'Plugin' => array('Clientmessage', 'Account', 'All', 'Install'),
+            'Plugin' => array('Clientmessage', 'Account', 'All', 'Install_Account', 'Install_All'),
         ),
         'Cronjob' => array(
-            'Plugin' => array('Install'),
+            'Plugin' => array('Install_Cronjob'),
             'Service' => array('Cronjob'),
         ),
         'Device' => array(
-            'Plugin' => array('Install'),
+            'Plugin' => array('Install_Device'),
             'Service' => array('Device'),
         ),
         'Emailaddress' => array(
-            'Plugin' => array('Install'),
+            'Plugin' => array('Install_Credential', 'Install_Emailaddress', 'Install_Validation'),
             'Service' => array('Credential', 'Emailaddress', 'Validation'),
         ),
         'Homepage',
         'Log' => array(
-            'Plugin' => array('Log', 'Request', 'Install'),
+            'Plugin' => array('Log', 'Request', 'Install_Log', 'Install_Request'),
         ),
         'NestedSet',
         'Storage' => array(
@@ -62,7 +62,7 @@ return array(
     ),
     'Application' => array(
         'Account' => array(
-            'Plugin' => array('Install'),
+            'Plugin' => array('Install_Account'),
         ),
     ),
 );

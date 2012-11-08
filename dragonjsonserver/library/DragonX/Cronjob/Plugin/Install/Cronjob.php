@@ -17,31 +17,27 @@
 /**
  * Plugin zur Installation des Paketes
  */
-class DragonX_Device_Plugin_Install implements DragonX_Storage_Plugin_Install_Interface
+class DragonX_Cronjob_Plugin_Install_Cronjob implements DragonX_Storage_Plugin_Install_Interface
 {
     /**
-     * Gibt die SQL Statements zurück um das Paket zu updaten
-     * @param string $oldversion
-     * @return array
+     * Installiert das Plugin in der übergebenen Datenbank
+     * @param DragonX_Storage_Engine_ZendDbAdataper $storage
+     * @param string $version
      */
-    public function getInstall($oldversion = '0.0.0')
+    public function install(DragonX_Storage_Engine_ZendDbAdataper $storage, $version = '0.0.0')
     {
-        $sqlstatements = array();
-        if (version_compare($oldversion, '1.7.0', '<')) {
-            $sqlstatements[] =
-                  "CREATE TABLE `dragonx_device_record_device` ("
+        if (version_compare($version, '1.8.0', '<')) {
+            $storage->executeSqlStatement(
+                  "CREATE TABLE `dragonx_cronjob_record_cronjob` ("
                     . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`created` INT(10) UNSIGNED NOT NULL, "
                     . "`modified` INT(10) UNSIGNED NOT NULL, "
-                    . "`accountid` INT(10) UNSIGNED NOT NULL, "
-                    . "`platform` VARCHAR(255) NOT NULL, "
-                    . "`name` VARCHAR(255) NOT NULL, "
-                    . "PRIMARY KEY (`id`)"
-                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+                    . "`pluginname` VARCHAR(255) NOT NULL, "
+                    . "`count` INT(10) UNSIGNED NOT NULL, "
+                    . "PRIMARY KEY (`id`), "
+                    . "UNIQUE KEY (`pluginname`)"
+                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            );
         }
-	    if (version_compare($oldversion, '1.8.0', '<')) {
-	        $sqlstatements[] = "ALTER TABLE `dragonx_device_record_device` CHANGE `accountid` `account_id` INT(10) UNSIGNED NOT NULL";
-	    }
-        return $sqlstatements;
     }
 }

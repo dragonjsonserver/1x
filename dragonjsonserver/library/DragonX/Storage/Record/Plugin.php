@@ -15,19 +15,14 @@
  */
 
 /**
- * Record zur Speicherung der Daten zu einem Paket
+ * Record zur Speicherung der Daten zu einem Plugin
  */
-class DragonX_Storage_Record_Package extends DragonX_Storage_Record_CreatedModified_Abstract
+class DragonX_Storage_Record_Plugin extends DragonX_Storage_Record_CreatedModified_Abstract
 {
     /**
      * @var string
      */
-    public $packagenamespace;
-
-    /**
-     * @var string
-     */
-    public $packagename;
+    public $pluginname;
 
     /**
      * @var string
