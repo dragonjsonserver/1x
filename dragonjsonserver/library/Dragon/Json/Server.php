@@ -43,7 +43,7 @@ class Dragon_Json_Server extends Zend_Json_Server
 
     /**
      * Verarbeitet einen Aufruf des Json Servers
-     * @param null $request
+     * @param Dragon_Json_Server_Request_Http $request
      * @return mixed|null|Zend_Json_Server_Response
      * @throws InvalidArgumentException
      */
@@ -74,7 +74,31 @@ class Dragon_Json_Server extends Zend_Json_Server
         switch ($requestmethod) {
             case 'POST':
                 $this->setResponse(new Dragon_Json_Server_Response_Http());
-                return parent::handle($request);
+                $autoemitresponse = $this->autoEmitResponse();
+                if ($autoemitresponse) {
+                	$this->setAutoEmitResponse(false);
+                }
+                $response = parent::handle($request);
+                $result = $response->getResult();
+                if (isset($result['result'])) {
+                	$subresult = &$result['result'];
+                } else {
+                	$subresult = &$result;
+                }
+                if (is_array($subresult)) {
+                	foreach ($request->getMap() as $key => $value) {
+                        if (isset($subresult[$key])) {
+                        	$subresult[$value] = $subresult[$key];
+                        }
+                	}
+                	$response->setResult($result);
+                }
+                if ($autoemitresponse) {
+                    $this->setAutoEmitResponse(true);
+		            echo $response;
+		            return;
+                }
+                return $response;
                 break;
             case 'GET':
                 header('Content-Type: application/json');
