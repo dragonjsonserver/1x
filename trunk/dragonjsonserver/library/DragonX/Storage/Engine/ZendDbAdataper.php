@@ -138,7 +138,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
     	if (!$row) {
     	    throw new InvalidArgumentException('incorrect id');
     	}
-		$record->fromArray($row);
+		$record->fromArray($row, false);
         return $record;
     }
 
@@ -155,7 +155,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
             );
             foreach ($sublist as $record) {
                 if (isset($rows[$record->id])) {
-                    $record->fromArray($rows[$record->id]);
+                    $record->fromArray($rows[$record->id], false);
                 } else {
                     unset($record->id);
                 }

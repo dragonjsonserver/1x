@@ -54,7 +54,7 @@
                 Storage
                 <ul>
                     <li>Eine Kopie eines Records durch "clone()" erstellt nun ein neues Objekt ohne die ID des anderen Objektes sodass auch in der Datenbank eine Kopie erstellt wird</li>
-                    <li>Der Konstruktor eines Records hat nun einen zweiten Parameter der bestimmt ob die ID des übergebenen Arrays/Records bei der Übernahme der Daten resettet wird oder nicht</li>
+                    <li>Der Konstruktor und die "fromArray()" Methode eines Records hat nun einen zweiten Parameter der bestimmt ob die ID des übergebenen Arrays/Records bei der Übernahme der Daten resettet wird oder nicht</li>
                 </ul>
             </li>
         </ul>
@@ -69,5 +69,5 @@
 <h2>Migration vom Branch 1.8</h2>
 <h3>Benötigt</h3>
 <ul>
-    <li>Das Verhalten der Records hat sich geändert wenn man diese bisher mit einem "toArray()" in einen anderen Record übergeben hat. Vorher wurde die ID beibehalten, nun ist es Abhängig vom zweiten Parameter und das Standardverhalten entfernt die ID. Daher muss überall wo die ID beibehalten werden soll und deswegen ein "toArray()" verwendet wurde der zweite Parameter mit "false" angegeben werden</li>
+    <li>Das Verhalten der Records hat sich geändert wenn man diese bisher mit einem "toArray()" in einen anderen Record übergeben hat. Vorher wurde die ID beibehalten, nun ist es Abhängig vom zweiten Parameter und das Standardverhalten entfernt die ID. Daher muss überall wo die ID beibehalten werden soll und deswegen ein "toArray()" verwendet wurde der zweite Parameter mit "false" angegeben werden. Gleiches gilt wenn man "fromArray()" verwendet hat um die ID zu setzen</li>
 </ul>
