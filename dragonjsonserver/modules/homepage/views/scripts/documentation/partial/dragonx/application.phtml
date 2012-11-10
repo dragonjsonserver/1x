@@ -32,45 +32,45 @@
 
     protected function setInteger($integer)
     {
-        $this->_integer = (int)$integer;
+        $this-&gt;_integer = (int)$integer;
     }
 
     protected function getInteger()
     {
-        return $this->_integer;
+        return $this-&gt;_integer;
     }
 }
 $object = new %packagenamespace%_%packagename%_%classname%();
-$object->string = 'example';
-$object->integer += 1;</pre>
+$object-&gt;string = 'example';
+$object-&gt;integer += 1;</pre>
     </li>
     <li>
         Der Konstruktur erlaubt das Setzen beliebiger Attribute durch ein Array oder eines anderen Eigenschaftobjektes. Alle Attribute werden durch die Setter Methoden gesetzt, wenn diese definiert wurden
-<pre>$first = new %packagenamespace%_%packagename%_%classname%(array('string' => 'example'));
+<pre>$first = new %packagenamespace%_%packagename%_%classname%(array('string' =&gt; 'example'));
 $second = new %packagenamespace%_%packagename%_%classname%($first);</pre>
     </li>
     <li>
         'toArray()' kann genutzt werden um alle Attribute als Array zurück zu geben. Alle Attribute werden durch die Getter Methoden gelesen, wenn diese definiert wurden
-<pre>$object = new %packagenamespace%_%packagename%_%classname%(array('string' => 'example'));
-$array = $object->toArray();</pre>
+<pre>$object = new %packagenamespace%_%packagename%_%classname%(array('string' =&gt; 'example'));
+$array = $object-&gt;toArray();</pre>
     </li>
     <li>
         'isset()' kann genutzt zur Prüfung auf Existenz bzw. Ungleichheit zu NULL und 'unset()' zum Setzen eines Attributes auf NULL genutzt werden
-<pre>$object = new %packagenamespace%_%packagename%_%classname%(array('string' => 'example'));
-$true = isset($object->string);
-unset($object->string);
-$false = isset($object->string);</pre>
+<pre>$object = new %packagenamespace%_%packagename%_%classname%(array('string' =&gt; 'example'));
+$true = isset($object-&gt;string);
+unset($object-&gt;string);
+$false = isset($object-&gt;string);</pre>
     </li>
     <li>
         Arrays werden unterstützt mit '_' sowohl beim einzelnen Setzen eines Wertes als auch beim Befüllen aus einem Array
 <pre>class %packagenamespace%_%packagename%_%classname% extends DragonX_Application_Accessor_Abstract
 {
-    public $array = array('key' => 'value');
+    public $array = array('key' =&gt; 'value');
 }
 $object = new %packagenamespace%_%packagename%_%classname%();
-$object->array['key'] = 'value';
-$object->array_key = 'value';
-$object->fromArray(array('array' => array('key' => 'value')));
-$object->fromArray(array('array_key' => 'value'));</pre>
+$object-&gt;array['key'] = 'value';
+$object-&gt;array_key = 'value';
+$object-&gt;fromArray(array('array' =&gt; array('key' =&gt; 'value')));
+$object-&gt;fromArray(array('array_key' =&gt; 'value'));</pre>
     </li>
 </ul>

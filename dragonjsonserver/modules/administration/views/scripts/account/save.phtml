@@ -15,22 +15,24 @@
  */
 ?>
 <form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'save'), null, true); ?>" method="post">
-    <legend>Profil Speichern</legend>
-    <div class="control-group">
-        <label class="control-label" for="identity">E-Mail Adresse:</label>
-        <div class="controls">
-            <input type="email" id="identity" name="identity" required="required">
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label" for="credential">Passwort:</label>
-        <div class="controls">
-            <input type="password" id="credential" name="credential" required="required">
-        </div>
-    </div>
-    <div class="control-group">
-        <div class="controls">
-            <button type="submit" class="btn">Profil Speichern</button>
-        </div>
-    </div>
+    <fieldset>
+	    <legend>Profil Speichern</legend>
+	    <div class="control-group">
+	        <label class="control-label" for="identity">E-Mail Adresse:</label>
+	        <div class="controls">
+	            <input type="email" id="identity" name="identity" required="required">
+	        </div>
+	    </div>
+	    <div class="control-group">
+	        <label class="control-label" for="credential">Passwort:</label>
+	        <div class="controls">
+	            <input type="password" id="credential" name="credential" required="required">
+	        </div>
+	    </div>
+	    <div class="control-group">
+	        <div class="controls">
+	            <button type="submit" class="btn">Profil Speichern</button>
+	        </div>
+	    </div>
+	</fieldset>
 </form>
