@@ -28,15 +28,18 @@ abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Acces
     /**
      * Nimmt die ID, ein Array oder eine andere Eigenschaft als Datenquelle an
      * @param integer|array|DragonX_Application_Accessor_Abstract $data
+     * @param boolean $unsetID
      */
-    public function __construct($data = array())
+    public function __construct($data = array(), $unsetID = true)
     {
-    	if (is_numeric($data)) {
-    		$data = array('id' => $data);
-    	}
         if ($data instanceof DragonX_Application_Accessor_Abstract) {
             $data = $data->toArray();
+        }
+        if (is_array($data) && $unsetID) {
             unset($data['id']);
+        }
+        if (is_numeric($data)) {
+            $data = array('id' => $data);
         }
     	parent::__construct($data);
     }
@@ -66,5 +69,13 @@ abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Acces
     public function getNamespace()
     {
         return get_class($this);
+    }
+
+    /**
+     * Erstellt eine Kopie des Records auch zur Datenbank hin
+     */
+    public function __clone()
+    {
+        unset($this->_id);
     }
 }
