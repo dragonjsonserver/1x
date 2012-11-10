@@ -20,7 +20,26 @@
 class Dragon_Json_Server extends Zend_Json_Server
 {
     /**
-     * Verarbeitet den JsonRPC Request
+     * Verarbeitet den JsonRPC Request mit der eigenen Ausnahmeklasse
+     * @param Zend_Server_Method_Definition $invocable
+     * @param array $params
+     * @return mixed
+     */
+    protected function _dispatch(Zend_Server_Method_Definition $invocable, array $params)
+    {
+    	try {
+    		return parent::_dispatch($invocable, $params);
+    	} catch (Exception $exception) {
+    		if ($exception instanceof Dragon_Application_Exception) {
+    			$this->fault($exception->getMessage(), $exception->getCode(), $exception->getData());
+    		} else {
+    			throw $exception;
+    		}
+    	}
+    }
+    
+    /**
+     * Verarbeitet den JsonRPC Request mit Pre-/Postdispatch Aufrufen
      */
     protected function _handle()
     {
@@ -36,8 +55,12 @@ class Dragon_Json_Server extends Zend_Json_Server
                 'Dragon_Json_Plugin_PostDispatch_Interface',
                 array($request, $this->getResponse())
             );
-        } catch (Exception $e) {
-            $this->fault($e->getMessage(), $e->getCode(), $e);
+        } catch (Exception $exception) {
+        	if ($exception instanceof Dragon_Application_Exception) {
+        		$this->fault($exception->getMessage(), $exception->getCode(), $exception->getData());
+        	} else {
+        		$this->fault($exception->getMessage(), $exception->getCode(), $exception);
+        	}
         }
     }
 

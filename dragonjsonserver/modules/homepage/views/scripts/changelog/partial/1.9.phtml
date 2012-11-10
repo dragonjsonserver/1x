@@ -32,6 +32,18 @@
         Dragon
         <ul>
             <li>
+                Application
+                <ul>
+                    <li>Es gibt nun eigene Ausnahmeklasse die es erlaubt Ausnahmen mit zusätzlichen Daten zu definieren</li>
+                </ul>
+            </li>
+            <li>
+                Json
+                <ul>
+                    <li>Die Ausnahmebehandlung wurde angepasst sodass Ausnahmen von der eigenen Ausnahmeklassen samt den zusätzlichen Daten zum Client gesendet werden</li>
+                </ul>
+            </li>
+            <li>
                 Package
                 <ul>
                     <li>Es gibt nun einen Service der die Einstellungen der "/config/packagenamespaces.php" an den Client zurück gibt. Somit gibt es für den Client eine einfachere Möglichkeit seine Features darauf anzupassen was beim Server aktiviert/deaktiviert ist im Gegensatz zur Abfrage der SMD</li>
@@ -52,6 +64,7 @@
                 Log
                 <ul>
                     <li>Es ist nun per Einstellungsdatei möglich die Storage Engine für die Logdaten zu bestimmen</li>
+                    <li>Der Logwriter wurde angepasst sodass Ausnahmen die direkt der Logic übergeben werden mit allen Informationen der Ausnahme und den zusätzlichen Daten geloggt werden</li>
                 </ul>
             </li>
             <li>
