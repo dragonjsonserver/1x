@@ -49,7 +49,8 @@ class DragonX_Log_Logic_Request
             'requestparams' => Zend_Json::encode($requestparams),
             'requesttimestamp' => time(),
         ));
-        Zend_Registry::get('DragonX_Storage_Engine')->save(self::$_recordRequest);
+    	$configEngine = new Dragon_Application_Config('dragonx/log/engine');
+        Zend_Registry::get($configEngine->engine)->save(self::$_recordRequest);
 
         if (Zend_Registry::isRegistered('Zend_Log')) {
             $logger = Zend_Registry::get('Zend_Log');
@@ -82,6 +83,7 @@ class DragonX_Log_Logic_Request
             'response' => Zend_Json::encode($response),
             'responsetimestamp' => time(),
         ));
-        Zend_Registry::get('DragonX_Storage_Engine')->save(self::$_recordRequest);
+        $configEngine = new Dragon_Application_Config('dragonx/log/engine');
+        Zend_Registry::get($configEngine->engine)->save(self::$_recordRequest);
     }
 }
