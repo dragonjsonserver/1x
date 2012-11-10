@@ -20,7 +20,6 @@
     <li>Frontend im Administrationsbereich zur Rechteverwaltung mit Einzelrechten und Rollen</li>
     <li>Für jeden Statuswechsel, also Gast -&gt; registrierter Account -&gt; validierter Account sollen andere Rechte vergeben werden können</li>
 	<li>Pluginregistry soll Abhängigkeiten unterstützen. Ein Plugin soll per Interface Abhängigkeiten zu anderen Plugins definieren können und diese werden in der richtigen Reihenfolge in der Registry hinterlegt</li>
-    <li>Service anbieten für den Client um die Pakete abzufragen die aktiviert sind sodass dieser seine Funktionalitäten die er anbietet anpassen kann</li>
     <li>Storage Engine variabler machen sodass man Records auf verschiedene Storage Engines verteilen kann, vor allem Logdaten trennen von den Anwendungsdaten</li>
     <li>Fehlerbehandlung überarbeiten, Exceptions loggen und ausführlicher werfen um Fehler nachvollziehen zu können, vor allem falsche SQL Statements</li>
     <li>Session von Account trennen sodass man die Session in eine andere Storage Engine verschieben kann</li>
@@ -32,6 +31,17 @@
 <h4>Releasedatum: noch offen</h4>
 <h4>Geänderte Pakete</h4>
 <ul>
+    <li>
+        Dragon
+        <ul>
+            <li>
+                Package
+                <ul>
+                    <li>Es gibt nun einen Service der die Einstellungen der "/config/packagenamespaces.php" an den Client zurück gibt. Somit gibt es für den Client eine einfachere Möglichkeit seine Features darauf anzupassen was beim Server aktiviert/deaktiviert ist im Gegensatz zur Abfrage der SMD</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
     <li>
         DragonX
         <ul>
