@@ -23,7 +23,9 @@ return array(
             'Service' => array('Application'),
         ),
         'Json',
-        'Package',
+        'Package' => array(
+            'Service' => array('Package'),
+        ),
         'Plugin',
         'Repository',
     ),
