@@ -16,13 +16,10 @@
 ?>
 <h3>Noch geplante Änderungen</h3>
 <ul>
-    <li>Zend Translate unterstützen um alle Beschriftungen und Meldungen sowie Zend Locale um alle Datumsangaben der Homepage lokalisiert auszugeben</li>
-    <li>Frontend im Administrationsbereich zur Rechteverwaltung mit Einzelrechten und Rollen</li>
-    <li>Für jeden Statuswechsel, also Gast -&gt; registrierter Account -&gt; validierter Account sollen andere Rechte vergeben werden können</li>
-	<li>Pluginregistry soll Abhängigkeiten unterstützen. Ein Plugin soll per Interface Abhängigkeiten zu anderen Plugins definieren können und diese werden in der richtigen Reihenfolge in der Registry hinterlegt</li>
+    <li>Pluginregistry soll Abhängigkeiten unterstützen. Ein Plugin soll per Interface Abhängigkeiten zu anderen Plugins definieren können und diese werden in der richtigen Reihenfolge in der Registry hinterlegt</li>
     <li>Fehlerbehandlung überarbeiten, Exceptions loggen und ausführlicher werfen um Fehler nachvollziehen zu können, vor allem falsche SQL Statements</li>
     <li>"set_error_handler()" verwenden um einen Error Handler zu registrieren der auftretende PHP Fehler die nicht zum Abbruch eines Skriptes führen loggt und somit die PHP Fehler nicht in der Response landen</li>
-    <li>Accountauswahl im DragonJsonClient sodass man zwischen Abfragen einfacher zwischen mehreren Accounts (mit Sessionhash und beliebig anderen Parametern) wechseln kann</li>
+    <li>"set_exception_handler()" verwenden um einen Exception Handler zu registrieren der auftretende Ausnahmen außerhalb von Services loggt und somit die Ausnahmen nicht in der Response landen</li>
 </ul>
 <h3>Version 1.9.0</h3>
 <h4>Releasedatum: noch offen</h4>
@@ -40,7 +37,7 @@
             <li>
                 Json
                 <ul>
-                    <li>Die Ausnahmebehandlung wurde angepasst sodass Ausnahmen von der eigenen Ausnahmeklassen samt den zusätzlichen Daten zum Client gesendet werden</li>
+                    <li>Die Ausnahmebehandlung wurde angepasst sodass Ausnahmen von der eigenen Ausnahmeklasse samt den zusätzlichen Daten zum Client gesendet werden</li>
                 </ul>
             </li>
             <li>
