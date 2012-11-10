@@ -43,6 +43,12 @@
         DragonX
         <ul>
             <li>
+                Clientmessage
+                <ul>
+                    <li>Übernahme der Änderung am Konstruktor der Records mit dem zusätzlichen Parameter "unsetId"</li>
+                </ul>
+            </li>
+            <li>
                 Log
                 <ul>
                     <li>Es ist nun per Einstellungsdatei möglich die Storage Engine für die Logdaten zu bestimmen</li>
@@ -68,4 +74,5 @@
 <h3>Benötigt</h3>
 <ul>
     <li>Das Verhalten der Records hat sich geändert wenn man diese bisher mit einem "toArray()" in einen anderen Record übergeben hat. Vorher wurde die ID beibehalten, nun ist es Abhängig vom zweiten Parameter und das Standardverhalten entfernt die ID. Daher muss überall wo die ID beibehalten werden soll und deswegen ein "toArray()" verwendet wurde der zweite Parameter mit "false" angegeben werden. Gleiches gilt wenn man "fromArray()" verwendet hat um die ID zu setzen</li>
+    <li>Durch die Änderung des Konstruktors der Records hat sich auch die Reihenfolge der Parameter der Konstruktoren der Clientmessagerecords geändert und muss angepasst werden wo neue Objekte erstellt werden</li>
 </ul>

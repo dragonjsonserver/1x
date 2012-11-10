@@ -37,6 +37,7 @@
         Um eine Clientnachricht einzutragen muss diese als Record erstellt und gespeichert werden
 <pre>Zend_Registry::get('DragonX_Storage_Engine')-&gt;save(new DragonX_Clientmessage_Record_Account(
     array('account_id' =&gt; %account_id%),
+    true,
     new %packagenamespace%_%packagename%_Key_%keyname%(array('%attributename%' =&gt; %attributevalue%))
 ));</pre>
     </li>

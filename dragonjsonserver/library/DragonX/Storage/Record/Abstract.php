@@ -28,15 +28,15 @@ abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Acces
     /**
      * Nimmt die ID, ein Array oder eine andere Eigenschaft als Datenquelle an
      * @param integer|array|DragonX_Application_Accessor_Abstract $data
-     * @param boolean $unsetID
+     * @param boolean $unsetId
      */
-    public function __construct($data = array(), $unsetID = true)
+    public function __construct($data = array(), $unsetId = true)
     {
         if ($data instanceof DragonX_Application_Accessor_Abstract) {
             $data = $data->toArray();
         }
         if (is_array($data)) {
-        	$this->fromArray($data, $unsetID);
+        	$this->fromArray($data, $unsetId);
         } 
         if ($data > 0) {
         	$this->setId($data);
@@ -46,12 +46,12 @@ abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Acces
     /**
      * Setzt alle Attribute der Eigenschaft aus den Daten des Arrays
      * @param array $data
-     * @param boolean $unsetID
+     * @param boolean $unsetId
      * @return DragonX_Storage_Record_Abstract
      */
-    public function fromArray(array $data, $unsetID = true)
+    public function fromArray(array $data, $unsetId = true)
     {
-    	if ($unsetID) {
+    	if ($unsetId) {
     		unset($data['id']);
     	}
         return parent::fromArray($data);

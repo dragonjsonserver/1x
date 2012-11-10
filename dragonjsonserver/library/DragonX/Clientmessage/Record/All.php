@@ -31,17 +31,18 @@ class DragonX_Clientmessage_Record_All extends DragonX_Storage_Record_Created_Ab
 
     /**
      * Nimmt die ID, ein Array oder eine andere Eigenschaft als Datenquelle an
-     * @param integer|array|DragonX_Clientmessage_Key_Abstract $data
+     * @param integer|array|DragonX_Application_Accessor_Abstract $data
+     * @param boolean $unsetId
      * @param DragonX_Clientmessage_Key_Abstract $key
      */
-    public function __construct($data = array(), DragonX_Clientmessage_Key_Abstract $key = null)
+    public function __construct($data = array(), $unsetId = true, DragonX_Clientmessage_Key_Abstract $key = null)
     {
-    	parent::__construct($data);
         if (isset($key)) {
-        	$this->fromArray(array(
+        	$data += array(
         	    'key' => $key->key,
         	    'result' => Zend_Json::encode($key->toArray())
-        	));
+        	);
         }
+    	parent::__construct($data, $unsetId);
     }
 }
