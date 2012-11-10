@@ -20,26 +20,30 @@
     <form class="form-horizontal">
         <div class="row-fluid">
             <div class="span6">
-                <legend>URI</legend>
-                <div class="control-group">
-                    <label class="control-label" for="uri">URI:</label>
-                    <div class="controls">
-                        <input id="uri" name="uri" type="text" readonly="readonly" />
-                    </div>
-                </div>
-                <legend>Service</legend>
-                <div class="control-group">
-                    <label class="control-label" for="namespace">Namensraum:</label>
-                    <div class="controls">
-                        <select id="namespace" name="namespace" onchange="dragonjsonclient.selectNamespace();"></select>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="method">Methode:</label>
-                    <div class="controls">
-                        <select id="method" name="method" onchange="dragonjsonclient.selectMethod();"></select>
-                    </div>
-                </div>
+            	<fieldset>
+                	<legend>URI</legend>
+	                <div class="control-group">
+	                    <label class="control-label" for="uri">URI:</label>
+	                    <div class="controls">
+	                        <input id="uri" name="uri" type="text" readonly="readonly" />
+	                    </div>
+	                </div>
+                </fieldset>
+            	<fieldset>
+                	<legend>Service</legend>
+	                <div class="control-group">
+	                    <label class="control-label" for="namespace">Namensraum:</label>
+	                    <div class="controls">
+	                        <select id="namespace" name="namespace" onchange="dragonjsonclient.selectNamespace();"></select>
+	                    </div>
+	                </div>
+	                <div class="control-group">
+	                    <label class="control-label" for="method">Methode:</label>
+	                    <div class="controls">
+	                        <select id="method" name="method" onchange="dragonjsonclient.selectMethod();"></select>
+	                    </div>
+	                </div>
+                </fieldset>
                 <fieldset>
                     <legend>Argumente</legend>
                     <div id="arguments"></div>
