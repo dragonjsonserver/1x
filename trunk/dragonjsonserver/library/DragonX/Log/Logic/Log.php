@@ -30,17 +30,38 @@ class DragonX_Log_Logic_Log
     	if (!Zend_Registry::isRegistered('Zend_Log')) {
     		return;
     	}
+	    $extras = null;
         switch (count($params)) {
             case 0:
                 throw new Zend_Log_Exception('Missing log message');
             case 1:
-                $message = array_shift($params);
-                $extras = null;
+            	$param = array_shift($params);
+            	if ($param instanceof Exception) {
+            		$message = $param->getMessage();
+            		$extras = array(
+            			'params' => array(
+	            			'code' => $param->getCode(),
+	            			'file' => $param->getFile(),
+	            			'line' => $param->getLine(),
+	            			'trace' => $param->getTrace(),
+            			)
+            		);
+            		if ($param instanceof Dragon_Application_Exception) {
+            			$extras['params'] += array(
+            				'data' => $param->getData(),
+            			);
+            		}
+            	} else {
+	                $message = $param;
+            	}
                 break;
             default:
                 $message = array_shift($params);
-                $extras['params'] = Zend_Json::encode(array_shift($params));
+                $extras = array('params' => array_shift($params));
                 break;
+        }
+        if (isset($extras) && is_array($extras['params'])) {
+        	$extras['params'] = Zend_Json::encode($extras['params']);
         }
         $logger = Zend_Registry::get('Zend_Log');
         $logger->__call($method, array($message, $extras));
