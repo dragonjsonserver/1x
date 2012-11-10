@@ -24,7 +24,7 @@
                         echo '<li class="nav-header">' . $this->escape($value) . '</li>';
                     } else {
                         echo
-                              '<li' . ($this->actionname == $key ? ' class="active"' : '') . '>'
+                              '<li' . ($this->actionname === $key ? ' class="active"' : '') . '>'
                             . '   <a href="' . $this->url(array('controller' => $this->controllername, 'action' => $key), null, true) . '">' . $this->escape($value) . '   </a>'
                             . '</li>';
                     }
