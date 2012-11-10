@@ -37,8 +37,7 @@ abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Acces
         }
         if (is_array($data)) {
         	$this->fromArray($data, $unsetId);
-        } 
-        if ($data > 0) {
+        } elseif ($data > 0) {
         	$this->setId($data);
         }
     }
