@@ -23,5 +23,8 @@ class Administration_StartpageController extends DragonX_Homepage_Controller_Abs
      * Action zur Anzeige der Informationen des Administrationsbereichs
      */
     public function indexAction()
-    {}
+    {
+    	$configAdministration = new Dragon_Application_Config('dragonx/homepage/administration');
+    	$this->_redirect($configAdministration->startpage);
+    }
 }
