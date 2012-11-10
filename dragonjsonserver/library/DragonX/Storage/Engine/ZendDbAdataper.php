@@ -333,7 +333,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
         $list = new DragonX_Storage_RecordList();
         $classname = get_class($record);
         foreach ($rows as $row) {
-            $list[] = new $classname($row);
+            $list[] = new $classname($row, false);
         }
         return $list;
     }
