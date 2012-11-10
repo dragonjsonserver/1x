@@ -15,49 +15,57 @@
  */
 ?>
 <form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'changeemailaddress'), null, true); ?>" method="post">
-    <legend>E-Mail Adresse ändern</legend>
-    <div class="control-group">
-        <label class="control-label" for="newemailaddress">Neue E-Mail Adresse:</label>
-        <div class="controls">
-            <input type="email" id="newemailaddress" name="newemailaddress" required="required">
-        </div>
-    </div>
-    <div class="control-group">
-        <div class="controls">
-            <button type="submit" class="btn">E-Mail Adresse ändern</button>
-        </div>
-    </div>
+	<fieldset>
+	    <legend>E-Mail Adresse ändern</legend>
+	    <div class="control-group">
+	        <label class="control-label" for="newemailaddress">Neue E-Mail Adresse:</label>
+	        <div class="controls">
+	            <input type="email" id="newemailaddress" name="newemailaddress" required="required">
+	        </div>
+	    </div>
+	    <div class="control-group">
+	        <div class="controls">
+	            <button type="submit" class="btn">E-Mail Adresse ändern</button>
+	        </div>
+	    </div>
+	</fieldset>
 </form>
 <form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'changepassword'), null, true); ?>" method="post">
-    <legend>Passwort ändern</legend>
-    <div class="control-group">
-        <label class="control-label" for="newpassword">Neues Passwort:</label>
-        <div class="controls">
-            <input type="password" id="newpassword" name="newpassword" required="required">
-        </div>
-    </div>
-    <div class="control-group">
-        <div class="controls">
-            <button type="submit" class="btn">Passwort ändern</button>
-        </div>
-    </div>
+	<fieldset>
+	    <legend>Passwort ändern</legend>
+	    <div class="control-group">
+	        <label class="control-label" for="newpassword">Neues Passwort:</label>
+	        <div class="controls">
+	            <input type="password" id="newpassword" name="newpassword" required="required">
+	        </div>
+	    </div>
+	    <div class="control-group">
+	        <div class="controls">
+	            <button type="submit" class="btn">Passwort ändern</button>
+	        </div>
+	    </div>
+    </fieldset>
 </form>
 <?php if (isset($this->recordDeletion)) { ?>
 <form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'deletedeletion'), null, true); ?>" method="post">
-    <legend>Profillöschung zurücksetzen</legend>
-    <div class="control-group">
-        <div class="controls">
-            <button type="submit" class="btn">Profillöschung zurücksetzen</button>
-        </div>
-    </div>
+	<fieldset>
+	    <legend>Profillöschung zurücksetzen</legend>
+	    <div class="control-group">
+	        <div class="controls">
+	            <button type="submit" class="btn">Profillöschung zurücksetzen</button>
+	        </div>
+	    </div>
+    </fieldset>
 </form>
 <?php } else { ?>
 <form class="form-horizontal" action="<?php echo $this->url(array('module' => 'administration', 'controller' => 'account', 'action' => 'deleteaccount'), null, true); ?>" method="post">
-    <legend>Profil löschen</legend>
-    <div class="control-group">
-        <div class="controls">
-            <button type="submit" class="btn">Profil löschen</button>
-        </div>
-    </div>
+    <fieldset>
+	    <legend>Profil löschen</legend>
+	    <div class="control-group">
+	        <div class="controls">
+	            <button type="submit" class="btn">Profil löschen</button>
+	        </div>
+	    </div>
+	</fieldset>
 </form>
 <?php } ?>

@@ -15,22 +15,24 @@
  */
 ?>
 <form class="form-horizontal" action="<?php echo $this->url(array('controller' => 'account', 'action' => 'register'), null, true); ?>" method="post">
-    <legend>Registrieren</legend>
-    <div class="control-group">
-        <label class="control-label" for="emailaddress">E-Mail Adresse:</label>
-        <div class="controls">
-            <input type="email" id="emailaddress" name="emailaddress" required="required">
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label" for="password">Passwort:</label>
-        <div class="controls">
-            <input type="password" id="password" name="password"  required="required">
-        </div>
-    </div>
-    <div class="control-group">
-        <div class="controls">
-            <button type="submit" class="btn">Registrieren</button>
-        </div>
-    </div>
+    <fieldset>
+	    <legend>Registrieren</legend>
+	    <div class="control-group">
+	        <label class="control-label" for="emailaddress">E-Mail Adresse:</label>
+	        <div class="controls">
+	            <input type="email" id="emailaddress" name="emailaddress" required="required">
+	        </div>
+	    </div>
+	    <div class="control-group">
+	        <label class="control-label" for="password">Passwort:</label>
+	        <div class="controls">
+	            <input type="password" id="password" name="password"  required="required">
+	        </div>
+	    </div>
+	    <div class="control-group">
+	        <div class="controls">
+	            <button type="submit" class="btn">Registrieren</button>
+	        </div>
+	    </div>
+	</fieldset>
 </form>
