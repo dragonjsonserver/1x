@@ -35,13 +35,26 @@ abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Acces
         if ($data instanceof DragonX_Application_Accessor_Abstract) {
             $data = $data->toArray();
         }
-        if (is_array($data) && $unsetID) {
-            unset($data['id']);
+        if (is_array($data)) {
+        	$this->fromArray($data, $unsetID);
+        } 
+        if ($data > 0) {
+        	$this->setId($data);
         }
-        if (is_numeric($data)) {
-            $data = array('id' => $data);
-        }
-    	parent::__construct($data);
+    }
+
+    /**
+     * Setzt alle Attribute der Eigenschaft aus den Daten des Arrays
+     * @param array $data
+     * @param boolean $unsetID
+     * @return DragonX_Storage_Record_Abstract
+     */
+    public function fromArray(array $data, $unsetID = true)
+    {
+    	if ($unsetID) {
+    		unset($data['id']);
+    	}
+        return parent::fromArray($data);
     }
 
     /**

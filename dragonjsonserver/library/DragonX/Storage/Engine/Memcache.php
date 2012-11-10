@@ -104,7 +104,7 @@ class DragonX_Storage_Engine_Memcache
         if (!$result) {
             throw new InvalidArgumentException('incorrect id');
         }
-        $record->fromArray($result);
+        $record->fromArray($result, false);
         return $record;
     }
 
