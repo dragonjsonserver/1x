@@ -21,7 +21,6 @@
     <li>Für jeden Statuswechsel, also Gast -&gt; registrierter Account -&gt; validierter Account sollen andere Rechte vergeben werden können</li>
 	<li>Pluginregistry soll Abhängigkeiten unterstützen. Ein Plugin soll per Interface Abhängigkeiten zu anderen Plugins definieren können und diese werden in der richtigen Reihenfolge in der Registry hinterlegt</li>
     <li>Fehlerbehandlung überarbeiten, Exceptions loggen und ausführlicher werfen um Fehler nachvollziehen zu können, vor allem falsche SQL Statements</li>
-    <li>Session von Account trennen sodass man die Session in eine andere Storage Engine verschieben kann</li>
     <li>"set_error_handler()" verwenden um einen Error Handler zu registrieren der auftretende PHP Fehler die nicht zum Abbruch eines Skriptes führen loggt und somit die PHP Fehler nicht in der Response landen</li>
     <li>Accountauswahl im DragonJsonClient sodass man zwischen Abfragen einfacher zwischen mehreren Accounts (mit Sessionhash und beliebig anderen Parametern) wechseln kann</li>
 </ul>
