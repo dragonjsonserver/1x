@@ -17,8 +17,20 @@
 /**
  * Plugin zur Installation des Paketes
  */
-class DragonX_Log_Plugin_Install_Request implements DragonX_Storage_Plugin_Install_Interface
+class DragonX_Log_Plugin_Install_Request 
+	implements DragonX_Storage_Plugin_Install_Interface,
+	           DragonX_Storage_Plugin_GetStoragekey_Interface
 {
+    /**
+     * Gibt den Key der Storage Engine in der Zend Registry zurück
+     * @return string
+     */
+    public function getStoragekey()
+    {
+    	$configEngine = new Dragon_Application_Config('dragonx/log/engine');
+    	return $configEngine->engine;
+    }
+    
     /**
      * Installiert das Plugin in der übergebenen Datenbank
      * @param DragonX_Storage_Engine_ZendDbAdataper $storage
