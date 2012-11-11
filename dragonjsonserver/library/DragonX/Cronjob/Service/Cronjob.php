@@ -29,7 +29,7 @@ class DragonX_Cronjob_Service_Cronjob
     {
         $configCronjob = new Dragon_Application_Config('dragonx/cronjob/cronjob');
         if ($configCronjob->securitytoken != $securitytoken) {
-            throw new InvalidArgumentException('incorrect securitytoken');
+            throw new Dragon_Application_Exception('incorrect securitytoken');
         }
 
         $logicCronjob = new DragonX_Cronjob_Logic_Cronjob();
@@ -45,7 +45,7 @@ class DragonX_Cronjob_Service_Cronjob
     {
         $configCronjob = new Dragon_Application_Config('dragonx/cronjob/cronjob');
         if ($configCronjob->securitytoken != $securitytoken) {
-            throw new InvalidArgumentException('incorrect securitytoken');
+            throw new Dragon_Application_Exception('incorrect securitytoken');
         }
 
         $logicCronjob = new DragonX_Cronjob_Logic_Cronjob();

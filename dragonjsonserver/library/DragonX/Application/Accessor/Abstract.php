@@ -101,7 +101,7 @@ abstract class DragonX_Application_Accessor_Abstract
         try {
 	        $methodname = 'set' . ucfirst($key);
 	        if (!method_exists($this, $methodname)) {
-	            throw new InvalidArgumentException('missing attribute "' . $key . '"');
+	            throw new Dragon_Application_Exception('missing attribute', array('attributename' => $key));
 	        }
         } catch (Exception $exception) {
         	$array = explode('_', $key);
@@ -143,7 +143,7 @@ abstract class DragonX_Application_Accessor_Abstract
         try {
 	        $methodname = 'get' . ucfirst($key);
 	        if (!method_exists($this, $methodname)) {
-	            throw new InvalidArgumentException('missing attribute "' . $key . '"');
+	            throw new Dragon_Application_Exception('missing attribute', array('attributename' => $key));
 	        }
         } catch (Exception $exception) {
             $array = explode('_', $key);

@@ -45,7 +45,7 @@ class DragonX_NestedSet_Logic_NestedSet
     	}
         if (isset($parent)) {
         	if (!$node instanceof $parent) {
-        		throw new Exception('node must be instance of same class as parent');
+        		throw new Dragon_Application_Exception('incorrect nodeclass', array('nodeclass' => get_class($node), 'parentclass' => get_class($parent)));
         	}
         	try {
         	    $storage->load($parent);

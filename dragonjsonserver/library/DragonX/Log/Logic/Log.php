@@ -33,7 +33,7 @@ class DragonX_Log_Logic_Log
 	    $extras = null;
         switch (count($params)) {
             case 0:
-                throw new Zend_Log_Exception('Missing log message');
+                throw new Dragon_Application_Exception('missing message');
             case 1:
             	$param = array_shift($params);
             	if ($param instanceof Exception) {

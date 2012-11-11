@@ -27,7 +27,7 @@ class DragonX_Cronjob_Logic_Cronjob
     {
         $plugin = new $pluginname();
         if (!$plugin instanceof DragonX_Cronjob_Plugin_Cronjob_Interface) {
-        	throw new InvalidArgumentException('invalid pluginname');
+        	throw new Dragon_Application_Exception('incorrect pluginname', array('pluginname' => $pluginname));
         }
         $plugin->execute();
         $timestamp = time();

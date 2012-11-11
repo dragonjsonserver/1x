@@ -25,6 +25,6 @@ class DragonX_Cronjob_Version
      */
     public function getVersion()
     {
-        return '1.8.0';
+        return '1.9.0';
     }
 }

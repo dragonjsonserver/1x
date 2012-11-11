@@ -75,7 +75,7 @@ class Dragon_Json_Server extends Zend_Json_Server
         $requestmethod = null;
         if (isset($request)) {
             if (!$request instanceof Dragon_Json_Server_Request_Http) {
-                throw new InvalidArgumentException('request is not instanceof Dragon_Json_Server_Request_Http');
+                throw new Dragon_Application_Exception('incorrect requestclass', array('requestclass' => get_class($request)));
             }
             $requestmethod = 'POST';
         } else {
@@ -148,7 +148,7 @@ class Dragon_Json_Server extends Zend_Json_Server
 			$requests = Zend_Json::decode($json);
     	}
     	if (count($requests) == 0) {
-    		throw new InvalidArgumentException('missing requests');
+    		throw new Dragon_Application_Exception('missing requests');
     	}
     	$autoemitresponse = $this->autoEmitResponse();
 		$this->setAutoEmitResponse(false);
