@@ -16,7 +16,6 @@
 ?>
 <h3>Noch geplante Änderungen</h3>
 <ul>
-    <li>Pluginregistry soll Abhängigkeiten unterstützen. Ein Plugin soll per Interface Abhängigkeiten zu anderen Plugins definieren können und diese werden in der richtigen Reihenfolge in der Registry hinterlegt</li>
     <li>Fehlerbehandlung überarbeiten, Exceptions loggen und ausführlicher werfen um Fehler nachvollziehen zu können, vor allem falsche SQL Statements</li>
     <li>"set_error_handler()" verwenden um einen Error Handler zu registrieren der auftretende PHP Fehler die nicht zum Abbruch eines Skriptes führen loggt und somit die PHP Fehler nicht in der Response landen</li>
     <li>"set_exception_handler()" verwenden um einen Exception Handler zu registrieren der auftretende Ausnahmen außerhalb von Services loggt und somit die Ausnahmen nicht in der Response landen</li>
@@ -44,6 +43,12 @@
                 Package
                 <ul>
                     <li>Es gibt nun einen Service der die Einstellungen der "/config/packagenamespaces.php" an den Client zurück gibt. Somit gibt es für den Client eine einfachere Möglichkeit seine Features darauf anzupassen was beim Server aktiviert/deaktiviert ist im Gegensatz zur Abfrage der SMD</li>
+                </ul>
+            </li>
+            <li>
+                Plugin
+                <ul>
+                    <li>Mit der Schnittstelle "Dragon_Plugin_Plugin_GetDependencies_Interface" kann ein Plugin nun Abhängigkeiten zu anderen Plugins definieren. Die Plugins werden dann anhand der Abhängigkeiten angeordnet</li>
                 </ul>
             </li>
         </ul>
