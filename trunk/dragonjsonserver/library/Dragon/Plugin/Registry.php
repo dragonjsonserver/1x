@@ -25,6 +25,11 @@ class Dragon_Plugin_Registry
     private $_plugins = array();
 
     /**
+     * @var array
+     */
+    private $_sortedplugins = array();
+
+    /**
      * Fügt mehrere Plugins hinzu und registriert diese bei allen Schnittstellen
      * @param array $plugins
      */
@@ -42,6 +47,58 @@ class Dragon_Plugin_Registry
     }
 
     /**
+     * Sortiert die Plugins in Topologischer Reihenfolge ihrer Abhängigkeiten
+     * @param array $plugins
+     * @return array
+     */
+    private function sortPlugins(array $plugins)
+    {
+    	$list = array();
+    	$nodes = array();
+    	foreach ($plugins as $plugin) {
+    		if (!is_object($plugin)) {
+                $plugin = new $plugin();
+    		}
+    		$pluginname = get_class($plugin);
+    		$list[$pluginname] = $plugin;
+    		if ($plugin instanceof Dragon_Plugin_Plugin_GetDependencies_Interface) {
+    			foreach ($plugin->getDependencies() as $dependency) {
+    				$nodes[] = array($pluginname, $dependency);
+    			}
+    		}
+    	}
+    	unset($plugin);
+	    $sortlist = array();
+	    while (count($list) > 0) {
+	        $circle = true;
+	        foreach ($list as $listkey => $element) {
+	            $dependency = false;
+	            foreach ($nodes as $node) {
+	                list ($from, $to) = $node;
+	                if ($listkey == $from) {
+	                    $dependency = true;
+	                }
+	            }
+	            if (!$dependency) {
+	                $circle = false;
+	                $sortlist[] = $element;
+	                unset($list[$listkey]);
+	                foreach ($nodes as $nodekey => $node) {
+	                    list ($from, $to) = $node;
+	                    if ($listkey == $to) {
+	                        unset($nodes[$nodekey]);
+	                    }
+	                }
+	            }
+	        }
+	        if ($circle) {
+	            throw new Exception('found circle');
+	        }
+	    }
+	    return $sortlist;
+    }
+
+    /**
      * Gibt alle Plugins der übergebenen Schnittstelle zurück
      * @param string $interfacename
      * @return array
@@ -51,15 +108,10 @@ class Dragon_Plugin_Registry
         if (!isset($this->_plugins[$interfacename])) {
             return array();
         }
-        $plugins = array();
-        foreach ($this->_plugins[$interfacename] as &$plugin) {
-            if (!is_object($plugin)) {
-                $plugin = new $plugin();
-            }
-            $plugins[] = $plugin;
+        if (!isset($this->_sortedplugins[$interfacename])) {
+        	$this->_sortedplugins[$interfacename] = $this->sortPlugins($this->_plugins[$interfacename]);
         }
-        unset($plugin);
-        return $plugins;
+        return $this->_sortedplugins[$interfacename];
     }
 
     /**
