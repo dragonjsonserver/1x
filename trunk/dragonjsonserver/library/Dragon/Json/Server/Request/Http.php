@@ -76,7 +76,7 @@ class Dragon_Json_Server_Request_Http extends Zend_Json_Server_Request_Http
     {
         $param = $this->getParam($name);
         if (!isset($param)) {
-            throw new InvalidArgumentException('required param "' . $name . '"');
+            throw new Dragon_Application_Exception('required param', array('paramname' => $name));
         }
         return $param;
     }

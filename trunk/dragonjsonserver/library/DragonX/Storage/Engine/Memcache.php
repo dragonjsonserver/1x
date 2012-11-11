@@ -100,9 +100,10 @@ class DragonX_Storage_Engine_Memcache
      */
     public function load(DragonX_Storage_Record_Abstract $record)
     {
-        $result = $this->_getMemcache()->get($this->_getKey($record));
+    	$key = $this->_getKey($record);
+        $result = $this->_getMemcache()->get($key);
         if (!$result) {
-            throw new InvalidArgumentException('incorrect id');
+            throw new Dragon_Application_Exception('missing record', array('key' => $key));
         }
         $record->fromArray($result, false);
         return $record;

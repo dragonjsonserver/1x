@@ -27,7 +27,7 @@ class DragonX_Storage_RecordList extends ArrayObject
     public function offsetGet($index)
     {
         if (!parent::offsetExists($index)) {
-            throw new InvalidArgumentException('missing record');
+            throw new Dragon_Application_Exception('missing record', array('index' => $index));
         }
         return parent::offsetGet($index);
     }
@@ -43,7 +43,7 @@ class DragonX_Storage_RecordList extends ArrayObject
         if (!$value instanceof DragonX_Storage_Record_Abstract
             &&
             !$value instanceof DragonX_Storage_RecordList) {
-            throw new InvalidArgumentException('invalid record');
+            throw new Dragon_Application_Exception('incorrect recordclass', array('recordclass' => get_class($value)));
         }
         parent::offsetSet($key, $value);
     }

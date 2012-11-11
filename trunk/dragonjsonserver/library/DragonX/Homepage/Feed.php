@@ -27,7 +27,7 @@ class DragonX_Homepage_Feed
     public function getFeed($format)
     {
     	if (!in_array($format, array('rss', 'atom'))) {
-    		throw new InvalidArgumentException('invalid format');
+    		throw new Dragon_Application_Exception('incorrect format', array('format' => $format));
     	}
 		$feed = new Zend_Feed_Writer_Feed();
 		$configApplication = new Dragon_Application_Config('dragon/application/application');

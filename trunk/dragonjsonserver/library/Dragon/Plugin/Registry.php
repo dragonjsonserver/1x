@@ -92,7 +92,7 @@ class Dragon_Plugin_Registry
 	            }
 	        }
 	        if ($circle) {
-	            throw new Exception('found circle');
+	            throw new Dragon_Application_Exception('found circle', array('list' => $list, 'nodes' => $nodes));
 	        }
 	    }
 	    return $sortlist;
