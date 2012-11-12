@@ -116,7 +116,7 @@ abstract class DragonX_Application_Accessor_Abstract
         			break;
         		}
         		$subkey = implode('_', $array);
-        		if (isset($self[$subkey])) {
+        		if (array_key_exists($subkey, $self)) {
                     $self[$subkey] = $value;
                     return;
         		}
@@ -158,7 +158,7 @@ abstract class DragonX_Application_Accessor_Abstract
                     break;
                 }
                 $subkey = implode('_', $array);
-                if (isset($self[$subkey])) {
+        		if (array_key_exists($subkey, $self)) {
                     return $self[$subkey];
                 }
             }
