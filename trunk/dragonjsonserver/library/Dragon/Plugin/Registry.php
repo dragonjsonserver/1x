@@ -20,6 +20,11 @@
 class Dragon_Plugin_Registry
 {
     /**
+     * @var string
+     */
+    private $_filepath;
+    
+    /**
      * @var array
      */
     private $_plugins = array();
@@ -35,15 +40,24 @@ class Dragon_Plugin_Registry
      */
     public function __construct(array $plugins)
     {
-        foreach ($plugins as $plugin) {
-            $reflectionClass = new ReflectionClass($plugin);
-            foreach ($reflectionClass->getInterfaceNames() as $interfacename) {
-                if (!isset($this->_plugins[$interfacename])) {
-                    $this->_plugins[$interfacename] = array();
-                }
-                $this->_plugins[$interfacename][] = $plugin;
-            }
-        }
+    	$configCache = new Dragon_Application_Config('dragon/plugin/cache');
+    	$this->_filepath = $configCache->filepath;
+    	if (isset($this->_filepath) && is_file($this->_filepath)) {
+    		list($this->_plugins, $this->_sortedplugins) = unserialize(file_get_contents($this->_filepath));
+    	} else {
+	        foreach ($plugins as $plugin) {
+	            $reflectionClass = new ReflectionClass($plugin);
+	            foreach ($reflectionClass->getInterfaceNames() as $interfacename) {
+	                if (!isset($this->_plugins[$interfacename])) {
+	                    $this->_plugins[$interfacename] = array();
+	                }
+	                $this->_plugins[$interfacename][] = $plugin;
+	            }
+	        }
+	        if (isset($this->_filepath)) {
+	        	file_put_contents($this->_filepath, serialize(array($this->_plugins, $this->_sortedplugins)));
+	        }
+    	}
     }
 
     /**
@@ -110,6 +124,9 @@ class Dragon_Plugin_Registry
         }
         if (!isset($this->_sortedplugins[$interfacename])) {
         	$this->_sortedplugins[$interfacename] = $this->sortPlugins($this->_plugins[$interfacename]);
+	        if (isset($this->_filepath)) {
+	        	file_put_contents($this->_filepath, serialize(array($this->_plugins, $this->_sortedplugins)));
+	        }
         }
         return $this->_sortedplugins[$interfacename];
     }
