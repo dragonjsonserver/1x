@@ -25,8 +25,16 @@ return array(
             'title' => 'Version 1.9.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.9.0 ist abgeschlossen und als Download '
-                . 'verfügbar.',
-            'timestamp' => 0,
+                . 'verfügbar. Es wurde eine eigene Ausnahmeklasse eingebaut '
+                . 'durch welche die das Logging von Ausnahmen und Rückgabe '
+                . 'zum Client verinfacht. Des Weiteren erlauben Plugins nun '
+                . 'die Angabe von Abhängigkeiten die die Reihenfolge bestimmt '
+                . 'in welcher diese aufgerufen werden. Bei der Storage Engine '
+                . 'hat sich die Verwendung von Records mit "clone" geändert. '
+                . 'Wenn man nun eine Kopie eines Records erstellt erhält man '
+                . 'auch aus Datenbanksicht einen neuen Record, daher ohne ID '
+                . 'der beim Speichern einen neuen Datensatz erstellt.',
+            'timestamp' => 1352752407,
         ),
         array(
             'title' => 'Version 1.8.0 zum Download verfügbar',
