@@ -1,0 +1,39 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<?php
+if ($this->pageCount > 0) {
+	echo '<div class="pagination pagination-centered"><ul>';
+	if (isset($this->previous)) {
+		echo '<li><a href="?page=' . $this->previous . '">&laquo;</a></li>';
+	} else {
+		echo '<li class="disabled"><a>&laquo;</a></li>';
+	}
+	foreach ($this->pagesInRange as $page) {
+		if ($page == $this->current) {
+            echo '<li class="active"><a>' . $page . '</a></li>';
+		} else {
+		    echo '<li><a href="?page=' . $page . '">' . $page . '</a></li>';
+		}
+	}
+    if (isset($this->next)) {
+        echo '<li><a href="?page=' . $this->next . '">&raquo;</a></li>';
+    } else {
+        echo '<li class="disabled"><a>&raquo;</a></li>';
+    }
+    echo '</ul></div>';
+}
+?>
