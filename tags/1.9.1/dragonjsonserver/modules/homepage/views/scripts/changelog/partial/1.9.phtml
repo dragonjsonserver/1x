@@ -1,0 +1,111 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Version 1.9.1</h3>
+<h4>Releasedatum: 14.11.2012</h4>
+<h4>Geänderte Pakete</h4>
+<ul>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Application
+                <ul>
+                    <li>Es wurde ein Fehler behoben der auftrat wenn man ein Objekt einer Eigenschaftenklasse mit Arraydaten befüllte zu denen keine Attribute vorhanden waren</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h3>Version 1.9.0</h3>
+<h4>Releasedatum: 12.11.2012</h4>
+<h4>Geänderte Pakete</h4>
+<ul>
+    <li>
+        Dragon
+        <ul>
+            <li>
+                Application
+                <ul>
+                    <li>Es gibt nun eigene Ausnahmeklasse die es erlaubt Ausnahmen mit zusätzlichen Daten zu definieren</li>
+                </ul>
+            </li>
+            <li>
+                Json
+                <ul>
+                    <li>Die Ausnahmebehandlung wurde angepasst sodass Ausnahmen von der eigenen Ausnahmeklasse samt den zusätzlichen Daten zum Client gesendet werden</li>
+                </ul>
+            </li>
+            <li>
+                Package
+                <ul>
+                    <li>Es gibt nun einen Service der die Einstellungen der "/config/packagenamespaces.php" an den Client zurück gibt. Somit gibt es für den Client eine einfachere Möglichkeit seine Features darauf anzupassen was beim Server aktiviert/deaktiviert ist im Gegensatz zur Abfrage der SMD</li>
+                </ul>
+            </li>
+            <li>
+                Plugin
+                <ul>
+                    <li>Mit der Schnittstelle "Dragon_Plugin_Plugin_GetDependencies_Interface" kann ein Plugin nun Abhängigkeiten zu anderen Plugins definieren. Die Plugins werden dann anhand der Abhängigkeiten angeordnet</li>
+                    <li>Es kann per Einstellungsdatei nun ein Dateipfad zu einer Cachedatei angegeben werden. Sowohl die Plugins mit den Schnittstelleninformationen als auch die topologisch sortierten Plugins werden somit gecacht</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Application
+                <ul>
+                    <li>Fehler der Eigenschaftklasse behoben mit Array Attributen wenn Keys mit "null" belegt sind und deswegen nicht gesetzt werden konnten</li>
+                </ul>
+            </li>
+            <li>
+                Clientmessage
+                <ul>
+                    <li>Übernahme der Änderung am Konstruktor der Records mit dem zusätzlichen Parameter "unsetId"</li>
+                </ul>
+            </li>
+            <li>
+                Log
+                <ul>
+                    <li>Es ist nun per Einstellungsdatei möglich die Storage Engine für die Logdaten zu bestimmen</li>
+                    <li>Der Logwriter wurde angepasst sodass Ausnahmen die direkt der Logic übergeben werden mit allen Informationen der Ausnahme und den zusätzlichen Daten geloggt werden</li>
+                </ul>
+            </li>
+            <li>
+                Storage
+                <ul>
+                    <li>Eine Kopie eines Records durch "clone()" erstellt nun ein neues Objekt ohne die ID des anderen Objektes sodass auch in der Datenbank eine Kopie erstellt wird</li>
+                    <li>Der Konstruktor und die "fromArray()" Methode eines Records haben nun einen zweiten Parameter der bestimmt ob die ID des übergebenen Arrays/Records bei der Übernahme der Daten resettet wird oder nicht</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4>Homepage</h4>
+<ul>
+    <li>Die Subnavigation highlightet nun die Links in der Navigation richtig auch wenn die Actionnamen wie im Changelog numerisch sind (kein Highlight der Version 1.1 wenn die Version 1.10 aktiv ist)</li>
+    <li>HTML Validität durch Ersetzung von "&gt;" durch die HTML Referenz in der Dokumentation und Hinzufügen vom Fieldsets bei der Verwendung von Legends bei Formularen verbessert</li>
+    <li>Es ist nun per Einstellungsdatei möglich die Startseite festzulegen die nach dem Login in den Administrationsbereich angezeigt werden soll</li>
+    <li>Die neue Ausnahmeklasse wurde an allen Stellen wo Ausnahmen geworfen werden mit zusätzlichen Daten zum besseren Finden des Problems eingebaut</li>
+</ul>
+<h2>Migration vom Branch 1.8</h2>
+<h3>Benötigt</h3>
+<ul>
+    <li>Das Verhalten der Records hat sich geändert wenn man diese bisher mit einem "toArray()" in einen anderen Record übergeben hat. Vorher wurde die ID beibehalten, nun ist es Abhängig vom zweiten Parameter und das Standardverhalten entfernt die ID. Daher muss überall wo die ID beibehalten werden soll und deswegen ein "toArray()" verwendet wurde der zweite Parameter mit "false" angegeben werden. Gleiches gilt wenn man "fromArray()" verwendet hat um die ID zu setzen</li>
+    <li>Durch die Änderung des Konstruktors der Records hat sich auch die Reihenfolge der Parameter der Konstruktoren der Clientmessagerecords geändert und muss angepasst werden wo neue Objekte erstellt werden</li>
+</ul>
