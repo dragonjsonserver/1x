@@ -19,9 +19,8 @@
  */
 return array(
     'Aktueller Branch',
-    '1.10' => 'Branch 1.10',
-    'Ältere Branches',
     '1.9' => 'Branch 1.9',
+    'Ältere Branches',
     '1.8' => 'Branch 1.8',
     '1.7' => 'Branch 1.7',
     '1.6' => 'Branch 1.6',
@@ -32,6 +31,6 @@ return array(
     '1.1' => 'Branch 1.1',
     '1.0' => 'Branch 1.0',
     'Nächste Branches',
-    '1.11' => 'Branch 1.11',
+    '1.10' => 'Branch 1.10',
     'roadmap' => 'Ideensammlung',
 );
