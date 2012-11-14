@@ -29,6 +29,15 @@ return array(
             'timestamp' => 0,
         ),
         array(
+            'title' => 'Version 1.9.1 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.9.1 ist abgeschlossen und als Download '
+                . 'verfügbar. Es wurde ein Fehler behoben der auftrat wenn '
+                . 'man ein Objekt einer Eigenschaftenklasse mit Arraydaten '
+                . 'befüllte zu denen keine Attribute vorhanden waren.',
+            'timestamp' => 1352915933,
+        ),
+        array(
             'title' => 'Version 1.9.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.9.0 ist abgeschlossen und als Download '

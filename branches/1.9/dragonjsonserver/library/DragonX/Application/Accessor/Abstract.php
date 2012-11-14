@@ -60,23 +60,23 @@ abstract class DragonX_Application_Accessor_Abstract
                 $key = substr($key, 1);
             }
             try {
-            	$value = $this->__get($key);
-            	if (!$subarrays && is_array($value)) {
-	                $function = function ($function, $key, array $value) {
-	                    $subarray = array();
-	                    foreach ($value as $subkey => $subvalue) {
-	                        if (is_array($subvalue)) {
-	                            $subarray += $function($function, $key . '_' . $subkey, $subvalue);
-	                        } else {
-	                            $subarray[$key . '_' . $subkey] = $subvalue;
-	                        }
-	                    }
-	                    return $subarray;
-	                };
-	                $array += $function($function, $key, $value);
-            	} else {
-            		$array[$key] = $value;
-            	}
+                $value = $this->__get($key);
+                if (!$subarrays && is_array($value)) {
+                    $function = function ($function, $key, array $value) {
+                        $subarray = array();
+                        foreach ($value as $subkey => $subvalue) {
+                            if (is_array($subvalue)) {
+                                $subarray += $function($function, $key . '_' . $subkey, $subvalue);
+                            } else {
+                                $subarray[$key . '_' . $subkey] = $subvalue;
+                            }
+                        }
+                        return $subarray;
+                    };
+                    $array += $function($function, $key, $value);
+                } else {
+                    $array[$key] = $value;
+                }
             } catch (Exception $exception) {
             }
         }
@@ -99,29 +99,29 @@ abstract class DragonX_Application_Accessor_Abstract
         } catch (Exception $exception) {
         }
         try {
-	        $methodname = 'set' . ucfirst($key);
-	        if (!method_exists($this, $methodname)) {
-	            throw new Dragon_Application_Exception('missing attribute', array('attributename' => $key));
-	        }
+            $methodname = 'set' . ucfirst($key);
+            if (!method_exists($this, $methodname)) {
+                throw new Dragon_Application_Exception('missing attribute', array('attributename' => $key));
+            }
         } catch (Exception $exception) {
-        	$array = explode('_', $key);
-        	$self = $this;
-        	while (count($array) > 1) {
-        		$key = array_shift($array);
-        		if (isset($self->$key)) {
-        			$self = &$self->$key;
-        		} elseif (isset($self[$key])) {
-        			$self = &$self[$key];
-        		} else {
-        			break;
-        		}
-        		$subkey = implode('_', $array);
-        		if (array_key_exists($subkey, $self)) {
+            $array = explode('_', $key);
+            $self = $this;
+            while (count($array) > 1) {
+                $key = array_shift($array);
+                if (is_object($self) && isset($self->$key)) {
+                    $self = &$self->$key;
+                } elseif (is_array($self) && isset($self[$key])) {
+                    $self = &$self[$key];
+                } else {
+                    break;
+                }
+                $subkey = implode('_', $array);
+                if (array_key_exists($subkey, $self)) {
                     $self[$subkey] = $value;
                     return;
-        		}
-        	}
-        	throw $exception;
+                }
+            }
+            throw $exception;
         }
         call_user_func(array($this, $methodname), $value);
     }
@@ -141,10 +141,10 @@ abstract class DragonX_Application_Accessor_Abstract
         } catch (Exception $exception) {
         }
         try {
-	        $methodname = 'get' . ucfirst($key);
-	        if (!method_exists($this, $methodname)) {
-	            throw new Dragon_Application_Exception('missing attribute', array('attributename' => $key));
-	        }
+            $methodname = 'get' . ucfirst($key);
+            if (!method_exists($this, $methodname)) {
+                throw new Dragon_Application_Exception('missing attribute', array('attributename' => $key));
+            }
         } catch (Exception $exception) {
             $array = explode('_', $key);
             $self = $this;
@@ -158,11 +158,11 @@ abstract class DragonX_Application_Accessor_Abstract
                     break;
                 }
                 $subkey = implode('_', $array);
-        		if (array_key_exists($subkey, $self)) {
+                if (array_key_exists($subkey, $self)) {
                     return $self[$subkey];
                 }
             }
-        	throw $exception;
+            throw $exception;
         }
         return call_user_func(array($this, $methodname));
     }
@@ -187,11 +187,11 @@ abstract class DragonX_Application_Accessor_Abstract
      */
     public function __unset($key)
     {
-    	if (isset($this->$key)) {
-    		$this->$key = null;
-    	}
-    	if (isset($this->{'_' . $key})) {
-    	   $this->{'_' . $key} = null;
-    	}
+        if (isset($this->$key)) {
+            $this->$key = null;
+        }
+        if (isset($this->{'_' . $key})) {
+           $this->{'_' . $key} = null;
+        }
     }
 }
