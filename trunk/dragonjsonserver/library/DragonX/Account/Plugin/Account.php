@@ -47,18 +47,15 @@ class DragonX_Account_Plugin_Account
 		if (!$this->_authenticateRequired($classname, $methodname)) {
 		    return;
 		}
-
 		$params = $request->getRequiredParams(array('sessionhash'));
         $logicSession = new DragonX_Account_Logic_Session();
         $recordAccount = $logicSession->getAccount($params['sessionhash']);
         $logicAccount = new DragonX_Account_Logic_Account();
         $logicAccount->requestAccount($recordAccount);
-
         Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
             'DragonX_Account_Plugin_LoadAccount_Interface',
             array($recordAccount)
         );
-
         Zend_Registry::set('recordAccount', $recordAccount);
     }
 
