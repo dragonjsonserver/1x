@@ -16,7 +16,30 @@
 ?>
 <h3>Noch geplante Änderungen</h3>
 <ul>
-    <li></li>
+    <li>Errorhandling erweitern sodass alle Exceptions die man loggt in eine Exceptionlogklasse gehen mit Spalten für Dateinamen usw.</li>
+    <li>Errorhandling erweitern sodass alle Exceptions die zum Client gesendet werden auch im Logging und der Exceptiontabelle landen, abgeleitete Exceptionklasse "User" die nicht geloggt werden für "E-Mail ungültig" usw.</li>
+    <li>Fehlerbehebung: Reihenfolge der Konfigurationsdateien ist falsch wenn mehrere Repositories existieren. Da muss das Array umgedreht werden entweder einmal wo Librarypaths gemacht werden oder bei den Konfigurationsdateien</li>
+    <li>"set_error_handler()" verwenden um einen Error Handler zu registrieren der auftretende PHP Fehler die nicht zum Abbruch eines Skriptes führen loggt und somit die PHP Fehler nicht in der Response landen</li>
+    <li>"set_exception_handler()" verwenden um einen Exception Handler zu registrieren der auftretende Ausnahmen außerhalb von Services loggt und somit die Ausnahmen nicht in der Response landen</li>
+    <li>Den Callbackmethoden "success" und "callback" des JsonRequest das JsonRequest Objekt selbst zur Verfügung stellen</li>
 </ul>
 <h3>Version 1.10.0</h3>
 <h4>Releasedatum: noch offen</h4>
+<h4>Geänderte Pakete</h4>
+<ul>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Homepage
+                <ul>
+                    <li>Wenn die Session abgelaufen ist wird nun die richtige Hinweismeldung auf der Homepage angezeigt statt einer Ausnahme</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4>Homepage</h4>
+<ul>
+    <li>Wenn eine E-Mail Adresse nicht korrekt ist oder bereits vergeben ist wird dies nun zusammen angezeigt statt getrennt voneinander</li>
+</ul>
