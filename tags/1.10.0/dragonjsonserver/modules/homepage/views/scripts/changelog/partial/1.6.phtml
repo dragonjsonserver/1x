@@ -1,0 +1,120 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Version 1.6.1</h3>
+<h4>Releasedatum: 20.09.2012</h4>
+<h4>Geänderte Pakete</h4>
+<ul>
+    <li>
+        Dragon
+        <ul>
+            <li>
+                Application
+                <ul>
+                    <li>Repository Registry vor der Plugin Registry definieren um Plugins in Repositories zu erlauben</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4>Allgemein</h4>
+<ul>
+    <li>Repository Registry in der 'bootstrap.php' vor der Plugin Registry initialisieren um Plugins in Repositories zu erlauben</li>
+</ul>
+<h3>Version 1.6.0</h3>
+<h4>Releasedatum: 14.09.2012</h4>
+<h4>Neue Pakete</h4>
+<ul>
+    <li>
+        Dragon
+        <ul>
+            <li>
+                Repository
+                <ul>
+                    <li>Neues Paket Repository um mehrere Repositories verwalten zu können, siehe: <a href="<?php echo $this->url(array('controller' => 'documentation', 'action' => 'dragon_repository'), null, true); ?>">Dokumentation/Paket Repository</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Application
+                <ul>
+                    <li>Verschieben der abstrakten Eigenschaftenklasse in ein neues 'DragonX_Application' Paket</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4>Geänderte Pakete</h4>
+<ul>
+    <li>
+        Dragon
+        <ul>
+            <li>
+                Application
+                <ul>
+                    <li>Repository Registry mit Application anlegen und in der Zend Registry ablegen</li>
+                    <li>Konfigurationsdateien hierarchisch aus den Repositories und erst am Ende aus dem Framework laden</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Homepage
+                <ul>
+                    <li>Abstrakter Controller für Subnavigation umbenannt von '_ASubnavigation' zu 'Subnavigation_Abstract'</li>
+				    <li>
+				        Umstellung des Projektes auf Repositories
+				        <ul>
+				            <li>'DragonX_Homepage' fügt alle Zend MVC Module aller Repositores dem Front Controller hinzu</li>
+				        </ul>
+				    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4>Allgemein</h4>
+<ul>
+    <li>Umgebungsvariablen die gesetzt werden können werden nicht mehr im Framework vorgegeben</li>
+    <li>Repositories in der 'bootstrap.php' initialisieren wenn diese aktiviert sind</li>
+</ul>
+<h4>Homepage</h4>
+<ul>
+    <li>Umbenennung des Ordners 'application' in 'modules' für die Zend MVC Module</li>
+    <li>Einstellungsdateien der Navigationen der beiden Bereiche nun in einem Unterordner zusammengefasst</li>
+    <li>
+        Umstellung des Projektes auf Repositories
+		<ul>
+		    <li>Navigation im Layout immer mit Modulangabe der aktuellen Controllerarea</li>
+		    <li>Subnavigation immer mit Modulangabe des Repositories 'application' wenn Repositories aktiviert sind</li>
+		</ul>
+    </li>
+</ul>
+<h2>Migration vom Branch 1.5</h2>
+<h3>Benötigt</h3>
+<ul>
+    <li>Durch die Umstellung auf Repositories müssen alle eigenen Dateien aus dem bisherigen Projekt herausgezogen werden und in das Verzeichnis 'application' verschoben werden. Alle Dateien des DragonJsonServers kommen in das Verzeichnis 'dragonjsonserver'</li>
+    <li>Bei den Änderungen an der 'bootstrap.php' wurde die Konstante 'APPLICATION_PATH' umbenannt in 'DRAGONJSONSERVER_PATH' um den Pfad nicht mit dem Repository 'application' zu verwechseln. Dies muss berücksichtigt werden wenn die Konsante in eigenen Dateien genutzt wird</li>
+    <li>Alle Controller mit einer Subnavigation müssen nun von 'DragonX_Homepage_Controller_Subnavigation_Abstract' erben</li>
+    <li>Alle Eigenschaftsklassen müssen nun von 'DragonX_Application_Accessor' erben</li>
+</ul>

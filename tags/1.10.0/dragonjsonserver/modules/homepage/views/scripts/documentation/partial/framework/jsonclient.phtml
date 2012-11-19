@@ -1,0 +1,105 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<ul>
+    <li>Der Json Client vereinfacht das Erstellen, Senden und Verarbeiten von Json Requests</li>
+    <li>Unterstützt sowohl einzelne Requests als auch Multirequests</li>
+    <li>Benötigt die jQuery Bibliothek</li>
+    <li>
+        Initialisierung mit der URI zum Server
+<pre>var jsonclient = new JsonClient('%uri%');</pre>
+    </li>
+    <li>Einzelner Request mit "success" und "exception" Callbackmethode</li>
+    <li>
+        In beiden Callbackmethoden steht das Objekt des JsonRequests unter der Variable "jsonrequest" zur Verfügung
+<pre>jsonclient.send(new JsonRequest('%id%', '%method%', %params%,
+    {
+        success : function (json, statusText, jqXHR) {},
+        exception : function (json, statusText, jqXHR) {},
+    }
+));</pre>
+    </li>
+    <li>
+        Für Multirequest können mehrere einzelne JsonRequests übergeben werden. Dabei muss beachtet werden dass die übergebene ID jedes Requests eindeutig ist innerhalb des Multirequests sodass die einzelnen Antworten für die "success" und "exception" Callbackmethoden voneinander unterschieden werden können
+<pre>jsonclient.send([
+    new JsonRequest('%id%', '%method%', %params%,
+        {
+            success : function (json, statusText, jqXHR) {},
+            exception : function (json, statusText, jqXHR) {},
+        }
+    ),
+    new JsonRequest('%id%', '%method%', %params%,
+        {
+            success : function (json, statusText, jqXHR) {},
+            exception : function (json, statusText, jqXHR) {},
+        }
+    )
+]);</pre>
+    </li>
+    <li>
+        Sowohl Einzelrequests als auch Multirequests können dem Server eine Map mitgeben, sodass alle angegeben Responseparameter zusätzlich unter dem angegebenen Alias verfügbar sind. Dies ist vor allem für Multirequests nützlich bei denen die Responseparameter nicht den gleichen Namen haben wie der nachfolgende Request benötigt
+<pre>jsonclient.send(new JsonRequest('%id%', '%method%', %params%,
+    {
+        success : function (json, statusText, jqXHR) { json.result.%aliasname%; },
+        map : {%parametername% : %aliasname%},
+    }
+));</pre>
+    </li>
+    <li>
+        Setzen von Defaultwerten für jeden nachfolgenden Request
+<pre>jsonclient.setDefaultParam('%param%', %value%);</pre>
+    </li>
+    <li>
+        Setzen der Htaccess Authentifizierung für jeden nachfolgenden Request
+<pre>jsonclient.setAuthenticate('%username%', %password%);</pre>
+    </li>
+    <li>
+        Abfrage der SMD
+<pre>jsonclient.smd({success : function (json) {}});</pre>
+    </li>
+</ul>
+<h3>Clientnachrichten</h3>
+<ul>
+    <li>Es können Callbackmethoden für die verschiedenen Keys von Clientnachrichten registriert werden</li>
+    <li>
+        Bei jeder Response wird diese nach Clientnachrichten überprüft und anhand der Keys entsprechend aufgerufen
+<pre>jsonclient.setCallback(
+    '%key%',
+    function(json, timestamp) {}
+);</pre>
+    </li>
+    <li>Die Keys 'response' und 'timestamp' werden für die Kommunikation bereits verwendet und sind daher nicht erlaubt</li>
+</ul>
+<h2>Eigener Client</h2>
+<h3>Einzelrequest</h3>
+<ul>
+    <li>Alle Requests gehen an die '/jsonrpc2.php'</li>
+    <li>"method" enthält den Servicenamen</li>
+    <li>"params" enthält ein Json Objekt aller Parameter</li>
+    <li>"id" kann beliebig definiert werden und wird in der Response wieder zurück gegeben</li>
+    <li>"jsonrpc" definiert die Version des JsonRPC Protokolls das verwendet wird</li>
+</ul>
+<h3>Multirequest</h3>
+<ul>
+    <li>Alle Requests gehen an die '/multijsonrpc2.php'</li>
+    <li>Alle Key/Value Paare der Responses stehen nachfolgenden Requests als Eingangsparameter zur Verfügung um Serviceaufrufe zu verketten</li>
+    <li>Die einzelnen Requests werden als Array übergeben und als Antwort kommt ein Array an Responses</li>
+</ul>
+<h3>Clientnachrichten</h3>
+<ul>
+    <li>Wenn Clientnachrichten aktiviert sind muss dies bei einem eigenen Client berücksichtigt werden, siehe: <a href="<?php echo $this->url(array('controller' => 'documentation', 'action' => 'dragonx_clientmessage'), null, true); ?>">Dokumentation/Paket Clientmessage</a></li>
+</ul>
+<p>Bei Problemen und Fragen sende eine E-Mail an: jsonclient@dragonjsonserver.de</p>
