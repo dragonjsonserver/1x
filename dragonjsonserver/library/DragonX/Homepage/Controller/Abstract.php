@@ -50,7 +50,7 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
 	                if (isset($recordDeletion)) {
 	                    $this->view->recordDeletion = $recordDeletion;
 	                }
-	            } catch (InvalidArgumentException $exception) {
+	            } catch (Exception $exception) {
                     $sessionNamespace->unsetAll();
                     if ($modulename == 'homepage' && $controllername == 'account' && $actionname == 'logout') {
                         $this->_helper->FlashMessenger('<div class="alert alert-success">Abmeldung erfolgreich</div>');

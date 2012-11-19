@@ -49,11 +49,8 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
             $logicSession = new DragonX_Account_Logic_Session();
             $sessionNamespace = new Zend_Session_Namespace();
             $sessionNamespace->sessionhash = $logicSession->loginAccount($recordAccount);
-        } catch (InvalidArgumentException $exception) {
-            $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse nicht korrekt</div>');
-            $this->_redirect('account/showregister');
         } catch (Exception $exception) {
-            $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse bereits vergeben</div>');
+            $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse nicht korrekt oder bereits vergeben</div>');
             $this->_redirect('account/showregister');
         }
 
