@@ -50,4 +50,7 @@
     <li>Installationskript erweitern und einen Installationsprozess anbieten für Erst-/Neuinstallation bzw. Upgrades bei denen man sieht was geupgradet werden muss und auch Hinweise anzeigen lassen kann wie im Changelog der Version 1.7.0. Das Ganze etwas absichern, damit es von aussen nicht von jedem Aufrufbar ist</li>
     <li>Session von Account trennen sodass man die Session in eine andere Storage Engine verschieben kann</li>
     <li>Accountauswahl im DragonJsonClient sodass man zwischen Abfragen einfacher zwischen mehreren Accounts (mit Sessionhash und beliebig anderen Parametern) wechseln kann</li>
+    <li>Errorhandling erweitern sodass alle Exceptions die man loggt in eine Exceptionlogtabelle gehen mit Spalten für Dateinamen usw.</li>
+    <li>"set_error_handler()" verwenden um einen Error Handler zu registrieren der auftretende PHP Fehler die nicht zum Abbruch eines Skriptes führen loggt und somit die PHP Fehler nicht in der Response landen</li>
+    <li>"set_exception_handler()" verwenden um einen Exception Handler zu registrieren der auftretende Ausnahmen außerhalb von Services loggt und somit die Ausnahmen nicht in der Response landen</li>
 </ul>
