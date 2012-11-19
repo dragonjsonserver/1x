@@ -31,8 +31,7 @@ class Dragon_Json_Server extends Zend_Json_Server
         if ($exception instanceof Dragon_Application_Exception_User) {
             $logicLog = new DragonX_Log_Logic_Log();
             $logicLog->info($exception);
-        }
-        if ($exception instanceof Exception) {
+        } elseif ($exception instanceof Exception) {
             $logicLog = new DragonX_Log_Logic_Log();
             $logicLog->err($exception);
         }
