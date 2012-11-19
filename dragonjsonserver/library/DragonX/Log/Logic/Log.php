@@ -19,6 +19,23 @@
  */
 class DragonX_Log_Logic_Log
 {
+	/**
+	 * Loggt eine Ausnahme mit automatischer Bestimmung des Schweregrades
+	 * @param Exception $exception
+	 */
+	public function automatic(Exception $exception)
+	{
+        $configException = new Dragon_Application_Config('dragonx/log/exception');
+        foreach ($configException as $classname => $method) {
+        	if ($exception instanceof $classname) {
+        		if (isset($method)) {
+        		    $this->__call($method, array($exception));
+        		}
+        		return;
+        	}
+        }
+	}
+
     /**
      * Speichert einen neuen Logeintrag
      * @param string $method

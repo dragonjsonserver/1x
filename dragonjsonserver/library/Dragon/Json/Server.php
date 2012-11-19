@@ -28,13 +28,8 @@ class Dragon_Json_Server extends Zend_Json_Server
         if (!Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Log')) {
         	return;
         }
-        if ($exception instanceof Dragon_Application_Exception_User) {
-            $logicLog = new DragonX_Log_Logic_Log();
-            $logicLog->info($exception);
-        } elseif ($exception instanceof Exception) {
-            $logicLog = new DragonX_Log_Logic_Log();
-            $logicLog->err($exception);
-        }
+        $logicLog = new DragonX_Log_Logic_Log();
+        $logicLog->automatic($exception);
 	}
 
     /**
