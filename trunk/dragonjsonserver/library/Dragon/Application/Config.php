@@ -27,7 +27,7 @@ class Dragon_Application_Config extends Zend_Config
     public function __construct($filename)
     {
         if (Zend_Registry::isRegistered('Dragon_Repository_Registry')) {
-            foreach (Zend_Registry::get('Dragon_Repository_Registry')->getRepositories() as $repositoryname => $directorypath) {
+            foreach (array_reverse(Zend_Registry::get('Dragon_Repository_Registry')->getRepositories()) as $repositoryname => $directorypath) {
                 $filepath = $directorypath . '/config/' . $filename . '.php';
                 if (is_file($filepath)) {
                     parent::__construct(require $filepath);
