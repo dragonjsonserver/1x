@@ -46,7 +46,7 @@ class Dragon_Repository_Registry
     public function getRepository($repositoryname)
     {
     	if (!isset($this->_repositories[$repositoryname])) {
-    		throw new Dragon_Application_Exception('incorrect repositoryname', array('repositoryname' => $repositoryname));
+    		throw new Dragon_Application_Exception_System('incorrect repositoryname', array('repositoryname' => $repositoryname));
     	}
         return $this->_repositories[$repositoryname];
     }

@@ -33,7 +33,7 @@ class DragonX_Log_Logic_Log
 	    $extras = null;
         switch (count($params)) {
             case 0:
-                throw new Dragon_Application_Exception('missing message');
+                throw new Dragon_Application_Exception_System('missing message');
             case 1:
             	$param = array_shift($params);
             	if ($param instanceof Exception) {
@@ -46,7 +46,7 @@ class DragonX_Log_Logic_Log
 	            			'trace' => $param->getTrace(),
             			)
             		);
-            		if ($param instanceof Dragon_Application_Exception) {
+            		if ($param instanceof Dragon_Application_Exception_Abstract) {
             			$extras['params'] += array(
             				'data' => $param->getData(),
             			);

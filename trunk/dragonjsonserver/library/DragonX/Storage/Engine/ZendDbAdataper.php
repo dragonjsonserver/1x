@@ -83,7 +83,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
     public function save(DragonX_Storage_Record_Abstract $record)
     {
     	if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
-            throw new Dragon_Application_Exception('record is readonly', array('recordclass' => get_class($record)));
+            throw new Dragon_Application_Exception_System('record is readonly', array('recordclass' => get_class($record)));
     	}
         if (!isset($record->id)) {
             if ($record instanceof DragonX_Storage_Record_Created_Abstract) {
@@ -137,7 +137,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
     	    "SELECT * FROM `" . $tablename . "` WHERE id = " . (int)$record->id
     	);
     	if (!$row) {
-            throw new Dragon_Application_Exception('missing record', array('tablenname' => $tablename, 'id' => $record->id));
+            throw new Dragon_Application_Exception_System('missing record', array('tablenname' => $tablename, 'id' => $record->id));
     	}
 		$record->fromArray($row, false);
         return $record;
@@ -174,7 +174,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
     public function delete(DragonX_Storage_Record_Abstract $record)
     {
         if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
-            throw new Dragon_Application_Exception('record is readonly', array('recordclass' => get_class($record)));
+            throw new Dragon_Application_Exception_System('record is readonly', array('recordclass' => get_class($record)));
         }
         if (isset($record->id)) {
             $count = $this->getAdapter()->delete($this->getTablename($record), 'id = ' . (int)$record->id);
@@ -301,7 +301,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
     public function updateByConditions(DragonX_Storage_Record_Abstract $record, array $values, array $conditions = array())
     {
         if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
-            throw new Dragon_Application_Exception('record is readonly', array('recordclass' => get_class($record)));
+            throw new Dragon_Application_Exception_System('record is readonly', array('recordclass' => get_class($record)));
         }
     	return $this->getAdapter()->update($this->getTablename($record), $values, $this->_parseConditions($conditions));
     }
@@ -316,7 +316,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
     public function deleteByConditions(DragonX_Storage_Record_Abstract $record, array $conditions = array())
     {
         if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
-            throw new Dragon_Application_Exception('record is readonly', array('recordclass' => get_class($record)));
+            throw new Dragon_Application_Exception_System('record is readonly', array('recordclass' => get_class($record)));
         }
         return $this->getAdapter()->delete($this->getTablename($record), $this->_parseConditions($conditions));
     }

@@ -15,16 +15,7 @@
  */
 
 /**
- * Klasse mit der Versionsnummer des Paketes
+ * Ausnahmeklasse für Ausnahmen die vom Benutzer verursacht sind
  */
-class DragonX_Application_Version
-{
-    /**
-     * Gibt die Versionsnummer des Paketes zurück
-     * @return string
-     */
-    public function getVersion()
-    {
-        return '1.10.0';
-    }
-}
+class Dragon_Application_Exception_User extends Dragon_Application_Exception_Abstract
+{}

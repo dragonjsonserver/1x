@@ -73,7 +73,7 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
         		break;
         	case 'administration':
 		        if (!Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) {
-                    throw new Dragon_Application_Exception('incorrect controller', array('controllername' => $controllername));
+                    throw new Dragon_Application_Exception_User('incorrect controller', array('controllername' => $controllername));
 		        }
                 if (!isset($recordAccount)) {
                     $this->_helper->FlashMessenger('<div class="alert alert-error">Die Session wurde noch nicht gestartet oder ist abgelaufen. Profil muss angemeldet werden</div>');
@@ -128,7 +128,7 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
     public function getRequiredParam($name)
     {
         if (!$this->_hasParam($name)) {
-            throw new Dragon_Application_Exception('required param', array('paramname' => $name));
+            throw new Dragon_Application_Exception_User('required param', array('paramname' => $name));
         }
         return $this->_getParam($name);
     }

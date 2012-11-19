@@ -26,7 +26,7 @@ class LicenseController extends DragonX_Homepage_Controller_Abstract
     {
         $configLicense = new Dragon_Application_Config('dragonx/homepage/license');
         if (!isset($configLicense->license)) {
-            throw new Dragon_Application_Exception('incorrect controller', array('controllername' => $this->getRequest()->getControllerName()));
+            throw new Dragon_Application_Exception_User('incorrect controller', array('controllername' => $this->getRequest()->getControllerName()));
         }
         $this->render($configLicense->license);
     }

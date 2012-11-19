@@ -19,6 +19,25 @@
  */
 class Dragon_Json_Server extends Zend_Json_Server
 {
+	/**
+	 * Loggt die übergebene Ausnahme wenn das Paket DragonX Log eingebunden ist
+	 * @param Exception $exception
+	 */
+	private function _logException(Dragon_Application_Exception_Abstract $exception)
+	{
+        if (!Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Log')) {
+        	return;
+        }
+        if ($exception instanceof Dragon_Application_Exception_User) {
+            $logicLog = new DragonX_Log_Logic_Log();
+            $logicLog->info($exception);
+        }
+        if ($exception instanceof Exception) {
+            $logicLog = new DragonX_Log_Logic_Log();
+            $logicLog->err($exception);
+        }
+	}
+
     /**
      * Verarbeitet den JsonRPC Request mit der eigenen Ausnahmeklasse
      * @param Zend_Server_Method_Definition $invocable
@@ -30,14 +49,15 @@ class Dragon_Json_Server extends Zend_Json_Server
     	try {
     		return parent::_dispatch($invocable, $params);
     	} catch (Exception $exception) {
-    		if ($exception instanceof Dragon_Application_Exception) {
+    		$this->_logException($exception);
+    		if ($exception instanceof Dragon_Application_Exception_Abstract) {
     			$this->fault($exception->getMessage(), $exception->getCode(), $exception->getData());
     		} else {
-    			throw $exception;
+    			$this->fault($exception->getMessage(), $exception->getCode(), $exception);
     		}
     	}
     }
-    
+
     /**
      * Verarbeitet den JsonRPC Request mit Pre-/Postdispatch Aufrufen
      */
@@ -56,7 +76,8 @@ class Dragon_Json_Server extends Zend_Json_Server
                 array($request, $this->getResponse())
             );
         } catch (Exception $exception) {
-        	if ($exception instanceof Dragon_Application_Exception) {
+            $this->_logException($exception);
+        	if ($exception instanceof Dragon_Application_Exception_Abstract) {
         		$this->fault($exception->getMessage(), $exception->getCode(), $exception->getData());
         	} else {
         		$this->fault($exception->getMessage(), $exception->getCode(), $exception);
@@ -75,7 +96,7 @@ class Dragon_Json_Server extends Zend_Json_Server
         $requestmethod = null;
         if (isset($request)) {
             if (!$request instanceof Dragon_Json_Server_Request_Http) {
-                throw new Dragon_Application_Exception('incorrect requestclass', array('requestclass' => get_class($request)));
+                throw new Dragon_Application_Exception_System('incorrect requestclass', array('requestclass' => get_class($request)));
             }
             $requestmethod = 'POST';
         } else {
@@ -148,7 +169,7 @@ class Dragon_Json_Server extends Zend_Json_Server
 			$requests = Zend_Json::decode($json);
     	}
     	if (count($requests) == 0) {
-    		throw new Dragon_Application_Exception('missing requests');
+    		throw new Dragon_Application_Exception_User('missing requests');
     	}
     	$autoemitresponse = $this->autoEmitResponse();
 		$this->setAutoEmitResponse(false);
