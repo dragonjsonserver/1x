@@ -25,8 +25,14 @@ return array(
             'title' => 'Version 1.10.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.10.0 ist abgeschlossen und als Download '
-                . 'verfügbar.',
-            'timestamp' => 0,
+                . 'verfügbar. Es wurde die Ausnahmebehandlung erweitert '
+                . 'sodass Ausnahmen die an den Client gesendet werden nun '
+                . 'automatisch geloggt werden und der Schweregrad abhängig '
+                . 'von der geworfenen Ausnahmeklasse definiert werden kann. '
+                . 'Ausserdem gibt es kleinere Fehlerbehebungen und eine '
+                . 'Erweiterung des JsonClients bei dem nun die '
+                . 'Callbackmethoden Zugriff auf das JsonRequest Objekt haben.',
+            'timestamp' => 1353358673,
         ),
         array(
             'title' => 'Version 1.9.1 zum Download verfügbar',
