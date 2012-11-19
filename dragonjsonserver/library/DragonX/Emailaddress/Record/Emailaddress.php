@@ -47,7 +47,7 @@ class DragonX_Emailaddress_Record_Emailaddress extends DragonX_Storage_Record_Cr
         $emailaddress = strtolower($emailaddress);
         $validatorEmailaddress = new Zend_Validate_EmailAddress();
         if (!$validatorEmailaddress->isValid($emailaddress)) {
-            throw new Dragon_Application_Exception('invalid emailaddress', array('emailaddress' => $emailaddress));
+            throw new Dragon_Application_Exception_User('invalid emailaddress', array('emailaddress' => $emailaddress));
         }
         $this->emailaddress = $emailaddress;
         return $this;

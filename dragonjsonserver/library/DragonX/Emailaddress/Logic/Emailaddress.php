@@ -51,7 +51,7 @@ class DragonX_Emailaddress_Logic_Emailaddress
             array('emailaddress' => $emailaddress)
         );
         if (!$recordEmailaddress->verifyPassword($password)) {
-            throw new Dragon_Application_Exception('incorrect password');
+            throw new Dragon_Application_Exception_User('incorrect password');
         }
 
         $recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->account_id));

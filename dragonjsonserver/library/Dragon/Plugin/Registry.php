@@ -23,7 +23,7 @@ class Dragon_Plugin_Registry
      * @var string
      */
     private $_filepath;
-    
+
     /**
      * @var array
      */
@@ -106,7 +106,7 @@ class Dragon_Plugin_Registry
 	            }
 	        }
 	        if ($circle) {
-	            throw new Dragon_Application_Exception('found circle', array('list' => $list, 'nodes' => $nodes));
+	            throw new Dragon_Application_Exception_System('found circle', array('list' => $list, 'nodes' => $nodes));
 	        }
 	    }
 	    return $sortlist;

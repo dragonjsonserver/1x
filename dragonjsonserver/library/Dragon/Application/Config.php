@@ -37,7 +37,7 @@ class Dragon_Application_Config extends Zend_Config
         }
         $filepath = DRAGONJSONSERVER_PATH . '/config/' . $filename . '.php';
         if (!is_file($filepath)) {
-            throw new Dragon_Application_Exception('incorrect configfile', array('filename' => $filename));
+            throw new Dragon_Application_Exception_System('incorrect configfile', array('filename' => $filename));
         }
         parent::__construct(require $filepath);
     }

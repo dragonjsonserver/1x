@@ -16,8 +16,7 @@
 ?>
 <h3>Noch geplante Änderungen</h3>
 <ul>
-    <li>Errorhandling erweitern sodass alle Exceptions die man loggt in eine Exceptionlogklasse gehen mit Spalten für Dateinamen usw.</li>
-    <li>Errorhandling erweitern sodass alle Exceptions die zum Client gesendet werden auch im Logging und der Exceptiontabelle landen, abgeleitete Exceptionklasse "User" die nicht geloggt werden für "E-Mail ungültig" usw.</li>
+    <li>Errorhandling erweitern sodass alle Exceptions die man loggt in eine Exceptionlogtabelle gehen mit Spalten für Dateinamen usw.</li>
     <li>Fehlerbehebung: Reihenfolge der Konfigurationsdateien ist falsch wenn mehrere Repositories existieren. Da muss das Array umgedreht werden entweder einmal wo Librarypaths gemacht werden oder bei den Konfigurationsdateien</li>
     <li>"set_error_handler()" verwenden um einen Error Handler zu registrieren der auftretende PHP Fehler die nicht zum Abbruch eines Skriptes führen loggt und somit die PHP Fehler nicht in der Response landen</li>
     <li>"set_exception_handler()" verwenden um einen Exception Handler zu registrieren der auftretende Ausnahmen außerhalb von Services loggt und somit die Ausnahmen nicht in der Response landen</li>
@@ -26,6 +25,23 @@
 <h4>Releasedatum: noch offen</h4>
 <h4>Geänderte Pakete</h4>
 <ul>
+    <li>
+        Dragon
+        <ul>
+            <li>
+                Application
+                <ul>
+                    <li>Die eigene Ausnahmeklasse wurde unterteilt in "System" und "User" sodass man Ausnahmen besser einteilen kann</li>
+                </ul>
+            </li>
+            <li>
+                Json
+                <ul>
+                    <li>Wenn das Paket DragonX Log eingebunden ist werden Ausnahmen die an den Client gesendet werden automatisch als Fehler (wenn es "System" Ausnahmen sind) oder Info (wenn es "User" Ausnahmen sind) geloggt</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
     <li>
         DragonX
         <ul>
@@ -38,6 +54,10 @@
         </ul>
     </li>
 </ul>
+<h4>Allgemein</h4>
+<ul>
+    <li>Die Umstellung der eigenen Ausnahmeklasse auf die beiden Ausnahmeklassen "Sytem" und "User" wurde überall durchgeführt wo Ausnahmen geworfen werden</li>
+</ul>
 <h4>Homepage</h4>
 <ul>
     <li>Wenn eine E-Mail Adresse nicht korrekt ist oder bereits vergeben ist wird dies nun zusammen angezeigt statt getrennt voneinander</li>
@@ -45,4 +65,9 @@
 <h4>JsonClient</h4>
 <ul>
     <li>In den Callbackmethoden für einen JsonRequest steht nun das Objekt des JsonRequest selbst unter der Variable "jsonrequest" zur Verfügung</li>
+</ul>
+<h2>Migration vom Branch 1.9</h2>
+<h3>Benötigt</h3>
+<ul>
+    <li>Durch die Umstellung der eigenen Ausnahmeklasse auf die beiden Ausnahmeklassen "Sytem" und "User" müssen alle Stellen angepasst werden wo Ausnahmen geworfen werden</li>
 </ul>

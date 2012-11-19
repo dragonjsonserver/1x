@@ -43,7 +43,7 @@ class DragonX_Acl_Plugin_Acl
         	$resources = $logicAcl->getResources(Zend_Registry::get('recordAccount'));
         }
         if (!in_array($resource, $resources)) {
-        	throw new Dragon_Application_Exception('missing resource', array('resource' => $resource));
+        	throw new Dragon_Application_Exception_System('missing resource', array('resource' => $resource));
         }
     }
 }

@@ -25,6 +25,6 @@ class Dragon_Repository_Version
      */
     public function getVersion()
     {
-        return '1.9.0';
+        return '1.10.0';
     }
 }

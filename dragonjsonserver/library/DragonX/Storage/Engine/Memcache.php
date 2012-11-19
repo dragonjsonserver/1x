@@ -103,7 +103,7 @@ class DragonX_Storage_Engine_Memcache
     	$key = $this->_getKey($record);
         $result = $this->_getMemcache()->get($key);
         if (!$result) {
-            throw new Dragon_Application_Exception('missing record', array('key' => $key));
+            throw new Dragon_Application_Exception_System('missing record', array('key' => $key));
         }
         $record->fromArray($result, false);
         return $record;
