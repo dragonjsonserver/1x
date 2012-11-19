@@ -45,7 +45,7 @@ function JsonRequest(id, method, params, options)
 function JsonClient(serverurl, options, callbacks, defaultparams)
 {
 	var libraryname = 'JsonClient';
-	var libraryversion = 'v1.8.0';
+	var libraryversion = 'v1.10.0';
 
     $('#libraryname').html(libraryname);
     $('#libraryversion').html(libraryversion);
@@ -168,16 +168,17 @@ function JsonClient(serverurl, options, callbacks, defaultparams)
 				if (!$.isArray(json)) {
 					json = [json];
 				}
-    			var jsonrequestoptions = {};
+    			var jsonrequests = {};
     			$.each(jsonrequest, function (key, jsonrequest) {
-    				jsonrequestoptions[jsonrequest.id] = jsonrequest.options;
+    				jsonrequests[jsonrequest.id] = jsonrequest;
     			});
     			$.each(json, function (key, json) {
-	    			if (json.result != undefined && jsonrequestoptions[json.id].success != undefined) {
-	    				jsonrequestoptions[json.id].success(json, statusText, jqXHR);
+    				var jsonrequest = jsonrequests[json.id];
+	    			if (json.result != undefined && jsonrequest.options.success != undefined) {
+	    				jsonrequest.options.success(json, statusText, jqXHR);
 	    			}
-	    			if (json.error != undefined && jsonrequestoptions[json.id].exception != undefined) {
-	    				jsonrequestoptions[json.id].exception(json, statusText, jqXHR);
+	    			if (json.error != undefined && jsonrequest.options.exception != undefined) {
+	    				jsonrequest.options.exception(json, statusText, jqXHR);
 	    			}
     			});
             }

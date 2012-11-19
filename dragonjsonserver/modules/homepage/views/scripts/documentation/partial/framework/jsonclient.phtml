@@ -22,8 +22,9 @@
         Initialisierung mit der URI zum Server
 <pre>var jsonclient = new JsonClient('%uri%');</pre>
     </li>
+    <li>Einzelner Request mit "success" und "exception" Callbackmethode</li>
     <li>
-        Einzelner Request mit "success" und "exception" Callbackmethode
+        In beiden Callbackmethoden steht das Objekt des JsonRequests unter der Variable "jsonrequest" zur Verfügung
 <pre>jsonclient.send(new JsonRequest('%id%', '%method%', %params%,
     {
         success : function (json, statusText, jqXHR) {},
