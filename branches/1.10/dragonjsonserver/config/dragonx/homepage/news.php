@@ -22,6 +22,16 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.10.1 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.10.1 ist abgeschlossen und als Download '
+                . 'verfügbar. Es wurde ein Fehler behoben der auftrat wenn '
+                . 'ein Pre/Postdispatch Plugin oder Service eine Ausnahme '
+                . 'geworfen hat die nicht von den eigenen Ausnahmeklassen '
+                . 'abgeleitet sind.',
+            'timestamp' => 1353521731,
+        ),
+        array(
             'title' => 'Version 1.10.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.10.0 ist abgeschlossen und als Download '
