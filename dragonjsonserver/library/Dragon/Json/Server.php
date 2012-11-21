@@ -23,7 +23,7 @@ class Dragon_Json_Server extends Zend_Json_Server
 	 * Loggt die übergebene Ausnahme wenn das Paket DragonX Log eingebunden ist
 	 * @param Exception $exception
 	 */
-	private function _logException(Dragon_Application_Exception_Abstract $exception)
+	private function _logException(Exception $exception)
 	{
         if (!Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Log')) {
         	return;
