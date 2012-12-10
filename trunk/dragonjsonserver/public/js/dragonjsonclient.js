@@ -111,13 +111,13 @@ function DragonJsonClient(jsonclient)
             {
                 async : false,
                 success : function (json) {
-                    $('#response').html('<pre>' + JSON.stringify(json, null, 4) + '</pre>');
+            	$('#response').html('<pre>' + $('<div/>').text(JSON.stringify(json, null, 4)).html() + '</pre>');
                     if (json.result != undefined) {
                         self.data = $.extend(json.result, self.data);
                     }
                 },
                 error : function(jqXHR, textStatus, errorThrown) {
-                    $('#response').html('<pre>' + errorThrown + jqXHR.responseText + textStatus + '</pre>');
+                	$('#response').html('<pre>' + $('<div/>').text(errorThrown + "\n" + jqXHR.responseText + "\n" + textStatus).html() + '</pre>');
                 }
             }
         );
