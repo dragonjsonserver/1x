@@ -19,6 +19,17 @@
 <h4>Geänderte Pakete</h4>
 <ul>
     <li>
+        Dragon
+        <ul>
+            <li>
+                Application
+                <ul>
+                    <li>Die eigene Registryklasse erweitert Zend Registry um die Möglichkeit Callbackmethoden für einzelne Indexe zu setzen. Dadurch muss ein Wert nicht direkt gesetzt werden sondern kann als Rückgabewert der Callbackmethode definiert werden und wird somit automatisch beim ersten Aufruf auf den Index gesetzt</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
         DragonX
         <ul>
             <li>
@@ -45,6 +56,7 @@
                     <li>Die Record Liste erlaubt nun das Befüllen mit Arraydaten und einem Record als Vorlage über den Konstruktur und der "fromArray()" Methode</li>
                     <li>Bei Transaktionen wird nun ein Zähler verwendet für die Anzahl der verschachtelten Transaktionen. Somit entfällt das Auswerten ob eine Transaktion bei "beginTransaction()" begonnen wurde. Des Weiteren hat sich die Rückgabe der Methoden "commit()" und "rollback()" geändert. Diese geben nun zurück ob die jeweilige Aktion gemacht wurde oder nicht</li>
                     <li>Es wurde ein Fehler behoben durch den man beim Speichern von geklonten Records eine Ausnahme bekommen hat weil das Attribut "id" nicht mehr vorhanden war</li>
+                    <li>Durch die eigene Registryklasse wird eine Datenbankverbindung nur einmalig aufgebaut wenn diese auch benötigt wird</li>
                 </ul>
             </li>
         </ul>
@@ -63,4 +75,5 @@
 <h3>Benötigt</h3>
 <ul>
     <li>Verkettete Methodenaufrufe bei der Storage Engine mit "commit()" oder "rollback()" müssen aufgelöst werden, da die Methoden nun als Rückgabe ein Boolean haben ob die jeweilige Aktion durchgeführt wurde oder nicht</li>
+    <li>Das Format zur Definition der Storage Engines wurde überarbeitet. Es wird nun in der Einstellungsdatei nicht direkt die Storage Engine instanziert sondern eine Callbackmethode definiert in dieser die Instanzierung erfolgt</li>
 </ul>

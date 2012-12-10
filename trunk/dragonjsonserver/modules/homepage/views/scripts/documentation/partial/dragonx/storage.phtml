@@ -54,18 +54,18 @@
     <li>
         Erstellen der Konfigurationsdatei '/config/dragonx/storage/engine.php'
 <pre>return array(
-    'engine' =&gt; new DragonX_Storage_Engine_ZendDbAdataper(
-        Zend_Registry::get('Zend_Db_Adapter')
-    ),
+    'engine' =&gt; function() {
+        return new DragonX_Storage_Engine_ZendDbAdataper(Zend_Registry::get('Zend_Db_Adapter'));
+    },
 );</pre>
     </li>
     <li>
         In der Konfigurationsdatei können auch mehrere Storage Engines mit den Keys für die Zend Registry hinterlegt werden. Folgende Einstellungen sind daher gleichbedeutend zur ersten Datei
 <pre>return array(
     'DragonX_Storage_Engine' =&gt; array(
-	    'engine' =&gt; new DragonX_Storage_Engine_ZendDbAdataper(
-	        Zend_Registry::get('Zend_Db_Adapter')
-	    ),
+	    'engine' =&gt; function() {
+	        return new DragonX_Storage_Engine_ZendDbAdataper(Zend_Registry::get('Zend_Db_Adapter'));
+	    },
     )
 );</pre>
     </li>

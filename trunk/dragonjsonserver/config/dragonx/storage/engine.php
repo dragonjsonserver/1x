@@ -18,7 +18,7 @@
  * @var array
  */
 return array(
-    'engine' => new DragonX_Storage_Engine_ZendDbAdataper(
-        Zend_Registry::get('Zend_Db_Adapter')
-    ),
+    'engine' => function() {
+        return new DragonX_Storage_Engine_ZendDbAdataper(Zend_Registry::get('Zend_Db_Adapter'));
+    },
 );
