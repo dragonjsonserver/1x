@@ -45,7 +45,7 @@ function JsonRequest(id, method, params, options)
 function JsonClient(serverurl, options, callbacks, defaultparams)
 {
 	var libraryname = 'JsonClient';
-	var libraryversion = 'v1.10.0';
+	var libraryversion = 'v1.11.0';
 
     $('#libraryname').html(libraryname);
     $('#libraryversion').html(libraryversion);
@@ -181,7 +181,16 @@ function JsonClient(serverurl, options, callbacks, defaultparams)
 	    				jsonrequest.options.exception(json, statusText, jqXHR);
 	    			}
     			});
-            }
+            },
+	        error : function(jqXHR, statusText, errorThrown)
+	        {
+	            var jsonrequest = jsonrequest;
+	        	if (options.error != undefined) {
+	        		options.error(jqXHR, statusText, errorThrown);
+	        	} else if (self.options.error != undefined) {
+	        		self.options.error(jqXHR, statusText, errorThrown);
+	        	}
+	        }
         }));
         return self;
     }
