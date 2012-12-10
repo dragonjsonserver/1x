@@ -82,6 +82,17 @@ class Dragon_Application_Application
     }
 
     /**
+     * Initialisiert die eigene Registry und setzt diese als Standardregistry
+     * @return Dragon_Application_Application
+     */
+    public function initRegistry()
+    {
+        require 'Dragon/Application/Registry.php';
+        Dragon_Application_Registry::setClassname('Dragon_Application_Registry');
+        return $this;
+    }
+
+    /**
      * Initialisiert die Package Registry zum Verwalten von Paketen
      * @param array $packagenamespaces
      * @return Dragon_Application_Application

@@ -65,6 +65,7 @@ $application
         DRAGONJSONSERVER_PATH . '/library',
     ))
     ->initAutoloader()
+    ->initRegistry()
     ->initPackageRegistry($packagenamespaces);
 if ($repositories) {
     $application->initRepositoryRegistry($repositories);
