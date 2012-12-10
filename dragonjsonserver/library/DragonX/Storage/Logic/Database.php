@@ -78,7 +78,7 @@ class DragonX_Storage_Logic_Database
             	$version = $listPlugins[$pluginname]->version;
             }
             $storage = Zend_Registry::get($storagekey);
-            $beginTransaction = $storage->beginTransaction();
+            $storage->beginTransaction();
             try {
             	$plugin->install($storage, $version);
                 list ($packagenamespace, $packagename) = explode('_', $pluginname, 3);
@@ -96,13 +96,9 @@ class DragonX_Storage_Logic_Database
                         'version' => $version->getVersion(),
                     )));
                 }
-	            if ($beginTransaction) {
-	            	$storage->commit();
-	            }
+            	$storage->commit();
             } catch (Exception $exception) {
-                if ($beginTransaction) {
-                    $storage->rollback();
-                }
+                $storage->rollback();
                 throw $exception;
             }
         }

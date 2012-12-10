@@ -39,7 +39,7 @@ class DragonX_NestedSet_Logic_NestedSet
     public function addNode(DragonX_NestedSet_Record_NestedSet $node, DragonX_NestedSet_Record_NestedSet $parent = null)
     {
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
-        $transaction = $storage->beginTransaction();
+        $storage->beginTransaction();
     	if (isset($node->id)) {
     		$this->removeNode($node);
     	}
@@ -50,9 +50,7 @@ class DragonX_NestedSet_Logic_NestedSet
         	try {
         	    $storage->load($parent);
         	} catch (Exception $exception) {
-                if ($transaction) {
-                    $storage->rollback();
-                }
+                $storage->rollback();
         	    throw $exception;
         	}
             $node->lft = $parent->rgt;
@@ -71,9 +69,7 @@ class DragonX_NestedSet_Logic_NestedSet
             $storage->executeSqlStatement("TRUNCATE `" . $storage->getTablename($node) . "`");
         }
         $storage->save($node);
-        if ($transaction) {
-            $storage->commit();
-        }
+        $storage->commit();
     }
 
     /**
@@ -83,13 +79,11 @@ class DragonX_NestedSet_Logic_NestedSet
     public function removeNode(DragonX_NestedSet_Record_NestedSet $node)
     {
     	$storage = Zend_Registry::get('DragonX_Storage_Engine');
-    	$transaction = $storage->beginTransaction();
+    	$storage->beginTransaction();
         try {
             $storage->load($node);
         } catch (Exception $exception) {
-            if ($transaction) {
-                $storage->rollback();
-            }
+            $storage->rollback();
             return;
         }
         $storage->executeSqlStatement(
@@ -104,11 +98,9 @@ class DragonX_NestedSet_Logic_NestedSet
             "UPDATE `" . $storage->getTablename($node) . "` SET `rgt` = `rgt` - ROUND((:rgt - :lft + 1)) WHERE `rgt` > :rgt",
             array('lft' => $node->lft, 'rgt' => $node->rgt)
         );
-        if ($transaction) {
-            $storage->commit();
-        }
         unset($node->id);
         unset($node->lft);
         unset($node->rgt);
+        $storage->commit();
     }
 }
