@@ -91,13 +91,20 @@ class DragonX_Emailaddress_Logic_Emailaddress
      */
     public function unlinkAccount(Application_Account_Record_Account $recordAccount)
     {
-        Zend_Registry::get('DragonX_Storage_Engine')->deleteByConditions(
-            new DragonX_Emailaddress_Record_Emailaddress(),
-            array('account_id' => $recordAccount->id)
+    	$storage = Zend_Registry::get('DragonX_Storage_Engine');
+    	$recordEmailaddress = $this->getEmailaddress($recordAccount);
+        $storage->deleteByConditions(
+            new DragonX_Emailaddress_Record_Credential(),
+            array('emailaddress_id' => $recordEmailaddress->id)
+        );
+        $storage->deleteByConditions(
+            new DragonX_Emailaddress_Record_Validation(),
+            array('emailaddress_id' => $recordEmailaddress->id)
         );
         Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
             'DragonX_Emailaddress_Plugin_UnlinkEmailaddress_Interface',
             array($recordAccount)
         );
+        $storage->delete($recordEmailaddress);
     }
 }

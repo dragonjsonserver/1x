@@ -49,9 +49,14 @@ class DragonX_Account_Plugin_Deletion implements DragonX_Cronjob_Plugin_Cronjob_
 
     	$listAccounts = $storage->loadBySqlStatement(
     	    new Application_Account_Record_Account(),
-              "SELECT * FROM `application_account_record_account` WHERE `id` IN ("
-                . "SELECT `account_id` FROM `dragonx_account_record_deletion` WHERE `created` <= :timestamp"
-            . ")",
+    	    "SELECT
+    	       account.*
+    	    FROM
+    	       application_account_record_account AS account
+    	       INNER JOIN dragonx_account_record_deletion AS deletion
+    	           ON account.id = deletion.account_id
+    	    WHERE
+    	       deletion.created <= :timestamp",
             array('timestamp' => $timestamp)
         );
         foreach ($listAccounts as $recordAccount) {
@@ -59,11 +64,19 @@ class DragonX_Account_Plugin_Deletion implements DragonX_Cronjob_Plugin_Cronjob_
 	            'DragonX_Account_Plugin_DeleteAccount_Interface',
 	            array($recordAccount)
 	        );
+	        $storage->deleteByConditions(
+	            new DragonX_Account_Record_Session(),
+	            array('account_id' => $recordAccount->id)
+	        );
         }
-        Zend_Registry::get('DragonX_Storage_Engine')->executeSqlStatement(
-              "DELETE FROM `" . $storage->getTablename($voidRecordAccount) . "` WHERE `id` IN ("
-                . "SELECT `account_id` FROM `dragonx_account_record_deletion` WHERE `created` <= :timestamp"
-            . ")",
+        $storage->executeSqlStatement(
+            "DELETE account, deletion
+            FROM
+               application_account_record_account AS account
+               INNER JOIN dragonx_account_record_deletion AS deletion
+                   ON account.id = deletion.account_id
+            WHERE
+               deletion.created <= :timestamp",
             array('timestamp' => $timestamp)
         );
     }
