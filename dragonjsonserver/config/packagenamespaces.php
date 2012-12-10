@@ -35,22 +35,22 @@ return array(
             'Service' => array('Account', 'Deletion', 'Session'),
         ),
         'Acl' => array(
-            'Plugin' => array('Acl', 'Install_Accountrole', 'Install_Resource', 'Install_Role', 'Install_Roleresource'),
+            'Plugin' => array('Acl', 'DeleteAccount', 'Install_Accountrole', 'Install_Resource', 'Install_Role', 'Install_Roleresource'),
         ),
         'Application',
         'Clientmessage' => array(
-            'Plugin' => array('Clientmessage', 'Account', 'All', 'Install_Account', 'Install_All'),
+            'Plugin' => array('Clientmessage', 'Account', 'All', 'DeleteAccount', 'Install_Account', 'Install_All'),
         ),
         'Cronjob' => array(
             'Plugin' => array('Install_Cronjob'),
             'Service' => array('Cronjob'),
         ),
         'Device' => array(
-            'Plugin' => array('Install_Device'),
+            'Plugin' => array('DeleteAccount', 'Install_Device'),
             'Service' => array('Device'),
         ),
         'Emailaddress' => array(
-            'Plugin' => array('Install_Credential', 'Install_Emailaddress', 'Install_Validation'),
+            'Plugin' => array('DeleteAccount', 'Install_Credential', 'Install_Emailaddress', 'Install_Validation'),
             'Service' => array('Credential', 'Emailaddress', 'Validation'),
         ),
         'Homepage',

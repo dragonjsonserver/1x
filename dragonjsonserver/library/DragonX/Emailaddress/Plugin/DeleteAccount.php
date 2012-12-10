@@ -15,16 +15,21 @@
  */
 
 /**
- * Klasse mit der Versionsnummer des Paketes
+ * Plugin zur Löschung aller verknüpften Daten zu einem Account
  */
-class DragonX_Device_Version
+class DragonX_Emailaddress_Plugin_DeleteAccount
+    implements DragonX_Account_Plugin_DeleteAccount_Interface
 {
     /**
-     * Gibt die Versionsnummer des Paketes zurück
-     * @return string
+     * Wird vor der Löschung eines Accounts aufgerufen
+     * @param Application_Account_Record_Account $recordAccount
      */
-    public function getVersion()
+    public function deleteAccount(Application_Account_Record_Account $recordAccount)
     {
-        return '1.11.0';
+    	try {
+	    	$logicEmailaddress = new DragonX_Emailaddress_Logic_Emailaddress();
+    		$logicEmailaddress->unlinkAccount($recordAccount);
+    	} catch (Exception $exception) {
+    	}
     }
 }
