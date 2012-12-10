@@ -29,9 +29,9 @@ class DragonX_Storage_Engine_ZendDbAdataper
     private $_adapter;
 
     /**
-     * @var boolean
+     * @var integer
      */
-    private $_transaction;
+    private $_transactionCounter;
 
 	/**
      * Nimmt den Datenbankadapter entgegen zur Verwaltung des Storages
@@ -210,34 +210,43 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function beginTransaction()
     {
-    	if (!$this->_transaction) {
+    	if ($this->_transactionCounter == 0) {
             $this->getAdapter()->beginTransaction();
-            $this->_transaction = true;
-            return true;
     	}
-    	return false;
+    	++$this->_transactionCounter;
+    	return $this->_transactionCounter == 1;
     }
 
     /**
      * Beendet eine Transaktion mit einem Commit um Änderungen zu schreiben
-     * @return DragonX_Storage_Engine_ZendDbAdataper
+     * @return boolean
      */
     public function commit()
     {
-        $this->getAdapter()->commit();
-        $this->_transaction = false;
-        return $this;
+    	switch ($this->_transactionCounter) {
+    		case 0:
+                return false;
+                break;
+            case 1:
+                $this->getAdapter()->commit();
+                break;
+    	}
+    	--$this->_transactionCounter;
+        return $this->_transactionCounter == 0;
     }
 
     /**
      * Beendet eine Transaktion mit einem Rollback um Änderungen zurückzusetzen
-     * @return DragonX_Storage_Engine_ZendDbAdataper
+     * @return boolean
      */
     public function rollback()
     {
-        $this->getAdapter()->rollback();
-        $this->_transaction = false;
-        return $this;
+    	if ($this->_transactionCounter == 0) {
+    		return false;
+    	}
+    	$this->getAdapter()->rollback();
+    	$this->_transactionCounter = 0;
+    	return true;
     }
 
     /**

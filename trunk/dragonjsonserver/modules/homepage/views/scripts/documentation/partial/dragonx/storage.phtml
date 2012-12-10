@@ -198,24 +198,9 @@ $storage-&gt;saveList($list);</pre>
 </ul>
 <h3>Verschachtelte Transaktionskontrolle</h3>
 <ul>
-    <li>
-        'beginTransaction()' gibt zurück true zurück wenn die Transaktion gestartet wurde oder false wenn bereits eine Transation gestartet ist
-<pre>$storage = Zend_Registry::get('DragonX_Storage_Engine');
-//Transaktion starten und Rückgabewert merken
-$transaction = $storage-&gt;beginTransaction();
-
-//SQL Statements
-
-//Wenn alles erfolgreich war ein Commit
-if ($transaction) {
-    $transaction-&gt;commit();
-}
-
-//Bei einem Fehler ein Rollback
-if ($transaction) {
-    $transaction-&gt;rollback();
-}</pre>
-    </li>
+    <li>'beginTransaction()' kann mehrfach verschachtelt aufgerufen werden und zählt die Verschachtelungstiefe mit. Beim ersten Aufruf wird "true" zurück gegeben, sonst "false"</li>
+    <li>Bei jedem Commit wird der Zähler runtergesetzt. Nur in der ersten Ebene wird ein Commit wirklich durchgeführt</li>
+    <li>Bei einem Rollback wird der Rollback durchgeführt unabhängig von der Verschachtelungstiefe und der Zähler zurückgesetzt. Nachfolgende SQL Statements werden ohne Transaktionskontrolle ausgeführt um das Loggen von Fehlern zu ermöglichen</li>
 </ul>
 <h3>Datenbankstrukturen der Pakete verwalten</h3>
 <ul>
