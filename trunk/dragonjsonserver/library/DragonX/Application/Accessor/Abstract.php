@@ -20,11 +20,25 @@
 abstract class DragonX_Application_Accessor_Abstract
 {
     /**
+     * Cache für die Information über die public Attribute
+     * @var array
+     */
+    private static $_reflectionproperties = array();
+
+    /**
      * Nimmt ein Array oder eine andere Eigenschaft als Datenquelle an
      * @param array|DragonX_Application_Accessor_Abstract $data
      */
     public function __construct($data = array())
     {
+        $classname = get_class($this);
+        if (!isset(self::$_reflectionproperties[$classname])) {
+            self::$_reflectionproperties[$classname] = array();
+            $reflectionclass = new ReflectionClass($this);
+            foreach ($reflectionclass->getProperties(ReflectionProperty::IS_PUBLIC) as $reflectionproperty) {
+                self::$_reflectionproperties[$classname][$reflectionproperty->name] = true;
+            }
+        }
         if ($data instanceof DragonX_Application_Accessor_Abstract) {
             $data = $data->toArray();
         }
@@ -90,40 +104,28 @@ abstract class DragonX_Application_Accessor_Abstract
      */
     public function __set($key, $value)
     {
-        try {
-            $reflectionProperty = new ReflectionProperty($this, $key);
-            if ($reflectionProperty->isPublic()) {
-                $this->$key = $value;
+        if (isset(self::$_reflectionproperties[get_class($this)][$key])) {
+            $this->$key = $value;
+            return;
+        }
+        $array = explode('_', $key);
+        $self = $this;
+        while (count($array) > 1) {
+            $key = array_shift($array);
+            if (is_object($self) && isset($self->$key)) {
+                $self = &$self->$key;
+            } elseif (is_array($self) && isset($self[$key])) {
+                $self = &$self[$key];
+            } else {
+                break;
+            }
+            $subkey = implode('_', $array);
+            if (array_key_exists($subkey, $self)) {
+                $self[$subkey] = $value;
                 return;
             }
-        } catch (Exception $exception) {
         }
-        try {
-            $methodname = 'set' . ucfirst($key);
-            if (!method_exists($this, $methodname)) {
-                throw new Dragon_Application_Exception_System('missing attribute', array('attributename' => $key));
-            }
-        } catch (Exception $exception) {
-            $array = explode('_', $key);
-            $self = $this;
-            while (count($array) > 1) {
-                $key = array_shift($array);
-                if (is_object($self) && isset($self->$key)) {
-                    $self = &$self->$key;
-                } elseif (is_array($self) && isset($self[$key])) {
-                    $self = &$self[$key];
-                } else {
-                    break;
-                }
-                $subkey = implode('_', $array);
-                if (array_key_exists($subkey, $self)) {
-                    $self[$subkey] = $value;
-                    return;
-                }
-            }
-            throw $exception;
-        }
-        call_user_func(array($this, $methodname), $value);
+        call_user_func(array($this, 'set' . ucfirst($key)), $value);
     }
 
     /**
@@ -133,38 +135,26 @@ abstract class DragonX_Application_Accessor_Abstract
      */
     public function __get($key)
     {
-        try {
-            $reflectionProperty = new ReflectionProperty($this, $key);
-            if ($reflectionProperty->isPublic()) {
-                return $this->$key;
-            }
-        } catch (Exception $exception) {
+        if (isset(self::$_reflectionproperties[get_class($this)][$key])) {
+            return $this->$key;
         }
-        try {
-            $methodname = 'get' . ucfirst($key);
-            if (!method_exists($this, $methodname)) {
-                throw new Dragon_Application_Exception_System('missing attribute', array('attributename' => $key));
+        $array = explode('_', $key);
+        $self = $this;
+        while (count($array) > 1) {
+            $key = array_shift($array);
+            if (isset($self->$key)) {
+                $self = &$self->$key;
+            } elseif (isset($self[$key])) {
+                $self = &$self[$key];
+            } else {
+                break;
             }
-        } catch (Exception $exception) {
-            $array = explode('_', $key);
-            $self = $this;
-            while (count($array) > 1) {
-                $key = array_shift($array);
-                if (isset($self->$key)) {
-                    $self = &$self->$key;
-                } elseif (isset($self[$key])) {
-                    $self = &$self[$key];
-                } else {
-                    break;
-                }
-                $subkey = implode('_', $array);
-                if (array_key_exists($subkey, $self)) {
-                    return $self[$subkey];
-                }
+            $subkey = implode('_', $array);
+            if (array_key_exists($subkey, $self)) {
+                return $self[$subkey];
             }
-            throw $exception;
         }
-        return call_user_func(array($this, $methodname));
+        return call_user_func(array($this, 'get' . ucfirst($key)));
     }
 
     /**
