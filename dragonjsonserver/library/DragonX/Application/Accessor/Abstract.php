@@ -125,7 +125,10 @@ abstract class DragonX_Application_Accessor_Abstract
                 return;
             }
         }
-        call_user_func(array($this, 'set' . ucfirst($key)), $value);
+        $methodname = 'set' . ucfirst($key);
+        if (method_exists($this, $methodname)) {
+            call_user_func(array($this, $methodname), $value);
+        }
     }
 
     /**
@@ -154,7 +157,10 @@ abstract class DragonX_Application_Accessor_Abstract
                 return $self[$subkey];
             }
         }
-        return call_user_func(array($this, 'get' . ucfirst($key)));
+        $methodname = 'get' . ucfirst($key);
+        if (method_exists($this, $methodname)) {
+            return call_user_func(array($this, $methodname));
+        }
     }
 
     /**
