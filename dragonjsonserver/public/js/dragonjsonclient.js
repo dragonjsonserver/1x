@@ -88,11 +88,17 @@ function DragonJsonClient(jsonclient)
      * Aktualisiert die URI für den direkten Link auf die aktuelle Eingabe
      * @return DragonJsonClient
      */
-    this.updateUri = function ()
+    this.updateUri = function (namespace, method, data)
     {
-    	var namespace = $('#namespace').val();
-    	var method = $('#method').val();
-    	var data = self.getData();
+    	if (!namespace) {
+    		namespace = $('#namespace').val();
+    	}
+    	if (!method) {
+    		method = $('#method').val();
+    	}
+    	if (!data) {
+    		data = self.getData();
+    	}
     	$('#uri').val(
     		new URI()
 		    	.query({
@@ -112,7 +118,10 @@ function DragonJsonClient(jsonclient)
      */
     this.sendRequest = function ()
     {
-    	self.updateUri();
+    	var namespace = $('#namespace').val();
+    	var method = $('#method').val();
+    	var data = self.getData();
+    	self.updateUri(namespace, method, data);
         jsonclient.send(
             new JsonRequest(
                 applicationname + ' ' + applicationversion,
@@ -206,7 +215,7 @@ function DragonJsonClient(jsonclient)
                             	.attr('id', 'controls_' + parameter.name)
                             	.append($('<input>')
 					                .attr({'type' : 'text', 'data-parametername' : parameter.name})
-					                .change(self.updateUri)
+					                .change(function() { self.updateUri(); })
 					                .val(subvalue));
                     	});
                     	var a = $('<a class="btn"></a>');
@@ -217,7 +226,7 @@ function DragonJsonClient(jsonclient)
 	                    			var subindex = controls.children().length - 2;
 	                    			a.before($('<input>')
 						                .attr({'type' : 'text', 'data-parametername' : parameter.name})
-						                .change(self.updateUri));
+						                .change(function() { self.updateUri(); }));
 	                    		}))
 	                    	.append($('<a class="btn"><i class="icon-refresh"></i></a>')
                     			.click(function(element) {
@@ -231,7 +240,7 @@ function DragonJsonClient(jsonclient)
                     	controls
     	            		.append($('<input>')
     			                .attr({'type' : 'checkbox', 'id' : parameter.name, 'name' : parameter.name, 'checked' : value})
-				                .change(self.updateUri));
+				                .change(function() { self.updateUri(); }));
                     	break;
                 	case 'object':
                     	if (value == undefined) {
@@ -247,7 +256,7 @@ function DragonJsonClient(jsonclient)
                             	.appendTo(subcontrolgroup)
     	                		.append($('<input>')
 					                .attr({'type' : 'text', 'id' : parameter.name + '_' + subindex, 'name' : parameter.name + '_' + subindex, 'data-parametername' : parameter.name, 'data-keyname' : subindex})
-					                .change(self.updateUri)
+					                .change(function() { self.updateUri(); })
 					                .val(subvalue));
                     	});
                 		break;
@@ -258,7 +267,7 @@ function DragonJsonClient(jsonclient)
                     	controls
     	            		.append($('<input>')
     			                .attr({'type' : 'text', 'id' : parameter.name, 'name' : parameter.name})
-				                .change(self.updateUri)
+				                .change(function() { self.updateUri(); })
     			                .val(value));
                     	break;
                 }
@@ -266,7 +275,7 @@ function DragonJsonClient(jsonclient)
         } else {
         	div.html('Keine Argumente benötigt');
         }
-    	self.updateUri();
+    	self.updateUri(namespace, method, {});
         return self;
     };
 
