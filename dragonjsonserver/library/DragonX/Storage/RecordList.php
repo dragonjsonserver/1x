@@ -19,6 +19,36 @@
  */
 class DragonX_Storage_RecordList extends ArrayObject
 {
+	/**
+     * Befüllt aus den übergebenen Daten und der Vorlage die Recordliste
+     * @param array $data
+     * @param DragonX_Storage_Record_Abstract $record
+     * @param boolean $unsetId
+     */
+    public function __construct(array $data = array(), DragonX_Storage_Record_Abstract $record = null, $unsetId = true)
+	{
+        if (isset($record)) {
+        	$this->fromArray($data, $record, $unsetId);
+        } else {
+        	parent::__construct($data);
+        }
+	}
+
+	/**
+     * Befüllt aus den übergebenen Daten und der Vorlage die Recordliste
+     * @param array $data
+     * @param DragonX_Storage_Record_Abstract $record
+     * @param boolean $unsetId
+     */
+    public function fromArray(array $array, DragonX_Storage_Record_Abstract $record, $unsetId = true)
+	{
+        $classname = get_class($record);
+        foreach ($array as $data) {
+            $this[] = new $classname($data, $unsetId);
+        }
+        return $this;
+	}
+
     /**
      * Gibt das Element der Liste zurück wenn es existiert
      * @param mixed $index

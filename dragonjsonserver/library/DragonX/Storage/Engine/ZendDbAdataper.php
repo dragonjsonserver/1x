@@ -330,13 +330,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function loadBySqlStatement(DragonX_Storage_Record_Abstract $record, $sqlstatement, array $params = array())
     {
-        $rows = $this->getAdapter()->fetchAll($sqlstatement, $params);
-        $list = new DragonX_Storage_RecordList();
-        $classname = get_class($record);
-        foreach ($rows as $row) {
-            $list[] = new $classname($row, false);
-        }
-        return $list;
+        return new DragonX_Storage_RecordList($this->getAdapter()->fetchAll($sqlstatement, $params), $record, false);
     }
 
     /**
