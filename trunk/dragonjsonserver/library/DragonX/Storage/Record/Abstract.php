@@ -88,6 +88,6 @@ abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Acces
      */
     public function __clone()
     {
-        unset($this->_id);
+        $this->_id = null;
     }
 }

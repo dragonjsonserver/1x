@@ -42,6 +42,7 @@
                 <ul>
                     <li>Die Record Liste erlaubt nun das Befüllen mit Arraydaten und einem Record als Vorlage über den Konstruktur und der "fromArray()" Methode</li>
                     <li>Bei Transaktionen wird nun ein Zähler verwendet für die Anzahl der verschachtelten Transaktionen. Somit entfällt das Auswerten ob eine Transaktion bei "beginTransaction()" begonnen wurde. Des Weiteren hat sich die Rückgabe der Methoden "commit()" und "rollback()" geändert. Diese geben nun zurück ob die jeweilige Aktion gemacht wurde oder nicht</li>
+                    <li>Es wurde ein Fehler behoben durch den man beim Speichern von geklonten Records eine Ausnahme bekommen hat weil das Attribut "id" nicht mehr vorhanden war</li>
                 </ul>
             </li>
         </ul>
