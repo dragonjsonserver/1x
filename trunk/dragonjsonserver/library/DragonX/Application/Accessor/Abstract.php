@@ -129,6 +129,7 @@ abstract class DragonX_Application_Accessor_Abstract
         if (method_exists($this, $methodname)) {
             call_user_func(array($this, $methodname), $value);
         }
+		throw new Dragon_Application_Exception_System('missing attribute', array('attributename' => $key));
     }
 
     /**
@@ -161,6 +162,7 @@ abstract class DragonX_Application_Accessor_Abstract
         if (method_exists($this, $methodname)) {
             return call_user_func(array($this, $methodname));
         }
+		throw new Dragon_Application_Exception_System('missing attribute', array('attributename' => $key));
     }
 
     /**
