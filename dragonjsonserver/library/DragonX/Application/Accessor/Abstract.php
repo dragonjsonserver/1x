@@ -145,9 +145,9 @@ abstract class DragonX_Application_Accessor_Abstract
         $self = $this;
         while (count($array) > 1) {
             $key = array_shift($array);
-            if (isset($self->$key)) {
+            if (is_object($self) && isset($self->$key)) {
                 $self = &$self->$key;
-            } elseif (isset($self[$key])) {
+            } elseif (is_array($self) && isset($self[$key])) {
                 $self = &$self[$key];
             } else {
                 break;
