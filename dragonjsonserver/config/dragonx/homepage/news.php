@@ -22,6 +22,18 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.11.0 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.11.0 ist abgeschlossen und als Download '
+                . 'verfügbar. Es wurde eine eigene Registryklasse hinzugefügt '
+                . 'welche Lazy Loading unterstützt und Werte erst geladen '
+                . 'wenn auf die Keys zugegriffen wird. Des Weiteren gab es '
+                . 'Performanceverbesserungen bei den Records und '
+                . 'Verbesserungen bei der Storage Engine wie das automatische '
+                . 'verwalten verschachtelter Transaktionen.',
+            'timestamp' => 1357772880,
+        ),
+        array(
             'title' => 'Version 1.10.1 zum Download verfügbar',
             'content' =>
                   'Die Version 1.10.1 ist abgeschlossen und als Download '
