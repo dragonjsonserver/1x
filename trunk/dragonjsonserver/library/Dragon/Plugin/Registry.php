@@ -32,6 +32,11 @@ class Dragon_Plugin_Registry
     /**
      * @var array
      */
+    private $_unsortedplugins = array();
+
+    /**
+     * @var array
+     */
     private $_sortedplugins = array();
 
     /**
@@ -43,19 +48,25 @@ class Dragon_Plugin_Registry
     	$configCache = new Dragon_Application_Config('dragon/plugin/cache');
     	$this->_filepath = $configCache->filepath;
     	if (isset($this->_filepath) && is_file($this->_filepath)) {
-    		list($this->_plugins, $this->_sortedplugins) = unserialize(file_get_contents($this->_filepath));
+    		list($this->_plugins, $this->_unsortedplugins, $this->_sortedplugins) = unserialize(file_get_contents($this->_filepath));
     	} else {
 	        foreach ($plugins as $plugin) {
+	        	if (is_object($plugin)) {
+	        		$pluginname = get_class($plugin);
+	        	} else {
+	        		$pluginname = $plugin;
+	        	}
+                $this->_plugins[$pluginname] = $pluginname;
 	            $reflectionClass = new ReflectionClass($plugin);
 	            foreach ($reflectionClass->getInterfaceNames() as $interfacename) {
-	                if (!isset($this->_plugins[$interfacename])) {
-	                    $this->_plugins[$interfacename] = array();
+	                if (!isset($this->_unsortedplugins[$interfacename])) {
+	                    $this->_unsortedplugins[$interfacename] = array();
 	                }
-	                $this->_plugins[$interfacename][] = $plugin;
+	                $this->_unsortedplugins[$interfacename][] = $plugin;
 	            }
 	        }
 	        if (isset($this->_filepath)) {
-	        	file_put_contents($this->_filepath, serialize(array($this->_plugins, $this->_sortedplugins)));
+	        	file_put_contents($this->_filepath, serialize(array($this->_plugins, $this->_unsortedplugins, $this->_sortedplugins)));
 	        }
     	}
     }
@@ -71,7 +82,7 @@ class Dragon_Plugin_Registry
     	$nodes = array();
     	foreach ($plugins as $plugin) {
     		if (!is_object($plugin)) {
-                $plugin = new $plugin();
+                $plugin = $this->getPlugin($plugin);
     		}
     		$pluginname = get_class($plugin);
     		$list[$pluginname] = $plugin;
@@ -113,19 +124,35 @@ class Dragon_Plugin_Registry
     }
 
     /**
+     * Gibt das Objekt des übergebenen Plugins zurück
+     * @param string $pluginname
+     * @return object
+     */
+    public function getPlugin($pluginname)
+    {
+        if (!isset($this->_plugins[$pluginname])) {
+            throw new Dragon_Application_Exception_System('incorrect pluginname', array('pluginname' => $pluginname));
+        }
+        if (!is_object($this->_plugins[$pluginname])) {
+            $this->_plugins[$pluginname] = new $pluginname();
+        }
+        return $this->_plugins[$pluginname];
+    }
+
+    /**
      * Gibt alle Plugins der übergebenen Schnittstelle zurück
      * @param string $interfacename
      * @return array
      */
     public function getPlugins($interfacename)
     {
-        if (!isset($this->_plugins[$interfacename])) {
+        if (!isset($this->_unsortedplugins[$interfacename])) {
             return array();
         }
         if (!isset($this->_sortedplugins[$interfacename])) {
-        	$this->_sortedplugins[$interfacename] = $this->sortPlugins($this->_plugins[$interfacename]);
+        	$this->_sortedplugins[$interfacename] = $this->sortPlugins($this->_unsortedplugins[$interfacename]);
 	        if (isset($this->_filepath)) {
-	        	file_put_contents($this->_filepath, serialize(array($this->_plugins, $this->_sortedplugins)));
+	        	file_put_contents($this->_filepath, serialize(array($this->_plugins, $this->_unsortedplugins, $this->_sortedplugins)));
 	        }
         }
         return $this->_sortedplugins[$interfacename];

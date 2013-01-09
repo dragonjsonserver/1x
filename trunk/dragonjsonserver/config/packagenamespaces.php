@@ -39,7 +39,7 @@ return array(
         ),
         'Application',
         'Clientmessage' => array(
-            'Plugin' => array('Clientmessage', 'Account', 'All', 'DeleteAccount', 'Install_Account', 'Install_All'),
+            'Plugin' => array('Clientmessage', 'Account', 'ActualRequest', 'All', 'DeleteAccount', 'Install_Account', 'Install_All'),
         ),
         'Cronjob' => array(
             'Plugin' => array('Install_Cronjob'),

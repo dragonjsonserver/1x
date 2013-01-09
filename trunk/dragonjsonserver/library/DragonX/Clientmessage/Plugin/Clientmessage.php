@@ -57,7 +57,11 @@ class DragonX_Clientmessage_Plugin_Clientmessage implements Dragon_Json_Plugin_P
                 	if (!isset($messages[$record->key])) {
                 		$messages[$record->key] = array();
                 	}
-                	$messages[$record->key][] = array('created' => $record->created, 'result' => Zend_Json::decode($record->result));
+                	try {
+                		$record->result = Zend_Json::decode($record->result);
+                	} catch (Exception $exception) {
+                	}
+                	$messages[$record->key][] = array('created' => $record->created, 'result' => $record->result);
                 }
         	}
         	foreach ($messages as $key => &$submessages) {
