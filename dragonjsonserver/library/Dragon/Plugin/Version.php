@@ -25,6 +25,6 @@ class Dragon_Plugin_Version
      */
     public function getVersion()
     {
-        return '1.10.0';
+        return '1.11.0';
     }
 }
