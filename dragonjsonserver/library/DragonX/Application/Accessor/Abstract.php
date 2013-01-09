@@ -128,8 +128,9 @@ abstract class DragonX_Application_Accessor_Abstract
         $methodname = 'set' . ucfirst($key);
         if (method_exists($this, $methodname)) {
             call_user_func(array($this, $methodname), $value);
+        } else {
+			throw new Dragon_Application_Exception_System('missing attribute', array('attributename' => $key));
         }
-		throw new Dragon_Application_Exception_System('missing attribute', array('attributename' => $key));
     }
 
     /**
