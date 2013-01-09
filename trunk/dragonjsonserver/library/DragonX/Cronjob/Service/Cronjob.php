@@ -51,4 +51,19 @@ class DragonX_Cronjob_Service_Cronjob
         $logicCronjob = new DragonX_Cronjob_Logic_Cronjob();
         $logicCronjob->executeCronjobs();
     }
+
+    /**
+     * Gibt den Zeitpunkt zurück wann der Cronjob das nächste mal läuft
+     * @param string $pluginname
+     * @return integer
+     */
+    public function getNextTimestamp($pluginname)
+    {
+    	$reflectionclass = new ReflectionClass($pluginname);
+    	if (!$reflectionclass->implementsInterface('DragonX_Cronjob_Plugin_Cronjob_Interface')) {
+            throw new Dragon_Application_Exception_User('incorrect pluginname');
+    	}
+        $logicCronjob = new DragonX_Cronjob_Logic_Cronjob();
+        return $logicCronjob->getNextTimestamp(new $pluginname());
+    }
 }
