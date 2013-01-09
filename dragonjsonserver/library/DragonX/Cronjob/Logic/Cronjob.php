@@ -74,4 +74,16 @@ class DragonX_Cronjob_Logic_Cronjob
             $storage->save($recordCronjob);
         }
     }
+
+    /**
+     * Gibt den Zeitpunkt zurück wann der Cronjob das nächste mal läuft
+     * @param DragonX_Cronjob_Plugin_Cronjob_Interface $plugin
+     * @return integer
+     */
+    public function getNextTimestamp(DragonX_Cronjob_Plugin_Cronjob_Interface $plugin)
+    {
+        $offset = $plugin->getOffset();
+        $intervall = $plugin->getIntervall();
+        return (((((int)(((int)(time() / 60) - $offset) / $intervall)) + 1) * $intervall) + $offset) * 60;
+    }
 }
