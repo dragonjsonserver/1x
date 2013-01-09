@@ -1,0 +1,46 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Version 1.5.0</h3>
+<h4>Releasedatum: 07.09.2012</h4>
+<h4>Geänderte Pakete</h4>
+<ul>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Account
+                <ul>
+                    <li>Der Record für die Accountdaten bietet nun eine Methode an um die E-Mail Adresse zu validieren und zu setzen sodass dies nicht an den Stellen an denen es benötigt wird selbst gemacht werden muss</li>
+                    <li>Es gibt nun ein eigenes Sessionmanagement bei dem die Session die Datenbank geschrieben wird und temporäre Accounts nach Ablauf der Session oder beim Logout gelöscht werden</li>
+                    <li>Sessions können auch mit unendlicher Dauer eingestellt werden und werden dann somit nicht ablaufen und gelöscht</li>
+				    <li>Session auch per API ermöglichen, ein Service der einen Sessionhash für einen Account generiert und zurück gibt welcher dann bei jedem Service übergeben werden muss und für eine gewisse Zeit gültig ist statt bei jedem Aufruf Identität und Credential mitzugeben</li>
+				    <li>Temporäre Accounts auch per API ermöglichen sodass ein Client ebenfalls temporäre Accounts registrieren, nutzen und speichern kann</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4>Homepage</h4>
+<ul>
+    <li>Die Homepage nutzt nun das eigene Sessionmanagement und speichert den Sessionhash dabei in die PHP Session</li>
+    <li>Wenn die Session ausläuft während der Spieler sich auf der Homepage bewegt wird er mit einem Fehlerhinweis auf den Login weitergeleitet</li>
+</ul>
+<h2>Migration vom Branch 1.4</h2>
+<h3>Benötigt</h3>
+<ul>
+    <li>Die Clients müssen angepasst werden da nun nicht mehr bei jedem Request 'identity' und 'credential' mitgeschickt wird sondern per Anmeldung eine Session erstellt und der Sessionhash bei jedem Request mitgeschickt werden muss</li>
+</ul>
