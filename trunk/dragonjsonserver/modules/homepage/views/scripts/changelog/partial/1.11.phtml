@@ -111,5 +111,6 @@
 <h3>Benötigt</h3>
 <ul>
     <li>Verkettete Methodenaufrufe bei der Storage Engine mit "commit()" oder "rollback()" müssen aufgelöst werden, da die Methoden nun als Rückgabe ein Boolean haben ob die jeweilige Aktion durchgeführt wurde oder nicht</li>
+    <li>Bei der Nutzung von Transaktionen muss nun immer "commit()" oder "rollback()" aufgerufen werden, nicht mehr nur bei erfolgreichem Start der Transaktion. Daher müssen die Prüfungen des Rückgabewertes von "beginTransaction()" entfernt werden</li>
     <li>Das Format zur Definition der Storage Engines wurde überarbeitet. Es wird nun in der Einstellungsdatei nicht direkt die Storage Engine instanziert sondern eine Callbackmethode definiert in dieser die Instanzierung erfolgt</li>
 </ul>
