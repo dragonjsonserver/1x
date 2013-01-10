@@ -1,0 +1,84 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Version 1.10.1</h3>
+<h4>Releasedatum: 21.11.2012</h4>
+<h4>Geänderte Pakete</h4>
+<ul>
+    <li>
+        Dragon
+        <ul>
+            <li>
+                Json
+                <ul>
+                    <li>Es wurde ein Fehler behoben der auftrat wenn ein Pre/Postdispatch Plugin oder Service eine Ausnahme geworfen hat die nicht von den eigenen Ausnahmeklassen abgeleitet sind</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h3>Version 1.10.0</h3>
+<h4>Releasedatum: 19.11.2012</h4>
+<h4>Geänderte Pakete</h4>
+<ul>
+    <li>
+        Dragon
+        <ul>
+            <li>
+                Application
+                <ul>
+                    <li>Die eigene Ausnahmeklasse wurde unterteilt in "System" und "User" sodass man Ausnahmen besser einteilen kann</li>
+                    <li>Fehler behoben der bei mehreren eigenen Repositories dazu führte, dass die Konfigurationsdateien in einer anderen Reihenfolge als die Klassen im Autoloader abgefragt wurden</li>
+                </ul>
+            </li>
+            <li>
+                Json
+                <ul>
+                    <li>Wenn das Paket DragonX Log eingebunden ist werden Ausnahmen die an den Client gesendet werden automatisch als Fehler (wenn es "System" Ausnahmen sind) oder Info (wenn es "User" Ausnahmen sind) geloggt. Welche Ausnahmen mit welchem Schweregrad geloggt werden kann per Einstellungsdatei definiert werden</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Homepage
+                <ul>
+                    <li>Wenn die Session abgelaufen ist wird nun die richtige Hinweismeldung auf der Homepage angezeigt statt einer Ausnahme</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4>Allgemein</h4>
+<ul>
+    <li>Die Umstellung der eigenen Ausnahmeklasse auf die beiden Ausnahmeklassen "Sytem" und "User" wurde überall durchgeführt wo Ausnahmen geworfen werden</li>
+</ul>
+<h4>Homepage</h4>
+<ul>
+    <li>Wenn eine E-Mail Adresse nicht korrekt ist oder bereits vergeben ist wird dies nun zusammen angezeigt statt getrennt voneinander</li>
+</ul>
+<h4>JsonClient</h4>
+<ul>
+    <li>In den Callbackmethoden eines JsonRequest steht nun das Objekt des JsonRequest unter der Variable "jsonrequest" zur Verfügung</li>
+</ul>
+<h2>Migration vom Branch 1.9</h2>
+<h3>Benötigt</h3>
+<ul>
+    <li>Durch die Umstellung der eigenen Ausnahmeklasse auf die beiden Ausnahmeklassen "Sytem" und "User" müssen alle Stellen angepasst werden wo Ausnahmen der eigenen Ausnahmeklasse geworfen werden</li>
+    <li>Wenn eigene abgeleitete Ausnahmeklassen erstellt wurden müssen diese nun von "Abstract", "System" oder "User" erben</li>
+</ul>
