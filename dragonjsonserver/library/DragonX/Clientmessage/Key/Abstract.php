@@ -36,11 +36,12 @@ abstract class DragonX_Clientmessage_Key_Abstract extends DragonX_Application_Ac
 
     /**
      * Gibt alle Attribute der Eigenschaft als Array zurück
+     * @param boolean $subarrays
      * @return array
      */
-    public function toArray()
+    public function toArray($subarrays = true)
     {
-    	$array = parent::toArray();
+    	$array = parent::toArray($subarrays);
     	unset($array['key']);
     	return $array;
     }
