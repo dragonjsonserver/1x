@@ -1,0 +1,247 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Vorteile einer Storage Engine</h3>
+<ul>
+    <li>Objektorientiertes Arbeiten mit verscheidenen Datenquellen durch gemeinsame Schnittstellen</li>
+    <li>Record und RecordList um Daten strukturiert und einfach zu verwalten</li>
+    <li>Nicht überladen mit Features durch SQL Abstraktion. SQL ist effektiv und kann verwendet werden</li>
+</ul>
+<h3>Einstellung einer Datenbankverbindung</h3>
+<ul>
+    <li>
+        Erstellen der Konfigurationsdatei '/config/dragonx/storage/database.php' durch Umbenennen und Anpassen der 'database.php.template' Datei
+<pre>return array(
+    'adapter' =&gt; '%adapter%',
+    'config' =&gt; array(
+        'host' =&gt; '%host%',
+        'username' =&gt; '%username%',
+        'password' =&gt; '%password%',
+        'dbname' =&gt; '%dbname%',
+    ),
+);</pre>
+    </li>
+    <li>
+        In der Konfigurationsdatei können auch mehrere Datenbankverbindungen mit den Keys für die Zend Registry hinterlegt werden. Folgende Einstellungen sind daher gleichbedeutend zur ersten Datei
+<pre>return array(
+    'Zend_Db_Adapter' =&gt; array(
+	    'adapter' =&gt; '%adapter%',
+	    'config' =&gt; array(
+	        'host' =&gt; '%host%',
+	        'username' =&gt; '%username%',
+	        'password' =&gt; '%password%',
+	        'dbname' =&gt; '%dbname%',
+	    ),
+    )
+);</pre>
+    </li>
+</ul>
+<h3>Einstellung einer Storage Engine</h3>
+<ul>
+    <li>
+        Erstellen der Konfigurationsdatei '/config/dragonx/storage/engine.php'
+<pre>return array(
+    'engine' =&gt; function() {
+        return new DragonX_Storage_Engine_ZendDbAdataper(Zend_Registry::get('Zend_Db_Adapter'));
+    },
+);</pre>
+    </li>
+    <li>
+        In der Konfigurationsdatei können auch mehrere Storage Engines mit den Keys für die Zend Registry hinterlegt werden. Folgende Einstellungen sind daher gleichbedeutend zur ersten Datei
+<pre>return array(
+    'DragonX_Storage_Engine' =&gt; array(
+	    'engine' =&gt; function() {
+	        return new DragonX_Storage_Engine_ZendDbAdataper(Zend_Registry::get('Zend_Db_Adapter'));
+	    },
+    )
+);</pre>
+    </li>
+</ul>
+<h3>Erstellung einer Recordklasse</h3>
+<ul>
+    <li>
+        Definition der Recordklasse im eigenen Paket
+<pre>class %packagenamespace%_%packagename%_Record_%recordname% extends DragonX_Storage_Record_Abstract
+{
+    public $attribute;
+}</pre>
+    </li>
+    <li>Es stehen mit 'DragonX_Storage_Record_Created_Abstract' und 'DragonX_Storage_Record_CreatedModified_Abstract' auch abstrakte Recordklassen zur Verfügung welche ein Erstellungs- und Änderungszeitpunkt definieren. Davon abgeleitete Records erhalten beim Speichern in eine Storage Engine automatisch die Zeitpunkte</li>
+    <li>Mit der Implementierung von 'DragonX_Storage_Record_ReadOnly_Interface' können Recordklassen definiert werden, welche nicht in persistenten Storage Engines gespeichert werden können</li>
+    <li>Verwendung von geschützten Attributen mit Settern/Gettern</li>
+    <li>
+        Die geschützten Attribute stehen nach aussen wie öffentliche Attribute zur Verfügung
+<pre>class %packagenamespace%_%packagename%_Record_%recordname% extends DragonX_Storage_Record_Abstract
+{
+    protected $_attribute;
+    public function setAttribute($attribute)
+    {
+        $this-&gt;_attribute = $attribute;
+    }
+    public function getAttribute()
+    {
+        return $this-&gt;_attribute;
+    }
+}</pre>
+    </li>
+    <li>
+        Instanzierung von Records
+<pre>//Neue leere Records
+$record = new %packagenamespace%_%packagename%_Record_%recordname%();
+
+//Records mit einer ID zum späteren Laden
+$record = new %packagenamespace%_%packagename%_Record_%recordname%(%id%);
+
+//Records mit Daten zum späteren Speichern
+$data = array('attribut' =&gt; 'value');
+$record = new %packagenamespace%_%packagename%_Record_%recordname%($data);
+
+//Records mit Daten aus anderen Records
+$record = new %packagenamespace%_%packagename%_Record_%recordname%($record);</pre>
+    </li>
+</ul>
+<h3>Verwendung von Records und Storage Engine</h3>
+<ul>
+    <li>
+        Datensätze hinzufügen
+<pre>$record = new %packagenamespace%_%packagename%_Record_%recordname%(array(
+    'attribute' =&gt; 'value',
+));
+Zend_Registry::get('DragonX_Storage_Engine')-&gt;save($record);</pre>
+    </li>
+    <li>
+        Datensätze laden
+<pre>$record = Zend_Registry::get('DragonX_Storage_Engine')-&gt;load(
+    new %packagenamespace%_%packagename%_Record_%recordname%(%id%)
+);</pre>
+    </li>
+    <li>
+        Datensätze verändern
+<pre>$storage = Zend_Registry::get('DragonX_Storage_Engine');
+$record = $storage-&gt;load(
+    new %packagenamespace%_%packagename%_Record_%recordname%(%id%)
+);
+$record-&gt;attribute = 'value';
+$storage-&gt;save($record);</pre>
+    </li>
+    <li>
+        Datensätze löschen
+<pre>Zend_Registry::get('DragonX_Storage_Engine')-&gt;delete(
+    new %packagenamespace%_%packagename%_Record_%recordname%(%id%)
+);</pre>
+    </li>
+</ul>
+<h3>Besonderheit bei Records mit Arrays</h3>
+<ul>
+    <li>
+        Wenn in einem Records Arrays definiert sind dann wird der besteht der Name der Datenbankspalte aus Arrayname, '_' und dem Key
+<pre>class %packagenamespace%_%packagename%_%classname% extends DragonX_Storage_Record_Abstract
+{
+    public $array = array('key' =&gt; 'value');
+}
+//Spaltenname in der Datenbank wäre in diesem Fall 'array_key'
+</pre>
+    </li>
+</ul>
+<h3>Verwendung von RecordList</h3>
+<ul>
+    <li>
+        Datensätze zu einer Liste hinzufügen
+<pre>$list = new DragonX_Storage_RecordList();
+$list[] = new %packagenamespace%_%packagename%_Record_%recordname%();
+$list[] = new %packagenamespace%_%packagename%_Record_%recordname%();</pre>
+    </li>
+    <li>
+        Datensätze in Sublisten strukturieren
+<pre>//Sublist über Klassenname
+$sublist = $list-&gt;indexByClassname();
+list($record) = $sublist['%classname%'];
+
+//Sublist über Namespace
+$sublist = $list-&gt;indexByNamepsace();
+list($record) = $sublist['%namespace%'];
+
+//Sublist über einzelnes Attribut
+$sublist = $list-&gt;indexBy('attributename');
+list($record) = $sublist['attribute'];
+
+//Sublist über mehrere Attribute
+$sublist = $list-&gt;indexBy(array('attributenameA', 'attributenameB'));
+list($record) = $sublist['attributeA']['attributeB'];</pre>
+    </li>
+    <li>Listen können wie Records mit der Storage Engine mit 'saveList()' gespeichert, mit 'loadList()' geladen und mit 'deleteList' gelöscht werden</li>
+    <li>SQL Statements können ebenfalls Listen befüllen
+<pre>$storage = Zend_Registry::get('DragonX_Storage_Engine');
+$list = $storage-&gt;loadBySqlStatement(
+    new %packagenamespace%_%packagename%_Record_%recordname%(),
+    "SELECT columnnameA, columnnameB FROM tablenameA INNER JOIN tablenameB USING(id) WHERE conditionname = :conditionname",
+    array('conditionname' =&gt; 'conditionvalue')
+);
+foreach ($list as $record) {
+    $record-&gt;columnnameB += 1;
+}
+$storage-&gt;saveList($list);</pre>
+    </li>
+</ul>
+<h3>Verschachtelte Transaktionskontrolle</h3>
+<ul>
+    <li>'beginTransaction()' kann mehrfach verschachtelt aufgerufen werden und zählt die Verschachtelungstiefe mit. Beim ersten Aufruf wird "true" zurück gegeben, sonst "false"</li>
+    <li>Bei jedem Commit wird der Zähler runtergesetzt. Nur in der ersten Ebene wird ein Commit wirklich durchgeführt</li>
+    <li>Bei einem Rollback wird der Rollback durchgeführt unabhängig von der Verschachtelungstiefe und der Zähler zurückgesetzt. Nachfolgende SQL Statements werden ohne Transaktionskontrolle ausgeführt um das Loggen von Fehlern zu ermöglichen</li>
+</ul>
+<h3>Datenbankstrukturen der Pakete verwalten</h3>
+<ul>
+    <li>Jedes Paket wird mit seiner Versionsnummer in der Datenbank gespeichert</li>
+    <li>
+        Wenn Pakete hinzugefügt oder geupdated werden kann man die Datenbankstruktur mit der '/install.php' updaten
+<pre>$logicDatabase = new DragonX_Storage_Logic_Database();
+$logicDatabase-&gt;installPackages();</pre>
+    </li>
+    <li>Die Pakete müssen dafür Plugins der Install Schnittstelle bereit stellen</li>
+    <li>
+        Das Plugin bekommt die Version des Paketes das bisher verwendet wurde und kann somit auf seine aktuelle Version updaten
+<pre>class %packagenamespace%_%packagename%_Plugin_Install_%tablename%
+    implements DragonX_Storage_Plugin_Install_Interface
+{
+    public function install($storage, $version = '0.0.0')
+    {
+        if (version_compare($version, '1.0.0', '&lt;')) {
+            $storage-&gt;executeSqlStatement("%sqlstatement%");
+        }
+    }
+}</pre>
+    </li>
+    <li>
+        Ein Plugin kann über die Schnittstelle 'DragonX_Storage_Plugin_GetStoragekey_Interface' eine andere Storage Engine angeben auf der es installiert wird
+<pre>class %packagenamespace%_%packagename%_Plugin_Install_%tablename%
+    implements DragonX_Storage_Plugin_GetStoragekey_Interface,
+               DragonX_Storage_Plugin_Install_Interface
+{
+    public function getStoragekey()
+    {
+        return '%storagekey%';
+    }
+
+    public function install($storage, $version = '0.0.0')
+    {
+        if (version_compare($version, '1.0.0', '&lt;')) {
+            $storage-&gt;executeSqlStatement("%sqlstatement%");
+        }
+    }
+}</pre>
+    </li>
+    <li>Die Logikklasse Database speichert danach alle Plugins mit ihren aktuellen Versionsnummer in der Datenbank für das nächste Update</li>
+</ul>
