@@ -22,6 +22,16 @@ return array(
     'perrow' => 2,
     'news' => array(
         array(
+            'title' => 'Version 1.11.1 zum Download verfügbar',
+            'content' =>
+                  'Die Version 1.11.1 ist abgeschlossen und als Download '
+                . 'verfügbar. Es wurde ein Fehler behoben der auftrat man man '
+                . 'eine Clientmessage in der Datenbank speichern wollte da '
+                . 'die Methodensignatur der "toArray()" Methode nicht mehr '
+                . 'mit der Änderung der Eigenschaftenklasse übereinstimmte.',
+            'timestamp' => 1357860765,
+        ),
+        array(
             'title' => 'Version 1.11.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.11.0 ist abgeschlossen und als Download '
