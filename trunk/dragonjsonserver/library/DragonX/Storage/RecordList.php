@@ -92,6 +92,38 @@ class DragonX_Storage_RecordList extends ArrayObject
     }
 
     /**
+     * Entfernt alle Records aus der Liste
+     * @return DragonX_Storage_RecordList
+     */
+    public function unsetRecords()
+    {
+        $keys = array();
+        foreach ($this as $key => $value) {
+            if ($value instanceof DragonX_Storage_Record_Abstract) {
+                $keys[] = $key;
+            }
+        }
+        $this->unsetKeys($keys);
+        return $this;
+    }
+
+    /**
+     * Entfernt alle Unterlisten aus der Liste
+     * @return DragonX_Storage_RecordList
+     */
+    public function unsetSublists()
+    {
+        $keys = array();
+        foreach ($this as $key => $value) {
+            if ($value instanceof DragonX_Storage_RecordList) {
+                $keys[] = $key;
+            }
+        }
+        $this->unsetKeys($keys);
+        return $this;
+    }
+
+    /**
      * Entfernt alle Records aus der Liste die neu sind
      * @param boolean $recursive
      * @return DragonX_Storage_RecordList
