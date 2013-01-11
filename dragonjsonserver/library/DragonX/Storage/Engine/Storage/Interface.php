@@ -29,9 +29,10 @@ interface DragonX_Storage_Engine_Storage_Interface
     /**
      * Speichert die übergebenen Records im Storage
      * @param DragonX_Storage_RecordList $list
+     * @param boolean $recursive
      * @return integer
      */
-    public function saveList(DragonX_Storage_RecordList $list);
+    public function saveList(DragonX_Storage_RecordList $list, $recursive = true);
 
     /**
      * Lädt den übergebenen Record aus dem Storage
@@ -44,9 +45,10 @@ interface DragonX_Storage_Engine_Storage_Interface
     /**
      * Lädt die übergebenen Records aus dem Storage
      * @param DragonX_Storage_RecordList $list
+     * @param boolean $recursive
      * @return DragonX_Storage_RecordList
      */
-    public function loadList(DragonX_Storage_RecordList $list);
+    public function loadList(DragonX_Storage_RecordList $list, $recursive = true);
 
     /**
      * Entfernt den übergebenen Record aus dem Storage
@@ -58,7 +60,8 @@ interface DragonX_Storage_Engine_Storage_Interface
     /**
      * Entfernt die übergebenen Records aus dem Storage
      * @param DragonX_Storage_RecordList $list
+     * @param boolean $recursive
      * @return integer
      */
-    public function deleteList(DragonX_Storage_RecordList $list);
+    public function deleteList(DragonX_Storage_RecordList $list, $recursive = true);
 }
