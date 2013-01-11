@@ -430,4 +430,12 @@ class DragonX_Storage_RecordList extends ArrayObject
         }
         return $array;
     }
+
+    /**
+     * Erstellt eine Kopie der Liste und setzt alle IDs der Records zurück
+     */
+    public function __clone()
+    {
+    	$this->unsetIds();
+    }
 }
