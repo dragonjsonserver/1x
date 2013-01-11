@@ -110,16 +110,20 @@ class DragonX_Storage_Engine_ZendDbAdataper
     /**
      * Speichert die übergebenen Records im Storage
      * @param DragonX_Storage_RecordList $list
+     * @param boolean $recursive
      * @return integer
      */
-    public function saveList(DragonX_Storage_RecordList $list)
+    public function saveList(DragonX_Storage_RecordList $list, $recursive = true)
     {
     	$count = 0;
+    	if ($recursive) {
+            $list = $list->toUnidimensional();
+        } else {
+            $list = $list->getRecords();
+        }
+    	$list = $list->unsetReadOnlyRecords();
     	foreach ($list as $record) {
-    		try {
-    		    $count += $this->save($record);
-    		} catch (Exception $exception) {
-    		}
+    	    $count += $this->save($record);
     	}
         return $count;
     }
@@ -146,10 +150,16 @@ class DragonX_Storage_Engine_ZendDbAdataper
     /**
      * Lädt die übergebenen Records aus dem Storage
      * @param DragonX_Storage_RecordList $list
+     * @param boolean $recursive
      * @return DragonX_Storage_RecordList
      */
-    public function loadList(DragonX_Storage_RecordList $list)
+    public function loadList(DragonX_Storage_RecordList $list, $recursive = true)
     {
+        if ($recursive) {
+            $list = $list->toUnidimensional();
+        } else {
+            $list = $list->getRecords();
+        }
         foreach ($list->indexByNamespace() as $namespace => $sublist) {
             $rows = $this->getAdapter()->fetchAll(
                 "SELECT * FROM `" . $this->getTablename($namespace) . "` WHERE id IN (" . implode(', ', $sublist->getIds()) . ")"
@@ -187,13 +197,19 @@ class DragonX_Storage_Engine_ZendDbAdataper
     /**
      * Entfernt die übergebenen Records aus dem Storage
      * @param DragonX_Storage_RecordList $list
+     * @param boolean $recursive
      * @return integer
      */
-    public function deleteList(DragonX_Storage_RecordList $list)
+    public function deleteList(DragonX_Storage_RecordList $list, $recursive = true)
     {
     	$count = 0;
+        if ($recursive) {
+            $list = $list->toUnidimensional();
+        } else {
+            $list = $list->getRecords();
+        }
+        $list = $list->unsetReadOnlyRecords();
         foreach ($list->indexByNamespace() as $namespace => $sublist) {
-        	$sublist->unsetReadOnlyRecords();
             $count += $this->executeSqlStatement(
                 "DELETE FROM `" . $this->getTablename($namespace) . "` WHERE id IN (" . implode(', ', $sublist->getIds()) . ")"
             )->rowCount();

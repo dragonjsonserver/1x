@@ -19,11 +19,37 @@
     <li>
         Die Verwaltung von Listen mit der Storage Engine verbessern:
 	    <ul>
-		    <li>Verschachtelte Listen wieder in eine eindimensionale Form bringen</li>
-		    <li>Neue Records sammeln und pro Tabelle in einem insert Statement einfügen</li>
-		    <li>Alte Records sammeln und pro Tabelle in einem update Statement aktualisieren</li>
+		    <li>Beim Speichern neue Records sammeln und pro Tabelle in einem insert Statement einfügen</li>
+		    <li>Beim Speichern alte Records sammeln und pro Tabelle in einem update Statement aktualisieren</li>
 		</ul>
     </li>
 </ul>
 <h3>Version 1.12.0</h3>
 <h4>Releasedatum: noch offen</h4>
+<h4>Geänderte Pakete</h4>
+<ul>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Storage
+                <ul>
+                    <li>Es wurde ein Fehler in der RecordList behoben der bei den "unset...()" Methoden auftrat</li>
+                    <li>
+                        Die RecordList wurde erweitert um neue Features:
+                        <ul>
+		                    <li>Alle Methoden funktionieren nun auch mit verschachtelten Listen die man durch die "indexBy...()" Methoden zurück bekommt</li>
+		                    <li>Beim entfernen von Keys bleiben die Keys der Sublisten bestehen, nur die Keys der Records werden neu durchnummeriert</li>
+		                    <li>Alle "unset...()" Methoden können nun auch rekursiv die Unterlisten durchlaufen</li>
+                            <li>Es ist nun möglich alle IDs der Records zurückzusetzen sodass sie als neue Records gespeichert werden können</li>
+                            <li>Neben den "unset...()" Methoden gibt es nun auch "get...()" Methoden um gefilterte Listen zurück zu geben</li>
+                            <li>Mit der Methode "toUnidimensional()" kann eine mehrdimensionale Listenstruktur wieder zu einer eindimensionalen Liste konvertiert werden</li>
+		                </ul>
+                    </li>
+                    <li>Die Storage Engines können nun auch mehrdimensionale Listenstrukturen entgegennehmen</li>
+                    <li>"saveList()" der Storage Engine des ZendDbAdapaters wirft nun eine Ausnahme wenn das Speichern eines Records Ausnahmen wirft</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
