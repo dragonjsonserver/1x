@@ -148,7 +148,7 @@ class DragonX_Storage_RecordList extends ArrayObject
         foreach ($this as $key => $value) {
             if ($value instanceof DragonX_Storage_RecordList) {
                 if ($recursive) {
-                    $value->unsetLoadedRecords($recursive);
+                    $value->unsetReadOnlyRecords($recursive);
                 }
             } else {
 	                if ($value instanceof DragonX_Storage_Record_ReadOnly_Interface) {
@@ -170,7 +170,7 @@ class DragonX_Storage_RecordList extends ArrayObject
         foreach ($this as $value) {
         	if ($value instanceof DragonX_Storage_RecordList) {
                 if ($recursive) {
-                    $value->unsetLoadedRecords($recursive);
+                    $value->unsetIds($recursive);
                 }
             } else {
                 unset($value->id);
