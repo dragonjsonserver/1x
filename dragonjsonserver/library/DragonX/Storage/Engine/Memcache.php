@@ -81,11 +81,17 @@ class DragonX_Storage_Engine_Memcache
     /**
      * Speichert die übergebenen Records im Storage
      * @param DragonX_Storage_RecordList $list
+     * @param boolean $recursive
      * @return integer
      */
-    public function saveList(DragonX_Storage_RecordList $list)
+    public function saveList(DragonX_Storage_RecordList $list, $recursive = true)
     {
     	$count = 0;
+    	if ($recursive) {
+    		$list = $list->toUnidimensional();
+    	} else {
+    		$list = $list->getRecords();
+    	}
         foreach ($list as $record) {
             $count += $this->save($record);
         }
@@ -112,10 +118,16 @@ class DragonX_Storage_Engine_Memcache
     /**
      * Lädt die übergebenen Records aus dem Storage
      * @param DragonX_Storage_RecordList $list
+     * @param boolean $recursive
      * @return DragonX_Storage_RecordList
      */
-    public function loadList(DragonX_Storage_RecordList $list)
+    public function loadList(DragonX_Storage_RecordList $list, $recursive = true)
     {
+        if ($recursive) {
+            $list = $list->toUnidimensional();
+        } else {
+            $list = $list->getRecords();
+        }
         foreach ($list as $record) {
             try {
                 $this->load($record);
@@ -144,11 +156,17 @@ class DragonX_Storage_Engine_Memcache
     /**
      * Entfernt die übergebenen Records aus dem Storage
      * @param DragonX_Storage_RecordList $list
+     * @param boolean $recursive
      * @return integer
      */
-    public function deleteList(DragonX_Storage_RecordList $list)
+    public function deleteList(DragonX_Storage_RecordList $list, $recursive = true)
     {
     	$count = 0;
+        if ($recursive) {
+            $list = $list->toUnidimensional();
+        } else {
+            $list = $list->getRecords();
+        }
         foreach ($list as $record) {
             $count += $this->delete($record);
         }

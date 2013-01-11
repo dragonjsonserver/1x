@@ -85,23 +85,30 @@ class DragonX_Storage_RecordList extends ArrayObject
     public function unsetKeys(array $keys)
     {
         foreach ($keys as $key) {
-            unset($this[$nullKey]);
+            unset($this[$key]);
         }
-        $this->exchangeArray(array_values((array)$this));
+        $this->exchangeArray((array)$this->getSublists() + array_values((array)$this->getRecords()));
         return $this;
     }
 
     /**
      * Entfernt alle Records aus der Liste die neu sind
+     * @param boolean $recursive
      * @return DragonX_Storage_RecordList
      */
-    public function unsetNewRecords()
+    public function unsetNewRecords($recursive = true)
     {
         $keys = array();
-        foreach ($this as $key => $record) {
-            if (!isset($record->id)) {
-                $keys[] = $key;
-            }
+        foreach ($this as $key => $value) {
+        	if ($value instanceof DragonX_Storage_RecordList) {
+        		if ($recursive) {
+        		    $value->unsetNewRecords($recursive);
+        		}
+        	} else {
+	            if (!isset($value->id)) {
+	                $keys[] = $key;
+	            }
+        	}
         }
         $this->unsetKeys($keys);
         return $this;
@@ -109,14 +116,21 @@ class DragonX_Storage_RecordList extends ArrayObject
 
     /**
      * Entfernt alle Records aus der Liste die geladen wurden
+     * @param boolean $recursive
      * @return DragonX_Storage_RecordList
      */
-    public function unsetLoadedRecords()
+    public function unsetLoadedRecords($recursive = true)
     {
         $keys = array();
-        foreach ($this as $key => $record) {
-            if (isset($record->id)) {
-                $keys[] = $key;
+        foreach ($this as $key => $value) {
+            if ($value instanceof DragonX_Storage_RecordList) {
+                if ($recursive) {
+                    $value->unsetLoadedRecords($recursive);
+                }
+            } else {
+	            if (isset($value->id)) {
+	                $keys[] = $key;
+	            }
             }
         }
         $this->unsetKeys($keys);
@@ -125,14 +139,21 @@ class DragonX_Storage_RecordList extends ArrayObject
 
     /**
      * Entfernt alle ReadOnly Records aus der Liste
+     * @param boolean $recursive
      * @return DragonX_Storage_RecordList
      */
-    public function unsetReadOnlyRecords()
+    public function unsetReadOnlyRecords($recursive = true)
     {
         $keys = array();
-        foreach ($this as $key => $record) {
-            if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
-                $keys[] = $key;
+        foreach ($this as $key => $value) {
+            if ($value instanceof DragonX_Storage_RecordList) {
+                if ($recursive) {
+                    $value->unsetLoadedRecords($recursive);
+                }
+            } else {
+	                if ($value instanceof DragonX_Storage_Record_ReadOnly_Interface) {
+	                $keys[] = $key;
+	            }
             }
         }
         $this->unsetKeys($keys);
@@ -140,15 +161,151 @@ class DragonX_Storage_RecordList extends ArrayObject
     }
 
     /**
+     * Entfernt alle IDs der einzelnen Records
+     * @param boolean $recursive
+     * @return DragonX_Storage_RecordList
+     */
+    public function unsetIds($recursive = true)
+    {
+        foreach ($this as $value) {
+        	if ($value instanceof DragonX_Storage_RecordList) {
+                if ($recursive) {
+                    $value->unsetLoadedRecords($recursive);
+                }
+            } else {
+                unset($value->id);
+            }
+        }
+    }
+
+    /**
+     * Gibt alle Einträge aus der Liste mit den übergebenen Keys zurück
+     * @param array $keys
+     * @param boolean $newkeys
+     * @return DragonX_Storage_RecordList
+     */
+    public function getKeys(array $keys, $newkeys = true)
+    {
+    	$list = new DragonX_Storage_RecordList();
+        foreach ($keys as $key) {
+        	if ($newkeys) {
+        	   $list[] = $this[$key];
+        	} else {
+        	   $list[$key] = $this[$key];
+        	}
+        }
+        return $list;
+    }
+
+    /**
+     * Gibt alle Records aus der Liste zurück
+     * @param boolean $newkeys
+     * @return DragonX_Storage_RecordList
+     */
+    public function getRecords($newkeys = true)
+    {
+        $keys = array();
+        foreach ($this as $key => $value) {
+            if (!$value instanceof DragonX_Storage_Record_Abstract) {
+                continue;
+            }
+            $keys[] = $key;
+        }
+        return $this->getKeys($keys, $newkeys);
+    }
+
+    /**
+     * Gibt alle Unterlisten aus der Liste zurück
+     * @param boolean $newkeys
+     * @return DragonX_Storage_RecordList
+     */
+    public function getSublists($newkeys = true)
+    {
+        $keys = array();
+        foreach ($this as $key => $value) {
+            if ($value instanceof DragonX_Storage_Record_Abstract) {
+                continue;
+            }
+            $keys[] = $key;
+        }
+        return $this->getKeys($keys, $newkeys);
+    }
+
+    /**
+     * Gibt alle Records aus der Liste zurück die neu sind
+     * @param boolean $newkeys
+     * @return DragonX_Storage_RecordList
+     */
+    public function getNewRecords($newkeys = true)
+    {
+    	$keys = array();
+        foreach ($this as $key => $value) {
+            if (!$value instanceof DragonX_Storage_Record_Abstract) {
+                continue;
+            }
+        	if (!isset($value->id)) {
+	            $keys[] = $key;
+        	}
+        }
+        return $this->getKeys($keys, $newkeys);
+    }
+
+    /**
+     * Gibt alle Records aus der Liste zurück die geladen wurden
+     * @param boolean $newkeys
+     * @return DragonX_Storage_RecordList
+     */
+    public function getLoadedRecords($newkeys = true)
+    {
+        $keys = array();
+        foreach ($this as $key => $value) {
+            if (!$value instanceof DragonX_Storage_Record_Abstract) {
+                continue;
+            }
+            if (isset($value->id)) {
+                $keys[] = $key;
+            }
+        }
+        return $this->getKeys($keys, $newkeys);
+    }
+
+    /**
+     * Entfernt alle ReadOnly Records aus der Liste
+     * @param boolean $newkeys
+     * @return DragonX_Storage_RecordList
+     */
+    public function getReadOnlyRecords($newkeys = true)
+    {
+        $keys = array();
+        foreach ($this as $key => $value) {
+            if (!$value instanceof DragonX_Storage_Record_Abstract) {
+                continue;
+            }
+            if ($value instanceof DragonX_Storage_Record_ReadOnly_Interface) {
+                $keys[] = $key;
+            }
+        }
+        return $this->getKeys($keys, $newkeys);
+    }
+
+    /**
      * Gibt die Liste aller IDs der Records zurück
+     * @param boolean $newkeys
      * @return array
      */
-    public function getIds()
+    public function getIds($newkeys = true)
     {
         $ids = array();
-        foreach ($this as $record) {
-            if (isset($record->id)) {
-                $ids[] = $record->id;
+        foreach ($this as $key => $value) {
+        	if (!$value instanceof DragonX_Storage_Record_Abstract) {
+        		continue;
+        	}
+            if (isset($value->id)) {
+            	if ($newkeys) {
+                    $ids[] = $value->id;
+            	} else {
+                    $ids[$key] = $value->id;
+            	}
             }
         }
         return $ids;
@@ -162,15 +319,18 @@ class DragonX_Storage_RecordList extends ArrayObject
     public function indexByClassname($unique = false)
     {
         $list = new DragonX_Storage_RecordList();
-        foreach ($this as $record) {
-            $classname = get_class($record);
+        foreach ($this as $value) {
+            if (!$value instanceof DragonX_Storage_Record_Abstract) {
+                continue;
+            }
+            $classname = get_class($value);
             if ($unique) {
-                $list[$classname] = $record;
+                $list[$classname] = $value;
             } else {
                 if (!isset($list[$classname])) {
                     $list[$classname] = new DragonX_Storage_RecordList();
                 }
-                $list[$classname][] = $record;
+                $list[$classname][] = $value;
             }
         }
         return $list;
@@ -184,15 +344,18 @@ class DragonX_Storage_RecordList extends ArrayObject
     public function indexByNamespace($unique = false)
     {
         $list = new DragonX_Storage_RecordList();
-        foreach ($this as $record) {
-            $namespace = $record->getNamespace();
+        foreach ($this as $value) {
+            if (!$value instanceof DragonX_Storage_Record_Abstract) {
+                continue;
+            }
+            $namespace = $value->getNamespace();
             if ($unique) {
-                $list[$namespace] = $record;
+                $list[$namespace] = $value;
             } else {
                 if (!isset($list[$namespace])) {
                     $list[$namespace] = new DragonX_Storage_RecordList();
                 }
-                $list[$namespace][] = $record;
+                $list[$namespace][] = $value;
             }
         }
         return $list;
@@ -211,15 +374,18 @@ class DragonX_Storage_RecordList extends ArrayObject
         }
         $list = new DragonX_Storage_RecordList();
         $attributename = array_shift($indexby);
-        foreach ($this as $record) {
-            $attribute = $record->$attributename;
+        foreach ($this as $value) {
+            if (!$value instanceof DragonX_Storage_Record_Abstract) {
+                continue;
+            }
+            $attribute = $value->$attributename;
             if (count($indexby) == 0 && $unique) {
-                $list[$attribute] = $record;
+                $list[$attribute] = $value;
             } else {
                 if (!isset($list[$attribute])) {
                     $list[$attribute] = new DragonX_Storage_RecordList();
                 }
-                $list[$attribute][] = $record;
+                $list[$attribute][] = $value;
             }
         }
         if (count($indexby) > 0) {
@@ -232,14 +398,35 @@ class DragonX_Storage_RecordList extends ArrayObject
     }
 
     /**
-     * Konvertiert die Records zu Arrays und gibt diese als Array zurück
+     * Gibt eine eindimensionale Liste aller Records zurück
+     * @return DragonX_Storage_RecordList
+     */
+    public function toUnidimensional()
+    {
+        $list = new DragonX_Storage_RecordList();
+        foreach ($this as $key => $value) {
+        	if ($value instanceof DragonX_Storage_RecordList) {
+        		$sublist = $value->toUnidimensional();
+        		foreach ($sublist as $record) {
+	        		$list[] = $record;
+        		}
+        	} else {
+        		$list[] = $value;
+        	}
+        }
+        return $list;
+    }
+
+    /**
+     * Gibt alle als Array konvertierte Records zurück
+     * @param boolean $subarrays
      * @return array
      */
-    public function toArray()
+    public function toArray($subarrays = true)
     {
         $array = array();
         foreach ($this as $key => $value) {
-            $array[$key] = $value->toArray();
+            $array[$key] = $value->toArray($subarrays);
         }
         return $array;
     }
