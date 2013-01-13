@@ -14,16 +14,6 @@
  * @author Christoph Herrmann <developer@dragonjsonserver.de>
  */
 ?>
-<h3>Noch geplante Änderungen</h3>
-<ul>
-    <li>
-        Die Verwaltung von Listen mit der Storage Engine verbessern:
-	    <ul>
-		    <li>Beim Speichern neue Records sammeln und pro Tabelle in einem insert Statement einfügen</li>
-		    <li>Beim Speichern alte Records sammeln und pro Tabelle in einem update Statement aktualisieren</li>
-		</ul>
-    </li>
-</ul>
 <h3>Version 1.12.0</h3>
 <h4>Releasedatum: noch offen</h4>
 <h4>Geänderte Pakete</h4>
@@ -45,11 +35,12 @@
                             <li>Neben den "unset...()" Methoden gibt es nun auch "get...()" Methoden um gefilterte Listen zurück zu geben</li>
                             <li>Mit der Methode "toUnidimensional()" kann eine mehrdimensionale Listenstruktur wieder zu einer eindimensionalen Liste konvertiert werden</li>
                             <li>Es ist nun möglich per "unsetRecords()" alle Records und per "unsetSublists()" alle Unterlisten zu entfernen</li>
+                    		<li>Beim Klonen einer RecordList werden nun rekursiv alle IDs der beinhaltenden Records zurückgesetzt</li>
 		                </ul>
                     </li>
                     <li>Die Storage Engines können nun auch mehrdimensionale Listenstrukturen entgegennehmen</li>
                     <li>"saveList()" der Storage Engine des ZendDbAdapaters wirft nun eine Ausnahme wenn das Speichern eines Records Ausnahmen wirft</li>
-                    <li>Beim Klonen einer RecordList werden nun rekursiv alle IDs der beinhaltenden Records zurückgesetzt</li>
+                    <li>Die Storage Engine des ZendDbAdapters speichert nun eine RecordList mit prepared Statements um bei vielen Records performance zu sparen</li>
                 </ul>
             </li>
         </ul>
