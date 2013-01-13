@@ -115,15 +115,45 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function saveList(DragonX_Storage_RecordList $list, $recursive = true)
     {
-    	$count = 0;
     	if ($recursive) {
             $list = $list->toUnidimensional();
         } else {
             $list = $list->getRecords();
         }
     	$list = $list->unsetReadOnlyRecords();
-    	foreach ($list as $record) {
-    	    $count += $this->save($record);
+    	$count = 0;
+    	foreach ($list->indexByNamespace() as $namespace => $sublist) {
+    		list ($record) = $sublist;
+    		$columns = array_keys($record->toArray(false));
+    		$newrecords = $sublist->getNewRecords();
+    		if (count($newrecords) > 0) {
+	    		$preparecolumnnames = array();
+	    		foreach ($columns as $column) {
+	    			$preparecolumnnames[] = ":" . $column;
+	    		}
+	    		$statement = $this->getAdapter()->prepare("INSERT INTO `" . $this->getTablename($namespace) . "` 
+	    			(" . implode(', ', $columns) . ") VALUES (" . implode(', ', $preparecolumnnames) . ")");
+	    		foreach ($newrecords as $record) {
+	    			$statement->execute($record->toArray(false));
+	    			$count += $statement->rowCount();
+	    		}
+    		}
+    		$loadedrecords = $sublist->getLoadedRecords();
+    		if (count($loadedrecords) > 0) {
+	    		$preparecolumnpairnames = array();
+	    		foreach ($columns as $column) {
+	    			if ($column == 'id') {
+	    				continue;
+	    			}
+	    			$preparecolumnpairnames[] = $column . " = :" . $column;
+	    		}
+	    		$statement = $this->getAdapter()->prepare("UPDATE `" . $this->getTablename($namespace) . "` 
+	    			SET " . implode(', ', $preparecolumnpairnames) . " WHERE id = :id");
+	    		foreach ($loadedrecords as $record) {
+	    			$statement->execute($record->toArray(false));
+	    			$count += $statement->rowCount();
+	    		}
+    		}
     	}
         return $count;
     }
