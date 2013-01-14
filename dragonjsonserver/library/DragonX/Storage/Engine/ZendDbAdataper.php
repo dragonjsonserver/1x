@@ -33,13 +33,13 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     private $_transactionCounter;
 
-	/**
+    /**
      * Nimmt den Datenbankadapter entgegen zur Verwaltung des Storages
      * @param Zend_Db_Adapter_Abstract $adapter
      */
     public function __construct(Zend_Db_Adapter_Abstract $adapter)
     {
-    	$this->_adapter = $adapter;
+        $this->_adapter = $adapter;
     }
 
     /**
@@ -57,8 +57,8 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function getDatabasename()
     {
-    	$config = $this->_adapter->getConfig();
-    	return $config['dbname'];
+        $config = $this->_adapter->getConfig();
+        return $config['dbname'];
     }
 
     /**
@@ -82,9 +82,9 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function save(DragonX_Storage_Record_Abstract $record)
     {
-    	if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
+        if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
             throw new Dragon_Application_Exception_System('record is readonly', array('recordclass' => get_class($record)));
-    	}
+        }
         if (!isset($record->id)) {
             if ($record instanceof DragonX_Storage_Record_Created_Abstract) {
                 $record->created = time();
@@ -97,13 +97,13 @@ class DragonX_Storage_Engine_ZendDbAdataper
                 $record->modified = time();
             }
         }
-    	if (!isset($record->id)) {
+        if (!isset($record->id)) {
             $adapter = $this->getAdapter();
-    		$rowCount = $adapter->insert($this->getTablename($record), $record->toArray(false));
-    		$record->id = $adapter->lastInsertId();
-    	} else {
-    		$rowCount = $this->getAdapter()->update($this->getTablename($record), $record->toArray(false), 'id = ' . (int)$record->id);
-    	}
+            $rowCount = $adapter->insert($this->getTablename($record), $record->toArray(false));
+            $record->id = $adapter->lastInsertId();
+        } else {
+            $rowCount = $this->getAdapter()->update($this->getTablename($record), $record->toArray(false), 'id = ' . (int)$record->id);
+        }
         return $rowCount;
     }
 
@@ -115,46 +115,67 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function saveList(DragonX_Storage_RecordList $list, $recursive = true)
     {
-    	if ($recursive) {
+        if ($recursive) {
             $list = $list->toUnidimensional();
         } else {
             $list = $list->getRecords();
         }
-    	$list = $list->unsetReadOnlyRecords();
-    	$count = 0;
-    	foreach ($list->indexByNamespace() as $namespace => $sublist) {
-    		list ($record) = $sublist;
-    		$columns = array_keys($record->toArray(false));
-    		$newrecords = $sublist->getNewRecords();
-    		if (count($newrecords) > 0) {
-	    		$preparecolumnnames = array();
-	    		foreach ($columns as $column) {
-	    			$preparecolumnnames[] = ":" . $column;
-	    		}
-	    		$statement = $this->getAdapter()->prepare("INSERT INTO `" . $this->getTablename($namespace) . "` 
-	    			(" . implode(', ', $columns) . ") VALUES (" . implode(', ', $preparecolumnnames) . ")");
-	    		foreach ($newrecords as $record) {
-	    			$statement->execute($record->toArray(false));
-	    			$count += $statement->rowCount();
-	    		}
-    		}
-    		$loadedrecords = $sublist->getLoadedRecords();
-    		if (count($loadedrecords) > 0) {
-	    		$preparecolumnpairnames = array();
-	    		foreach ($columns as $column) {
-	    			if ($column == 'id') {
-	    				continue;
-	    			}
-	    			$preparecolumnpairnames[] = $column . " = :" . $column;
-	    		}
-	    		$statement = $this->getAdapter()->prepare("UPDATE `" . $this->getTablename($namespace) . "` 
-	    			SET " . implode(', ', $preparecolumnpairnames) . " WHERE id = :id");
-	    		foreach ($loadedrecords as $record) {
-	    			$statement->execute($record->toArray(false));
-	    			$count += $statement->rowCount();
-	    		}
-    		}
-    	}
+        $list = $list->unsetReadOnlyRecords();
+        $count = 0;
+        foreach ($list->indexByNamespace() as $namespace => $sublist) {
+            $newrecords = $sublist->getNewRecords();
+            $loadedrecords = $sublist->getLoadedRecords();
+            if (count($newrecords) > 1 || count($loadedrecords) > 1) {
+                list ($record) = $sublist;
+                $classname = get_class($record);
+                $record = new $classname();
+                $defaultcolumns = $record->toArray(false);
+                $columns = array_keys($defaultcolumns);
+            }
+            switch (count($newrecords)) {
+                case 0:
+                    break;
+                case 1:
+                    list ($record) = $newrecords;
+                    $this->save($record);
+                    break;
+                default:
+                    $preparecolumnnames = array();
+                    foreach ($columns as $column) {
+                        $preparecolumnnames[] = ":" . $column;
+                    }
+                    $statement = $this->getAdapter()->prepare("INSERT INTO `" . $this->getTablename($namespace) . "`
+                        (" . implode(', ', $columns) . ") VALUES (" . implode(', ', $preparecolumnnames) . ")");
+                    foreach ($newrecords as $record) {
+                        $statement->execute($record->toArray(false) + $defaultcolumns);
+                        $count += $statement->rowCount();
+                    }
+                    break;
+            }
+            switch (count($loadedrecords)) {
+                case 0:
+                    break;
+                case 1:
+                    list ($record) = $loadedrecords;
+                    $this->save($record);
+                    break;
+                default:
+                    $preparecolumnpairnames = array();
+                    foreach ($columns as $column) {
+                        if ($column == 'id') {
+                            continue;
+                        }
+                        $preparecolumnpairnames[] = $column . " = :" . $column;
+                    }
+                    $statement = $this->getAdapter()->prepare("UPDATE `" . $this->getTablename($namespace) . "`
+                        SET " . implode(', ', $preparecolumnpairnames) . " WHERE id = :id");
+                    foreach ($loadedrecords as $record) {
+                        $statement->execute($record->toArray(false) + $defaultcolumns);
+                        $count += $statement->rowCount();
+                    }
+                    break;
+            }
+        }
         return $count;
     }
 
@@ -166,14 +187,14 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function load(DragonX_Storage_Record_Abstract $record)
     {
-    	$tablename = $this->getTablename($record);
-    	$row = $this->getAdapter()->fetchRow(
-    	    "SELECT * FROM `" . $tablename . "` WHERE id = " . (int)$record->id
-    	);
-    	if (!$row) {
+        $tablename = $this->getTablename($record);
+        $row = $this->getAdapter()->fetchRow(
+            "SELECT * FROM `" . $tablename . "` WHERE id = " . (int)$record->id
+        );
+        if (!$row) {
             throw new Dragon_Application_Exception_System('missing record', array('tablenname' => $tablename, 'id' => $record->id));
-    	}
-		$record->fromArray($row, false);
+        }
+        $record->fromArray($row, false);
         return $record;
     }
 
@@ -232,7 +253,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function deleteList(DragonX_Storage_RecordList $list, $recursive = true)
     {
-    	$count = 0;
+        $count = 0;
         if ($recursive) {
             $list = $list->toUnidimensional();
         } else {
@@ -256,11 +277,11 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function beginTransaction()
     {
-    	if ($this->_transactionCounter == 0) {
+        if ($this->_transactionCounter == 0) {
             $this->getAdapter()->beginTransaction();
-    	}
-    	++$this->_transactionCounter;
-    	return $this->_transactionCounter == 1;
+        }
+        ++$this->_transactionCounter;
+        return $this->_transactionCounter == 1;
     }
 
     /**
@@ -269,15 +290,15 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function commit()
     {
-    	switch ($this->_transactionCounter) {
-    		case 0:
+        switch ($this->_transactionCounter) {
+            case 0:
                 return false;
                 break;
             case 1:
                 $this->getAdapter()->commit();
                 break;
-    	}
-    	--$this->_transactionCounter;
+        }
+        --$this->_transactionCounter;
         return $this->_transactionCounter == 0;
     }
 
@@ -287,12 +308,12 @@ class DragonX_Storage_Engine_ZendDbAdataper
      */
     public function rollback()
     {
-    	if ($this->_transactionCounter == 0) {
-    		return false;
-    	}
-    	$this->getAdapter()->rollback();
-    	$this->_transactionCounter = 0;
-    	return true;
+        if ($this->_transactionCounter == 0) {
+            return false;
+        }
+        $this->getAdapter()->rollback();
+        $this->_transactionCounter = 0;
+        return true;
     }
 
     /**
@@ -307,8 +328,8 @@ class DragonX_Storage_Engine_ZendDbAdataper
         if (count($conditions) > 0) {
             $where .= " WHERE ";
             foreach ($conditions as $key => $value) {
-	            if (strpos($key, 'NULL') !== false) {
-            		$where .= $key;
+                if (strpos($key, 'NULL') !== false) {
+                    $where .= $key;
                 } elseif (strpos($key, 'LIKE') !== false) {
                     $where .= $this->getAdapter()->quoteInto($key, $value);
                 } elseif (!isset($value)) {
@@ -320,7 +341,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
             }
             $where = substr($where, 0, -5);
         }
-    	return $this->loadBySqlStatement($record, "SELECT * FROM `" . $this->getTablename($record) . "`" . $where);
+        return $this->loadBySqlStatement($record, "SELECT * FROM `" . $this->getTablename($record) . "`" . $where);
     }
 
     /**
@@ -335,9 +356,9 @@ class DragonX_Storage_Engine_ZendDbAdataper
                 continue;
             }
             if (!isset($value)) {
-        		unset($conditions[$key]);
+                unset($conditions[$key]);
                 $conditions[$key . ' IS NULL'] = null;
-        	} elseif (strpos($key, '?') === false) {
+            } elseif (strpos($key, '?') === false) {
                 unset($conditions[$key]);
                 $conditions[$key . ' = ?'] = $value;
             }
@@ -358,7 +379,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
         if ($record instanceof DragonX_Storage_Record_ReadOnly_Interface) {
             throw new Dragon_Application_Exception_System('record is readonly', array('recordclass' => get_class($record)));
         }
-    	return $this->getAdapter()->update($this->getTablename($record), $values, $this->_parseConditions($conditions));
+        return $this->getAdapter()->update($this->getTablename($record), $values, $this->_parseConditions($conditions));
     }
 
     /**
