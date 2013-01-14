@@ -121,6 +121,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
             $list = $list->getRecords();
         }
         $list = $list->unsetReadOnlyRecords();
+        $adapter = $this->getAdapter();
         $count = 0;
         foreach ($list->indexByNamespace() as $namespace => $sublist) {
             $newrecords = $sublist->getNewRecords();
@@ -144,10 +145,11 @@ class DragonX_Storage_Engine_ZendDbAdataper
                     foreach ($columns as $column) {
                         $preparecolumnnames[] = ":" . $column;
                     }
-                    $statement = $this->getAdapter()->prepare("INSERT INTO `" . $this->getTablename($namespace) . "`
+                    $statement = $adapter->prepare("INSERT INTO `" . $this->getTablename($namespace) . "`
                         (" . implode(', ', $columns) . ") VALUES (" . implode(', ', $preparecolumnnames) . ")");
                     foreach ($newrecords as $record) {
                         $statement->execute($record->toArray(false) + $defaultcolumns);
+                        $record->id = $adapter->lastInsertId();
                         $count += $statement->rowCount();
                     }
                     break;
@@ -167,7 +169,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
                         }
                         $preparecolumnpairnames[] = $column . " = :" . $column;
                     }
-                    $statement = $this->getAdapter()->prepare("UPDATE `" . $this->getTablename($namespace) . "`
+                    $statement = $adapter->prepare("UPDATE `" . $this->getTablename($namespace) . "`
                         SET " . implode(', ', $preparecolumnpairnames) . " WHERE id = :id");
                     foreach ($loadedrecords as $record) {
                         $statement->execute($record->toArray(false) + $defaultcolumns);
