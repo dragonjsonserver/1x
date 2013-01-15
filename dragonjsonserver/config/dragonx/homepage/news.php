@@ -25,8 +25,12 @@ return array(
             'title' => 'Version 1.12.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.12.0 ist abgeschlossen und als Download '
-                . 'verfügbar.',
-            'timestamp' => 0,
+                . 'verfügbar. Die Version ist weniger umfangreich als die '
+                . 'vorherigen Versionen. Sie bietet eine Überarbeitung der '
+                . 'Unterstützung von verschachtelten Record Listen mit der '
+                . 'Storage Engine des ZendDbAdapters und neue Features zur '
+                . 'Filterung und Auslesen der Record Listen selbst.',
+            'timestamp' => 1358288796,
         ),
         array(
             'title' => 'Version 1.11.1 zum Download verfügbar',
