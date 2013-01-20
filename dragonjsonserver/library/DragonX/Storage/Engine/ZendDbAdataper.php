@@ -131,7 +131,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
                 $classname = get_class($record);
                 $record = new $classname();
                 $defaultcolumns = $record->toArray(false);
-                $columns = array_keys($defaultcolumns);
+                $columnnames = array_keys($defaultcolumns);
             }
             switch (count($newrecords)) {
                 case 0:
@@ -142,11 +142,15 @@ class DragonX_Storage_Engine_ZendDbAdataper
                     break;
                 default:
                     $preparecolumnnames = array();
-                    foreach ($columns as $column) {
-                        $preparecolumnnames[] = ":" . $column;
+                    foreach ($columnnames as $columnname) {
+                        $preparecolumnnames[] = ":" . $columnname;
+                    }
+                    $escapedcolumnnames = array();
+                    foreach ($columnnames as $columnname) {
+                        $escapedcolumnnames[] = "`" . $columnname . "`";
                     }
                     $statement = $adapter->prepare("INSERT INTO `" . $this->getTablename($namespace) . "`
-                        (" . implode(', ', $columns) . ") VALUES (" . implode(', ', $preparecolumnnames) . ")");
+                        (" . implode(', ', $escapedcolumnnames) . ") VALUES (" . implode(', ', $preparecolumnnames) . ")");
                     foreach ($newrecords as $record) {
                         $statement->execute($record->toArray(false) + $defaultcolumns);
                         $record->id = $adapter->lastInsertId();
@@ -163,11 +167,11 @@ class DragonX_Storage_Engine_ZendDbAdataper
                     break;
                 default:
                     $preparecolumnpairnames = array();
-                    foreach ($columns as $column) {
-                        if ($column == 'id') {
+                    foreach ($columnnames as $columnname) {
+                        if ($columnname == 'id') {
                             continue;
                         }
-                        $preparecolumnpairnames[] = $column . " = :" . $column;
+                        $preparecolumnpairnames[] = "`" . $columnname . "` = :" . $columnname;
                     }
                     $statement = $adapter->prepare("UPDATE `" . $this->getTablename($namespace) . "`
                         SET " . implode(', ', $preparecolumnpairnames) . " WHERE id = :id");

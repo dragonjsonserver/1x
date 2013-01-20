@@ -39,5 +39,22 @@ class DragonX_Device_Plugin_Install_Device implements DragonX_Storage_Plugin_Ins
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
             );
         }
+        if (version_compare($version, '1.13.0', '<')) {
+        	$storage->executeSqlStatement("DROP TABLE `dragonx_device_record_device`");
+            $storage->executeSqlStatement(
+                  "CREATE TABLE `dragonx_device_record_device` ("
+                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`created` INT(10) UNSIGNED NOT NULL, "
+                    . "`modified` INT(10) UNSIGNED NOT NULL, "
+                    . "`account_id` INT(10) UNSIGNED NOT NULL, "
+                    . "`platform` VARCHAR(255) NOT NULL, "
+                    . "`devicename` VARCHAR(255) NOT NULL, "
+                    . "`locale_register` CHAR(5) NOT NULL, "
+                    . "`locale_actual` CHAR(5) NOT NULL, "
+                    . "PRIMARY KEY (`id`), "
+                    . "KEY (`account_id`)"
+                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            );
+        }
     }
 }

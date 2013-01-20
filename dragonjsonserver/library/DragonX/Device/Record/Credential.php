@@ -15,16 +15,22 @@
  */
 
 /**
- * Klasse mit der Versionsnummer des Paketes
+ * Record zur Speicherung der Geräteanmeldedaten zu einem Gerät
  */
-class DragonX_Storage_Version
+class DragonX_Device_Record_Credential extends DragonX_Storage_Record_Abstract
 {
     /**
-     * Gibt die Versionsnummer des Paketes zurück
-     * @return string
+     * @var integer
      */
-    public function getVersion()
-    {
-        return '1.13.0';
-    }
+    public $device_id;
+
+    /**
+     * @var string
+     */
+    public $key;
+
+    /**
+     * @var string
+     */
+    public $value;
 }

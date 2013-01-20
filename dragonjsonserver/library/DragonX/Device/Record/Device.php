@@ -32,5 +32,13 @@ class DragonX_Device_Record_Device extends DragonX_Storage_Record_CreatedModifie
     /**
      * @var string
      */
-    public $name;
+    public $devicename;
+
+    /**
+     * @var array
+     */
+    public $locale = array(
+        'register' => null,
+        'actual' => null,
+    );
 }
