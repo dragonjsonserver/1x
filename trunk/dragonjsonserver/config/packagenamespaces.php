@@ -46,7 +46,7 @@ return array(
             'Service' => array('Cronjob'),
         ),
         'Device' => array(
-            'Plugin' => array('DeleteAccount', 'Install_Device'),
+            'Plugin' => array('DeleteAccount', 'Install_Credential', 'Install_Device'),
             'Service' => array('Device'),
         ),
         'Emailaddress' => array(

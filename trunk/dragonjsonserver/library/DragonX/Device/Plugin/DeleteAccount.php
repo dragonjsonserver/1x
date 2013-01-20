@@ -26,9 +26,15 @@ class DragonX_Device_Plugin_DeleteAccount
      */
     public function deleteAccount(Application_Account_Record_Account $recordAccount)
     {
-        Zend_Registry::get('DragonX_Storage_Engine')->deleteByConditions(
+    	$storage = Zend_Registry::get('DragonX_Storage_Engine');
+        $storage->deleteByConditions(
             new DragonX_Device_Record_Device(),
             array('account_id' => $recordAccount->id)
+        );
+        $storage->executeSqlStatement(
+            "DELETE FROM dragonx_device_record_credential WHERE device_id NOT IN (
+                SELECT id FROM dragonx_device_record_device
+            )"
         );
     }
 }

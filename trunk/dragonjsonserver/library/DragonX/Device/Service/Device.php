@@ -20,14 +20,66 @@
 class DragonX_Device_Service_Device
 {
     /**
-     * Fügt dem Account ein Gerät hinzu
-     * @param string $platform
-     * @param string $name
+     * Gibt die Daten der Geräte zum Account zurück
+     * @return array
      * @dragonx_account_authenticate
      */
-    public function addDevice($platform, $name)
+    public function getDevices()
+    {
+    	$logicDevice = new DragonX_Device_Logic_Device();
+    	return $logicDevice->getDevices(Zend_Registry::get('recordAccount'));
+    }
+
+    /**
+     * Gibt den Account mit den übergebenen Anmeldedaten des Gerätes zurück
+     * @param string $platform
+     * @param object $credentials
+     * @return array
+     */
+    public function loginAccount($platform = 'test', array $credentials = array('a' => '', 'b' => '', 'c' => ''))
     {
         $logicDevice = new DragonX_Device_Logic_Device();
-        $logicDevice->addDevice(Zend_Registry::get('recordAccount'), $platform, $name);
+        $logicSession = new DragonX_Account_Logic_Session();
+        $sessionhash = $logicSession->loginAccount(
+            $logicDevice->getAccount($platform, $credentials)
+        );
+        return array('sessionhash' => $sessionhash);
+    }
+
+    /**
+     * Verknüpft einen Account mit den übergebenen Anmeldedaten des Gerätes
+     * @param string $platform
+     * @param object $credentials
+     * @param string $devicename
+     * @param string $locale
+     * @dragonx_account_authenticate
+     */
+    public function linkAccount($platform = 'test', array $credentials = array('a' => '', 'b' => '', 'c' => ''), $devicename, $locale)
+    {
+        $logicDevice = new DragonX_Device_Logic_Device();
+        $logicDevice->linkAccount(Zend_Registry::get('recordAccount'), $platform, $credentials, $devicename, $locale);
+    }
+
+    /**
+     * Entfernt die Verknüpfung eines Accounts mit einem Gerät
+     * @param integer $device_id
+     * @dragonx_account_authenticate
+     */
+    public function unlinkAccount($device_id)
+    {
+        $logicDevice = new DragonX_Device_Logic_Device();
+        $logicDevice->unlinkAccount(Zend_Registry::get('recordAccount'), $device_id);
+    }
+
+    /**
+     * Aktualisiert die Sprache des übergebenen Gerätes
+     * @param integer $device_id
+     * @param string $locale
+     * @dragonx_account_authenticate
+     */
+    public function updateLocale($device_id, $locale)
+    {
+        $logicDevice = new DragonX_Device_Logic_Device();
+        $logicDevice->updateLocale(Zend_Registry::get('recordAccount'), $device_id, $locale);
     }
 }
