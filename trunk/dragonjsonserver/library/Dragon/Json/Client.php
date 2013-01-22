@@ -40,12 +40,11 @@ class Dragon_Json_Client
      */
     public function send(Dragon_Json_Server_Request_Http $request)
     {
-        $this->_httpclient->setRawData(Zend_Json::encode(array(
-            'id'     => $request->getId(),
-            'method' => $request->getMethod(),
-            'params' => array('timestamp' => -1) + $request->getParams(),
-        )));
-        $body = $this->_httpclient->request('POST')->getBody();
+    	$request->addParam(-1, 'timestamp');
+        $body = $this->_httpclient
+            ->setRawData($request->toJson())
+            ->request('POST')
+            ->getBody();
         $response = Zend_Json::decode($body);
         if (!is_array($response) || !array_key_exists('id', $response)) {
             throw new Dragon_Application_Exception_System('invalid response', array('response' => $response, 'body' => $body));
