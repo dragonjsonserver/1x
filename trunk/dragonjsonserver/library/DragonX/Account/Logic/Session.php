@@ -27,16 +27,34 @@ class DragonX_Account_Logic_Session
      */
     public function loginAccount(Application_Account_Record_Account $recordAccount)
     {
-        $recordSession = new DragonX_Account_Record_Session(array(
-            'account_id' => $recordAccount->id,
-            'sessionhash' => md5($recordAccount->id . '.' . time()),
-        ));
-        Zend_Registry::get('DragonX_Storage_Engine')->save($recordSession);
-        Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
-            'DragonX_Account_Plugin_LoginAccount_Interface',
-            array($recordAccount)
-        );
-        return $recordSession->sessionhash;
+        $configEngine = new Dragon_Application_Config('dragonx/session/engine');
+        $storageSession = Zend_Registry::get($configEngine->engine);
+        $sessionhash = md5($recordAccount->id . '.' . time());
+        if ($storageSession instanceof DragonX_Storage_Engine_Memcache) {
+	        $storageSession->save(new DragonX_Account_Record_Session(
+	            array(
+	                'id' => $sessionhash,
+	                'account_id' => $recordAccount->id,
+	                'sessionhash' => $sessionhash,
+	            ),
+	            false
+	        ));
+	        Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
+	            'DragonX_Account_Plugin_LoginAccount_Interface',
+	            array($recordAccount)
+	        );
+	        return $sessionhash;
+        } else {
+	        $storageSession->save(new DragonX_Account_Record_Session(array(
+                'account_id' => $recordAccount->id,
+                'sessionhash' => $sessionhash,
+            )));
+	        Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
+	            'DragonX_Account_Plugin_LoginAccount_Interface',
+	            array($recordAccount)
+	        );
+	        return $sessionhash;
+        }
     }
 
     /**
@@ -47,15 +65,21 @@ class DragonX_Account_Logic_Session
      */
     public function getAccount($sessionhash)
     {
-    	$storage = Zend_Registry::get('DragonX_Storage_Engine');
-        list ($recordAccount) = $storage->loadBySqlStatement(
-            new Application_Account_Record_Account(),
-              "SELECT `account`.* FROM `application_account_record_account` AS `account` "
-            . "INNER JOIN `dragonx_account_record_session` AS `session` ON `session`.`account_id` = `account`.`id` "
-            . "WHERE `session`.`sessionhash` = :sessionhash",
-            array('sessionhash' => $sessionhash)
+        $configEngine = new Dragon_Application_Config('dragonx/session/engine');
+        $storageSession = Zend_Registry::get($configEngine->engine);
+        if ($storageSession instanceof DragonX_Storage_Engine_Memcache) {
+            $recordSession = $storageSession->load(
+                new DragonX_Account_Record_Session($sessionhash)
+            );
+        } else {
+        	list ($recordSession) = $storageSession->loadByConditions(
+	            new DragonX_Account_Record_Session(),
+	            array('sessionhash' => $sessionhash)
+	        );
+        }
+        return Zend_Registry::get('DragonX_Storage_Engine')->load(
+            new Application_Account_Record_Account($recordSession->account_id)
         );
-        return $recordAccount;
     }
 
     /**
@@ -64,11 +88,19 @@ class DragonX_Account_Logic_Session
      */
     public function logoutAccount($sessionhash)
     {
-        $recordAccount = $this->getAccount($sessionhash);
-        Zend_Registry::get('DragonX_Storage_Engine')->deleteByConditions(
-            new DragonX_Account_Record_Session(),
-            array('sessionhash' => $sessionhash)
-        );
+    	$recordAccount = $this->getAccount($sessionhash);
+        $configEngine = new Dragon_Application_Config('dragonx/session/engine');
+        $storageSession = Zend_Registry::get($configEngine->engine);
+        if ($storageSession instanceof DragonX_Storage_Engine_Memcache) {
+            $storageSession->delete(
+                new DragonX_Account_Record_Session($sessionhash)
+            );
+        } else {
+	        $storageSession->deleteByConditions(
+	            new DragonX_Account_Record_Session(),
+	            array('sessionhash' => $sessionhash)
+	        );
+        }
         Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
             'DragonX_Account_Plugin_LogoutAccount_Interface',
             array($recordAccount)
