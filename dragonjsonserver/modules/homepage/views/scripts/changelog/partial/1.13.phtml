@@ -49,6 +49,7 @@
                 <ul>
                     <li>Es wurde ein Fehler in der Storage Engine des ZendDbAdapaters behoben der auftrat wenn man Schlüsselwörter von MySQL bei Spaltennamen in der "saveList()" verwendete</li>
                     <li>Die ID bei Records muss nun nicht mehr vom Datentyp Integer sein, was vor allem für Records wie die Session wichtig ist die im Memcache abgelegt werden</li>
+                    <li>"saveList()" unterstützt nun auch wieder Records die "created" und "modified" Attribute haben und befüllt diese beim Einfügen und Aktualisieren</li>
                 </ul>
             </li>
         </ul>
