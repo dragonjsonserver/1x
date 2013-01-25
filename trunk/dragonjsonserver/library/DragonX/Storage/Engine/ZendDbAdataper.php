@@ -124,15 +124,12 @@ class DragonX_Storage_Engine_ZendDbAdataper
         $adapter = $this->getAdapter();
         $count = 0;
         foreach ($list->indexByNamespace() as $namespace => $sublist) {
+            list ($record) = $sublist;
+            $classname = get_class($record);
+            $record = new $classname();
+            $defaultcolumns = $record->toArray(false);
+            $columnnames = array_keys($defaultcolumns);
             $newrecords = $sublist->getNewRecords();
-            $loadedrecords = $sublist->getLoadedRecords();
-            if (count($newrecords) > 1 || count($loadedrecords) > 1) {
-                list ($record) = $sublist;
-                $classname = get_class($record);
-                $record = new $classname();
-                $defaultcolumns = $record->toArray(false);
-                $columnnames = array_keys($defaultcolumns);
-            }
             switch (count($newrecords)) {
                 case 0:
                     break;
@@ -152,12 +149,19 @@ class DragonX_Storage_Engine_ZendDbAdataper
                     $statement = $adapter->prepare("INSERT INTO `" . $this->getTablename($namespace) . "`
                         (" . implode(', ', $escapedcolumnnames) . ") VALUES (" . implode(', ', $preparecolumnnames) . ")");
                     foreach ($newrecords as $record) {
+			            if ($record instanceof DragonX_Storage_Record_Created_Abstract) {
+			                $record->created = time();
+			                if ($record instanceof DragonX_Storage_Record_CreatedModified_Abstract) {
+			                    $record->modified = $record->created;
+			                }
+			            }
                         $statement->execute($record->toArray(false) + $defaultcolumns);
                         $record->id = $adapter->lastInsertId();
                         $count += $statement->rowCount();
                     }
                     break;
             }
+            $loadedrecords = $sublist->getLoadedRecords();
             switch (count($loadedrecords)) {
                 case 0:
                     break;
@@ -176,6 +180,9 @@ class DragonX_Storage_Engine_ZendDbAdataper
                     $statement = $adapter->prepare("UPDATE `" . $this->getTablename($namespace) . "`
                         SET " . implode(', ', $preparecolumnpairnames) . " WHERE id = :id");
                     foreach ($loadedrecords as $record) {
+			            if ($record instanceof DragonX_Storage_Record_CreatedModified_Abstract) {
+			                $record->modified = time();
+			            }
                         $statement->execute($record->toArray(false) + $defaultcolumns);
                         $count += $statement->rowCount();
                     }
