@@ -16,14 +16,13 @@
 
 /**
  * Abstrakte Klasse mit den Basismethoden eines Records
- * @property integer $id
  */
 abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Accessor_Abstract
 {
 	/**
-     * @var integer
+     * @var mixed
      */
-    protected $_id;
+    public $id;
 
     /**
      * Nimmt die ID, ein Array oder eine andere Eigenschaft als Datenquelle an
@@ -38,8 +37,8 @@ abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Acces
         }
         if (is_array($data)) {
         	$this->fromArray($data, $unsetId);
-        } elseif ($data > 0) {
-        	$this->setId($data);
+        } else {
+        	$this->id = $data;
         }
     }
 
@@ -58,24 +57,6 @@ abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Acces
     }
 
     /**
-     * Setzt die ID des Records
-     * @param integer $id
-     */
-    protected function setId($id)
-    {
-        $this->_id = (int)$id;
-    }
-
-    /**
-     * Gibt die ID des Records zurück
-     * @return integer
-     */
-    protected function getId()
-    {
-        return $this->_id;
-    }
-
-    /**
      * Gibt den Namespace des Records zur Speicherung im Storage zurück
      * @return string
      */
@@ -89,6 +70,6 @@ abstract class DragonX_Storage_Record_Abstract extends DragonX_Application_Acces
      */
     public function __clone()
     {
-        $this->_id = null;
+        $this->id = null;
     }
 }
