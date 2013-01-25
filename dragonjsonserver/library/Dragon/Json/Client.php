@@ -25,12 +25,12 @@ class Dragon_Json_Client
     private $_httpclient;
 
     /**
-     * Nimmt die URI zum Gateway des JsonRPC Server entgegen
+     * Nimmt den HTTP Client mit der Verbindung zum JsonRPC Server entgegen
      * @param string $uri
      */
-    public function __construct($uri)
+    public function __construct(Zend_Http_Client $httpclient)
     {
-        $this->_httpclient = new Zend_Http_Client($uri);
+        $this->_httpclient = $httpclient;
     }
 
     /**
