@@ -27,6 +27,11 @@ class DragonX_Storage_Engine_Memcache
     private $_memcache;
 
     /**
+     * @var string
+     */
+    private $_namespace;
+
+    /**
      * Nimmt den Memcache entgegen zur Verwaltung des Storages
      * @param Memcache $memcache
      */
@@ -45,13 +50,37 @@ class DragonX_Storage_Engine_Memcache
     }
 
     /**
+     * Setzt den Namspace den jeder Key vorangestellt bekommt
+     * @param string $namespace
+     * @return DragonX_Storage_Engine_Memcache
+     */
+    public function setNamespace($namespace)
+    {
+        $this->_namespace = $namespace;
+        return $this;
+    }
+
+    /**
+     * Gibt den Namspace zurück den jeder Key vorangestellt bekommt
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->_namespace;
+    }
+
+    /**
      * Gibt den Keynamen für den Record zurück
      * @param DragonX_Storage_Record_Abstract $record
      * @return string
      */
     protected function _getKey(DragonX_Storage_Record_Abstract $record)
     {
-        return $record->getNamespace() . '|' . $record->id;
+        $namespace = $this->getNamespace();
+        if (isset($namespace)) {
+            $namespace .= '|';
+        }
+        return $namespace . $record->getNamespace() . '|' . $record->id;
     }
 
     /**
@@ -70,9 +99,9 @@ class DragonX_Storage_Engine_Memcache
             }
             $record->id = uniqid();
         } else {
-	        if ($record instanceof DragonX_Storage_Record_CreatedModified_Abstract) {
-	            $record->modified = time();
-	        }
+            if ($record instanceof DragonX_Storage_Record_CreatedModified_Abstract) {
+                $record->modified = time();
+            }
         }
         $this->_getMemcache()->set($this->_getKey($record), $record->toArray());
         return 1;
@@ -86,12 +115,12 @@ class DragonX_Storage_Engine_Memcache
      */
     public function saveList(DragonX_Storage_RecordList $list, $recursive = true)
     {
-    	$count = 0;
-    	if ($recursive) {
-    		$list = $list->toUnidimensional();
-    	} else {
-    		$list = $list->getRecords();
-    	}
+        $count = 0;
+        if ($recursive) {
+            $list = $list->toUnidimensional();
+        } else {
+            $list = $list->getRecords();
+        }
         foreach ($list as $record) {
             $count += $this->save($record);
         }
@@ -106,7 +135,7 @@ class DragonX_Storage_Engine_Memcache
      */
     public function load(DragonX_Storage_Record_Abstract $record)
     {
-    	$key = $this->_getKey($record);
+        $key = $this->_getKey($record);
         $result = $this->_getMemcache()->get($key);
         if (!$result) {
             throw new Dragon_Application_Exception_System('missing record', array('key' => $key));
@@ -161,7 +190,7 @@ class DragonX_Storage_Engine_Memcache
      */
     public function deleteList(DragonX_Storage_RecordList $list, $recursive = true)
     {
-    	$count = 0;
+        $count = 0;
         if ($recursive) {
             $list = $list->toUnidimensional();
         } else {
