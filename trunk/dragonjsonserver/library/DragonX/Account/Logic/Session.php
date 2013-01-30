@@ -37,7 +37,7 @@ class DragonX_Account_Logic_Session
                     'id' => $sessionhash,
                     'account_id' => $recordAccount->id,
                     'sessionhash' => $sessionhash,
-                    'data' => array('recordAccount' => $recordAccount->toArray()) + $data,
+                    'data' => array('account' => $recordAccount->toArray()) + $data,
                 ),
                 false
             ));
@@ -50,7 +50,7 @@ class DragonX_Account_Logic_Session
             $storageSession->save(new DragonX_Account_Record_Session(array(
                 'account_id' => $recordAccount->id,
                 'sessionhash' => $sessionhash,
-                'data' => Zend_Json::encode(array('recordAccount' => $recordAccount->toArray()) + $data),
+                'data' => Zend_Json::encode(array('account' => $recordAccount->toArray()) + $data),
             )));
             Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
                 'DragonX_Account_Plugin_LoginAccount_Interface',
