@@ -33,6 +33,7 @@ class DragonX_Account_Plugin_Install_Session implements DragonX_Storage_Plugin_I
                     . "`created` INT(10) UNSIGNED NOT NULL, "
                     . "`account_id` INT(10) UNSIGNED NOT NULL, "
                     . "`sessionhash` CHAR(32) NOT NULL, "
+                    . "`data` TEXT NOT NULL, "
                     . "PRIMARY KEY (`id`), "
                     . "UNIQUE KEY (`sessionhash`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
