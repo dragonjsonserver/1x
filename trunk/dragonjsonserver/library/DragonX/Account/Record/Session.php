@@ -28,4 +28,9 @@ class DragonX_Account_Record_Session extends DragonX_Storage_Record_Created_Abst
      * @var string
      */
     public $sessionhash;
+
+    /**
+     * @var string
+     */
+    public $data;
 }
