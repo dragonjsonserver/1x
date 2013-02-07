@@ -64,30 +64,26 @@ class DragonX_Device_Logic_Device
      */
     public function getAccount($platform, array $credentials)
     {
-    	$credentials = $this->_getCredentials($platform, $credentials);
-    	$conditions = array();
-    	$params = array();
-    	$index = 0;
-    	foreach ($credentials as $key => $value) {
-    		$conditions[] = "(credential.key = :credential_key_" . $index . " AND credential.value = :credential_value_" . $index . ")";
-    		$params['credential_key_' . $index] = $key;
-    		$params['credential_value_' . $index] = $value;
-            ++$index;
-    	}
-    	list ($recordAccount) = Zend_Registry::get('DragonX_Storage_Engine')->loadBySqlStatement(
+        $credentials = $this->_getCredentials($platform, $credentials);
+        $joins = array();
+        $params = array();
+        foreach ($credentials as $key => $value) {
+            $joins[] = "INNER JOIN dragonx_device_record_credential AS credential_" . $key . " "
+                         . "ON credential_" . $key . ".device_id = device.id "
+                         . "AND credential_" . $key . ".key = :credential_" . $key . "_key "
+                         . "AND credential_" . $key . ".value = :credential_" . $key . "_value";
+            $params["credential_" . $key . "_key"] = $key;
+            $params["credential_" . $key . "_value"] = $value;
+        }
+        list ($recordAccount) = Zend_Registry::get('DragonX_Storage_Engine')->loadBySqlStatement(
             new Application_Account_Record_Account(),
-            "SELECT account.*, count(*) AS amount
-            FROM application_account_record_account AS account
-            INNER JOIN dragonx_device_record_device AS device ON device.account_id = account.id
-            INNER JOIN dragonx_device_record_credential AS credential ON credential.device_id = device.id
-            WHERE
-                " . implode(' OR ', $conditions) . "
-            GROUP BY
-                device.id
-            HAVING amount = :amount",
-            array('amount' => count($credentials)) + $params
-    	);
-    	return $recordAccount;
+              "SELECT account.* "
+            . "FROM application_account_record_account AS account "
+            . "INNER JOIN dragonx_device_record_device AS device ON device.account_id = account.id "
+            . implode(" ", $joins),
+            $params
+        );
+        return $recordAccount;
     }
 
     /**
