@@ -34,7 +34,7 @@ class DragonX_Device_Plugin_Install_Credential implements DragonX_Storage_Plugin
                     . "`key` VARCHAR(255) NOT NULL, "
                     . "`value` CHAR(32) NOT NULL, "
                     . "PRIMARY KEY (`id`), "
-                    . "UNIQUE KEY (`device_id`, `key`)"
+                    . "UNIQUE KEY (`key`, `value`, `device_id`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
             );
         }
