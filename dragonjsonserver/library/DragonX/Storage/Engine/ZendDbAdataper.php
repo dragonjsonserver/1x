@@ -149,12 +149,12 @@ class DragonX_Storage_Engine_ZendDbAdataper
                     $statement = $adapter->prepare("INSERT INTO `" . $this->getTablename($namespace) . "`
                         (" . implode(', ', $escapedcolumnnames) . ") VALUES (" . implode(', ', $preparecolumnnames) . ")");
                     foreach ($newrecords as $record) {
-			            if ($record instanceof DragonX_Storage_Record_Created_Abstract) {
-			                $record->created = time();
-			                if ($record instanceof DragonX_Storage_Record_CreatedModified_Abstract) {
-			                    $record->modified = $record->created;
-			                }
-			            }
+                        if ($record instanceof DragonX_Storage_Record_Created_Abstract) {
+                            $record->created = time();
+                            if ($record instanceof DragonX_Storage_Record_CreatedModified_Abstract) {
+                                $record->modified = $record->created;
+                            }
+                        }
                         $statement->execute($record->toArray(false) + $defaultcolumns);
                         $record->id = $adapter->lastInsertId();
                         $count += $statement->rowCount();
@@ -180,9 +180,9 @@ class DragonX_Storage_Engine_ZendDbAdataper
                     $statement = $adapter->prepare("UPDATE `" . $this->getTablename($namespace) . "`
                         SET " . implode(', ', $preparecolumnpairnames) . " WHERE id = :id");
                     foreach ($loadedrecords as $record) {
-			            if ($record instanceof DragonX_Storage_Record_CreatedModified_Abstract) {
-			                $record->modified = time();
-			            }
+                        if ($record instanceof DragonX_Storage_Record_CreatedModified_Abstract) {
+                            $record->modified = time();
+                        }
                         $statement->execute($record->toArray(false) + $defaultcolumns);
                         $count += $statement->rowCount();
                     }
@@ -445,5 +445,24 @@ class DragonX_Storage_Engine_ZendDbAdataper
     public function executeSqlStatement($sqlstatement, array $params = array())
     {
         return $this->getAdapter()->query($sqlstatement, $params);
+    }
+
+    /**
+     * Führt mehrere beliebige SQL Statements aus
+     * @param array $sqlstatementsandparams
+     * @return array
+     */
+    public function executeSqlStatements($sqlstatementsandparams)
+    {
+        $results = array();
+        foreach ($sqlstatementsandparams as $sqlstatementandparams) {
+            if (is_array($sqlstatementandparams)) {
+                list ($sqlstatement, $params) = $sqlstatementandparams;
+            } else {
+                list ($sqlstatement, $params) = array($sqlstatementandparams, array());
+            }
+            $results[] = $this->getAdapter()->query($sqlstatement, $params);
+        }
+        return $results;
     }
 }
