@@ -72,6 +72,22 @@ class DragonX_Emailaddress_Logic_Validation
     }
 
     /**
+     * Gibt die Validierungsanfrage der E-Mail Adresse zurück
+     * @param DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress
+     * @return DragonX_Emailaddress_Record_Validation
+     */
+    public function getValidation($recordEmailaddress)
+    {
+        $storage = Zend_Registry::get('DragonX_Storage_Engine');
+
+        list ($recordValidation) = $storage->loadByConditions(
+            new DragonX_Emailaddress_Record_Validation(),
+            array('emailaddress_id' => $recordEmailaddress->id)
+        );
+        return $recordValidation;
+    }
+
+    /**
      * Entfernt die Validierungsabfrage und schaltet somit den Account frei
      * @param string $validationhash
      */
