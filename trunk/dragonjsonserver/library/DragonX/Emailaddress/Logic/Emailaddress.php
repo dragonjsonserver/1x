@@ -39,7 +39,7 @@ class DragonX_Emailaddress_Logic_Emailaddress
      * @param string $emailaddress
      * @param string $password
      * @throws InvalidArgumentException
-     * @return Application_Account_Record_Account
+     * @return array
      */
     public function getAccount($emailaddress, $password)
     {
