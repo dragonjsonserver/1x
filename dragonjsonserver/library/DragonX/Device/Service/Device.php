@@ -40,9 +40,8 @@ class DragonX_Device_Service_Device
     {
         $logicDevice = new DragonX_Device_Logic_Device();
         $logicSession = new DragonX_Account_Logic_Session();
-        $sessionhash = $logicSession->loginAccount(
-            $logicDevice->getAccount($platform, $credentials)
-        );
+        list ($recordAccount) = $logicDevice->getAccount($platform, $credentials);
+        $sessionhash = $logicSession->loginAccount($recordAccount);
         return array('sessionhash' => $sessionhash);
     }
 

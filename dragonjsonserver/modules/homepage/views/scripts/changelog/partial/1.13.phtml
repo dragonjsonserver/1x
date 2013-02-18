@@ -46,6 +46,12 @@
                 </ul>
             </li>
             <li>
+                Emailaddress
+                <ul>
+                    <li>Die Authentifizierung gibt nun neben dem Account auch den Datensatz zur E-Mail Adresse zurück</li>
+                </ul>
+            </li>
+            <li>
                 Storage
                 <ul>
                     <li>Es wurde ein Fehler in der Storage Engine des ZendDbAdapaters behoben der auftrat wenn man Schlüsselwörter von MySQL bei Spaltennamen in der "saveList()" verwendete</li>
@@ -62,4 +68,5 @@
 <h3>Benötigt</h3>
 <ul>
     <li>Das Paket Device wurde überarbeitet und die Clients die bisher die Services des Paketes genutzt haben müssen überarbeitet werden</li>
+    <li>Durch die zusätzliche Rückgabe der E-Mail Adresse müssen die Stelle der E-Mail Authentifizierung angepasst werden</li>
 </ul>

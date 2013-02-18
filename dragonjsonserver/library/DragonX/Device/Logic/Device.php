@@ -64,6 +64,7 @@ class DragonX_Device_Logic_Device
      */
     public function getAccount($platform, array $credentials)
     {
+        $storage = Zend_Registry::get('DragonX_Storage_Engine');
         $credentials = $this->_getCredentials($platform, $credentials);
         $joins = array();
         $params = array();
@@ -75,15 +76,15 @@ class DragonX_Device_Logic_Device
             $params["credential_" . $key . "_key"] = $key;
             $params["credential_" . $key . "_value"] = $value;
         }
-        list ($recordAccount) = Zend_Registry::get('DragonX_Storage_Engine')->loadBySqlStatement(
-            new Application_Account_Record_Account(),
-              "SELECT account.* "
-            . "FROM application_account_record_account AS account "
-            . "INNER JOIN dragonx_device_record_device AS device ON device.account_id = account.id "
+        list ($recordDevice) = $storage->loadBySqlStatement(
+            new DragonX_Device_Record_Device(),
+              "SELECT device.* "
+            . "FROM dragonx_device_record_device AS device "
             . implode(" ", $joins),
             $params
         );
-        return $recordAccount;
+        list ($recordAccount) = $storage->load(new Application_Account_Record_Account($recordDevice->account_id));
+        return array($recordAccount, $recordDevice);
     }
 
     /**

@@ -55,7 +55,7 @@ class DragonX_Emailaddress_Logic_Emailaddress
         }
 
         $recordAccount = $storage->load(new Application_Account_Record_Account($recordEmailaddress->account_id));
-        return $recordAccount;
+        return array($recordAccount, $recordEmailaddress);
     }
 
     /**
