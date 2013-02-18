@@ -60,7 +60,7 @@ class DragonX_Device_Logic_Device
      * Gibt den Account mit den übergebenen Anmeldedaten des Gerätes zurück
      * @param string $platform
      * @param array $credentials
-     * @return Application_Account_Record_Account
+     * @return array
      */
     public function getAccount($platform, array $credentials)
     {
@@ -94,6 +94,7 @@ class DragonX_Device_Logic_Device
      * @param array $credentials
      * @param string $devicename
      * @param string $locale
+     * @return DragonX_Device_Record_Device
      */
     public function linkAccount(Application_Account_Record_Account $recordAccount, $platform, array $credentials, $devicename, $locale)
     {
@@ -118,6 +119,7 @@ class DragonX_Device_Logic_Device
         	));
         }
         $storage->saveList($listCredential);
+        return $recordDevice;
     }
 
     /**
