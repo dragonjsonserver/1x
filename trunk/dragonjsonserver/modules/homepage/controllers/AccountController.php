@@ -99,7 +99,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
             $params = $this->getRequiredParams(array('emailaddress', 'password'));
 
             $logicEmailaddress = new DragonX_Emailaddress_Logic_Emailaddress();
-            $recordAccount = $logicEmailaddress->getAccount(
+            list ($recordAccount) = $logicEmailaddress->getAccount(
                 $params['emailaddress'], $params['password']
             );
 

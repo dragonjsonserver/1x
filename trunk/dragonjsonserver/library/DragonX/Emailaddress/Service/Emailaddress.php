@@ -30,9 +30,8 @@ class DragonX_Emailaddress_Service_Emailaddress
     {
         $logicEmailaddress = new DragonX_Emailaddress_Logic_Emailaddress();
         $logicSession = new DragonX_Account_Logic_Session();
-        $sessionhash = $logicSession->loginAccount(
-            $logicEmailaddress->getAccount($emailaddress, $password)
-        );
+        list ($recordAccount) = $logicEmailaddress->getAccount($emailaddress, $password);
+        $sessionhash = $logicSession->loginAccount($recordAccount);
         return array('sessionhash' => $sessionhash);
     }
 
