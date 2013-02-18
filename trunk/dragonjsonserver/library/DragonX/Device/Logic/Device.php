@@ -83,7 +83,7 @@ class DragonX_Device_Logic_Device
             . implode(" ", $joins),
             $params
         );
-        list ($recordAccount) = $storage->load(new Application_Account_Record_Account($recordDevice->account_id));
+        $recordAccount = $storage->load(new Application_Account_Record_Account($recordDevice->account_id));
         return array($recordAccount, $recordDevice);
     }
 
