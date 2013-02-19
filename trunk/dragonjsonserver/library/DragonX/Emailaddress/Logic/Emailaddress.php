@@ -64,9 +64,10 @@ class DragonX_Emailaddress_Logic_Emailaddress
      * @param string $emailaddress
      * @param string $password
      * @param Zend_Config $configMail
+     * @param function $hashmethod
      * @throws InvalidArgumentException
      */
-    public function linkAccount(Application_Account_Record_Account $recordAccount, $emailaddress, $password, Zend_Config $configMail)
+    public function linkAccount(Application_Account_Record_Account $recordAccount, $emailaddress, $password, Zend_Config $configMail, $hashmethod)
     {
     	$recordEmailaddress = new DragonX_Emailaddress_Record_Emailaddress(
     	    array('account_id' => $recordAccount->id)
@@ -77,7 +78,7 @@ class DragonX_Emailaddress_Logic_Emailaddress
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordEmailaddress);
 
         $logicValidation = new DragonX_Emailaddress_Logic_Validation();
-        $logicValidation->request($recordEmailaddress, $configMail);
+        $logicValidation->request($recordEmailaddress, $configMail, $hashmethod);
 
         Zend_Registry::get('Dragon_Plugin_Registry')->invoke(
             'DragonX_Emailaddress_Plugin_LinkEmailaddress_Interface',
