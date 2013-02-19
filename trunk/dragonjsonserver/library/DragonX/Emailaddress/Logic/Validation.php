@@ -46,12 +46,13 @@ class DragonX_Emailaddress_Logic_Validation
      * Lädt den Account und speichert einen neuen Hash zur Validierung
      * @param DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress
      * @param Zend_Config $configMail
+     * @param function $hashmethod
      */
-    public function request(DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress, Zend_Config $configMail)
+    public function request(DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress, Zend_Config $configMail, $hashmethod)
     {
         $recordValidation = new DragonX_Emailaddress_Record_Validation(array(
             'emailaddress_id' => $recordEmailaddress->id,
-            'validationhash' => md5($recordEmailaddress->id . '.' . time()),
+            'validationhash' => $hashmethod($recordEmailaddress),
         ));
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordValidation);
 

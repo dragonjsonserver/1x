@@ -42,7 +42,7 @@ class CredentialController extends DragonX_Homepage_Controller_Abstract
 
 	        $logicCredential = new DragonX_Emailaddress_Logic_Credential();
 	        $configCredential = new Dragon_Application_Config('dragonx/emailaddress/credential');
-	        $logicCredential->request($params['emailaddress'], $configCredential->credentiallink);
+	        $logicCredential->request($params['emailaddress'], $configCredential->credentiallink, $configCredential->hashmethod);
         } catch (Exception $exception) {
             $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse nicht vorhanden</div>');
             $this->_redirect('credential/showrequest');

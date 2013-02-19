@@ -36,8 +36,9 @@ class DragonX_Emailaddress_Logic_Credential
      * Lädt den Account und speichert einen neuen Passwort vergessen Hash
      * @param string $emailaddress
      * @param Zend_Config $configMail
+     * @param function $hashmethod
      */
-    public function request($emailaddress, Zend_Config $configMail)
+    public function request($emailaddress, Zend_Config $configMail, $hashmethod)
     {
         $emailaddress = strtolower($emailaddress);
         $storage = Zend_Registry::get('DragonX_Storage_Engine');
@@ -49,7 +50,7 @@ class DragonX_Emailaddress_Logic_Credential
 
         $recordCredential = new DragonX_Emailaddress_Record_Credential(array(
             'emailaddress_id' => $recordEmailaddress->id,
-            'credentialhash' => md5($recordEmailaddress->id . '.' . time()),
+            'credentialhash' => $hashmethod($recordEmailaddress),
         ));
         $storage->save($recordCredential);
 

@@ -44,7 +44,7 @@ class AccountController extends DragonX_Homepage_Controller_Abstract
             $recordAccount = $logicAccount->createAccount();
             $logicEmailaddress = new DragonX_Emailaddress_Logic_Emailaddress();
             $configValidation = new Dragon_Application_Config('dragonx/emailaddress/validation');
-            $logicEmailaddress->linkAccount($recordAccount, $params['emailaddress'], $params['password'], $configValidation->validationlink);
+            $logicEmailaddress->linkAccount($recordAccount, $params['emailaddress'], $params['password'], $configValidation->validationlink, $configValidation->hashmethod);
 
             $logicSession = new DragonX_Account_Logic_Session();
             $sessionNamespace = new Zend_Session_Namespace();

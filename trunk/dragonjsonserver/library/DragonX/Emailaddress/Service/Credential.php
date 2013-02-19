@@ -38,7 +38,7 @@ class DragonX_Emailaddress_Service_Credential
     {
         $logicCredential = new DragonX_Emailaddress_Logic_Credential();
         $configCredential = new Dragon_Application_Config('dragonx/emailaddress/credential');
-        $logicCredential->request($emailaddress, $configCredential->credentialhash);
+        $logicCredential->request($emailaddress, $configCredential->credentialhash, $configCredential->hashmethod);
     }
 
     /**

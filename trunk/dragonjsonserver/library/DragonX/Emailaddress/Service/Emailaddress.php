@@ -50,7 +50,8 @@ class DragonX_Emailaddress_Service_Emailaddress
             Zend_Registry::get('recordAccount'),
             $emailaddress,
             $password,
-            $configValidation->validationhash
+            $configValidation->validationhash,
+            $configValidation->hashmethod
         );
     }
 
