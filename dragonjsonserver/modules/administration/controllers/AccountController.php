@@ -29,7 +29,7 @@ class Administration_AccountController extends DragonX_Homepage_Controller_Abstr
 
 	        $logicValidation = new DragonX_Emailaddress_Logic_Validation();
 	        $configValidation = new Dragon_Application_Config('dragonx/emailaddress/validation');
-	        $logicValidation->changeEmailaddress(Zend_Registry::get('recordAccount'), $params['newemailaddress'], $configValidation->validationlink);
+	        $logicValidation->changeEmailaddress(Zend_Registry::get('recordAccount'), $params['newemailaddress'], $configValidation->validationlink, $configValidation->hashmethod);
         } catch (Exception $exception) {
             $this->_helper->FlashMessenger('<div class="alert alert-error">E-Mail Adresse nicht korrekt oder bereits vergeben</div>');
             $this->_redirect('account/showedit');

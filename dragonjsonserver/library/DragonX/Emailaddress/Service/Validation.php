@@ -28,7 +28,7 @@ class DragonX_Emailaddress_Service_Validation
     {
         $logicValidation = new DragonX_Emailaddress_Logic_Validation();
         $configValidation = new Dragon_Application_Config('dragonx/emailaddress/validation');
-        $logicValidation->changeEmailaddress(Zend_Registry::get('recordAccount'), $newemailaddress, $configValidation->validationhash);
+        $logicValidation->changeEmailaddress(Zend_Registry::get('recordAccount'), $newemailaddress, $configValidation->validationhash, $configValidation->hashmethod);
     }
 
     /**
