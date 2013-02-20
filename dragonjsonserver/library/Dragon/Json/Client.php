@@ -40,7 +40,7 @@ class Dragon_Json_Client
      */
     public function send(Dragon_Json_Server_Request_Http $request)
     {
-    	$request->addParam(-1, 'timestamp');
+        $request->addParam(-1, 'timestamp');
         $body = $this->_httpclient
             ->setRawData($request->toJson())
             ->request('POST')
@@ -50,7 +50,7 @@ class Dragon_Json_Client
             throw new Dragon_Application_Exception_System('invalid response', array('response' => $response, 'body' => $body));
         }
         if (array_key_exists('error', $response)) {
-            throw new Dragon_Application_Exception_System('error response', array('error' => $response['error']));
+            throw new Dragon_Application_Exception_System($response['error']['message'], array('error' => $response['error']));
         }
         if (!array_key_exists('result', $response)) {
             throw new Dragon_Application_Exception_System('invalid response', array('response' => $response, 'body' => $body));
