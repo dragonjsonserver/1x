@@ -15,11 +15,19 @@
  */
 
 require 'bootstrap.php';
+$securitytoken = '';
+if (isset($_GET['securitytoken'])) {
+	$securitytoken = $_GET['securitytoken'];
+}
+if (isset($argv[1])) {
+	$securitytoken = $argv[1];
+}
 $jsonserver = new Dragon_Json_Server();
 $jsonserver->handle(
-    new Dragon_Json_Server_Request_Http(array(
-        'id' => 'cron.php',
-        'method' => 'DragonX.Cronjob.Service.Cronjob.executeCronjobs',
-        'params' => array('securitytoken' => isset($_GET['securitytoken']) ? $_GET['securitytoken'] : ''),
-    ))
+		new Dragon_Json_Server_Request_Http(array(
+				'id' => 'cron.php',
+				'method' => 'DragonX.Cronjob.Service.Cronjob.executeCronjobs',
+				'params' => array('securitytoken' => $securitytoken),
+		))
 );
+echo 'done';
