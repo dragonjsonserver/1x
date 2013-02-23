@@ -17,3 +17,4 @@
 require 'bootstrap.php';
 $logicDatabase = new DragonX_Storage_Logic_Database();
 $logicDatabase->installPackages();
+echo 'done';
