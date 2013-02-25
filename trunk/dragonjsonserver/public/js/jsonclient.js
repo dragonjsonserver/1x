@@ -123,11 +123,11 @@ function JsonClient(serverurl, options, callbacks, defaultparams)
             type: 'POST',
             dataType : 'json',
             data : JSON.stringify(jsonrequest),
-            beforeSend: function (jqXHR) {
-        		if (self.authenticate != undefined) {
-        			jqXHR.setRequestHeader('Authorization', 'Basic ' + base64encode(self.authenticate.username + ':' + self.authenticate.password));
-        		}
-        	},
+            beforeSend : function (jqXHR) {
+                if (self.authenticate != undefined) {
+                    jqXHR.setRequestHeader('Authorization', 'Basic ' + $.base64Encode(self.authenticate.username + ':' + self.authenticate.password));
+                }
+            },
         }, self.options, options, {
             success : function (json, statusText, jqXHR) {
         		var clientmessageResponse = json;
