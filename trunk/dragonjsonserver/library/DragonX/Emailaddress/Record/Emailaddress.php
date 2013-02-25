@@ -39,7 +39,7 @@ class DragonX_Emailaddress_Record_Emailaddress extends DragonX_Storage_Record_Cr
     /**
      * Validiert und setzt die übergebene E-Mail Adresse
      * @param string $emailaddress
-     * @throws InvalidArgumentException
+     * @throws Dragon_Application_Exception_User
      * @return DragonX_Emailaddress_Record_Emailaddress
      */
     public function validateEmailaddress($emailaddress)
@@ -54,6 +54,22 @@ class DragonX_Emailaddress_Record_Emailaddress extends DragonX_Storage_Record_Cr
     }
 
     /**
+     * Validiert und setzt das übergebene Passwort
+     * @param string $password
+     * @throws Dragon_Application_Exception_User
+     * @return DragonX_Emailaddress_Record_Emailaddress
+     */
+    public function validatePassword($password)
+    {
+    	$configCredential = new Dragon_Application_Config('dragonx/emailaddress/credential');
+    	if (isset($configCredential->validator) && !$configCredential->validator->isValid($password)) {
+    		throw new Dragon_Application_Exception_User('invalid password');
+    	}
+        $this->hashPassword($password);
+        return $this;
+    }
+
+    /**
      * Generiert aus dem Passwort einen Hash
      * @param string $password
      * @return DragonX_Emailaddress_Record_Emailaddress
@@ -61,6 +77,7 @@ class DragonX_Emailaddress_Record_Emailaddress extends DragonX_Storage_Record_Cr
     public function hashPassword($password)
     {
         $this->passwordhash = password_hash($password, PASSWORD_DEFAULT);
+        return $this;
     }
 
     /**

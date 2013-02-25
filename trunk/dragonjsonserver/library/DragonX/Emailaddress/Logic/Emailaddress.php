@@ -74,7 +74,7 @@ class DragonX_Emailaddress_Logic_Emailaddress
     	);
     	$recordEmailaddress
     	    ->validateEmailaddress($emailaddress)
-    	    ->hashPassword($password);
+    	    ->validatePassword($password);
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordEmailaddress);
 
         $logicValidation = new DragonX_Emailaddress_Logic_Validation();
