@@ -45,7 +45,11 @@ class Dragon_Json_Client
             ->setRawData($request->toJson())
             ->request('POST')
             ->getBody();
-        $response = Zend_Json::decode($body);
+        try {
+	        $response = Zend_Json::decode($body);
+        } catch (Exception $exception) {
+            throw new Dragon_Application_Exception_System('decoding failed', array('message' => $exception->getMessage(), 'body' => $body));
+        }
         if (!is_array($response) || !array_key_exists('id', $response)) {
             throw new Dragon_Application_Exception_System('invalid response', array('response' => $response, 'body' => $body));
         }
