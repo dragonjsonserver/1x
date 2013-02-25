@@ -18,6 +18,7 @@
  * @return array
  */
 return array(
+	'validator' => null,
     'hashmethod' => function (DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress) {
         return md5($recordEmailaddress->id . '.' . time());
     },

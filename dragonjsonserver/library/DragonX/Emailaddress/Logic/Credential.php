@@ -28,7 +28,7 @@ class DragonX_Emailaddress_Logic_Credential
     {
         $logicEmailaddress = new DragonX_Emailaddress_Logic_Emailaddress();
         $recordEmailaddress = $logicEmailaddress->getEmailaddress($recordAccount);
-        $recordEmailaddress->hashPassword($newpassword);
+        $recordEmailaddress->validatePassword($newpassword);
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordEmailaddress);
     }
 
