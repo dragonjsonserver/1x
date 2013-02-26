@@ -27,7 +27,8 @@ class CredentialController extends DragonX_Homepage_Controller_Abstract
     {
         parent::preDispatch();
 
-        if (!Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) {
+        if (!Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')
+            || !Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Emailaddress')) {
             throw new Dragon_Application_Exception_User('incorrect controller', array('controllername' => $this->getRequest()->getControllerName()));
         }
     }

@@ -34,57 +34,59 @@ abstract class DragonX_Homepage_Controller_Abstract extends Zend_Controller_Acti
         $actionname = $this->getRequest()->getActionName();
 
         $recordAccount = null;
-        if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) {
+        if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')
+            && Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Emailaddress')) {
             $sessionNamespace = new Zend_Session_Namespace();
             if (isset($sessionNamespace->sessionhash)) {
-	            $logicSession = new DragonX_Account_Logic_Session();
-	            try {
-	            	$recordAccount = $logicSession->getAccount($sessionNamespace->sessionhash);
-	            	$this->view->sessionhash = $sessionNamespace->sessionhash;
-	            	Zend_Registry::set('recordAccount', $recordAccount);
-            	    $this->view->recordAccount = $recordAccount;
-            	    $logicEmailaddress = new DragonX_Emailaddress_Logic_Emailaddress();
-            	    $this->view->recordEmailaddress = $logicEmailaddress->getEmailaddress($recordAccount);
-            	    $logicDeletion = new DragonX_Account_Logic_Deletion();
-	                $recordDeletion = $logicDeletion->getDeletion($recordAccount);
-	                if (isset($recordDeletion)) {
-	                    $this->view->recordDeletion = $recordDeletion;
-	                }
-	            } catch (Exception $exception) {
+                $logicSession = new DragonX_Account_Logic_Session();
+                try {
+                    $recordAccount = $logicSession->getAccount($sessionNamespace->sessionhash);
+                    $this->view->sessionhash = $sessionNamespace->sessionhash;
+                    Zend_Registry::set('recordAccount', $recordAccount);
+                    $this->view->recordAccount = $recordAccount;
+                    $logicEmailaddress = new DragonX_Emailaddress_Logic_Emailaddress();
+                    $this->view->recordEmailaddress = $logicEmailaddress->getEmailaddress($recordAccount);
+                    $logicDeletion = new DragonX_Account_Logic_Deletion();
+                    $recordDeletion = $logicDeletion->getDeletion($recordAccount);
+                    if (isset($recordDeletion)) {
+                        $this->view->recordDeletion = $recordDeletion;
+                    }
+                } catch (Exception $exception) {
                     $sessionNamespace->unsetAll();
                     if ($modulename == 'homepage' && $controllername == 'account' && $actionname == 'logout') {
                         $this->_helper->FlashMessenger('<div class="alert alert-success">Abmeldung erfolgreich</div>');
                     } else {
-			            $this->_helper->FlashMessenger('<div class="alert alert-error">Die Session ist abgelaufen. Profil muss neu angemeldet werden</div>');
+                        $this->_helper->FlashMessenger('<div class="alert alert-error">Die Session ist abgelaufen. Profil muss neu angemeldet werden</div>');
                     }
-	            }
+                }
             }
         }
 
         $this->view->configApplication = new Dragon_Application_Config('dragon/application/application');
 
-		$modulenamearray = explode('_', $modulename);
-		$controllerarea = end($modulenamearray);
-		$this->view->controllerarea = $controllerarea;
+        $modulenamearray = explode('_', $modulename);
+        $controllerarea = end($modulenamearray);
+        $this->view->controllerarea = $controllerarea;
 
         switch ($controllerarea) {
-        	case 'homepage':
-        		$this->view->configNavigation = new Dragon_Application_Config('dragonx/homepage/navigation/homepage');
-        		break;
-        	case 'administration':
-		        if (!Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')) {
+            case 'homepage':
+                $this->view->configNavigation = new Dragon_Application_Config('dragonx/homepage/navigation/homepage');
+                break;
+            case 'administration':
+                if (!Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Account')
+                    || !Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Emailaddress')) {
                     throw new Dragon_Application_Exception_User('incorrect controller', array('controllername' => $controllername));
-		        }
+                }
                 if (!isset($recordAccount)) {
                     $this->_helper->FlashMessenger('<div class="alert alert-error">Die Session wurde noch nicht gestartet oder ist abgelaufen. Profil muss angemeldet werden</div>');
-                	$this->_redirect('account/showlogin?' . http_build_query(array('redirect' => $modulename . '/' . $controllername . '/' . $actionname)));
+                    $this->_redirect('account/showlogin?' . http_build_query(array('redirect' => $modulename . '/' . $controllername . '/' . $actionname)));
                 }
-		        if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Acl')) {
+                if (Zend_Registry::get('Dragon_Package_Registry')->isAvailable('DragonX', 'Acl')) {
                     $logicAcl = new DragonX_Acl_Logic_Acl();
-	            	$this->view->resources = $logicAcl->getResources($recordAccount);
-	            }
+                    $this->view->resources = $logicAcl->getResources($recordAccount);
+                }
                 $this->view->configNavigation = new Dragon_Application_Config('dragonx/homepage/navigation/administration');
-        		break;
+                break;
         }
     }
 
