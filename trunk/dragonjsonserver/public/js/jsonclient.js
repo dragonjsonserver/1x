@@ -45,7 +45,7 @@ function JsonRequest(id, method, params, options)
 function JsonClient(serverurl, options, callbacks, defaultparams)
 {
 	var libraryname = 'JsonClient';
-	var libraryversion = 'v1.11.0';
+	var libraryversion = 'v1.13.0';
 
     $('#libraryname').html(libraryname);
     $('#libraryversion').html(libraryversion);
