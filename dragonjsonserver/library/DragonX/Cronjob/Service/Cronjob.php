@@ -20,6 +20,22 @@
 class DragonX_Cronjob_Service_Cronjob
 {
     /**
+     * @var DragonX_Cronjob_Logic_Cronjob
+     */
+    private $_logicCronjob;
+
+    /**
+     * Nimmt die Logikklasse für die Ausführung entgegen
+     */
+    public function __construct(DragonX_Cronjob_Logic_Cronjob $logicCronjob = null)
+    {
+        if (!isset($logicCronjob)) {
+            $logicCronjob = new DragonX_Cronjob_Logic_Cronjob();
+        }
+        $this->_logicCronjob = $logicCronjob;
+    }
+
+    /**
      * Führt einen Cronjob aus auch wenn sein Intervall noch nicht erreicht ist
      * @param string $securitytoken
      * @param string $pluginname
@@ -31,9 +47,7 @@ class DragonX_Cronjob_Service_Cronjob
         if ($configCronjob->securitytoken != $securitytoken) {
             throw new Dragon_Application_Exception_User('incorrect securitytoken');
         }
-
-        $logicCronjob = new DragonX_Cronjob_Logic_Cronjob();
-        $logicCronjob->executeCronjob($pluginname);
+        $this->_logicCronjob->executeCronjob($pluginname);
     }
 
     /**
@@ -47,9 +61,7 @@ class DragonX_Cronjob_Service_Cronjob
         if ($configCronjob->securitytoken != $securitytoken) {
             throw new Dragon_Application_Exception_User('incorrect securitytoken');
         }
-
-        $logicCronjob = new DragonX_Cronjob_Logic_Cronjob();
-        $logicCronjob->executeCronjobs();
+        $this->_logicCronjob->executeCronjobs();
     }
 
     /**
@@ -63,7 +75,6 @@ class DragonX_Cronjob_Service_Cronjob
     	if (!$reflectionclass->implementsInterface('DragonX_Cronjob_Plugin_Cronjob_Interface')) {
             throw new Dragon_Application_Exception_User('incorrect pluginname');
     	}
-        $logicCronjob = new DragonX_Cronjob_Logic_Cronjob();
-        return $logicCronjob->getNextTimestamp(new $pluginname());
+        return $this->_logicCronjob->getNextTimestamp(new $pluginname());
     }
 }
