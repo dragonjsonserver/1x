@@ -21,15 +21,20 @@ class DragonX_Cronjob_Logic_Cronjob
 {
     /**
      * Führt einen Cronjob aus auch wenn sein Intervall noch nicht erreicht ist
+     * @param DragonX_Cronjob_Plugin_Cronjob_Interface $plugin
+     */
+    public function executePlugin(DragonX_Cronjob_Plugin_Cronjob_Interface $plugin)
+    {
+        $plugin->execute();
+    }
+
+    /**
+     * Führt einen Cronjob aus auch wenn sein Intervall noch nicht erreicht ist
      * @param string $pluginname
      */
     public function executeCronjob($pluginname)
     {
-        $plugin = new $pluginname();
-        if (!$plugin instanceof DragonX_Cronjob_Plugin_Cronjob_Interface) {
-        	throw new Dragon_Application_Exception_User('incorrect pluginname', array('pluginname' => $pluginname));
-        }
-        $plugin->execute();
+        $this->executePlugin(new $pluginname());
         $timestamp = time();
         Zend_Registry::get('DragonX_Storage_Engine')->executeSqlStatement(
               "INSERT INTO `dragonx_cronjob_record_cronjob` (`pluginname`, `count`, `created`, `modified`) "
