@@ -50,7 +50,7 @@ return array(
             'Service' => array('Device'),
         ),
         'Emailaddress' => array(
-            'Plugin' => array('DeleteAccount', 'Install_Credential', 'Install_Emailaddress', 'Install_Validation'),
+            'Plugin' => array('Credential', 'DeleteAccount', 'Install_Credential', 'Install_Emailaddress', 'Install_Validation'),
             'Service' => array('Credential', 'Emailaddress', 'Validation'),
         ),
         'Homepage',

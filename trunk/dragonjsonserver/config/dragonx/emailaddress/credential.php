@@ -30,4 +30,5 @@ return array(
         'bodytext' => 'credentiallink: %credentiallink%',
         'subject' => 'credential request',
     ),
+    'lifetime' => 1 * 24 * 60 * 60,
 );
