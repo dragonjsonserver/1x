@@ -22,7 +22,7 @@ class DragonX_Cronjob_Service_Cronjob
     /**
      * @var DragonX_Cronjob_Logic_Cronjob
      */
-    private $_logicCronjob;
+    protected $_logicCronjob;
 
     /**
      * Nimmt die Logikklasse für die Ausführung entgegen
