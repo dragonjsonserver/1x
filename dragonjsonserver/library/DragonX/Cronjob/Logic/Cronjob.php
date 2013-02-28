@@ -20,6 +20,15 @@
 class DragonX_Cronjob_Logic_Cronjob
 {
     /**
+     * Gibt den aktuellen Timestamp zurück
+     * @return integer
+     */
+    protected function _getTimestamp()
+    {
+        return time();
+    }
+
+    /**
      * Führt einen Cronjob aus auch wenn sein Intervall noch nicht erreicht ist
      * @param string $pluginname
      */
@@ -30,7 +39,7 @@ class DragonX_Cronjob_Logic_Cronjob
             throw new Dragon_Application_Exception_User('incorrect pluginname', array('pluginname' => $pluginname));
         }
         $plugin->execute();
-        $timestamp = time();
+        $timestamp = $this->_getTimestamp();
         Zend_Registry::get('DragonX_Storage_Engine')->executeSqlStatement(
               "INSERT INTO `dragonx_cronjob_record_cronjob` (`pluginname`, `count`, `created`, `modified`) "
             . "VALUES (:pluginname, 1, :timestamp, :timestamp) "
@@ -53,7 +62,7 @@ class DragonX_Cronjob_Logic_Cronjob
         $pluginregistry = Zend_Registry::get('Dragon_Plugin_Registry');
         $plugins = $pluginregistry->getPlugins('DragonX_Cronjob_Plugin_Cronjob_Interface');
         foreach ($plugins as $plugin) {
-            $timestamp = time();
+            $timestamp = $this->_getTimestamp();
             if ((((int)($timestamp / 60)) - $plugin->getOffset()) % $plugin->getIntervall() > 0) {
                 continue;
             }
@@ -84,6 +93,6 @@ class DragonX_Cronjob_Logic_Cronjob
     {
         $offset = $plugin->getOffset();
         $intervall = $plugin->getIntervall();
-        return (((((int)(((int)(time() / 60) - $offset) / $intervall)) + 1) * $intervall) + $offset) * 60;
+        return (((((int)(((int)($this->_getTimestamp() / 60) - $offset) / $intervall)) + 1) * $intervall) + $offset) * 60;
     }
 }
