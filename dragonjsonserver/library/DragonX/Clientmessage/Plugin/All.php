@@ -27,6 +27,9 @@ class DragonX_Clientmessage_Plugin_All implements DragonX_Clientmessage_Plugin_S
      */
     public function getClientmessages($lastResponse, $actualResponse)
     {
+        if (!Zend_Registry::isRegistered('DragonX_Storage_Engine')) {
+            return new DragonX_Storage_RecordList();
+        }
         return Zend_Registry::get('DragonX_Storage_Engine')->loadBySqlStatement(
             new DragonX_Clientmessage_Record_All(),
               "SELECT * FROM `dragonx_clientmessage_record_all` "
