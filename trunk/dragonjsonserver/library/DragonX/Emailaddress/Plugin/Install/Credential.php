@@ -34,6 +34,7 @@ class DragonX_Emailaddress_Plugin_Install_Credential implements DragonX_Storage_
                     . "`emailaddress_id` INT(10) UNSIGNED NOT NULL, "
                     . "`credentialhash` CHAR(32) NOT NULL, "
                     . "PRIMARY KEY (`id`), "
+                    . "UNIQUE KEY (`emailaddress_id`), "
                     . "UNIQUE KEY (`credentialhash`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
             );
