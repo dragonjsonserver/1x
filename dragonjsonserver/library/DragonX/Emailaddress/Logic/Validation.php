@@ -41,21 +41,15 @@ class DragonX_Emailaddress_Logic_Validation
             array($recordEmailaddress)
         );
     }
-
+    
     /**
-     * Lädt den Account und speichert einen neuen Hash zur Validierung
+     * Sendet die E-Mail für die Validierungsanfrage
      * @param DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress
      * @param Zend_Config $configMail
-     * @param function $hashmethod
+     * @param DragonX_Emailaddress_Record_Validation $recordValidation
      */
-    public function request(DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress, Zend_Config $configMail, $hashmethod)
+    private function _sendEmail(DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress, Zend_Config $configMail, DragonX_Emailaddress_Record_Validation $recordValidation)
     {
-        $recordValidation = new DragonX_Emailaddress_Record_Validation(array(
-            'emailaddress_id' => $recordEmailaddress->id,
-            'validationhash' => $hashmethod($recordEmailaddress),
-        ));
-        Zend_Registry::get('DragonX_Storage_Engine')->save($recordValidation);
-
         $bodytext = str_replace(
             array('%validationhash%', '%validationlink%'),
             array(
@@ -73,6 +67,22 @@ class DragonX_Emailaddress_Logic_Validation
     }
 
     /**
+     * Lädt den Account und speichert einen neuen Hash zur Validierung
+     * @param DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress
+     * @param Zend_Config $configMail
+     */
+    public function request(DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress, Zend_Config $configMail)
+    {
+        $configValidation = new Dragon_Application_Config('dragonx/emailaddress/validation');
+        $recordValidation = new DragonX_Emailaddress_Record_Validation(array(
+            'emailaddress_id' => $recordEmailaddress->id,
+            'validationhash' => $configValidation->{'hashmethod'}($recordEmailaddress),
+        ));
+        Zend_Registry::get('DragonX_Storage_Engine')->save($recordValidation);
+		$this->_sendEmail($recordEmailaddress, $configMail, $recordValidation);
+    }
+
+    /**
      * Gibt die Validierungsanfrage der E-Mail Adresse zurück
      * @param DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress
      * @return DragonX_Emailaddress_Record_Validation
@@ -86,6 +96,26 @@ class DragonX_Emailaddress_Logic_Validation
             array('emailaddress_id' => $recordEmailaddress->id)
         );
         return $recordValidation;
+    }
+
+    /**
+     * Sendet die Validierungsanfrage erneut zu
+     * @param DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress
+     * @param Zend_Config $configMail
+     */
+    public function resendValidation(DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress, Zend_Config $configMail)
+    {
+        $storage = Zend_Registry::get('DragonX_Storage_Engine');
+        list ($recordValidation) = $storage->loadByConditions(
+        	new DragonX_Emailaddress_Record_Validation(),
+        	array('emailaddress_id' => $recordEmailaddress->id)
+        );
+        $configValidation = new Dragon_Application_Config('dragonx/emailaddress/validation');
+        if (time() - $configValidation->resendinterval < $recordValidation->modified) {
+        	throw new Dragon_Application_Exception_User('resendinterval not reached');
+        }
+        $storage->save($recordValidation);
+		$this->_sendEmail($recordEmailaddress, $configMail, $recordValidation);
     }
 
     /**

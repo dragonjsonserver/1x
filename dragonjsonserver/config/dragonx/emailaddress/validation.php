@@ -29,4 +29,5 @@ return array(
         'bodytext' => 'validationlink: %validationlink%',
         'subject' => 'validation request',
     ),
+    'resendinterval' => 1 * 60 * 60,
 );

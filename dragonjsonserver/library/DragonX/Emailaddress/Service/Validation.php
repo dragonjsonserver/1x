@@ -28,7 +28,7 @@ class DragonX_Emailaddress_Service_Validation
     {
         $logicValidation = new DragonX_Emailaddress_Logic_Validation();
         $configValidation = new Dragon_Application_Config('dragonx/emailaddress/validation');
-        $logicValidation->changeEmailaddress(Zend_Registry::get('recordAccount'), $newemailaddress, $configValidation->validationhash, $configValidation->hashmethod);
+        $logicValidation->changeEmailaddress(Zend_Registry::get('recordAccount'), $newemailaddress, $configValidation->validationhash);
     }
 
     /**
@@ -39,5 +39,20 @@ class DragonX_Emailaddress_Service_Validation
     {
         $logicValidation = new DragonX_Emailaddress_Logic_Validation();
         $logicValidation->validate($validationhash);
+    }
+    
+    /**
+     * Sendet die Validierungsanfrage erneut zu
+     * @dragonx_account_authenticate
+     */
+    public function resendValidation()
+    {
+        $logicValidation = new DragonX_Emailaddress_Logic_Validation();
+        $logicEmailaddress = new DragonX_Emailaddress_Logic_Emailaddress();
+        $configValidation = new Dragon_Application_Config('dragonx/emailaddress/validation');
+        $logicValidation->resendValidation(
+        	$logicEmailaddress->getEmailaddress(Zend_Registry::get('recordAccount')), 
+        	$configValidation->validationhash
+        );
     }
 }
