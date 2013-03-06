@@ -33,7 +33,7 @@ class DragonX_Storage_Logic_Database
         $storage = Zend_Registry::get($storagekey);
         $storage->executeSqlStatement(
               "CREATE TABLE IF NOT EXISTS `dragonx_storage_record_plugin` ("
-                . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                . "`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, "
                 . "`created` INT(10) UNSIGNED NOT NULL, "
                 . "`modified` INT(10) UNSIGNED NOT NULL, "
                 . "`pluginname` VARCHAR(255) NOT NULL, "
