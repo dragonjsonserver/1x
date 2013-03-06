@@ -370,10 +370,10 @@ class DragonX_Storage_Engine_ZendDbAdataper
             }
             if (!isset($value)) {
                 unset($conditions[$key]);
-                $conditions[$key . ' IS NULL'] = null;
+                $conditions["`" . $key . "` IS NULL"] = null;
             } elseif (strpos($key, '?') === false) {
                 unset($conditions[$key]);
-                $conditions[$key . ' = ?'] = $value;
+                $conditions["`" . $key . "` = ?"] = $value;
             }
         }
         return $conditions;
