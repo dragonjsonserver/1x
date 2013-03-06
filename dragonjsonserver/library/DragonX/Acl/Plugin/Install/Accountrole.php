@@ -29,9 +29,9 @@ class DragonX_Acl_Plugin_Install_Accountrole implements DragonX_Storage_Plugin_I
         if (version_compare($version, '1.8.0', '<')) {
             $storage->executeSqlStatement(
                   "CREATE TABLE `dragonx_acl_record_accountrole` ("
-                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
-                    . "`account_id` INT(10) UNSIGNED NOT NULL, "
-                    . "`role_id` INT(10) UNSIGNED NOT NULL, "
+                    . "`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`account_id` BIGINT(20) UNSIGNED NOT NULL, "
+                    . "`role_id` BIGINT(20) UNSIGNED NOT NULL, "
                     . "PRIMARY KEY (`id`), "
                     . "UNIQUE KEY (`account_id`, `role_id`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"

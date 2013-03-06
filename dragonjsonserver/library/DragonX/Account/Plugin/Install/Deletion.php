@@ -29,9 +29,9 @@ class DragonX_Account_Plugin_Install_Deletion implements DragonX_Storage_Plugin_
         if (version_compare($version, '1.8.0', '<')) {
             $storage->executeSqlStatement(
                   "CREATE TABLE `dragonx_account_record_deletion` ("
-                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`created` INT(10) UNSIGNED NOT NULL, "
-                    . "`account_id` INT(10) UNSIGNED NOT NULL, "
+                    . "`account_id` BIGINT(20) UNSIGNED NOT NULL, "
                     . "PRIMARY KEY (`id`), "
                     . "UNIQUE KEY (`account_id`)"
                 . ") ENGINE=InnoDB DEFAULT CHARSET=utf8"

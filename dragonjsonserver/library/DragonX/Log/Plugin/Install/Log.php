@@ -17,7 +17,7 @@
 /**
  * Plugin zur Installation des Paketes
  */
-class DragonX_Log_Plugin_Install_Log 
+class DragonX_Log_Plugin_Install_Log
 	implements DragonX_Storage_Plugin_Install_Interface,
 	           DragonX_Storage_Plugin_GetStoragekey_Interface
 {
@@ -30,7 +30,7 @@ class DragonX_Log_Plugin_Install_Log
     	$configEngine = new Dragon_Application_Config('dragonx/log/engine');
     	return $configEngine->engine;
     }
-    
+
     /**
      * Installiert das Plugin in der übergebenen Datenbank
      * @param DragonX_Storage_Engine_ZendDbAdataper $storage
@@ -41,10 +41,10 @@ class DragonX_Log_Plugin_Install_Log
         if (version_compare($version, '1.8.0', '<')) {
             $storage->executeSqlStatement(
                   "CREATE TABLE `dragonx_log_record_log` ("
-                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`created` INT(10) UNSIGNED NOT NULL, "
-                    . "`request_id` INT(10) NULL, "
-                    . "`account_id` INT(10) NULL, "
+                    . "`request_id` BIGINT(20) NULL, "
+                    . "`account_id` BIGINT(20) NULL, "
                     . "`priority` INT(10) UNSIGNED NOT NULL, "
                     . "`message` TEXT NOT NULL, "
                     . "`params` TEXT NULL, "

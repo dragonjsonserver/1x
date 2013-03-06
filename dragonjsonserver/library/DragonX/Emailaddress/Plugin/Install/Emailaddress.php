@@ -29,10 +29,10 @@ class DragonX_Emailaddress_Plugin_Install_Emailaddress implements DragonX_Storag
         if (version_compare($version, '1.8.0', '<')) {
             $storage->executeSqlStatement(
                   "CREATE TABLE `dragonx_emailaddress_record_emailaddress` ("
-                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`created` INT(10) UNSIGNED NOT NULL, "
                     . "`modified` INT(10) UNSIGNED NOT NULL, "
-                    . "`account_id` INT(10) UNSIGNED NOT NULL, "
+                    . "`account_id` BIGINT(20) UNSIGNED NOT NULL, "
                     . "`emailaddress` VARCHAR(255) NOT NULL, "
                     . "`passwordhash` CHAR(60) BINARY NOT NULL, "
                     . "PRIMARY KEY (`id`), "

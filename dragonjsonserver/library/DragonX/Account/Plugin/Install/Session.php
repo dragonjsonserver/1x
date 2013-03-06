@@ -29,9 +29,9 @@ class DragonX_Account_Plugin_Install_Session implements DragonX_Storage_Plugin_I
         if (version_compare($version, '1.8.0', '<')) {
             $storage->executeSqlStatement(
                   "CREATE TABLE `dragonx_account_record_session` ("
-                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`created` INT(10) UNSIGNED NOT NULL, "
-                    . "`account_id` INT(10) UNSIGNED NOT NULL, "
+                    . "`account_id` BIGINT(20) UNSIGNED NOT NULL, "
                     . "`sessionhash` CHAR(32) NOT NULL, "
                     . "`data` TEXT NOT NULL, "
                     . "PRIMARY KEY (`id`), "
