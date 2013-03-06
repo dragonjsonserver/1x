@@ -232,7 +232,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
                 if (isset($rows[$record->id])) {
                     $record->fromArray($rows[$record->id], false);
                 } else {
-                    unset($record->id);
+                    $record->id = NULL;
                 }
             }
         }
@@ -252,7 +252,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
         }
         if (isset($record->id)) {
             $count = $this->getAdapter()->delete($this->getTablename($record), 'id = ' . (int)$record->id);
-            unset($record->id);
+            $record->id = NULL;
             return $count;
         }
         return 0;
@@ -278,7 +278,7 @@ class DragonX_Storage_Engine_ZendDbAdataper
                 "DELETE FROM `" . $this->getTablename($namespace) . "` WHERE id IN (" . implode(', ', $sublist->getIds()) . ")"
             )->rowCount();
             foreach ($sublist as $record) {
-                unset($record->id);
+                $record->id = NULL;
             }
         }
         return $count;
