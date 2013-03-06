@@ -29,9 +29,9 @@ class DragonX_Clientmessage_Plugin_Install_Account implements DragonX_Storage_Pl
         if (version_compare($version, '1.8.0', '<')) {
             $storage->executeSqlStatement(
                   "CREATE TABLE `dragonx_clientmessage_record_account` ("
-                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`created` INT(10) UNSIGNED NOT NULL, "
-                    . "`account_id` INT(10) UNSIGNED NOT NULL, "
+                    . "`account_id` BIGINT(20) UNSIGNED NOT NULL, "
                     . "`key` VARCHAR(255) NOT NULL, "
                     . "`result` TEXT NOT NULL, "
                     . "PRIMARY KEY (`id`), "

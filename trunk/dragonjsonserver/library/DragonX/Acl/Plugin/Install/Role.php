@@ -29,10 +29,10 @@ class DragonX_Acl_Plugin_Install_Role implements DragonX_Storage_Plugin_Install_
         if (version_compare($version, '1.8.0', '<')) {
             $storage->executeSqlStatement(
                   "CREATE TABLE `dragonx_acl_record_role` ("
-                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`name` VARCHAR(255) NOT NULL, "
-                    . "`lft` INT(10) UNSIGNED NOT NULL, "
-                    . "`rgt` INT(10) UNSIGNED NOT NULL, "
+                    . "`lft` BIGINT(20) UNSIGNED NOT NULL, "
+                    . "`rgt` BIGINT(20) UNSIGNED NOT NULL, "
                     . "PRIMARY KEY (`id`), "
                     . "KEY (`lft`), "
                     . "KEY (`rgt`)"

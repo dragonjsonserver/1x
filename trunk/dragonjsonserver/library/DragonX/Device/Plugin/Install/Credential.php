@@ -29,8 +29,8 @@ class DragonX_Device_Plugin_Install_Credential implements DragonX_Storage_Plugin
         if (version_compare($version, '1.13.0', '<')) {
             $storage->executeSqlStatement(
                   "CREATE TABLE `dragonx_device_record_credential` ("
-                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
-                    . "`device_id` INT(10) UNSIGNED NOT NULL, "
+                    . "`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`device_id` BIGINT(20) UNSIGNED NOT NULL, "
                     . "`key` VARCHAR(255) NOT NULL, "
                     . "`value` CHAR(32) NOT NULL, "
                     . "PRIMARY KEY (`id`), "

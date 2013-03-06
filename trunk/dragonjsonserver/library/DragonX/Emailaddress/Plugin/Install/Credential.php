@@ -29,9 +29,9 @@ class DragonX_Emailaddress_Plugin_Install_Credential implements DragonX_Storage_
         if (version_compare($version, '1.8.0', '<')) {
             $storage->executeSqlStatement(
                   "CREATE TABLE `dragonx_emailaddress_record_credential` ("
-                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`created` INT(10) UNSIGNED NOT NULL, "
-                    . "`emailaddress_id` INT(10) UNSIGNED NOT NULL, "
+                    . "`emailaddress_id` BIGINT(20) UNSIGNED NOT NULL, "
                     . "`credentialhash` CHAR(32) NOT NULL, "
                     . "PRIMARY KEY (`id`), "
                     . "UNIQUE KEY (`emailaddress_id`), "

@@ -29,10 +29,10 @@ class DragonX_Device_Plugin_Install_Device implements DragonX_Storage_Plugin_Ins
         if (version_compare($version, '1.8.0', '<')) {
             $storage->executeSqlStatement(
                   "CREATE TABLE `dragonx_device_record_device` ("
-                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`created` INT(10) UNSIGNED NOT NULL, "
                     . "`modified` INT(10) UNSIGNED NOT NULL, "
-                    . "`account_id` INT(10) UNSIGNED NOT NULL, "
+                    . "`account_id` BIGINT(20) UNSIGNED NOT NULL, "
                     . "`platform` VARCHAR(255) NOT NULL, "
                     . "`name` VARCHAR(255) NOT NULL, "
                     . "PRIMARY KEY (`id`)"
@@ -43,10 +43,10 @@ class DragonX_Device_Plugin_Install_Device implements DragonX_Storage_Plugin_Ins
         	$storage->executeSqlStatement("DROP TABLE `dragonx_device_record_device`");
             $storage->executeSqlStatement(
                   "CREATE TABLE `dragonx_device_record_device` ("
-                    . "`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, "
+                    . "`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, "
                     . "`created` INT(10) UNSIGNED NOT NULL, "
                     . "`modified` INT(10) UNSIGNED NOT NULL, "
-                    . "`account_id` INT(10) UNSIGNED NOT NULL, "
+                    . "`account_id` BIGINT(20) UNSIGNED NOT NULL, "
                     . "`platform` VARCHAR(255) NOT NULL, "
                     . "`devicename` VARCHAR(255) NOT NULL, "
                     . "`locale_register` CHAR(5) NOT NULL, "
