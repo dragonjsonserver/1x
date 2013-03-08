@@ -44,7 +44,7 @@ class DragonX_Storage_Engine_Memcache
      * Gibt den Memcache zur Verwaltung des Storages zurück
      * @return Memcache
      */
-    protected function _getMemcache()
+    public function getMemcache()
     {
         return $this->_memcache;
     }
@@ -103,7 +103,7 @@ class DragonX_Storage_Engine_Memcache
                 $record->modified = time();
             }
         }
-        $this->_getMemcache()->set($this->_getKey($record), $record->toArray());
+        $this->getMemcache()->set($this->_getKey($record), $record->toArray());
         return 1;
     }
 
@@ -136,7 +136,7 @@ class DragonX_Storage_Engine_Memcache
     public function load(DragonX_Storage_Record_Abstract $record)
     {
         $key = $this->_getKey($record);
-        $result = $this->_getMemcache()->get($key);
+        $result = $this->getMemcache()->get($key);
         if (!$result) {
             throw new Dragon_Application_Exception_System('missing record', array('key' => $key));
         }
@@ -175,7 +175,7 @@ class DragonX_Storage_Engine_Memcache
     public function delete(DragonX_Storage_Record_Abstract $record)
     {
         if (isset($record->id)) {
-            $this->_getMemcache()->delete($this->_getKey($record));
+            $this->getMemcache()->delete($this->_getKey($record));
             unset($record->id);
             return 1;
         }
@@ -208,6 +208,6 @@ class DragonX_Storage_Engine_Memcache
      */
     public function flush()
     {
-        $this->_getMemcache()->flush();
+        $this->getMemcache()->flush();
     }
 }
