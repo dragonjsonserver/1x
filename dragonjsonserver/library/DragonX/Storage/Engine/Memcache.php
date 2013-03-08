@@ -70,17 +70,38 @@ class DragonX_Storage_Engine_Memcache
     }
 
     /**
-     * Gibt den Keynamen für den Record zurück
-     * @param DragonX_Storage_Record_Abstract $record
+     * Gibt den Keynamen für den Key zurück
+     * @param string $key
      * @return string
      */
-    protected function _getKey(DragonX_Storage_Record_Abstract $record)
+    protected function _getNamespacedKey($key)
     {
         $namespace = $this->getNamespace();
         if (isset($namespace)) {
             $namespace .= '|';
         }
-        return $namespace . $record->getNamespace() . '|' . $record->id;
+        return $namespace . $key;
+    }
+
+    /**
+     * Gibt den Keynamen für den Record zurück
+     * @param DragonX_Storage_Record_Abstract $record
+     * @return string
+     */
+    protected function _getRecordKey(DragonX_Storage_Record_Abstract $record)
+    {
+        return $record->getNamespace() . '|' . $record->id;
+    }
+
+    /**
+     * Speichert den übergebenen Wert im Storage
+     * @param string $key
+     * @param mixed $value
+     * @return boolean
+     */
+    public function saveRaw($key, $value)
+    {
+        return $this->getMemcache()->set($this->_getNamespacedKey($key), $value);
     }
 
     /**
@@ -103,8 +124,10 @@ class DragonX_Storage_Engine_Memcache
                 $record->modified = time();
             }
         }
-        $this->getMemcache()->set($this->_getKey($record), $record->toArray());
-        return 1;
+        if ($this->saveRaw($this->_getRecordKey($record), $record->toArray())) {
+            return 1;
+        }
+        return 0;
     }
 
     /**
@@ -128,6 +151,16 @@ class DragonX_Storage_Engine_Memcache
     }
 
     /**
+     * Lädt den übergebenen Wert aus dem Storage
+     * @param string $key
+     * @return mixed
+     */
+    public function loadRaw($key)
+    {
+        return $this->getMemcache()->get($this->_getNamespacedKey($key));
+    }
+
+    /**
      * Lädt den übergebenen Record aus dem Storage
      * @param DragonX_Storage_Record_Abstract $record
      * @return DragonX_Storage_Record_Abstract
@@ -135,8 +168,8 @@ class DragonX_Storage_Engine_Memcache
      */
     public function load(DragonX_Storage_Record_Abstract $record)
     {
-        $key = $this->_getKey($record);
-        $result = $this->getMemcache()->get($key);
+        $key = $this->_getRecordKey($record);
+        $result = $this->loadRaw($key);
         if (!$result) {
             throw new Dragon_Application_Exception_System('missing record', array('key' => $key));
         }
@@ -168,15 +201,23 @@ class DragonX_Storage_Engine_Memcache
     }
 
     /**
+     * Entfernt den übergebenen Wert aus dem Storage
+     * @param string $key
+     * @return boolean
+     */
+    public function deleteRaw($key)
+    {
+        return $this->getMemcache()->delete($this->_getNamespacedKey($key));
+    }
+
+    /**
      * Entfernt den übergebenen Record aus dem Storage
      * @param DragonX_Storage_Record_Abstract $record
      * @return integer
      */
     public function delete(DragonX_Storage_Record_Abstract $record)
     {
-        if (isset($record->id)) {
-            $this->getMemcache()->delete($this->_getKey($record));
-            unset($record->id);
+        if ($this->deleteRaw($this->_getRecordKey($record))) {
             return 1;
         }
         return 0;
