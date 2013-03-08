@@ -41,7 +41,7 @@ class DragonX_Emailaddress_Logic_Validation
             array($recordEmailaddress)
         );
     }
-    
+
     /**
      * Sendet die E-Mail für die Validierungsanfrage
      * @param DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress
@@ -74,9 +74,10 @@ class DragonX_Emailaddress_Logic_Validation
     public function request(DragonX_Emailaddress_Record_Emailaddress $recordEmailaddress, Zend_Config $configMail)
     {
         $configValidation = new Dragon_Application_Config('dragonx/emailaddress/validation');
+        $hashmethod = $configValidation->hashmethod;
         $recordValidation = new DragonX_Emailaddress_Record_Validation(array(
             'emailaddress_id' => $recordEmailaddress->id,
-            'validationhash' => $configValidation->{'hashmethod'}($recordEmailaddress),
+            'validationhash' => $hashmethod($recordEmailaddress),
         ));
         Zend_Registry::get('DragonX_Storage_Engine')->save($recordValidation);
 		$this->_sendEmail($recordEmailaddress, $configMail, $recordValidation);
