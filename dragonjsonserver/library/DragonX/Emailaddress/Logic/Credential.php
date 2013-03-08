@@ -48,9 +48,10 @@ class DragonX_Emailaddress_Logic_Credential
         );
 
         $configCredential = new Dragon_Application_Config('dragonx/emailaddress/credential');
+        $hashmethod = $configValidation->hashmethod;
         $recordCredential = new DragonX_Emailaddress_Record_Credential(array(
             'emailaddress_id' => $recordEmailaddress->id,
-            'credentialhash' => $configCredential->{'hashmethod'}($recordEmailaddress),
+            'credentialhash' => $hashmethod($recordEmailaddress),
         ));
         $storage->save($recordCredential);
 
