@@ -101,9 +101,15 @@ class Dragon_Json_Server extends Zend_Json_Server
         }
         $configCache = new Dragon_Application_Config('dragon/json/cache');
         if (!isset($configCache->filepath) || !Zend_Server_Cache::get($configCache->filepath, $this)) {
+        	$configRoute = new Dragon_Application_Config('dragon/json/route');
             $packageregistry = Zend_Registry::get('Dragon_Package_Registry');
             foreach ($packageregistry->getClassnames('Service') as $servicename) {
-                $this->setClass($servicename, str_replace('_', '.', $servicename));
+            	if (isset($configRoute->$servicename)) {
+            		$routename = $configRoute->$servicename;
+            	} else {
+            		$routename = str_replace('_', '.', $servicename);
+            	}
+                $this->setClass($servicename, $routename);
             }
             if (isset($configCache->filepath)) {
                 Zend_Server_Cache::save($configCache->filepath, $this);
