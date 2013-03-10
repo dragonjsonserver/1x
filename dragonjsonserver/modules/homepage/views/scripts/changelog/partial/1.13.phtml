@@ -26,6 +26,8 @@
                 <ul>
                     <li>Es gibt nun einen einfachen Client um Requests zu anderen JsonRPC Servern zu senden</li>
                     <li>Über die Konfigurationsdatei "/config/dragon/json/route.php" können nun Routen hinterlegt werden für die Services</li>
+                    <li>Die Instanz des Servers ist nun unter dem Key "Dragon_Json_Server" in der Zend Registry verfügbar</li>
+                    <li>Der Server bietet nun die Möglichkeit auf die interne Servicetabelle zuzugreifen</li>
                 </ul>
             </li>
         </ul>
@@ -99,4 +101,5 @@
 <ul>
     <li>Das Paket Device wurde überarbeitet und die Clients die bisher die Services des Paketes genutzt haben müssen überarbeitet werden</li>
     <li>Durch die zusätzliche Rückgabe der E-Mail Adresse müssen die Stelle der E-Mail Authentifizierung angepasst werden</li>
+    <li>Bei Routen ist ein Servicename nicht mehr auf den Klassennamen abbildbar. Um auf den Klassennamen zu kommen muss nun die Table des Servers ausgelesen werden</li>
 </ul>
