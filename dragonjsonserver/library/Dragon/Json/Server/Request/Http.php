@@ -20,6 +20,11 @@
 class Dragon_Json_Server_Request_Http extends Zend_Json_Server_Request_Http
 {
 	/**
+	 * @var string
+	 */
+	private $_classname = '';
+	
+	/**
 	 * @var array
 	 */
 	private $_map = array();
@@ -35,6 +40,24 @@ class Dragon_Json_Server_Request_Http extends Zend_Json_Server_Request_Http
         } else {
             parent::__construct();
         }
+    }
+
+    /**
+     * Setzt den Klassenname des Services
+     * @param string $classname
+     */
+    public function setClassname($classname)
+    {
+        $this->_classname = $classname;
+    }
+
+    /**
+     * Gibt den Klassenname des Services zurück
+     * @return string
+     */
+    public function getClassname()
+    {
+        return $this->_classname;
     }
 
     /**
@@ -63,7 +86,7 @@ class Dragon_Json_Server_Request_Http extends Zend_Json_Server_Request_Http
     {
         $servicearray = explode('.', $this->getMethod());
         $methodname = array_pop($servicearray);
-        return array(implode('_', $servicearray), $methodname);
+        return array($this->getClassname(), $methodname);
     }
 
     /**
