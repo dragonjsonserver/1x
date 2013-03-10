@@ -20,6 +20,15 @@
 class Dragon_Json_Server extends Zend_Json_Server
 {
 	/**
+	 * Schreibt den aktuellen Server in die Zend Registry
+	 */
+    public function __construct()
+    {
+    	parent::__construct();
+    	Zend_Registry::set('Dragon_Json_Server', $this);
+    }
+    
+	/**
 	 * Loggt die übergebene Ausnahme wenn das Paket DragonX Log eingebunden ist
 	 * @param Exception $exception
 	 */
@@ -78,6 +87,15 @@ class Dragon_Json_Server extends Zend_Json_Server
         		$this->fault($exception->getMessage(), $exception->getCode(), $exception);
         	}
         }
+    }
+    
+    /**
+     * Gibt die Definitionen der Services zurück
+     * @return Zend_Server_Description
+     */
+    public function getTable()
+    {
+    	return $this->_table;
     }
 
     /**

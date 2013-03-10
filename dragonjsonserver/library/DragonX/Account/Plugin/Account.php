@@ -65,10 +65,13 @@ class DragonX_Account_Plugin_Account
      */
     public function servicemap(Zend_Json_Server_Smd $servicemap)
     {
+        $jsonserver = Zend_Registry::get('Dragon_Json_Server');
+        $table = $jsonserver->getTable();
         foreach ($servicemap->getServices() as $servicename => $service) {
+        	$classname = $table->getMethod($servicename)->getCallback()->getClass();
             $servicearray = explode('.', $servicename);
             $methodname = array_pop($servicearray);
-        	if (!$this->_authenticateRequired(implode('_', $servicearray), $methodname)) {
+        	if (!$this->_authenticateRequired($classname, $methodname)) {
                 continue;
             }
             $service->addParams(array(
