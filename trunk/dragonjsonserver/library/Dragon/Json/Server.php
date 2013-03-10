@@ -60,6 +60,7 @@ class Dragon_Json_Server extends Zend_Json_Server
         try {
             $pluginregistry = Zend_Registry::get('Dragon_Plugin_Registry');
             $request = $this->getRequest();
+            $request->setClassname($this->_table->getMethod($request->getMethod())->getCallback()->getClass());
             $pluginregistry->invoke(
                 'Dragon_Json_Plugin_PreDispatch_Interface',
                 array($request)
