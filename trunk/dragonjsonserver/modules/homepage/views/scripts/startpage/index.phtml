@@ -17,6 +17,8 @@
 <?php
 echo $this->configStartpage->title;
 echo $this->configStartpage->content;
+echo $this->configStartpage->secondtitle;
+echo $this->configStartpage->secondcontent;
 
 echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
 if (count($this->paginator) > 0) {
