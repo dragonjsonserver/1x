@@ -18,8 +18,16 @@
  * @return array
  */
 return array(
-    'title' => '<h2>PHP Framework zur Entwicklung eines Json Servers</h2>',
+    'title' => '<h2>Entdecke nun die nächste Generation mit DragonJsonServer 2.x</h2>',
     'content' =>
+          '<ul>'
+        . '    <li>Umbau des Cores auf Zend Framework 2</li>'
+        . '    <li>Bereitstellung über GitHub und per Composer über Packagist</li>'
+        . '</ul>'
+        . '<a class="btn" href="http://github.com/dragonprojects/dragonjsonserver"><i class="icon-download"></i> GitHub &raquo;</a>'
+        . ' <a class="btn" href="http://packagist.org/packages/dragonprojects/dragonjsonserver"><i class="icon-download"></i> Packagist &raquo;</a>',
+    'secondtitle' => '<h2>PHP Framework zur Entwicklung eines Json Servers</h2>',
+    'secondcontent' =>
           '<ul>'
         . '    <li>Basiert auf Zend Framework und nutzt Zend Json Server für die Verarbeitung der Anfragen</li>'
         . '    <li>Json Client zum Testen der Abfragen dessen GUI auf Basis der SMD generiert wird</li>'

@@ -29,6 +29,17 @@ return array(
             'timestamp' => 0,
         ),
         array(
+            'title' => 'Version 2.x verfügbar',
+            'content' =>
+                  'Nachdem die Version 1.x ihre Praxistauglichkeit bewiesen '
+                . 'hat und durch viele Erweiterungen bereichert wurde gibt es '
+                . 'nun mit der Version 2.x die nächste Generation. Der Core '
+                . 'des Projektes ist umgebaut auf Zend Framework 2 und steht '
+                . 'über GitHub und per Composer über Packagist Als Zend '
+                . 'Framework 2 Modul zur Verfügung.',
+            'timestamp' => 1363215430,
+        ),
+        array(
             'title' => 'Version 1.12.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.12.0 ist abgeschlossen und als Download '
