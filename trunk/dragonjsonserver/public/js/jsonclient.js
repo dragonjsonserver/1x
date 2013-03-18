@@ -125,7 +125,7 @@ function JsonClient(serverurl, options, callbacks, defaultparams)
             data : JSON.stringify(jsonrequest),
             beforeSend : function (jqXHR) {
                 if (self.authenticate != undefined) {
-                    jqXHR.setRequestHeader('Authorization', 'Basic ' + $.base64Encode(self.authenticate.username + ':' + self.authenticate.password));
+                    jqXHR.setRequestHeader('Authorization', 'Basic ' + Base64.encode(self.authenticate.username + ':' + self.authenticate.password));
                 }
             },
         }, self.options, options, {
@@ -208,7 +208,7 @@ function JsonClient(serverurl, options, callbacks, defaultparams)
             dataType : 'json',
             beforeSend: function (jqXHR) {
         		if (self.authenticate != undefined) {
-                    jqXHR.setRequestHeader('Authorization', 'Basic ' + $.base64Encode(self.authenticate.username + ':' + self.authenticate.password));
+                    jqXHR.setRequestHeader('Authorization', 'Basic ' + Base64.encode(self.authenticate.username + ':' + self.authenticate.password));
         		}
         	},
         }));
