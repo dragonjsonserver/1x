@@ -1,0 +1,79 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<span id="applicationname"></span> <span id="applicationversion"></span> inklusive
+<span id="libraryname"></span> <span id="libraryversion"></span>
+<div id="dragonjsonclient">
+    <form class="form-horizontal">
+        <div class="row-fluid">
+            <div class="span6">
+            	<fieldset>
+                	<legend>URI</legend>
+	                <div class="control-group">
+	                    <label class="control-label" for="uri">URI:</label>
+	                    <div class="controls">
+	                        <input id="uri" name="uri" type="text" readonly="readonly" />
+	                    </div>
+	                </div>
+                </fieldset>
+            	<fieldset>
+                	<legend>Service</legend>
+	                <div class="control-group">
+	                    <label class="control-label" for="namespace">Namensraum:</label>
+	                    <div class="controls">
+	                        <select id="namespace" name="namespace" onchange="dragonjsonclient.selectNamespace();"></select>
+	                    </div>
+	                </div>
+	                <div class="control-group">
+	                    <label class="control-label" for="method">Methode:</label>
+	                    <div class="controls">
+	                        <select id="method" name="method" onchange="dragonjsonclient.selectMethod();"></select>
+	                    </div>
+	                </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Argumente</legend>
+                    <div id="arguments"></div>
+                </fieldset>
+            </div>
+            <div class="span6">
+                <button type="submit" class="btn" onclick="dragonjsonclient.sendRequest(); return false;">Anfrage senden</button>
+                <br /><br />
+                <div id="response"></div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/base64.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/jsonclient.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/URI.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/dragonjsonclient.js'); ?>"></script>
+<script type="text/javascript">
+    var jsonclient;
+    var dragonjsonclient;
+    $(document).ready(function () {
+        jsonclient = new JsonClient('<?php echo BASEURL; ?>');
+        dragonjsonclient = new DragonJsonClient(jsonclient);
+        <?php
+        if (isset($this->sessionhash)) {
+            echo "dragonjsonclient.setData('sessionhash', '" . $this->escape($this->sessionhash) . "');";
+        }
+        if (isset($this->recordEmailaddress)) {
+        	echo "dragonjsonclient.setData('emailaddress', '" . $this->escape($this->recordEmailaddress->emailaddress) . "');";
+        }
+        ?>
+    });
+</script>
