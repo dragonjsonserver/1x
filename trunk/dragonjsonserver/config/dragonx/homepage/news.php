@@ -26,7 +26,7 @@ return array(
             'content' =>
                   'Die Version 1.13.0 ist abgeschlossen und als Download '
                 . 'verfügbar.',
-            'timestamp' => 0,
+            'timestamp' => 1363766390,
         ),
         array(
             'title' => 'Version 2.x verfügbar',
