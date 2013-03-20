@@ -25,7 +25,10 @@ return array(
             'title' => 'Version 1.13.0 zum Download verfügbar',
             'content' =>
                   'Die Version 1.13.0 ist abgeschlossen und als Download '
-                . 'verfügbar.',
+                . 'verfügbar. In der Version gibt es vor allem das fertige '
+                . 'Paket zur Deviceverwaltung für Smartphones und es wurden '
+                . 'viele Pakete mit Neuerungen versehen um sie glattzuziehen '
+                . 'sowie ein Update aller Bibliotheken die verwendet werden.',
             'timestamp' => 1363766390,
         ),
         array(
