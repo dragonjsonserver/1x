@@ -1,0 +1,45 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+
+/**
+ * Serviceklasse zur Erstellung von Accounts
+ */
+class DragonX_Account_Service_Account
+{
+    /**
+     * Erstellt einen neuen Account der an eine Session gebunden ist
+     * @return array
+     */
+    public function createAccount()
+    {
+        $logicAccount = new DragonX_Account_Logic_Account();
+        $logicSession = new DragonX_Account_Logic_Session();
+        $sessionhash = $logicSession->loginAccount(
+            $logicAccount->createAccount()
+        );
+        return array('sessionhash' => $sessionhash);
+    }
+
+    /**
+     * Gib die Daten des aktuellen Accounts zurück
+     * @return array
+     * @dragonx_account_authenticate
+     */
+    public function getAccount()
+    {
+        return Zend_Registry::get('recordAccount')->toArray();
+    }
+}

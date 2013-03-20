@@ -1,0 +1,49 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<ul>
+    <li>Clientnachrichten haben den Nutzen von beliebigen Stellen aus Daten für verschiedene Clients zur Verfügung zu stellen</li>
+    <li>Die Clientnachrichten werden vom Json Client bei jedem Request angefordert und vom Plugin per 'postDispatch()' and die Antwort angehängt</li>
+    <li>Der Request Parameter 'timestamp' ist reserviert für die Kommunikation der Clientnachrichten, kann zur clientseitigen Deaktivierung mit -1 belegt werden</li>
+</ul>
+<h3>Definierung eines Keys</h3>
+<ul>
+    <li>
+        Ein Key ist eine Eigenschaftenklasse mit derer die Attribute eines Keys definiert werden können
+<pre>class %packagenamespace%_%packagename%_Key_%keyname%
+    extends DragonX_Clientmessage_Key_Abstract
+{
+    protected $_key = '%keyname%';
+    public %attributename%;
+}</pre>
+    </li>
+</ul>
+<h3>Erstellung einer neuen Clientnachricht</h3>
+<ul>
+    <li>
+        Um eine Clientnachricht einzutragen muss diese als Record erstellt und gespeichert werden
+<pre>Zend_Registry::get('DragonX_Storage_Engine')-&gt;save(new DragonX_Clientmessage_Record_Account(
+    array('account_id' =&gt; %account_id%),
+    true,
+    new %packagenamespace%_%packagename%_Key_%keyname%(array('%attributename%' =&gt; %attributevalue%))
+));</pre>
+    </li>
+</ul>
+<h3>Definierung einer neuen Datenquelle</h3>
+<ul>
+    <li>Standardmäßig stehen die Datenquellen 'All' (alle Clients) und 'Account' (alle Clients mit dem Account) zur Verfügung</li>
+    <li>Andere Datenquellen müssen das Interface 'DragonX_Clientmessage_Plugin_Source_Interface' implementieren das eine RecordList der Clientnachrichten für einen bestimmten Zeitraum zurück gibt</li>
+</ul>

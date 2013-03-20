@@ -1,0 +1,113 @@
+<?php
+/**
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt. It is also available through the
+ * world-wide-web at this URL: http://dragonjsonserver.de/license. If you did
+ * not receive a copy of the license and are unable to obtain it through the
+ * world-wide-web, please send an email to license@dragonjsonserver.de. So we
+ * can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2012 DragonProjects (http://dragonprojects.de)
+ * @license http://framework.zend.com/license/new-bsd New BSD License
+ * @author Christoph Herrmann <developer@dragonjsonserver.de>
+ */
+?>
+<h3>Version 1.13.0</h3>
+<h4>Releasedatum: 20.03.2013</h4>
+<h4>Geänderte Pakete</h4>
+<ul>
+    <li>
+        Dragon
+        <ul>
+            <li>
+                Json
+                <ul>
+                    <li>Es gibt nun einen einfachen Client um Requests zu anderen JsonRPC Servern zu senden</li>
+                    <li>Über die Konfigurationsdatei "/config/dragon/json/route.php" können nun Routen hinterlegt werden für die Services</li>
+                    <li>Die Instanz des Servers ist nun unter dem Key "Dragon_Json_Server" in der Zend Registry verfügbar</li>
+                    <li>Der Server bietet nun die Möglichkeit auf die interne Servicetabelle zuzugreifen</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        DragonX
+        <ul>
+            <li>
+                Account
+                <ul>
+                    <li>Es ist nun möglich die Session in einer anderen Storage Engine zu speichern und es wird dabei auch die Storage Engine des Memcache unterstützt</li>
+                    <li>Die Session erlaubt nun auch das Hinzufügen zusätzlicher Daten beim Login. Beim Login wird standardmäßig der Account in der Session abgelegt</li>
+                </ul>
+            </li>
+            <li>
+                Cronjob
+                <ul>
+                    <li>Die Cronjobs sind nun per Dependency Injection (Ableitung des Service und der Logic) anpassbar</li>
+                </ul>
+            </li>
+            <li>
+                Device
+                <ul>
+                    <li>Das Paket wurde überarbeitet und bietet nun eine Geräteregistrierung um Accounts mit Geräten zu verknüpfen</li>
+                </ul>
+            </li>
+            <li>
+                Emailaddress
+                <ul>
+                    <li>Die Authentifizierung gibt nun neben dem Account auch den Datensatz zur E-Mail Adresse zurück</li>
+                    <li>Es gibt nun die Möglichkeit sich die Validierungsanfrage zurück geben zu lassen</li>
+                    <li>Die Algorithmen zur Erzeugung eines Validierungs- und eines Passwortanfragehashes sind nun per Einstellungsdatei austauschbar</li>
+                    <li>In der Konfigurationsdatei kann nun ein Validator für das Passwort definiert werden</li>
+                    <li>Passwort vergessen Anfragen haben nun eine Lebenszeit nach der sie gelöscht werden</li>
+                    <li>Die Validierungsanfrage kann nun nach einer bestimmten Wartezeit erneut gesendet werden</li>
+                    <li>Es darf für eine E-Mail Adresse nur eine Passwort vergessen Anfrage bestehen. Somit kann erst nach der Lebenszeit wieder eine Anfrage erstellt werden</li>
+                </ul>
+            </li>
+            <li>
+                Storage
+                <ul>
+                    <li>Es wurde ein Fehler in der Storage Engine des ZendDbAdapaters behoben der auftrat wenn man Schlüsselwörter von MySQL bei Spaltennamen in der "saveList()", "deleteByConditions()" oder "updateByConditions()" verwendete</li>
+                    <li>Die ID bei Records muss nun nicht mehr vom Datentyp Integer sein, was vor allem für Records wie die Session wichtig ist die im Memcache abgelegt werden</li>
+                    <li>"saveList()" unterstützt nun auch wieder Records die "created" und "modified" Attribute haben und befüllt diese beim Einfügen und Aktualisieren</li>
+                    <li>Die Storage Engine des Memcache erlaubt nun die Definition eines Namespace der für jeden Record vorangestellt wird</li>
+                    <li>Die Storage Engine des ZendDbAdapaters bietet nun die Möglichkeit mehrere SQL Statements mit einem Aufruf auszuführen</li>
+                    <li>Beim Installieren der Packages kann nun angegeben werden welche Storage Engines berücksichtigt werden sollen</li>
+                    <li>Beim Löschen von Datensätzen wird nun die ID richtig auf NULL gesetzt statt das Attribut komplett entfernt</li>
+                    <li>Das Memcacheobjekt steht nach aussen hin nun per "getMemcache()" der Storage Engine zur Verfügung</li>
+                    <li>Die Storage Engine des Memcache erlaubt nun auch das Speichern von einfachen Werten unabhängig von Records</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4>Allgemein</h4>
+<ul>
+    <li>Die "cron.php" nimmt das Securitytoken nun auch von der Kommandozeile entgegen wodurch die Cronjobs über die Kommandozeile aufrufbar sind</li>
+    <li>Die Datentypen aller ID Spalten wurden angepasst und auf BIGINT erhöht um auch langlebige Anwendungen zu unterstützen</li>
+    <li>
+        Externe Frameworks auf die aktuellen Versionen aktualisiert:
+        <ul>
+            <li>URI.js von v1.7.4 auf v1.9.1</li>
+            <li>jQuery von v1.7.2 auf v1.9.1</li>
+            <li>Bootstrap von v2.1.1 auf v2.3.1</li>
+        </ul>
+    </li>
+</ul>
+<h4>Homepage</h4>
+<ul>
+    <li>Die Accountverwaltung wird nur eingeblendet wenn die Pakete "Account" und "Emailaddress" angeschaltet sind, da "Account" alleine nicht alle Funktionen bietet</li>
+</ul>
+<h4>JsonClient</h4>
+<ul>
+    <li>Für die Unterstützung von Htaccess wird nun eine Base64 Bibliothek genutzt</li>
+</ul>
+<h2>Migration vom Branch 1.12</h2>
+<h3>Benötigt</h3>
+<ul>
+    <li>Das Paket Device wurde überarbeitet und die Clients die bisher die Services des Paketes genutzt haben müssen überarbeitet werden</li>
+    <li>Durch die zusätzliche Rückgabe der E-Mail Adresse müssen die Stelle der E-Mail Authentifizierung angepasst werden</li>
+    <li>Bei Routen ist ein Servicename nicht mehr auf den Klassennamen abbildbar. Um auf den Klassennamen zu kommen muss nun die Table des Servers ausgelesen werden</li>
+</ul>
